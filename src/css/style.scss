@@ -1,84 +1,12 @@
 
 
-*{
-  box-sizing: border-box;
-}
-
-body, h1, h2, ul, li, button, pre{
-  padding: 0;
-  margin: 0;
-}
-input {
-  line-height: normal;
-}
-div:focus{
-  outline: none;
-}
-ul {
-  list-style: none;
-}
-form{
-  display: block;
-}
-.root{
-  min-height: 100vh;
-}
-.page{
-  min-height: 200vh;
-  background-image: linear-gradient(#eee, #999, #eee, #999);
-}
-a{
-  color: #00008B;
-  text-decoration: none;
-}
-.bottom_bar{
-  height: 50px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #ccc;
-  border-top: 1px solid #fff;
-  display: flex;
-}
-a.bottom_bar_item{
-  width: 50%;
-  flex-shrink: 0;
-  text-align: center;
-  line-height: 49px;
-  color: #333;
-}
-a.bottom_bar_item.router-link-exact-active{
-  color: #00008B;
-  font-weight: bold;
-}
-.index_to_list{
-  padding-top: 150px;
-  text-align: center;
-  display: block;
-}
-
-.item{
-  display: flex;
-  align-items: center;
-  height: 35px;
-  justify-content: space-around;
-  padding: 0 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  line-height: 1;
-}
-.item_active{
-  background-color: #ddd;
-}
-
-.vue_multi_app , .vue_multi_transition_group{
+.vue-multi-nav-ctrler{
   width: 100%;
   height: 100vh;
   overflow: hidden;
   position: relative;
 }
-.vue_multi_page{
+.vue-multi-page{
   width: 100%;
   height: 100vh;
   overflow:  auto;
@@ -88,31 +16,30 @@ a.bottom_bar_item.router-link-exact-active{
   top: 0;
 }
 
-.multi-page-enter-active, 
-.multi-page-leave-active,
-.multi-page-inner-enter-active,
-.multi-page-inner-leave-active{
+.vue-multi-page-enter-active, 
+.vue-multi-page-leave-active{
   transition: all .3s linear;
 }
 
-.multi_direction_right {
-  .multi-page-enter {
-    transform: translateX(100%);
-  }
-  .multi-page-leave-to{
-    transform: translateX(-100%);
-  }
-}
-
-.multi_direction_left {
-  .multi-page-enter{
-    transform: translateX(-100%);
-  }
-  .multi-page-leave-to{
-    transform: translateX(100%);
-  }
-}
-
-.multi-page-inner-enter, .multi-page-inner-leave-to{
+.vue-multi-page-enter, .vue-multi-page-leave-to{
   opacity: 0;
 }
+
+.vue-multi-direction-right {
+  .vue-multi-page-enter {
+    transform: translateX(100%);
+  }
+  .vue-multi-page-leave-to{
+    transform: translateX(-100%);
+  }
+}
+
+.vue-multi-direction-left {
+  .vue-multi-page-enter{
+    transform: translateX(-100%);
+  }
+  .vue-multi-page-leave-to{
+    transform: translateX(100%);
+  }
+}
+

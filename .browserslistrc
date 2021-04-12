@@ -1,2 +1,4 @@
 chrome >= 80
 firefox >= 68
+ie >= 10
+android > 37

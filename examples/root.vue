@@ -1,7 +1,5 @@
 <template>
-<NavigationController @launch="handleLaunch">
-  <h1>Launching...</h1>
-</NavigationController>
+<NavigationController />
 </template>
 <script>
 export default {

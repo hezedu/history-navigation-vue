@@ -1,4 +1,81 @@
 
+
+*{
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body, h1, h2, ul, li, button, pre{
+  padding: 0;
+  margin: 0;
+}
+input {
+  line-height: normal;
+}
+div:focus{
+  outline: none;
+}
+ul {
+  list-style: none;
+}
+form{
+  display: block;
+}
+.root{
+  min-height: 100vh;
+}
+.page{
+  min-height: 200vh;
+  background-image: linear-gradient(#eee, #999, #eee, #999);
+}
+a{
+  color: #00008B;
+  text-decoration: none;
+}
+.bottom_bar{
+  height: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #ccc;
+  border-top: 1px solid #fff;
+  display: flex;
+}
+a.bottom_bar_item{
+  width: 50%;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 49px;
+  color: #333;
+}
+a.bottom_bar_item.router-link-exact-active{
+  color: #00008B;
+  font-weight: bold;
+}
+.index_to_list{
+  padding-top: 150px;
+  text-align: center;
+  display: block;
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  height: 35px;
+  justify-content: space-around;
+  padding: 0 10px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  line-height: 1;
+}
+.item_active{
+  background-color: #ddd;
+}
+
+
+
 body{
   font-size: 16px;
 }
@@ -186,12 +263,6 @@ $listScrollBarColor: #ddd;
   top: 0;
 }
 
-.multi-page-enter-active, 
-.multi-page-leave-active,
-.multi-page-inner-enter-active,
-.multi-page-inner-leave-active{
-  transition: all .3s linear;
-}
 .index_table_wrap{
   display: flex;
   align-items: center;

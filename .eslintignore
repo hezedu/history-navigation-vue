@@ -1,6 +1,4 @@
-webpack.config.js
+webpack*
 node_modules
-public
 script
-index.js
-setup.js
+dist

@@ -37,11 +37,11 @@
             <DiffDetail v-if="currAni === 'detail'" @diffBackToList="handleDiffBackToList" />
           </div>
      </div>
-      <div class="index_diff_item" :class="'multi_direction_' + direction">
+      <div class="index_diff_item" :class="'vue-multi-direction-' + direction">
           <div class="index_diff_title">Use Vue Multi</div> 
 
  
-          <transition-group class="vue_multi_transition_group index_diff_body" name="multi-page" tag="div">
+          <transition-group class="vue_multi_transition_group index_diff_body" name="vue-multi-page" tag="div">
             <div class="index_diff_body_multi" v-show="currAni === 'start'" key="start">
               <transition name="multi-page-inner">
                 <DiffStart v-if="currAni === 'start'" />

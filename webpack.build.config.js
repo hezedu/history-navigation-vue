@@ -1,25 +1,17 @@
+process.env.NODE_ENV = 'production';
+
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const setup = require('./server/setup');
-const config = require('./config');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-
+const NODE_ENV = process.env.NODE_ENV;
 const isPro = NODE_ENV === 'production';
-const {indexDir,
-      bundleName,
-        outputPath,
-        publicPath} = require('./script/get_config')();
 
-// console.log('indexDir', indexDir);
-// console.log('bundleName', bundleName);
-// console.log('outputPath', outputPath);
-// console.log('publicPath', publicPath);
+const bundleName = 'vue-multi';
+const outputPath = path.join(__dirname, './dist');
 
 var optimization;
 
@@ -30,20 +22,17 @@ if(!isPro){ //使用 命令weblack
     use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
     // include: path.join(__dirname, './src')
   }
-
 }else{
   cssRule = {
     test: /(\.scss$)|(\.css$)/,
     //use: ["css-loader", "postcss-loader", "sass-loader"]
     use: [
-      { 
+      {
         loader: MiniCssExtractPlugin.loader
       },
-      
       "css-loader",  'postcss-loader', "sass-loader"
     ]
   }
-
 }
 
 
@@ -56,16 +45,6 @@ var plugins = [
       NODE_ENV: JSON.stringify(NODE_ENV)
     }
   }),
-
-  // create index.html
-  new HtmlWebpackPlugin({
-    filename: path.join(indexDir + '/index.html'),
-    template: path.join(__dirname, '/examples/index.ejs'),
-    staticMap: setup.staticMap,
-    data: {
-      title: config.title
-    }
-  })
 ]
 var rules = [
   {
@@ -88,23 +67,13 @@ if (isPro) {
     ]
   }
 
-  plugins = plugins.concat([//正式环境下压缩
+  plugins = plugins.concat([
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name]_[contenthash].css",
-      chunkFilename: "chunk_[name]_[contenthash].css"
+      filename: "[name].min.css"
+      // chunkFilename: "chunk_[name]_[contenthash].css"
     }),
-
-    // new webpack.optimize.TerserPlugin({
-    //   compress: {
-    //     warnings: false,
-    //   },
-    //   sourceMap: false,
-    //   output: {
-    //     comments: false,
-    //   }
-    // }),
 
     new webpack.LoaderOptionsPlugin({
       minimize: true
@@ -122,18 +91,17 @@ if (isPro) {
 
 };
 
-// ***************************** config *****************************
+// ***************************** webpackConf *****************************
 const webpackConf = {
   mode: NODE_ENV,
   optimization,
-  context: path.join(__dirname, './examples'),
+  context: path.join(__dirname, './src'),
   entry: {
-    z_app: "./app.js"
+    z_app: "./index.js"
   },
   output: {
     path: outputPath,
-    publicPath,
-    filename: bundleName,
+    filename: bundleName + '.min.js',
     chunkFilename: 'chunk_' + bundleName
   },
   module: {
@@ -146,19 +114,6 @@ const webpackConf = {
     // }
   },
   plugins: plugins,
-  devServer: {
-    port: config.port,
-    before: setup,
-    host: '0.0.0.0',
-    contentBase: indexDir,
-    hot: true,
-    // proxy: {
-    //   '/api': {
-    //     target: '',
-    //     changeOrigin: true
-    //   }
-    // }
-  },
   performance: {
     hints: false
   }

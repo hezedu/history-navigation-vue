@@ -69,7 +69,7 @@ export default {
   },
   created(){
     
-    console.log('$page', this.$page);
+    console.log('$page', this);
     console.log('list created')
   }, 
   mounted(){

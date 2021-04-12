@@ -1,5 +1,3 @@
-import { nativeHistory } from './navigator/native';
-
 import './css/style.scss';
 
 import NavigationController from './cmpt/navigation-controller.vue';
@@ -15,14 +13,14 @@ function install(Vue, config) {
     throw new Error('vue-multi config.pages is not Array.');
   }
 
-  const cmptPageSuffix = 'multi-page--';
+  const cmptPageSuffix = 'vue-multi-page-';
   const notFoundPageKey = cmptPageSuffix + 'not-found';
   const pageMap  = _formatPages(config.pages);
   const navigatorMode = config.navigatorMode || 'hash';
 
   Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
   let i, page;
-  for(let i in pageMap){
+  for(i in pageMap){
     page = pageMap[i];
     Vue.component(cmptPageSuffix + page.index, page.component);
   }

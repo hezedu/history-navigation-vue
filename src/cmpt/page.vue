@@ -1,5 +1,5 @@
 <template>
-<div class="vue_multi_page">
+<div class="vue-multi-page">
   <component :is="route.pageKey" v-if="isLoad" />
 </div>
 </template>

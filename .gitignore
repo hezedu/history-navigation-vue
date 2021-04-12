@@ -5,3 +5,5 @@
 /.vscode
 /.npmrc
 /.npmrc2
+
+/dev_dist

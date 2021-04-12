@@ -1,19 +1,17 @@
 
 <template>
-<div class="vue_multi_app" :class="'multi_direction_' + (currentRoute.behavior === 'back' ? 'left' : 'right')">
-  <transition-group  class="vue_multi_transition_group" name="multi-page" tag="div">
+  <transition-group  class="vue-multi-nav-ctrler" :class="'vue-multi-direction-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="vue-multi-page" tag="div">
     <Page v-for="v in stackMap" 
     :key="v.key" 
     :route="v" 
     :isShow="v.key === currentRoute.key"
     v-show="v.key === currentRoute.key" />
   </transition-group>
-</div>
 </template>
 <script>
 import Page from './page.vue';
 export default {
-  name: 'MultiApp',
+  name: 'MultiNavigationController',
   props: {
     entry: {
       type: String

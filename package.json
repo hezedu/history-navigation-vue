@@ -1,10 +1,17 @@
 {
   "name": "vue-multi",
   "version": "0.0.1",
+  "description": "The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps",
+  "keywords": [
+    "vue",
+    "router",
+    "routing"
+  ],
   "main": "dist/vue-multi.js",
   "scripts": {
     "start": "webpack-dev-server --progress --hot --inline --colors",
-    "build": "webpack --colors --hide-modules",
+    "build": "webpack --colors --hide-modules --progress --config webpack.build.config.js",
+    "build_dev": "webpack --colors --hide-modules",
     "preview": "node server/preview",
     "_pro_build": "webpack --colors",
     "pro": "node script/pro"
@@ -12,6 +19,7 @@
   "files": [
     "dist"
   ],
+
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
