@@ -2,42 +2,38 @@
 body{
   font-size: 16px;
 }
+
+$diffBg: #eee;
+$listScrollBarColor: #ddd;
+
 .index_page{
   background: #fff;
   min-height: 100vh;
 }
-.wrap{
-  width: 1000px;
-  margin: 0 auto;
-}
-.big_img{
-  width: 300px;
-  margin: 0 auto;
-  display: block;
-}
+
 .index_page h1{
   margin-bottom: 1em;
 }
+
 .index_page h1, .index_page h2 {
   text-align: center;
 }
+
 .index_page h2{
   color: #999;
 }
+
 .index_page h2 b{
   color: #000;
 }
+
 .index_diff{
   margin-top: 30px;
   display: flex;
-  
-  
   align-items: center;
   justify-content: center;
 }
 
-$diffBg: #eee;
-$listScrollBarColor: #ddd;
 .index_diff_item{
   margin: 20px;
   height: 100%;
@@ -47,6 +43,7 @@ $listScrollBarColor: #ddd;
   background: $diffBg;
   position: relative;
 }
+
 .index_diff_title{
   position: absolute;
   left: 0;
@@ -61,12 +58,14 @@ $listScrollBarColor: #ddd;
   color: #000;
   font-size: 30px;
 }
+
 .index_diff_body{
   height: 100%;
   overflow: hidden;
   position: relative;
   width: 100%;
 }
+
 .index_diff_page{
   height: 100%;
   position: absolute;
@@ -75,23 +74,24 @@ $listScrollBarColor: #ddd;
   left: 0;
   overflow: auto;
 }
+
 .index_diff_loading_wrap{
   color: #666;
 }
+
 .index_diff_loading_wrap, .index_diff_start_wrap{
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
-
 }
+
 .index_diff_start_wrap{
   background-color: #333;
   color: #fff;
   opacity: 1;
   transition: all .5s;
 }
-
 
 .index_diff_list_item {
   height: 100px;
@@ -102,12 +102,15 @@ $listScrollBarColor: #ddd;
   background: #ddd;
   border-radius: 3px;
 }
+
 .index_diff_page_wrap{
   padding-top: 30px;
 }
+
 .index_diff_page_inner{
   height: 100%;
 }
+
 .index_diff_page_titlebar{
   position: absolute;
   top: 0;
@@ -119,6 +122,7 @@ $listScrollBarColor: #ddd;
   border-bottom: 1px solid #ddd;
   color: #333;
 }
+
 .index_diff_page_back{
   position: absolute;
   top: 5px;
@@ -138,24 +142,29 @@ $listScrollBarColor: #ddd;
   scrollbar-color: $listScrollBarColor transparent;
   scrollbar-width: thin;
 }
+
 .index_diff_list::-webkit-scrollbar{
   width: 5px;
   height: 100%;
 }
+
 ::-webkit-scrollbar-thumb {
   background: $listScrollBarColor;
   border-radius: 2px;
 }
+
 .index_diff_loading_more{
   height: 30px;
   font-size: 14px;
   color: #666;
 }
+
 .index_diff_list_item_active, .index_diff_page_back_active{
   transition: all .15s;
   background-color: #aaa;
   color: #fff;
 }
+
 .index_diff_page_detail{
   padding: 1px;
   text-align: center;
@@ -188,6 +197,7 @@ $listScrollBarColor: #ddd;
   align-items: center;
   justify-content: center;
 }
+
 .index_table{
   border-collapse: collapse;
   border-color: #ccc;
@@ -197,9 +207,11 @@ $listScrollBarColor: #ddd;
 .index_table th{
   background-color: #eee;
 }
+
 .index_table th, .index_table td{
   padding: 3px 12px;
 }
+
 td.index_table_f{
   padding-right: 45px;
   font-weight: bold;

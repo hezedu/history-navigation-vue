@@ -1,37 +1,34 @@
-
 import { nativeHistory } from './navigator/native';
-if(!nativeHistory || !nativeHistory.pushState){
-  throw new Error('multi required history.pushState API');
-}
+
 import './css/style.scss';
-import App from './cmpt/app.vue';
-import DefNotFound from './cmpt/not-found.vue';
-import NavigatorCmpt from './cmpt/navigator.vue';
+
+import NavigationController from './cmpt/navigation-controller.vue';
+import DefaultNotFound from './cmpt/default-not-found.vue';
+import Navigator from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
-import getPage from './get-page';
-import ShowHideMixin from './show-hide-mixin';
+import ShowHideMixin from './mixin/show-hide-mixin';
+
 function install(Vue, config) {
 
   if(!Array.isArray(config.pages)){
     throw new Error('vue-multi config.pages is not Array.');
   }
 
-  const cmptKeys = config.componentKeys || Object.create(null);
-  const cmptPageSuffix = cmptKeys.pageSuffix || 'multi-page-';
+  const cmptPageSuffix = 'multi-page--';
   const notFoundPageKey = cmptPageSuffix + 'not-found';
   const pageMap  = _formatPages(config.pages);
   const navigatorMode = config.navigatorMode || 'hash';
 
-  Vue.component(notFoundPageKey, config.notFoundPage || DefNotFound);
+  Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
   let i, page;
   for(let i in pageMap){
     page = pageMap[i];
     Vue.component(cmptPageSuffix + page.index, page.component);
   }
 
-  Vue.component(cmptKeys.NavController || 'NavController', App);
-  Vue.component(cmptKeys.Navigator || 'Navigator', NavigatorCmpt);
+  Vue.component('NavigationController', NavigationController);
+  Vue.component('Navigator', Navigator);
   
   Vue.prototype.$navigator = navigator({
     isHash: navigatorMode === 'hash',
@@ -41,11 +38,11 @@ function install(Vue, config) {
     cmptPageSuffix,
     notFoundPageKey
   });
-  Vue.prototype.$getPage = getPage;
   Vue.mixin(ShowHideMixin);
 }
 
 function _formatPages(pages){
+
   let map = Object.create(null);
   let i = 0, len = pages.length, page, tk;
   for(; i < len; i++){

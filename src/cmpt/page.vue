@@ -4,10 +4,9 @@
 </div>
 </template>
 <script>
-
+import { _PAGE_E_SHOW_NAME, _PAGE_E_HIDE_NAME } from '../constant';
 export default {
   name: 'MultiPage',
-  __IS_MULTI_PAGE__: true,
   provide(){
     return {
       $page: this
@@ -36,29 +35,32 @@ export default {
   methods: {
     handleShowHide(){
       if(this.isShow){
-        this.$emit('show');
+        this.$emit(_PAGE_E_SHOW_NAME);
       } else {
-        this.$emit('hide');
+        this.$emit(_PAGE_E_HIDE_NAME);
       }
     }
   },
-  // created(){
-  //   this.$nextTick(() => {
-  //     this.isLoad = true;
-  //     this.$emit('show');
-  //   })
-  // },
   mounted(){
-
+    
     setTimeout(() => {
+      if(this.$options._tmp_is_before_destroy){
+        return;
+      }
+      // If don't use setTimeout, the next page's document addEventListener click will trigger in current page.
       this.isLoad = true;
-      this.$emit('show');
+      this.$emit(_PAGE_E_SHOW_NAME);
     });
 
   },
   beforeDestroy(){
+    if(!this.isLoad){
+      return;
+    }
+    this.$options._tmp_is_before_destroy = true;
+    // Unlike window app. like input focus. It's will trigger hide event before destroy.
     if(this.isShow){
-      this.$emit('hide');
+      this.$emit(_PAGE_E_HIDE_NAME);
     }
     this.isLoad = false;
   },

@@ -8,9 +8,6 @@
     :isShow="v.key === currentRoute.key"
     v-show="v.key === currentRoute.key" />
   </transition-group>
-  <!-- <template v-else>
-    <slot />
-  </template> -->
 </div>
 </template>
 <script>
