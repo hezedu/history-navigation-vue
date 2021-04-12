@@ -3,6 +3,8 @@
   <div class="wrap">
     <!-- <img class="big_img" src="/static/logo.png" /> -->
     <h1>Vue Multi</h1>
+
+    <navigator to="/list"> List </navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
       The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps
@@ -77,7 +79,7 @@
           <td><b>Yes</b></td>
         </tr>
         <tr>
-          <td class="index_table_f">Behavior recognition</td>
+          <td class="index_table_f">Routing behavior recognition</td>
           <td><i>No</i></td>
           <td><b>Yes</b></td>
         </tr>
@@ -98,7 +100,7 @@
       <h3>$getPage</h3>
     </div>
     <div style="height:2000px" />
-    <navigator to="/list"> List </navigator>
+    
   </div>
 </div>
   

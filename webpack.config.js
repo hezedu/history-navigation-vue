@@ -28,7 +28,7 @@ if(!isPro){ //使用 命令weblack
   cssRule = {
     test: /(\.scss$)|(\.css$)/,
     use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-    include: path.join(__dirname, './src')
+    // include: path.join(__dirname, './src')
   }
 
 }else{
@@ -60,10 +60,10 @@ var plugins = [
   // create index.html
   new HtmlWebpackPlugin({
     filename: path.join(indexDir + '/index.html'),
-    template: path.join(__dirname, '/src/index.ejs'),
+    template: path.join(__dirname, '/examples/index.ejs'),
     staticMap: setup.staticMap,
     data: {
-      title: 'Vue Multi Demo'
+      title: config.title
     }
   })
 ]
@@ -130,7 +130,7 @@ if (isPro) {
 const webpackConf = {
   mode: NODE_ENV,
   optimization,
-  context: path.join(__dirname, './src'),
+  context: path.join(__dirname, './examples'),
   entry: {
     z_app: "./app.js"
   },

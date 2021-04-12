@@ -3,13 +3,14 @@ import { nativeHistory } from './navigator/native';
 if(!nativeHistory || !nativeHistory.pushState){
   throw new Error('multi required history.pushState API');
 }
-
+import './css/style.scss';
 import App from './cmpt/app.vue';
 import DefNotFound from './cmpt/not-found.vue';
 import NavigatorCmpt from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import getPage from './get-page';
+import ShowHideMixin from './show-hide-mixin';
 function install(Vue, config) {
 
   if(!Array.isArray(config.pages)){
@@ -29,9 +30,9 @@ function install(Vue, config) {
     Vue.component(cmptPageSuffix + page.index, page.component);
   }
 
-  Vue.component(cmptKeys.App || 'App', App);
+  Vue.component(cmptKeys.NavController || 'NavController', App);
   Vue.component(cmptKeys.Navigator || 'Navigator', NavigatorCmpt);
-
+  
   Vue.prototype.$navigator = navigator({
     isHash: navigatorMode === 'hash',
     Vue,
@@ -41,6 +42,7 @@ function install(Vue, config) {
     notFoundPageKey
   });
   Vue.prototype.$getPage = getPage;
+  Vue.mixin(ShowHideMixin);
 }
 
 function _formatPages(pages){

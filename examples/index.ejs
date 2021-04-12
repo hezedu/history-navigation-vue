@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <% var opts = htmlWebpackPlugin.options,  statics = opts.staticMap; data = opts.data; %>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="/static/favicon.png" />
+    <title><%=data.title%></title>
+  </head>
+  <body>
+  <div id="app">Loading...</div>
+  <% for(let i in statics){%>
+    <script src="<%=statics[i].url%>"></script>
+  <%}%>
+</body>
+</html>

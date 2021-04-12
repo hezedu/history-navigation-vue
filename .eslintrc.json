@@ -1,0 +1,54 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "extends": ["eslint:recommended", "plugin:vue/recommended", "plugin:vue/strongly-recommended", "plugin:vue/essential"],
+    
+    "parserOptions": {
+        "parser": "babel-eslint",
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+        "indent": [
+            0,
+            2,
+            { "SwitchCase": 1 }
+        ],
+        "no-extra-semi": "warn",
+        "no-unused-vars": "warn",
+        "no-trailing-spaces": 0,
+        "no-case-declarations": "warn",
+        "no-unreachable": "warn",
+        "no-multiple-empty-lines": 0,
+        "prefer-const": 0,
+        "space-infix-ops": "warn",
+        "camelcase": 0,
+        "no-console": 0,
+        "linebreak-style": 0,
+        "quotes": 0,
+        "semi": 0,
+
+        "vue/require-prop-types": 0,
+        "vue/no-reserved-keys": 0,
+        "vue/order-in-components": 0,
+        "vue/require-default-prop": 0,
+        "vue/return-in-computed-property": 0,
+        "vue/max-attributes-per-line": 0,
+        "vue/attributes-order": 0,
+        "vue/singleline-html-element-content-newline": 0,
+        "vue/mustache-interpolation-spacing": 0,
+        "vue/html-self-closing": 0,
+        "vue/html-indent": 0,
+        "vue/multiline-html-element-content-newline": 0,
+        "vue/no-multi-spaces": 0,
+        "vue/html-quotes": 0,
+        "vue/attribute-hyphenation": 0,
+        "vue/html-closing-bracket-newline": 0
+    }
+}

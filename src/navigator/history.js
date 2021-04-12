@@ -3,14 +3,27 @@ import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey,getStateKey,  setStateKey} from './state-key';
 function noop(){}
 
+// function _def(th, obj, key, defV){
+//   let v = obj[key];
+//   v = v === undefined ? defV : v;
+//   th[key] = v;
+// }
+
+let isCreated = false;
 function History(opt){
+  if(isCreated){
+    throw new Error('Only one instance can be generated.');
+  }
+  isCreated = true;
   this._Vue = opt.Vue;
   this.isHashMode = opt.isHash === undefined ? true : opt.isHash;
   this.pageMap = opt.pageMap;
   this.cmptPageSuffix = opt.cmptPageSuffix;
   this.notFoundPageKey = opt.notFoundPageKey;
-  this.map = Object.create(null);
-
+  this.stackMap = Object.create(null);
+  
+  // _def(this, opt, 'isPageDestoryWhenBack', true);
+  this.isPageDestoryWhenBack = true;
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
@@ -21,7 +34,7 @@ function History(opt){
   this._popstateHandle = () => {
     this.handlePop();
   }
-  this._window.addEventListener('popstate', this._popstateHandle);
+  
 
   let currRoute = this.getFullUrlParseByLocation();
   this.currentRoute = {
@@ -41,6 +54,7 @@ function History(opt){
   // }
 }
 History.prototype.start = function(userUrl){
+  this._window.addEventListener('popstate', this._popstateHandle);
   let currRoute = userUrl === undefined 
   ? this.currentRoute
     : fullUrlParse(userUrl);
@@ -60,11 +74,11 @@ History.prototype._setMapItem = function(key, value){
   value.pageKey = page ? this.cmptPageSuffix + page.index : this.notFoundPageKey;
 
   Object.assign(this.currentRoute, value);
-  this._Vue.set(this.map, key, value);
+  this._Vue.set(this.stackMap, key, value);
 }
 
-History.prototype.delMapItem = function(key){
-  this._Vue.delete(this.map, key);
+History.prototype._delMapItem = function(key){
+  this._Vue.delete(this.stackMap, key);
 }
 
 History.prototype.getFullUrlParseByLocation = function(){
@@ -115,10 +129,11 @@ History.prototype.back = function(step){
 
 History.prototype._clear = function(){
   const key = getCurrentStateKey();
-  const map = this.map;
+  const map = this.stackMap;
+  // console.log('_clear', key, map);  
   for (var i in map) {
     if (Number(i) > key) {
-      delete (map[i]);
+      this._delMapItem(i);
     }
   }
 }
@@ -129,14 +144,14 @@ History.prototype.handlePop = function(){
   const currKey = getCurrentStateKey();
   const compare = currKey - oldKey;
   const behavior = compare <  0 ? 'back' : 'forward';
-
-  // if(behavior === 'back'){
-  //   this._clear();
-  // }
+  console.log('behavior', behavior === 'back', this.isPageDestoryWhenBack)
+  if(this.isPageDestoryWhenBack && behavior === 'back'){
+    this._clear();
+  }
   
-  let page = this.map[currKey];
-  console.log('compare', compare);
-  console.log('poped',  page, oldKey, currKey, getCurrentStateKey())
+  let page = this.stackMap[currKey];
+  // console.log('compare', compare);
+  // console.log('poped',  page, oldKey, currKey, getCurrentStateKey())
   if(page){
     Object.assign(this.currentRoute, page);
   } else {
@@ -152,6 +167,7 @@ History.prototype.handlePop = function(){
 History.prototype.destory = function(){
   this.onChange = noop;
   this._window.removeEventListener('popstate', this._popstateHandle);
+  isCreated = false;
 }
 
 export default History;
