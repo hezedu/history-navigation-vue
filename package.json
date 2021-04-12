@@ -1,7 +1,7 @@
 {
   "name": "vue-multi",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/vue-multi.js",
   "scripts": {
     "start": "webpack-dev-server --progress --hot --inline --colors",
     "build": "webpack --colors --hide-modules",
@@ -10,8 +10,7 @@
     "pro": "node script/pro"
   },
   "files": [
-    "dist",
-    "index.js"
+    "dist"
   ],
   "dependencies": {},
   "devDependencies": {
