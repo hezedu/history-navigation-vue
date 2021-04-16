@@ -2,10 +2,10 @@
 
 import config from './config';
 
-import multi from '../src/index';
+import * as multi from '../src/index';
 
 const Vue = window.Vue;
-Vue.use(multi, config);
+Vue.use(multi.plugin, config);
 
 import './css/docs.scss';
 

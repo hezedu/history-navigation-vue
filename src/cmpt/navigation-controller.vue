@@ -1,6 +1,6 @@
 
 <template>
-  <transition-group  class="vue-multi-nav-ctrler" :class="'vue-multi-direction-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="vue-multi-page" tag="div">
+  <transition-group  class="h-nav-nav-ctrler" :class="'h-nav-trf-dir-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="h-nav-page" tag="div">
     <Page v-for="v in stackMap" 
     :key="v.key" 
     :route="v" 
@@ -22,18 +22,12 @@ export default {
   },
   data(){
     return {
-      // stack: [],
-      // isReady: false,
       stackMap: this.$navigator.stackMap,
       currentRoute: this.$navigator.currentRoute
     }
   },
   created(){
     this.$navigator.start(this.entry);
-    // this.$emit('launch', (path) => {
-    //   this.$navigator.start(path); 
-    //   this.isReady = true;
-    // });
   }
 }
 </script>

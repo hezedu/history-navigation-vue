@@ -2,12 +2,15 @@
 <div class="index_page">
   <div class="wrap">
     <!-- <img class="big_img" src="/static/logo.png" /> -->
-    <h1>Vue Multi</h1>
+    <h1>history-navigation-vue</h1>
 
     <navigator to="/list"> List </navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
-      The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps
+      <!-- The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps -->
+      <!-- The <b>Navigation</b> based on HTML5 <b>History</b>, implemented by <b>Vue</b> -->
+      <!-- HTML5 <b>History Navigation</b> for <b>Vue</b> web apps. -->
+      The native-like <b>Navigation</b> for web apps<br> Base on HTML5 <b>History</b><br>implemented by <b>Vue</b>
       <!--
       vue-nav-ctrl
       vue-navigation-controller
@@ -30,36 +33,30 @@
     </h2>
     <div class="index_diff">
      <div class="index_diff_item">
-          <div class="index_diff_title">Use official Vue Router</div>
+          <div class="index_diff_title">Normal single-page app:</div>
           <div class="index_diff_body">
-            <DiffStart v-if="currAni === 'start'" @diffStart="handleDiffStart" />
-            <DiffList v-if="currAni === 'list'" :isBack="isDetailBacked" @diffGoToDetail="handleDiffGoToDetail" @diffGotoStart="handleDiffGotoStart" />
-            <DiffDetail v-if="currAni === 'detail'" @diffBackToList="handleDiffBackToList" />
+            <DiffStart v-if="currAni === 'start'" @diffStart="handleDiffStart" type="normal" />
+            <DiffList v-if="currAni === 'list'" type="normal" :isBack="isDetailBacked" @diffGoToDetail="handleDiffGoToDetail" @diffGotoStart="handleDiffGotoStart" />
+            <DiffDetail v-if="currAni === 'detail'" type="normal" @diffBackToList="handleDiffBackToList" />
           </div>
      </div>
-      <div class="index_diff_item" :class="'vue-multi-direction-' + direction">
-          <div class="index_diff_title">Use Vue Multi</div> 
+      <div class="index_diff_item" :class="'h-nav-trf-dir-' + direction">
+          <div class="index_diff_title">Use c-vue</div>
 
  
-          <transition-group class="vue_multi_transition_group index_diff_body" name="vue-multi-page" tag="div">
+          <transition-group class="index_diff_body" name="h-nav-page" tag="div">
             <div class="index_diff_body_multi" v-show="currAni === 'start'" key="start">
-              <transition name="multi-page-inner">
-                <DiffStart v-if="currAni === 'start'" />
-              </transition>
+   
+              <DiffStart v-if="currAni === 'start'"  />
             </div>
             <div class="index_diff_body_multi" v-show="currAni === 'list'" key="list">
-              <transition name="multi-page-inner">
                 <keep-alive v-if="currAni !== 'start'">
                   <DiffList v-if="currAni === 'list'"
-                    type="multi"
                     :isBack="isDetailBacked"  />
                   </keep-alive>
-                </transition>
             </div>
             <div class="index_diff_body_multi" v-show="currAni === 'detail'" key="detail">
-              <transition name="multi-page-inner">
-                <DiffDetail v-if="currAni === 'detail'" />
-              </transition>
+              <DiffDetail v-if="currAni === 'detail'" />
             </div>
             
             
@@ -67,21 +64,25 @@
         </div>
     </div>
     <div class="index_table_wrap">
+      <h2>Compared with the Vue official Router</h2>
       <table class="index_table" border="1">
         <tr>
-          <th>Feature</th>
+          <th style="font-weight: normal; color: #999;">Feature</th>
           <th>vue-router</th>
-          <th>vue-multi</th>
+          <th>history-navigation-vue</th>
         </tr>
         <tr>
           <td class="index_table_f">Previous pages keep alive</td>
           <td><i>No</i></td>
-          <td><b>Yes</b></td>
+          <td>
+            <b>Yes</b>
+          </td>
         </tr>
         <tr>
           <td class="index_table_f">Routing behavior recognition</td>
           <td><i>No</i></td>
           <td><b>Yes</b></td>
+          <!--  push, repalce, back, forwrd</td> -->
         </tr>
         <tr>
           <td class="index_table_f">Page transition animation</td>
@@ -91,13 +92,19 @@
       </table>
     </div>
     <h1>Simple API</h1>
+
+    <iframe height="265" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
+  (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
     <h2>Just 5</h2>
     <div>
       <h3>config</h3>
-      <h3>NavigationCtroler</h3>
+      <h3>NavigationController</h3>
       <h3>Navigator</h3>
       <h3>$navigator</h3>
-      <h3>$getPage</h3>
+      <h3>$page</h3>
+      <h3>onShow / onHide</h3>
     </div>
     <div style="height:2000px" />
     

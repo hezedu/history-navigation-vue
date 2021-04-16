@@ -10,13 +10,14 @@ import ShowHideMixin from './mixin/show-hide-mixin';
 function install(Vue, config) {
 
   if(!Array.isArray(config.pages)){
-    throw new Error('vue-multi config.pages is not Array.');
+    throw new Error('history-navigation-vue config.pages is not Array.');
   }
 
-  const cmptPageSuffix = 'vue-multi-page-';
-  const notFoundPageKey = cmptPageSuffix + 'not-found';
+  const cmptPageSuffix = 'history-navigation-page-';
+  const notFoundPageKey = 'not-found';
+  
   const pageMap  = _formatPages(config.pages);
-  const navigatorMode = config.navigatorMode || 'hash';
+  const historyUrlIsHash = config.historyUrlIsHash === undefined ? true : config.historyUrlIsHash;
 
   Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
   let i, page;
@@ -29,9 +30,8 @@ function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   Vue.prototype.$navigator = navigator({
-    isHash: navigatorMode === 'hash',
+    isHash: historyUrlIsHash,
     Vue,
-    entryPagePath: config.entryPagePath,
     pageMap,
     cmptPageSuffix,
     notFoundPageKey
@@ -47,17 +47,16 @@ function _formatPages(pages){
     page = pages[i];
     tk = trimSlash(page.path);
     if(map[tk]){
-      throw new Error(`vue-multi pageMap key: ${tk} is same as ${page.path}`);
+      throw new Error(`h-nav pageMap key: ${tk} is same as ${page.path}`);
     }
-    map[tk] = {
-      ...page,
+    map[tk] = Object.assign({}, page, {
       trimedPath: tk,
       index: i
-    };
+    });
   }
   return map;
 }
-
-export default {
+export const plugin = {
   install
 }
+export const v = '__VERSION__';

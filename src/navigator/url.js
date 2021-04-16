@@ -62,11 +62,10 @@ export function fullUrlParse(userUrl){
     fullPath = _urlStringify(route);
   }
   trimedPath = trimSlash(route.path);
-  return {
-    ...route,
+  return Object.assign({
     fullPath,
     trimedPath
-  }
+  }, route);
 }
 
 function trimRoute(route){

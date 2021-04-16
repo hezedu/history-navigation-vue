@@ -1,8 +1,11 @@
-export const nativeWindow = window;
-export const nativeHistory = window.history;
 
-if(!nativeHistory || !nativeHistory.pushState){
-  throw new Error('multi required history.pushState API');
+
+let nativeWindow, nativeHistory, nativeLocation;
+
+if(typeof window !== 'undefined'){
+  nativeWindow = window;
+  nativeHistory = window.history;
+  nativeLocation = window.location;
 }
 
-export const nativeLocation = window.location;
+export {nativeWindow, nativeHistory, nativeLocation}

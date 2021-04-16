@@ -1,10 +1,10 @@
 <template>
-<div class="vue-multi-page">
+<div class="h-nav-page">
   <component :is="route.pageKey" v-if="isLoad" />
 </div>
 </template>
 <script>
-import { _PAGE_E_SHOW_NAME, _PAGE_E_HIDE_NAME } from '../constant';
+import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
 export default {
   name: 'MultiPage',
   provide(){
@@ -35,9 +35,9 @@ export default {
   methods: {
     handleShowHide(){
       if(this.isShow){
-        this.$emit(_PAGE_E_SHOW_NAME);
+        this.$emit(PAGE_E_SHOW_NAME);
       } else {
-        this.$emit(_PAGE_E_HIDE_NAME);
+        this.$emit(PAGE_E_HIDE_NAME);
       }
     }
   },
@@ -49,7 +49,7 @@ export default {
       }
       // If don't use setTimeout, the next page's document addEventListener click will trigger in current page.
       this.isLoad = true;
-      this.$emit(_PAGE_E_SHOW_NAME);
+      this.$emit(PAGE_E_SHOW_NAME);
     });
 
   },
@@ -60,7 +60,7 @@ export default {
     this.$options._tmp_is_before_destroy = true;
     // Unlike window app. like input focus. It's will trigger hide event before destroy.
     if(this.isShow){
-      this.$emit(_PAGE_E_HIDE_NAME);
+      this.$emit(PAGE_E_HIDE_NAME);
     }
     this.isLoad = false;
   },

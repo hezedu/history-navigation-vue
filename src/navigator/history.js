@@ -15,18 +15,23 @@ function History(opt){
     throw new Error('Only one instance can be generated.');
   }
   isCreated = true;
+  this._window = nativeWindow;
+  this._history = nativeHistory;
+  this._location = nativeLocation;
   this._Vue = opt.Vue;
+  if(!this._history || !nativeHistory.pushState){
+    throw new Error('history-navigation-vue required history.pushState API');
+  }
+  
   this.isHashMode = opt.isHash === undefined ? true : opt.isHash;
   this.pageMap = opt.pageMap;
   this.cmptPageSuffix = opt.cmptPageSuffix;
-  this.notFoundPageKey = opt.notFoundPageKey;
+  this.notFoundPageKey = opt.cmptPageSuffix + opt.notFoundPageKey;
   this.stackMap = Object.create(null);
   
   // _def(this, opt, 'isPageDestoryWhenBack', true);
   this.isPageDestoryWhenBack = true;
-  this._window = nativeWindow;
-  this._history = nativeHistory;
-  this._location = nativeLocation;
+
 
   this.onChange = noop;
   
@@ -37,13 +42,12 @@ function History(opt){
   
 
   let currRoute = this.getFullUrlParseByLocation();
-  this.currentRoute = {
+  this.currentRoute = Object.assign({
     key: null,
     pageKey: null,
     behavior: '',
-    step: 0,
-    ...currRoute
-  };
+    step: 0
+  }, currRoute);
 
 
   // this.currentRoute.behavior = 'launch';
@@ -144,7 +148,7 @@ History.prototype.handlePop = function(){
   const currKey = getCurrentStateKey();
   const compare = currKey - oldKey;
   const behavior = compare <  0 ? 'back' : 'forward';
-  console.log('behavior', behavior === 'back', this.isPageDestoryWhenBack)
+  // console.log('behavior', behavior === 'back', this.isPageDestoryWhenBack)
   if(this.isPageDestoryWhenBack && behavior === 'back'){
     this._clear();
   }

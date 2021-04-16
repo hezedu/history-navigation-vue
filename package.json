@@ -1,25 +1,39 @@
 {
-  "name": "vue-multi",
-  "version": "0.0.1",
-  "description": "The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps",
+  "name": "history-navigation-vue",
+  "version": "0.0.1-beta.1",
+  "description": "The HTML5 history navigation for Vue Web apps",
   "keywords": [
+    "navigation",
+    "controller",
+    "html5",
+    "history",
     "vue",
-    "router",
-    "routing"
+    "multi-page",
+    "routing",
+    "native-like",
+    "single-page",
+    "web app"
   ],
-  "main": "dist/vue-multi.js",
+  "main": "dist/history-navigation-vue.min.js",
+  "license": "MIT",
+  "author": "hezedu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezedu/history-navigation-vue.git"
+  },
   "scripts": {
     "start": "webpack-dev-server --progress --hot --inline --colors",
-    "build": "webpack --colors --hide-modules --progress --config webpack.build.config.js",
-    "build_dev": "webpack --colors --hide-modules",
-    "preview": "node server/preview",
-    "_pro_build": "webpack --colors",
-    "pro": "node script/pro"
+    "build": "npm run build_dev && npm run build_pro && node script/after_webpack_build.js",
+    "build_pro": "webpack --node-env=production --colors --hide-modules --progress --config webpack.build.config.js",
+    "build_dev": "webpack --node-env=development --colors --hide-modules --progress --config webpack.build.config.js",
+    "p": "npm run build && npm publish"
   },
   "files": [
     "dist"
   ],
-
+  "directories": {
+    "lib": "dist"
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -71,7 +85,6 @@
     "vuex": "3.0.1",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
-    "ws": "^7.3.1"
+    "webpack-dev-server": "^3.11.0"
   }
 }

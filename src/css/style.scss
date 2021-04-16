@@ -1,14 +1,14 @@
 
 
-.vue-multi-nav-ctrler{
+.h-nav-nav-ctrler{
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   position: relative;
 }
-.vue-multi-page{
+.h-nav-page{
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow:  auto;
   background-color: #ddd;
   position: absolute;
@@ -16,29 +16,29 @@
   top: 0;
 }
 
-.vue-multi-page-enter-active, 
-.vue-multi-page-leave-active{
+.h-nav-page-enter-active, 
+.h-nav-page-leave-active{
   transition: all .3s linear;
 }
 
-.vue-multi-page-enter, .vue-multi-page-leave-to{
+.h-nav-page-enter, .h-nav-page-leave-to{
   opacity: 0;
 }
 
-.vue-multi-direction-right {
-  .vue-multi-page-enter {
+.h-nav-trf-dir-right {
+  .h-nav-page-enter {
     transform: translateX(100%);
   }
-  .vue-multi-page-leave-to{
+  .h-nav-page-leave-to{
     transform: translateX(-100%);
   }
 }
 
-.vue-multi-direction-left {
-  .vue-multi-page-enter{
+.h-nav-trf-dir-left {
+  .h-nav-page-enter{
     transform: translateX(-100%);
   }
-  .vue-multi-page-leave-to{
+  .h-nav-page-leave-to{
     transform: translateX(100%);
   }
 }

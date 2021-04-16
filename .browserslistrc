@@ -1,4 +1,2 @@
-chrome >= 80
-firefox >= 68
 ie >= 10
-android > 37
+android > 4.4.4
