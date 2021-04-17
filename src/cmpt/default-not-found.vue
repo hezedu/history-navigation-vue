@@ -5,4 +5,3 @@
   <h2>Page 404 Not Found</h2>
 </div>
 </template>
-<script>

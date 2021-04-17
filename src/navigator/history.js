@@ -20,7 +20,7 @@ function History(opt){
   this._location = nativeLocation;
   this._Vue = opt.Vue;
   if(!this._history || !nativeHistory.pushState){
-    throw new Error('history-navigation-vue required history.pushState API');
+    throw new Error('history-navigation-vue-vue required history.pushState API');
   }
   
   this.isHashMode = opt.isHash === undefined ? true : opt.isHash;

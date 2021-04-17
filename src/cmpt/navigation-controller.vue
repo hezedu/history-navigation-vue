@@ -1,7 +1,7 @@
 
 <template>
-  <transition-group  class="h-nav-nav-ctrler" :class="'h-nav-trf-dir-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="h-nav-page" tag="div">
-    <Page v-for="v in stackMap" 
+  <transition-group class="h-nav-nav-ctrler" :class="'h-nav-trf-dir-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="h-nav-page" tag="div">
+    <Page v-for="v in stackList" 
     :key="v.key" 
     :route="v" 
     :isShow="v.key === currentRoute.key"
@@ -11,7 +11,7 @@
 <script>
 import Page from './page.vue';
 export default {
-  name: 'MultiNavigationController',
+  name: 'HistoryNavigationController',
   props: {
     entry: {
       type: String
@@ -24,6 +24,14 @@ export default {
     return {
       stackMap: this.$navigator.stackMap,
       currentRoute: this.$navigator.currentRoute
+    }
+  },
+  computed: {
+    stackList(){
+      const map = this.stackMap;
+      return Object.keys(map).map(function(k) {
+        return map[k];
+      })
     }
   },
   created(){

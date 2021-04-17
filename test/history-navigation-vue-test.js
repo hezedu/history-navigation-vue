@@ -7,18 +7,25 @@
         path: '/',
 
         component: {
-          data: function() {
-            return {
-              version: window.HistoryNavigationVue.v
-            }
-          },
-          template: '<h1>Index {{version}}</h1>'
+          template: 
+          `<div class="wrap">
+            <h1>Hello Wrold!</h1>
+            <h2>Index {{Date.now()}}</h2>
+            <navigator to="/list">To List</navigator>
+          </div>`
         }
       },
       {
         path: '/list',
         component: {
-          template: '<h1>List</h1>'
+          template: 
+          `<div class="wrap">
+
+            <h2>List {{Date.now()}}</h2>
+            
+            <navigator to="/detail">To Detail</navigator><br>
+            <navigator back>Back</navigator>
+          </div>`
         }
       }
     ]

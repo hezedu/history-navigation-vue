@@ -3,10 +3,7 @@
   
   <div style="height: 100%; overflow: auto;">
     <h1>List</h1>
-<iframe height="265" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=dark&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
-  (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+
 
     <!-- <div style="height: 150vh">
         <div style="height: 300px; width: 300px; overflow: auto;">
@@ -18,7 +15,7 @@
       <h1>now: {{now}}</h1>
       <input @focus="handleFocus" @blur="handleBlur" v-if="isShowInput" />
     <navigator to="/detail"> Detail </navigator>
-
+    <navigator back>Back</navigator>
   </div>
 
 

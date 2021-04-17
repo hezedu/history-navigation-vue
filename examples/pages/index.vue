@@ -5,6 +5,7 @@
     <h1>history-navigation-vue</h1>
 
     <navigator to="/list"> List </navigator>
+    <navigator to="/list" replace> replace List </navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
       <!-- The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps -->
@@ -93,10 +94,10 @@
     </div>
     <h1>Simple API</h1>
 
-    <iframe height="265" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+    <!-- <iframe height="265" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
   See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
   (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
+</iframe> -->
     <h2>Just 5</h2>
     <div>
       <h3>config</h3>

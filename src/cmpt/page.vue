@@ -1,12 +1,12 @@
 <template>
-<div class="h-nav-page">
-  <component :is="route.pageKey" v-if="isLoad" />
-</div>
+  <div class="h-nav-page">
+    <component :is="route.pageKey" v-if="isLoad" />
+  </div>
 </template>
 <script>
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
 export default {
-  name: 'MultiPage',
+  name: 'HistoryNavigationPage',
   provide(){
     return {
       $page: this
@@ -47,7 +47,8 @@ export default {
       if(this.$options._tmp_is_before_destroy){
         return;
       }
-      // If don't use setTimeout, the next page's document addEventListener click will trigger in current page.
+      // If don't use setTimeout, 
+      // the next page's document addEventListener click will trigger in current page.
       this.isLoad = true;
       this.$emit(PAGE_E_SHOW_NAME);
     });
@@ -58,7 +59,9 @@ export default {
       return;
     }
     this.$options._tmp_is_before_destroy = true;
-    // Unlike window app. like input focus. It's will trigger hide event before destroy.
+    // Unlike window app. 
+    // It's like wehn input dom removed the blur event also trigger. 
+    // It's will trigger hide event before destroy.
     if(this.isShow){
       this.$emit(PAGE_E_HIDE_NAME);
     }
