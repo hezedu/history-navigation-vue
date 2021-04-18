@@ -19,7 +19,7 @@ function install(Vue, config) {
   const pageMap  = _formatPages(config.pages);
   const historyUrlIsHash = config.historyUrlIsHash === undefined ? true : config.historyUrlIsHash;
 
-  Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
+  Vue.component(cmptPageSuffix + notFoundPageKey, config.notFoundPage || DefaultNotFound);
   let i, page;
   for(i in pageMap){
     page = pageMap[i];
@@ -47,7 +47,7 @@ function _formatPages(pages){
     page = pages[i];
     tk = trimSlash(page.path);
     if(map[tk]){
-      throw new Error(`h-nav pageMap key: ${tk} is same as ${page.path}`);
+      throw new Error(`history-navigation-vue pageMap key: ${tk} is same as ${page.path}`);
     }
     map[tk] = Object.assign({}, page, {
       trimedPath: tk,

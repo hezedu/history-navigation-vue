@@ -1,10 +1,10 @@
 import { nativeHistory } from './native';
 
-
+export const KEY_NAME = '_h_n_key';
 export function getCurrentStateKey () {
   const state = nativeHistory.state;
-  if (state && typeof state._multi_key === 'number') {
-    return state._multi_key;
+  if (state && typeof state[KEY_NAME] === 'number') {
+    return state[KEY_NAME];
   }
   return 1;
 }
