@@ -26,7 +26,14 @@ var cssRule = {
     {
       loader: MiniCssExtractPlugin.loader
     },
-    "css-loader",  'postcss-loader', "sass-loader"
+    'css-loader', 
+    'postcss-loader', 
+    {
+      loader: 'sass-loader',
+      options: {
+        outputStyle: 'expanded'
+      }
+    }
   ]
 };
 

@@ -14,7 +14,7 @@
     "single-page",
     "web app"
   ],
-  "main": "dist/history-navigation-vue.min.js",
+  "main": "dist/history-navigation-vue.js",
   "license": "MIT",
   "author": "hezedu",
   "repository": {
