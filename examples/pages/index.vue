@@ -4,11 +4,11 @@
     <!-- <img class="big_img" src="/static/logo.png" /> -->
     <h1>history-navigation-vue</h1>
 
-    <navigator to="/list"> List </navigator>
+    <!-- <navigator to="/list"> List </navigator>
     <br>
     <navigator to="/list" replace> replace List </navigator>
     <br>
-    <navigator back> Back </navigator>
+    <navigator back> Back </navigator> -->
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
       <!-- The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps -->
@@ -45,7 +45,7 @@
           </div>
      </div>
       <div class="index_diff_item" :class="'h-nav-trf-dir-' + direction">
-          <div class="index_diff_title">Use c-vue</div>
+          <div class="index_diff_title">Use history-navigation-vue</div>
 
  
           <transition-group class="index_diff_body" name="h-nav-page" tag="div">
@@ -85,11 +85,17 @@
         <tr>
           <td class="index_table_f">Routing behavior recognition</td>
           <td><i>No</i></td>
+          <!-- <td><b>push, back, replace, forward</b></td> -->
           <td><b>Yes</b></td>
           <!--  push, repalce, back, forwrd</td> -->
         </tr>
         <tr>
           <td class="index_table_f">Page transition animation</td>
+          <td><i>No</i></td>
+          <td><b>Yes</b></td>
+        </tr>
+        <tr>
+          <td class="index_table_f">Back to the first history page accurately</td>
           <td><i>No</i></td>
           <td><b>Yes</b></td>
         </tr>

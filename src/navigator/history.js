@@ -29,10 +29,7 @@ function History(opt){
   this.notFoundPageKey = opt.cmptPageSuffix + opt.notFoundPageKey;
   this.stackMap = Object.create(null);
   this._relaunchTo = null;
-  // _def(this, opt, 'isPageDestoryWhenBack', true);
-  this.isPageDestoryWhenBack = true;
-
-
+  // this.isPageDestoryWhenBack = true;
   this.onChange = noop;
   
   this.URL = new URL({isHashMode: this.isHashMode});
@@ -57,7 +54,8 @@ function History(opt){
   //   this._setMapItem(getCurrentStateKey(), currRoute);
   // }
 }
-History.prototype.start = function(userUrl){
+History.prototype._load = function(userUrl){
+
   this._window.addEventListener('popstate', this._popstateHandle);
   let currRoute = userUrl === undefined 
   ? this.currentRoute
@@ -185,8 +183,9 @@ History.prototype.handlePop = function(){
 
   const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
-  // console.log('behavior', behavior === 'back', this.isPageDestoryWhenBack)
-  if(this.isPageDestoryWhenBack && behavior === 'back'){
+
+  // this.isPageDestoryWhenBack && 
+  if(behavior === 'back'){
     this._clear();
   }
   let page = this.stackMap[currKey];

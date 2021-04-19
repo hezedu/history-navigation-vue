@@ -38,7 +38,7 @@ export default {
     }
   },
   created(){
-    this.$navigator.start(this.entry);
+    this.$navigator._load(this.entry);
   }
 }
 </script>
