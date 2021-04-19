@@ -11,14 +11,23 @@
         </div>
 
     </div> -->
-          <h1 @click="handleClick">Date.now: {{Date.now()}}</h1>
-      <h1>now: {{now}}</h1>
-      <input @focus="handleFocus" @blur="handleBlur" v-if="isShowInput" />
-    <navigator to="/detail"> Detail </navigator>
+    <h1 @click="handleClick">Date.now: {{Date.now()}}</h1>
+    <h1>now: {{now}}</h1>
+    <input @focus="handleFocus" @blur="handleBlur" v-if="isShowInput" />
+    <br>
+    <navigator to="/detail"> To Detail </navigator>
+    <br>
     <navigator back>Back</navigator>
+    <br>
+    <navigator to="/" replace>Replace to Index</navigator>
+    <br>
+    <navigator to="/" relaunch>Relaunch to Index</navigator>
+
+  <h1 style="width: 100%; text-align: right; font">right {{$page.isShow}}</h1>
+
   </div>
 
-
+  
 </div>
 
 </template>

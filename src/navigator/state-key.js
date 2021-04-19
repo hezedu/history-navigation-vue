@@ -13,13 +13,13 @@ export function genStateKey () {
   return getCurrentStateKey() + 1;
 }
 
-let _key = getCurrentStateKey();
+let _preKey = getCurrentStateKey();
 
-export function getStateKey () {
-  return _key;
+export function getPreStateKey () {
+  return _preKey;
 }
 
-export function setStateKey (key) {
-  _key = key;
+export function setPreStateKey (key) {
+  _preKey = key;
 }
 

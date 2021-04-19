@@ -13,6 +13,9 @@ export default {
     },
     replace: {
     },
+    relaunch: {
+
+    },
     back: {
 
     },
@@ -28,9 +31,12 @@ export default {
   methods: {
     handleClick(){
       if(this.back !== undefined){
-        console.log('back', this.back)
         // const step = this.step === undefined ? 1 : this.step;
         this.$navigator.back(this.step);
+        return;
+      }
+      if(this.relaunch !== undefined){
+        this.$navigator.relaunch(this.to);
         return;
       }
       let method = this.replace === undefined ? 'push' : 'replace';

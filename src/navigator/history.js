@@ -1,6 +1,6 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
-import { getCurrentStateKey, genStateKey,getStateKey,  setStateKey} from './state-key';
+import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
 function noop(){}
 
 // function _def(th, obj, key, defV){
@@ -28,7 +28,7 @@ function History(opt){
   this.cmptPageSuffix = opt.cmptPageSuffix;
   this.notFoundPageKey = opt.cmptPageSuffix + opt.notFoundPageKey;
   this.stackMap = Object.create(null);
-  
+  this._relaunchTo = null;
   // _def(this, opt, 'isPageDestoryWhenBack', true);
   this.isPageDestoryWhenBack = true;
 
@@ -62,7 +62,7 @@ History.prototype.start = function(userUrl){
   let currRoute = userUrl === undefined 
   ? this.currentRoute
     : fullUrlParse(userUrl);
-  this.replace(currRoute.fullPath);
+  this.replace(currRoute.fullPath, 'loaded');
 }
 
 // History.prototype.reLaunch = function(userUrl){
@@ -99,8 +99,8 @@ History.prototype.push = function(userUrl){
   const fullParse = fullUrlParse(userUrl);
   const key = genStateKey();
 
-  this._history.pushState({_multi_key: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
-  setStateKey(key);
+  this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
+  setPreStateKey(key);
   this._setMapItem(key, fullParse);
   this.currentRoute.behavior = 'push';
   this.currentRoute.step = 1;
@@ -108,28 +108,56 @@ History.prototype.push = function(userUrl){
   this.onChange();
 }
 
-History.prototype.replace = function(userUrl){
+History.prototype.replace = function(userUrl, behavior){
   this._clear();
   const fullParse = fullUrlParse(userUrl);
-  const key = getStateKey();
+  const key = getCurrentStateKey();
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   // console.log('toUrl', toUrl)
-  this._history.replaceState({_multi_key: key}, '', toUrl);
-  this._setMapItem(key, fullParse);
-  this.currentRoute.behavior = 'replace';
-  this.currentRoute.step = 0;
-  this.currentRoute.isPop = false;
-  this.onChange();
+  this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
+  this._delMapItem(key);
+  this._Vue.nextTick(() => {
+    this._setMapItem(key, fullParse);
+    this.currentRoute.behavior = behavior || 'replace';
+    this.currentRoute.step = 0;
+    this.currentRoute.isPop = false;
+    this.onChange();
+  })
+
 }
 
 History.prototype.back = function(step){
+  const key = getCurrentStateKey();
+
+  if(key === 1){
+    return -1;
+  }
   if(typeof step === 'number' && step > 0){
+    if(key - step < 1){
+      console.log('out range', key, step)
+      return -1;
+    }
     this._history.go(-step);
   } else {
     this._history.back();
   }
+  return 0;
 }
 
+History.prototype.relaunch = function(userUrl){
+  const key = getCurrentStateKey();
+  if(key > 1){
+    this._relaunchTo = userUrl;
+    this.back(key - 1);
+    console.log('relaunch back', key);
+  } else {
+    this._relaunch(userUrl);
+  }
+}
+
+History.prototype._relaunch = function(userUrl){
+  this.replace(userUrl, 'relaunch');
+}
 
 History.prototype._clear = function(){
   const key = getCurrentStateKey();
@@ -144,24 +172,32 @@ History.prototype._clear = function(){
 
 
 History.prototype.handlePop = function(){
-  const oldKey = getStateKey();
+  const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
-  const compare = currKey - oldKey;
+  setPreStateKey(currKey);
+
+
+  if(this._relaunchTo !== null){
+    this._relaunch(this._relaunchTo);
+    this._relaunchTo = null;
+    return;
+  }
+
+  const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
   // console.log('behavior', behavior === 'back', this.isPageDestoryWhenBack)
   if(this.isPageDestoryWhenBack && behavior === 'back'){
     this._clear();
   }
-  
   let page = this.stackMap[currKey];
   // console.log('compare', compare);
-  // console.log('poped',  page, oldKey, currKey, getCurrentStateKey())
+  // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   if(page){
     Object.assign(this.currentRoute, page);
   } else {
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }
-  setStateKey(currKey);
+  
   this.currentRoute.behavior = behavior;
   this.currentRoute.step = compare;
   this.currentRoute.isPop = true;

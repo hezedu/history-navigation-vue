@@ -1,6 +1,6 @@
 <template>
-  <div class="h-nav-page">
-    <component :is="route.pageKey" v-if="isLoad" />
+  <div class="h-nav-page" v-if="isLoad" :class="'h-nav-page-' + (isShow ? 'active' : 'unactive')" :style="{zIndex: route.key}">
+    <component :is="route.pageKey" />
   </div>
 </template>
 <script>

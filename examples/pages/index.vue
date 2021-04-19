@@ -5,7 +5,10 @@
     <h1>history-navigation-vue</h1>
 
     <navigator to="/list"> List </navigator>
+    <br>
     <navigator to="/list" replace> replace List </navigator>
+    <br>
+    <navigator back> Back </navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
       <!-- The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps -->

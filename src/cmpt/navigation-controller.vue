@@ -1,11 +1,14 @@
 
 <template>
-  <transition-group class="h-nav-nav-ctrler" :class="'h-nav-trf-dir-' + (currentRoute.behavior === 'back' ? 'left' : 'right')" name="h-nav-page" tag="div">
+  <transition-group 
+    class="h-nav-nav-ctrler" 
+    :class="'h-nav-trf-beh-' + currentRoute.behavior" 
+    name="h-nav-page" tag="div">
     <Page v-for="v in stackList" 
     :key="v.key" 
     :route="v" 
     :isShow="v.key === currentRoute.key"
-    v-show="v.key === currentRoute.key" />
+    :style="{left: (v.key - currentRoute.key) + '00%'}" />
   </transition-group>
 </template>
 <script>
