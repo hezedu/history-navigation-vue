@@ -4,11 +4,14 @@
         <span class="index_diff_page_back" :class="{index_diff_page_back_active: isBackActive}">Back</span>
     List</div>
   <div ref="list" class="index_diff_page_inner index_diff_list">
-    <div class="index_diff_loading_wrap" v-if="isLoading">Loading...</div>
+    <div class="index_diff_loading_wrap" v-if="isLoading">
+      <div class="index_diff_loading" /></div>
     <template v-else>
     <div class="index_diff_list_item" :class="{index_diff_list_item_active: activeIndex === v}" v-for="v in list" :key="v">{{v}}</div>
 
-    <div class="index_diff_list_item index_diff_loading_more" v>Loading...</div>
+    <div class="index_diff_list_item index_diff_loading_more">
+      <div class="index_diff_loading" />
+    </div>
 
     </template>
   </div>
@@ -17,15 +20,14 @@
   
 </template>
 <script>
-const LOADING_STAY_TIME = 1500;
-const LIST_STAY_TIME = 1000;
-const LOADING_MORE_STAY_TIME = 300;
+import { LOADING_STAY_TIME, 
+  LIST_STAY_TIME, 
+  LOADING_MORE_STAY_TIME, 
+  ITEM_BEFORE_ACTIVE_STAY_TIME,
+  ITEM_ACTIVE_TIME,
+  BACK_ACTIVE_TIME,
+  BEFORE_BACK_STAY_TIME } from './common';
 
-const ITEM_BEFORE_ACTIVE_STAY_TIME = 500;
-const ITEM_ACTIVE_TIME = 300;
-
-const BACK_ACTIVE_TIME = 300;
-const BEFORE_BACK_STAY_TIME = 3000;
 
 
 import TimeoutMixin from './timeout-mixin';

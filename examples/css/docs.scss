@@ -33,6 +33,7 @@ a{
   color: #00008B;
   text-decoration: none;
 }
+$transitionTime: .3s;
 .bottom_bar{
   height: 50px;
   position: fixed;
@@ -150,24 +151,44 @@ $listScrollBarColor: #ddd;
   top: 0;
   left: 0;
   overflow: auto;
+  transition: all $transitionTime;
 }
+
+.index_diff_fade-enter, .index_diff_fade-leave-to {
+  opacity: 0;
+}
+
+.index_diff_body_h_nav_first_load {
+  transform: translateY(-100%);
+}
+
 
 .index_diff_loading_wrap{
-  color: #666;
-}
-
-.index_diff_loading_wrap, .index_diff_start_wrap{
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .index_diff_start_wrap{
-  background-color: #333;
-  color: #fff;
-  opacity: 1;
-  transition: all .5s;
+  text-align: center;
+
+}
+.index_diff_start_top{
+  padding-top: 20%;
+}
+.index_diff_start_use{
+  color: #666;
+  margin-bottom: .5em;
+}
+.index_diff_start_bottom{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  position: relative;
 }
 
 .index_diff_list_item {
@@ -234,13 +255,11 @@ $listScrollBarColor: #ddd;
   height: 30px;
   font-size: 14px;
   color: #666;
+  position: relative;
 }
 
-.index_diff_list_item_active, .index_diff_page_back_active{
-  transition: all .15s;
-  background-color: #aaa;
-  color: #fff;
-}
+
+
 
 .index_diff_page_detail{
   padding: 1px;
@@ -255,12 +274,13 @@ $listScrollBarColor: #ddd;
   height: 80%;
 }
 
-.index_diff_body_multi{
+.index_diff_body_h_nav{
   width: 100%;
   height: 100%;
   position: absolute;
   left: 0;
   top: 0;
+  transition: all $transitionTime;
 }
 
 .index_table_wrap{
@@ -291,4 +311,55 @@ td.index_table_f{
 
 .index_table i{
   color: #999;
+}
+
+
+.index_diff_loading{
+  cursor: auto;
+}
+
+.index_diff_loading::before {
+  padding:0;
+  margin:0;
+  position: absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  margin:auto;
+  height: 13px;
+  width: 13px;
+  animation: rotate 0.8s infinite linear;
+  border: 3px solid #999;
+  border-right-color: #fff;
+  border-radius: 50%;
+}
+
+.index_diff_loading::before{
+  content: '';
+}
+
+@keyframes rotate { 
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}
+
+.index_diff_loading_more .index_diff_loading::before{
+  width: 9px;
+  height: 9px;
+  border-width: 2px;
+}
+.index_diff_start_link{
+  text-decoration: underline;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #333;
+}
+
+.index_diff_list_item_active, 
+.index_diff_page_back_active, 
+.index_diff_start_active{
+  transition: all .15s;
+  background-color: #aaa;
+  color: #fff;
 }

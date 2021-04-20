@@ -11,8 +11,8 @@
   
 </template>
 <script>
-const BACK_ACTIVE_TIME = 300;
-const STAY_TIME = 1000;
+import {BACK_ACTIVE_TIME, STAY_TIME} from './common';
+
 import TimeoutMixin from './timeout-mixin';
 export default {
   mixins: [TimeoutMixin],
