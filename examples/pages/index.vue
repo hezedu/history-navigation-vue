@@ -4,36 +4,36 @@
     <!-- <img class="big_img" src="/static/logo.png" /> -->
     <h1>history-navigation-vue</h1>
 
-    <!-- <navigator to="/list"> List </navigator>
+    <navigator to="/list"> List </navigator>
     <br>
     <navigator to="/list" replace> replace List </navigator>
     <br>
-    <navigator back> Back </navigator> -->
+    <navigator back> Back </navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
-      <!-- The <b>Multi-page navigation</b> for <b>Vue</b> single-page apps -->
+      <!-- The <b>h_nav-page navigation</b> for <b>Vue</b> single-page apps -->
       <!-- The <b>Navigation</b> based on HTML5 <b>History</b>, implemented by <b>Vue</b> -->
       <!-- HTML5 <b>History Navigation</b> for <b>Vue</b> web apps. -->
       The native-like <b>Navigation</b> for web apps<br> Base on HTML5 <b>History</b><br>implemented by <b>Vue</b>
       <!--
       vue-nav-ctrl
       vue-navigation-controller
-      The <b>Multi-page navigation</b> for your <b>Vue</b> single-page apps<br> -->
+      The <b>h_nav-page navigation</b> for your <b>Vue</b> single-page apps<br> -->
       
-      <!-- single-to-multi-page navigation apps.
-      The navigation single-to-multi -->
-     <!-- Generate multiple-pages in the single-page application.
+      <!-- single-to-h_nav-page navigation apps.
+      The navigation single-to-h_nav -->
+     <!-- Generate h_navple-pages in the single-page application.
       Routing and navigation for your single-page application. 
      Routing and navigation for your React Native apps
-     The Multi-Page navigation for your Vue web apps on the single-page.
+     The h_nav-Page navigation for your Vue web apps on the single-page.
      
-     The multi-page navigation in the Vue single-page apps.
-     The multi-Page navigation on the Vue single-page apps.
-     The multi-Page navigation for your Vue single-page apps.
+     The h_nav-page navigation in the Vue single-page apps.
+     The h_nav-Page navigation on the Vue single-page apps.
+     The h_nav-Page navigation for your Vue single-page apps.
 
-     Generate multiple-pages in the single-page application.
-     Generate multiple-pages for your Vule single-page apps.
-     The Multi-Page navigation in the single-page application. -->
+     Generate h_navple-pages in the single-page application.
+     Generate h_navple-pages for your Vule single-page apps.
+     The h_nav-Page navigation in the single-page application. -->
     </h2>
     <div class="index_diff">
      <div class="index_diff_item">
@@ -44,27 +44,39 @@
             <DiffDetail v-if="currAni === 'detail'" type="normal" @diffBackToList="handleDiffBackToList" />
           </div>
      </div>
-      <div class="index_diff_item" :class="'h-nav-trf-dir-' + direction">
+      <div class="index_diff_item">
           <div class="index_diff_title">Use history-navigation-vue</div>
 
- 
-          <transition-group class="index_diff_body" name="h-nav-page" tag="div">
-            <div class="index_diff_body_multi" v-show="currAni === 'start'" key="start">
-   
-              <DiffStart v-if="currAni === 'start'"  />
+          <div class="index_diff_body">
+            <div class="index_diff_body_h_nav"
+            :class="{index_diff_body_h_nav_first_load: firstLoad}"
+            :style="{left: (currAniMap.start - currAniMap[currAni]) + '00%'}">
+
+              <transition name="index_diff_fade">
+                <DiffStart v-if="currAni === 'start'"  />
+              </transition>
+
             </div>
-            <div class="index_diff_body_multi" v-show="currAni === 'list'" key="list">
-                <keep-alive v-if="currAni !== 'start'">
-                  <DiffList v-if="currAni === 'list'"
-                    :isBack="isDetailBacked"  />
-                  </keep-alive>
+
+            <div 
+            class="index_diff_body_h_nav" 
+            :style="{left: (currAniMap.list - currAniMap[currAni]) + '00%'}">
+
+                <transition name="index_diff_fade">
+                  <keep-alive v-if="currAni !== 'start'">
+                    <DiffList v-if="currAni === 'list'"
+                      :isBack="isDetailBacked"  />
+                    </keep-alive>
+                  </transition>
             </div>
-            <div class="index_diff_body_multi" v-show="currAni === 'detail'" key="detail">
-              <DiffDetail v-if="currAni === 'detail'" />
+            <div class="index_diff_body_h_nav" 
+            :style="{left: (currAniMap.detail - currAniMap[currAni]) + '00%'}">
+              <transition name="index_diff_fade">
+                <DiffDetail v-if="currAni === 'detail'" />
+              </transition>
             </div>
-            
-            
-          </transition-group>
+
+          </div>
         </div>
     </div>
     <div class="index_table_wrap">
@@ -116,8 +128,14 @@
       <h3>$page</h3>
       <h3>onShow / onHide</h3>
     </div>
-    <div style="height:2000px" />
-    
+    <div @click="goToList">
+    <div v-for="v in perfList" :key="v">{{v}}</div>
+    </div>
+    <div style="height: 500px; overflow:  auto;">
+      <div style="height:2000px" />
+      <h2 @click="goToList">BOTTOM</h2>
+    </div>
+
   </div>
 </div>
   
@@ -136,13 +154,25 @@ export default {
     DiffDetail
   },
   data(){
+    // let arr = [];
+    // let i = 0;
+    // for(;i < 99999; i++){
+    //   arr.push(i);
+    // }
     return {
       now: Date.now(),
       h: 100,
       step: 0,
-      currAni: 'start',
+      currAni: '',
+      perfList: [],
+      currAniMap: {
+        'start': 1,
+        'list': 2,
+        'detail': 3
+      },
       isDetailBacked: false,
-      direction: 'right'
+      behavior: 'loaded',
+      firstLoad: true
     }
   },
   methods: {
@@ -152,22 +182,25 @@ export default {
     test(){
       this.h = this.h === 100 ? 200 : 100;
     },
+    goToList(){
+      this.$navigator.push('/list');
+    },
     handleDiffStart(){
-      this.direction = 'right';
+      this.behavior = 'push';
       this.currAni = 'list';
     },
     handleDiffGoToDetail(){
-      this.direction = 'right';
+      this.behavior = 'push';
       this.currAni = 'detail';
     },
     handleDiffGotoStart(){
-        this.direction = 'left';
+        this.behavior = 'back';
         this.isDetailBacked = false;
         this.currAni = 'start';
     },
     handleDiffBackToList(){
       this.isDetailBacked = true;
-      this.direction = 'left';
+      this.behavior = 'back';
       this.currAni = 'list';
     },
     // loop(){
@@ -209,6 +242,12 @@ export default {
     // clearLoop(){
     //   clearTimeout(this.$options.__tmp_timer);
     // }
+  },
+  mounted(){
+    setTimeout(() => {
+      this.currAni = 'start';
+        this.firstLoad = false;
+    }, 300)
   },
   destroyed(){
     console.log('index destroyed');

@@ -2,12 +2,12 @@
 <template>
   <transition-group 
     class="h-nav-nav-ctrler" 
-    :class="'h-nav-trf-beh-' + currentRoute.behavior" 
+    :class="'h-nav-behavior-' + currentRoute.behavior" 
     name="h-nav-page" tag="div">
     <Page v-for="v in stackList" 
     :key="v.key" 
     :route="v" 
-    :isShow="v.key === currentRoute.key"
+    :isActive="v.key === currentRoute.key"
     :style="{left: (v.key - currentRoute.key) + '00%'}" />
   </transition-group>
 </template>

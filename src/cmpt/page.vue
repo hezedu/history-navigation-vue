@@ -1,6 +1,10 @@
 <template>
-  <div class="h-nav-page" v-if="isLoad" :class="'h-nav-page-' + (isShow ? 'active' : 'unactive')" :style="{zIndex: route.key}">
-    <component :is="route.pageKey" />
+  <div class="h-nav-page" 
+    :class="'h-nav-page-' + (isActive ? 'active' : 'unactive')" 
+    :style="{zIndex: route.key}" 
+    @transitionend="handleTransitionEnd" 
+    @transitionstart="handleTransitionStart">
+    <component :is="route.pageKey" v-show="isShow" v-if="isLoad"  />
   </div>
 </template>
 <script>
@@ -17,24 +21,54 @@ export default {
       type: Object,
       required: true
     },
-    isShow: {
+    isActive: {
       type: Boolean,
       required: true
     }
   },
   data(){
     return {
-      isLoad: false
+      isLoad: false,
+      isShow: this.isActive
     }
   },
   watch: {
-    isShow(){
+    isActive(){
       this.handleShowHide();
     }
   },
   methods: {
+    handleTransitionStart(){
+      if(this.isActive && !this.isShow){
+        this.isShow = true;
+        
+        this.$nextTick(() => {
+          const p = this.$options.__bak_page_scroll_position;
+          if(p){
+            if(p.y){
+              this.$el.scrollTop = p.y;
+            }
+            if(p.x){
+              this.$el.scrollLeft = p.x;
+            }
+            this.$options.__bak_page_scroll_position = null;
+          }
+        })
+
+        
+      }
+    },
+    handleTransitionEnd(){
+      if(!this.isActive && this.isShow){
+        this.$options.__bak_page_scroll_position = {
+          x: this.$el.scrollLeft,
+          y: this.$el.scrollTop
+        }
+        this.isShow = false;
+      }
+    },
     handleShowHide(){
-      if(this.isShow){
+      if(this.isActive){
         this.$emit(PAGE_E_SHOW_NAME);
       } else {
         this.$emit(PAGE_E_HIDE_NAME);
@@ -62,7 +96,7 @@ export default {
     // Unlike window app. 
     // It's like wehn input dom removed the blur event also trigger. 
     // It's will trigger hide event before destroy.
-    if(this.isShow){
+    if(this.isActive){
       this.$emit(PAGE_E_HIDE_NAME);
     }
     this.isLoad = false;
