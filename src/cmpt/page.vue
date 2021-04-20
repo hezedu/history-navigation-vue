@@ -4,8 +4,8 @@
     :style="{zIndex: route.key}" 
     @transitionend="handleTransitionEnd" 
     @transitionstart="handleTransitionStart">
-    <div class="h-nav-page-container" v-show="isShow" v-if="isLoad">
-      <component :is="route.pageKey"   />
+    <div ref="body" class="h-nav-page-container" v-show="isShow" v-if="isLoad">
+      <component :is="route.pageKey" />
     </div>
   </div>
 </template>
