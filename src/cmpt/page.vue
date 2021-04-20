@@ -4,7 +4,9 @@
     :style="{zIndex: route.key}" 
     @transitionend="handleTransitionEnd" 
     @transitionstart="handleTransitionStart">
-    <component :is="route.pageKey" v-show="isShow" v-if="isLoad"  />
+    <div class="h-nav-page-container" v-show="isShow" v-if="isLoad">
+      <component :is="route.pageKey"   />
+    </div>
   </div>
 </template>
 <script>
@@ -41,29 +43,10 @@ export default {
     handleTransitionStart(){
       if(this.isActive && !this.isShow){
         this.isShow = true;
-        
-        this.$nextTick(() => {
-          const p = this.$options.__bak_page_scroll_position;
-          if(p){
-            if(p.y){
-              this.$el.scrollTop = p.y;
-            }
-            if(p.x){
-              this.$el.scrollLeft = p.x;
-            }
-            this.$options.__bak_page_scroll_position = null;
-          }
-        })
-
-        
       }
     },
     handleTransitionEnd(){
       if(!this.isActive && this.isShow){
-        this.$options.__bak_page_scroll_position = {
-          x: this.$el.scrollLeft,
-          y: this.$el.scrollTop
-        }
         this.isShow = false;
       }
     },

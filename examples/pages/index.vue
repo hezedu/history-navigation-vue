@@ -154,7 +154,7 @@ export default {
     DiffDetail
   },
   data(){
-    // let arr = [];
+    let arr = [];
     // let i = 0;
     // for(;i < 99999; i++){
     //   arr.push(i);
@@ -164,7 +164,7 @@ export default {
       h: 100,
       step: 0,
       currAni: '',
-      perfList: [],
+      perfList: arr,
       currAniMap: {
         'start': 1,
         'list': 2,
