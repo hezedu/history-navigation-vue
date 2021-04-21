@@ -1,5 +1,3 @@
-import './css/style.scss';
-
 import NavigationController from './cmpt/navigation-controller.vue';
 import DefaultNotFound from './cmpt/default-not-found.vue';
 import Navigator from './cmpt/navigator.vue';
@@ -7,7 +5,7 @@ import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
 
-function install(Vue, config) {
+export default function install(Vue, config) {
 
   if(!Array.isArray(config.pages)){
     throw new Error('history-navigation-vue config.pages is not Array.');
@@ -56,7 +54,3 @@ function _formatPages(pages){
   }
   return map;
 }
-export const plugin = {
-  install
-}
-export const v = '__VERSION__';

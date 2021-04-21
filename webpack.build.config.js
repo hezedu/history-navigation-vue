@@ -107,7 +107,7 @@ const webpackConf = {
   optimization,
   context: path.join(__dirname, './src'),
   entry: {
-    [bundleName]: "./index.js"
+    [bundleName]: "./bundle.js"
   },
   output: {
     path: outputPath,

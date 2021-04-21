@@ -2,7 +2,7 @@
 
 import config from './config';
 
-import * as hNav from '../src/index';
+import * as hNav from '../src/bundle';
 
 const Vue = window.Vue;
 Vue.use(hNav.plugin, config);
