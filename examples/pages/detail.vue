@@ -13,6 +13,9 @@ export default {
     back(){
       this.$navigator.back(this.$page.route.key - 1);
     }
+  },
+  mounted(){
+    console.log(this.$page.$refs.container)
   }
 }
 </script>

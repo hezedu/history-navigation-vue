@@ -42,6 +42,7 @@ function History(opt){
   this.currentRoute = Object.assign({
     key: null,
     pageKey: null,
+    className: '',
     behavior: '',
     step: 0
   }, currRoute);
@@ -73,7 +74,13 @@ History.prototype._load = function(userUrl){
 History.prototype._setMapItem = function(key, value){
   value.key = key;
   let page = this.pageMap[value.trimedPath];
-  value.pageKey = page ? this.cmptPageSuffix + page.index : this.notFoundPageKey;
+  if(page){
+    value.pageKey = this.cmptPageSuffix + page.index;
+    value.className = page.className;
+  } else {
+    value.pageKey = this.notFoundPageKey;
+  }
+  value.className = value.className || '';
 
   Object.assign(this.currentRoute, value);
   this._Vue.set(this.stackMap, key, value);

@@ -1,5 +1,5 @@
 
-
+$transitionTime: .3s;
 .h-nav-nav-ctrler{
   width: 100%;
   height: 100%;
@@ -13,13 +13,14 @@
   position: absolute;
   left: 0;
   top: 0;
-  transition: all .3s;
+  transition: all $transitionTime;
   -webkit-overflow-scrolling: touch;
 }
 
 .h-nav-page-container{
   width: 100%;
   height: 100%;
+  transition: all $transitionTime;
   overflow:  auto;
   position: relative;
   left: 0;
@@ -27,13 +28,13 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.h-nav-page-unactive{
-  opacity: 0;
-  pointer-events: none;
-}
-.h-nav-page-active{
-  opacity: 1;
-}
+// .h-nav-page-unactive{
+//   opacity: 0;
+//   pointer-events: none;
+// }
+// .h-nav-page-active{
+//   opacity: 1;
+// }
 
 
 .h-nav-behavior-push {
@@ -61,11 +62,10 @@
 .h-nav-behavior-loaded, 
 .h-nav-behavior-relaunch {
   >.h-nav-page-enter {
-    opacity: 0;
+    
     transform: translateY(-100%);
   }
   >.h-nav-page-leave-to{
-    opacity: 0;
     transform: translateY(100%);
   }
 }
@@ -79,4 +79,9 @@
     opacity: 0;
     transform: translateY(-100%);
   }
+}
+
+.h-nav-page-container-enter, 
+.h-nav-page-container-leave-to{
+  opacity: 0;
 }

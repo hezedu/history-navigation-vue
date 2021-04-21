@@ -144,9 +144,7 @@ export default {
 
         this.getData(() => {
           if(this.isBack){
-            // un multi
             this.backToStart();
-            // this.$emit('diffGotoStart');
             return;
           }
           this.timeout(() => {

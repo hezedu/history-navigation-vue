@@ -2,10 +2,10 @@
 
 import config from './config';
 
-import * as multi from '../src/index';
+import * as hNav from '../src/index';
 
 const Vue = window.Vue;
-Vue.use(multi.plugin, config);
+Vue.use(hNav.plugin, config);
 
 import './css/docs.scss';
 

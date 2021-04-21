@@ -107,7 +107,7 @@
           <td><b>Yes</b></td>
         </tr>
         <tr>
-          <td class="index_table_f">Back to the first history page accurately</td>
+          <td class="index_table_f">Back to the initial state of history</td>
           <td><i>No</i></td>
           <td><b>Yes</b></td>
         </tr>

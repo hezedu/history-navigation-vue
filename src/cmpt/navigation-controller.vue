@@ -1,13 +1,12 @@
 
 <template>
-  <transition-group 
+  <transition-group ref="group"
     class="h-nav-nav-ctrler" 
-    :class="'h-nav-behavior-' + currentRoute.behavior" 
+    :class="'h-nav-behavior-' + currentRoute.behavior"
     name="h-nav-page" tag="div">
-    <Page v-for="v in stackList" 
+    <Page v-for="v in stackMap" 
     :key="v.key" 
     :route="v" 
-    :isActive="v.key === currentRoute.key"
     :style="{left: (v.key - currentRoute.key) + '00%'}" />
   </transition-group>
 </template>
@@ -29,16 +28,11 @@ export default {
       currentRoute: this.$navigator.currentRoute
     }
   },
-  computed: {
-    stackList(){
-      const map = this.stackMap;
-      return Object.keys(map).map(function(k) {
-        return map[k];
-      })
-    }
-  },
   created(){
     this.$navigator._load(this.entry);
+  },
+  mounted(){
+    console.log('this.$refs.group', this.$refs.group)
   }
 }
 </script>

@@ -7,7 +7,7 @@ export default {
   pages: [
     { path: '/', component: Index },
     { path: '/list', component: List },
-    { path: '/detail', component: Detail },
+    { path: '/detail', component: Detail, className: 'hahahah' },
   ],
   notFoundPage: NotFound
 }
