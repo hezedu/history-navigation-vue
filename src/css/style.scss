@@ -28,60 +28,44 @@ $transitionTime: .3s;
   -webkit-overflow-scrolling: touch;
 }
 
-// .h-nav-page-unactive{
-//   opacity: 0;
-//   pointer-events: none;
-// }
-// .h-nav-page-active{
-//   opacity: 1;
-// }
+.h-nav-page-leave-to{
+  transform: translateX(100%);
+}
 
+.h-nav-behavior-loaded,
+.h-nav-behavior-relaunch {
+  >.h-nav-page-enter {
+    transform: translateY(-100%);
+  }
+}
+
+.h-nav-behavior-relaunch{
+  >.h-nav-page-leave-to {
+    transform: translateY(100%);
+  }
+}
 
 .h-nav-behavior-push {
   >.h-nav-page-enter {
-    opacity: 0;
     transform: translateX(100%);
-  }
-  >.h-nav-page-leave-to{
-    opacity: 0;
-    transform: translateX(-100%);
   }
 }
 
 .h-nav-behavior-back {
   >.h-nav-page-enter{
-    opacity: 0;
     transform: translateX(-100%);
-  }
-  >.h-nav-page-leave-to{
-    opacity: 0;
-    transform: translateX(100%);
-  }
-}
-
-.h-nav-behavior-loaded, 
-.h-nav-behavior-relaunch {
-  >.h-nav-page-enter {
-    
-    transform: translateY(-100%);
-  }
-  >.h-nav-page-leave-to{
-    transform: translateY(100%);
   }
 }
 
 .h-nav-behavior-replace {
   >.h-nav-page-enter {
-    opacity: 0;
     transform: translateY(100%);
-  }
-  >.h-nav-page-leave-to{
-    opacity: 0;
-    transform: translateY(-100%);
   }
 }
 
+
 .h-nav-page-container-enter, 
-.h-nav-page-container-leave-to{
+.h-nav-page-container-leave-to,
+.h-nav-page-leave-to{
   opacity: 0;
 }

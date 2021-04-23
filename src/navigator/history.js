@@ -15,6 +15,7 @@ function History(opt){
     throw new Error('Only one instance can be generated.');
   }
   isCreated = true;
+  this.isSetNavigatorHref = opt.isSetNavigatorHref;
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
@@ -44,7 +45,7 @@ function History(opt){
   }
 
   this.currentPage = {
-    key: null,
+    stateKey: null,
     cmptKey: null,
     info: {},
     route: {}
@@ -62,7 +63,7 @@ History.prototype._load = function(userUrl){
 History.prototype._setMapItem = function(key, route){
 
   const _page = {
-    key,
+    stateKey: key,
     route
   }
   let page = this.pageMap[route.trimedPath];
@@ -199,6 +200,7 @@ History.prototype.handlePop = function(){
   // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   if(page){
     Object.assign(this.currentPage, page);
+    console.log('page', page);
   } else {
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }

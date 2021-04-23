@@ -19,6 +19,10 @@ export default {
     }
   },
   props: {
+    stateKey: {
+      type: Number,
+      required: true
+    },
     cmptKey: {
       type: String,
       required: true
@@ -42,7 +46,8 @@ export default {
   },
   data(){
     return {
-      isLoad: this.isFirstLoaded
+      isLoad: this.isFirstLoaded,
+      currentPage: this.$navigator.currentPage
     }
   },
   watch: {
@@ -52,7 +57,7 @@ export default {
   },
   methods: {
     _handleShowHide(){
-      if(this.isShow){
+      if(this.isActive){
         this.$emit(PAGE_E_SHOW_NAME);
       } else {
         this.$emit(PAGE_E_HIDE_NAME);
