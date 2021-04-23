@@ -36,54 +36,49 @@ function History(opt){
   this._popstateHandle = () => {
     this.handlePop();
   }
-  
 
-  let currRoute = this.getFullUrlParseByLocation();
-  this.currentRoute = Object.assign({
+  this.behavior = {
+    type: '',
+    step: 0,
+    isPop: false
+  }
+
+  this.currentPage = {
     key: null,
-    pageKey: null,
-    className: '',
-    behavior: '',
-    step: 0
-  }, currRoute);
-
-
-  // this.currentRoute.behavior = 'launch';
-  // if(currRoute.trimedPath !== trimSlash(opt.entryPagePath) || (this.isHashMode && !this._location.hash)){
-  //   this.replace(opt.entryPagePath);
-  // } else {
-  //   this._setMapItem(getCurrentStateKey(), currRoute);
-  // }
+    cmptKey: null,
+    info: {},
+    route: {}
+  }
 }
-History.prototype._load = function(userUrl){
 
+History.prototype._load = function(userUrl){
   this._window.addEventListener('popstate', this._popstateHandle);
   let currRoute = userUrl === undefined 
-  ? this.currentRoute
+  ? this.getFullUrlParseByLocation()
     : fullUrlParse(userUrl);
   this.replace(currRoute.fullPath, 'loaded');
 }
 
-// History.prototype.reLaunch = function(userUrl){
-//   let currRoute = userUrl === undefined 
-//   ? this.currentRoute
-//     : fullUrlParse(userUrl);
-//   this.replace(currRoute.fullPath);
-// }
+History.prototype._setMapItem = function(key, route){
 
-History.prototype._setMapItem = function(key, value){
-  value.key = key;
-  let page = this.pageMap[value.trimedPath];
-  if(page){
-    value.pageKey = this.cmptPageSuffix + page.index;
-    value.className = page.className;
-  } else {
-    value.pageKey = this.notFoundPageKey;
+  const _page = {
+    key,
+    route
   }
-  value.className = value.className || '';
+  let page = this.pageMap[route.trimedPath];
+  if(page){
+    _page.cmptKey = this.cmptPageSuffix + page.index;
+    _page.info = {
+      className: page.className,
+      path: page.path
+    }
+  } else {
+    _page.cmptKey = this.notFoundPageKey;
+    _page.info = {}
+  }
 
-  Object.assign(this.currentRoute, value);
-  this._Vue.set(this.stackMap, key, value);
+  Object.assign(this.currentPage, _page);
+  this._Vue.set(this.stackMap, key, _page);
 }
 
 History.prototype._delMapItem = function(key){
@@ -107,9 +102,11 @@ History.prototype.push = function(userUrl){
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
   setPreStateKey(key);
   this._setMapItem(key, fullParse);
-  this.currentRoute.behavior = 'push';
-  this.currentRoute.step = 1;
-  this.currentRoute.isPop = false;
+  Object.assign(this.behavior, {
+    type: 'push',
+    step: 1,
+    isPop: false
+  })
   this.onChange();
 }
 
@@ -123,9 +120,11 @@ History.prototype.replace = function(userUrl, behavior){
   this._delMapItem(key);
   this._Vue.nextTick(() => {
     this._setMapItem(key, fullParse);
-    this.currentRoute.behavior = behavior || 'replace';
-    this.currentRoute.step = 0;
-    this.currentRoute.isPop = false;
+    Object.assign(this.behavior, {
+      type: behavior || 'replace',
+      step: 0,
+      isPop: false
+    })
     this.onChange();
   })
 
@@ -199,14 +198,16 @@ History.prototype.handlePop = function(){
   // console.log('compare', compare);
   // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   if(page){
-    Object.assign(this.currentRoute, page);
+    Object.assign(this.currentPage, page);
   } else {
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }
-  
-  this.currentRoute.behavior = behavior;
-  this.currentRoute.step = compare;
-  this.currentRoute.isPop = true;
+
+  Object.assign(this.behavior, {
+    type: behavior,
+    step: compare,
+    isPop: true
+  })
   this.onChange();
 }
 

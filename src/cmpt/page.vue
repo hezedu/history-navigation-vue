@@ -1,9 +1,9 @@
 <template>
-  <div class="h-nav-page" :class="route.className">
+  <div class="h-nav-page" :class="info.className">
     <template v-if="isLoad">
       <transition name="h-nav-page-container" :appear="true">
         <div ref="container" class="h-nav-page-container" v-show="isActive">
-          <component :is="route.pageKey" />
+          <component :is="cmptKey" />
         </div>
       </transition>
     </template>
@@ -19,21 +19,30 @@ export default {
     }
   },
   props: {
+    cmptKey: {
+      type: String,
+      required: true
+    },
+    info: {
+      type: Object,
+      required: true
+    },
     route: {
       type: Object,
+      required: true
+    },
+    isActive: {
+      type: Boolean,
+      required: true
+    },
+    isFirstLoaded: {
+      type: Boolean,
       required: true
     }
   },
   data(){
-    const isLoad = this.$navigator.currentRoute.behavior === 'loaded';
     return {
-      currentRoute: this.$navigator.currentRoute,
-      isLoad
-    }
-  },
-  computed: {
-    isActive(){
-      return this.currentRoute.key === this.route.key;
+      isLoad: this.isFirstLoaded
     }
   },
   watch: {
@@ -49,9 +58,6 @@ export default {
         this.$emit(PAGE_E_HIDE_NAME);
       }
     }
-  },
-  created(){
-    console.log('isActive', this.isActive, this.isShow)
   },
   mounted(){
     if(this.isLoad){ // For pre rendering or server rendering

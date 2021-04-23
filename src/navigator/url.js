@@ -51,7 +51,7 @@ export function urlParse(url){
     query: queryParse(qsString)
   }
 }
-
+/* path, fullPath, trimedPath, query */
 export function fullUrlParse(userUrl){
   let route, fullPath, trimedPath;
   if(typeof userUrl === 'string'){

@@ -2,12 +2,16 @@
 <template>
   <transition-group ref="group"
     class="h-nav-nav-ctrler" 
-    :class="'h-nav-behavior-' + currentRoute.behavior"
+    :class="'h-nav-behavior-' + behavior.type"
     name="h-nav-page" tag="div">
     <Page v-for="v in stackMap" 
     :key="v.key" 
-    :route="v" 
-    :style="{left: (v.key - currentRoute.key) + '00%'}" />
+    :cmptKey="v.cmptKey"
+    :info="v.info" 
+    :route="v.route"
+    :isActive="v.key === currentPage.key"
+    :isFirstLoaded="behavior.type === 'loaded'"
+    :style="{left: (v.key - currentPage.key) + '00%'}" />
   </transition-group>
 </template>
 <script>
@@ -25,7 +29,9 @@ export default {
   data(){
     return {
       stackMap: this.$navigator.stackMap,
-      currentRoute: this.$navigator.currentRoute
+      behavior: this.$navigator.behavior,
+
+      currentPage: this.$navigator.currentPage
     }
   },
   created(){

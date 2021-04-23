@@ -113,13 +113,14 @@
         </tr>
       </table>
     </div>
-    <h1>Simple API</h1>
-
-    <!-- <iframe height="265" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=html,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
-  (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe> -->
-    <h2>Just 5</h2>
+    <h1>Simple to Use</h1>
+    <div class="index_codepen_wrap">
+      <iframe height="565" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
+        (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
+      </iframe>
+</div>
+    <h2>Just 5 API</h2>
     <div>
       <h3>config</h3>
       <h3>NavigationController</h3>
@@ -127,13 +128,6 @@
       <h3>$navigator</h3>
       <h3>$page</h3>
       <h3>onShow / onHide</h3>
-    </div>
-    <div @click="goToList">
-    <div v-for="v in perfList" :key="v">{{v}}</div>
-    </div>
-    <div style="height: 500px; overflow:  auto;">
-      <div style="height:2000px" />
-      <h2 @click="goToList">BOTTOM</h2>
     </div>
 
   </div>
@@ -154,7 +148,7 @@ export default {
     DiffDetail
   },
   data(){
-    let arr = [];
+    // let arr = [];
     // let i = 0;
     // for(;i < 99999; i++){
     //   arr.push(i);
@@ -164,7 +158,7 @@ export default {
       h: 100,
       step: 0,
       currAni: '',
-      perfList: arr,
+      // perfList: arr,
       currAniMap: {
         'start': 1,
         'list': 2,
