@@ -11,11 +11,10 @@
 export default {
   methods: {
     back(){
-      this.$navigator.back(this.$page.route.key - 1);
+      this.$navigator.back(this.$page.stateKey - 1);
     }
   },
   mounted(){
-    console.log(this.$page.$refs.container)
   }
 }
 </script>

@@ -2,7 +2,7 @@
 <div style="height: 100%; padding: 10px;">
   
   <div style="height: 100%; overflow: auto;">
-    <h1>List</h1>
+    <h1>List </h1>
 
 
     <!-- <div style="height: 150vh">
@@ -18,6 +18,8 @@
     <navigator to="/detail"> To Detail </navigator>
     <br>
     <navigator back>Back</navigator>
+        <br>
+    <navigator to="/list" replace>Replace to List</navigator>
     <br>
     <navigator to="/" replace>Replace to Index</navigator>
     <br>

@@ -9,6 +9,10 @@
     <navigator to="/list" replace> replace List </navigator>
     <br>
     <navigator back> Back </navigator>
+    <br>
+    <navigator to="/" replace>Replace to Index</navigator>
+    <br>
+    <navigator to="/" relaunch>Relaunch to Index</navigator>
     <!-- <h1>VueNavigationController</h1>controller -->
     <h2>
       <!-- The <b>h_nav-page navigation</b> for <b>Vue</b> single-page apps -->
@@ -37,7 +41,7 @@
     </h2>
     <div class="index_diff">
      <div class="index_diff_item">
-          <div class="index_diff_title">Normal single-page app:</div>
+          <div class="index_diff_title">Normal single-page app</div>
           <div class="index_diff_body">
             <DiffStart v-if="currAni === 'start'" @diffStart="handleDiffStart" type="normal" />
             <DiffList v-if="currAni === 'list'" type="normal" :isBack="isDetailBacked" @diffGoToDetail="handleDiffGoToDetail" @diffGotoStart="handleDiffGotoStart" />
