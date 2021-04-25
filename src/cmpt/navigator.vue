@@ -1,30 +1,22 @@
 <template>
-<a :href="href"  @click.prevent="handleClick">
+<a class="h-nav-navigator" :class="isDisabled ? 'h-nav-navigator-disabled' : '' " :href="href" @click.prevent="handleClick">
   <slot></slot>
 </a>
 </template>
 <script>
+
 export default {
   name: "HistoryNavigator",
   props: {
     to: {
       type: String
     },
-    replace: {
-    },
-    relaunch: {
-
-    },
-    back: {
-
-    },
-    activeClass: {
-      type: String,
-      default: ''
-    },
-    throughClass: {
-      type: String,
-      default: ''
+    replace: {},
+    relaunch: {},
+    back: {},
+    disabled: {
+      type: Boolean,
+      default: false
     },
     step: {
       type: Number
@@ -32,11 +24,22 @@ export default {
   },
   computed: { // ThroughClass , activeClass
     href(){
-      return (this.$navigator.isSetNavigatorHref && this.to) ? this.$navigator.URL.toLocationUrl(this.to) : undefined;
+      return (this.$navigator.isSetAHref && this.to) 
+        ? this.$navigator.URL.toLocationUrl(this.to)
+        : undefined;
+    },
+    isBackDisabled(){
+      return this.back !== undefined && this.$page.stateKey === 1;
+    },
+    isDisabled(){
+      return this.disabled || this.isBackDisabled;
     }
   },
   methods: {
     handleClick(){
+      if(this.isDisabled){
+        return;
+      }
       if(this.back !== undefined){
         // const step = this.step === undefined ? 1 : this.step;
         this.$navigator.back(this.step);
@@ -49,6 +52,9 @@ export default {
       let method = this.replace === undefined ? 'push' : 'replace';
       this.$navigator[method](this.to);
     }
+  },
+  created(){
+    console.log('this.$page.route', this.$page.route)
   }
 }
 </script>

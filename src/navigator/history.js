@@ -15,7 +15,7 @@ function History(opt){
     throw new Error('Only one instance can be generated.');
   }
   isCreated = true;
-  this.isSetNavigatorHref = opt.isSetNavigatorHref;
+  this.isSetAHref = opt.isSetAHref;
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
