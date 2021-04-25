@@ -10,6 +10,19 @@ body, h1, h2, ul, li, button, pre{
   padding: 0;
   margin: 0;
 }
+h1{
+  font-size: 2em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+h2{
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+body{
+  font-size: 16px;
+}
 input {
   line-height: normal;
 }
@@ -30,10 +43,15 @@ form{
   background-image: linear-gradient(#eee, #999, #eee, #999);
 }
 a{
-  color: #00008B;
+  color: cornflowerblue;
   text-decoration: none;
 }
 $transitionTime: .3s;
+.wrap{
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
 .bottom_bar{
   height: 50px;
   position: fixed;
@@ -83,22 +101,39 @@ body{
 
 $diffBg: #eee;
 $listScrollBarColor: #ddd;
-
+$indexDiffTitleH: 35px;
 .index_page{
   background: #fff;
   min-height: 100vh;
 }
 
-.index_page h1{
-  margin-bottom: 1em;
+.index_logo{
+  width: 2em;
+  height: 2em;
+  display: block;
 }
-
 .index_page h1, .index_page h2 {
   text-align: center;
 }
-
-.index_page h2{
+.index_desc{
   color: #999;
+  margin-top: 0;
+}
+.nav{
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+}
+.nav a {
+  margin: 0 1em;
+}
+.nav .gitgub{
+  width: 30px;
+  height: 30px;
 }
 
 .index_page h2 b{
@@ -106,20 +141,24 @@ $listScrollBarColor: #ddd;
 }
 
 .index_diff{
-  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+
+
 .index_diff_item{
-  margin: 20px;
+  margin: 0 20px;
   height: 100%;
   width: 224px;
-  padding-top: 30px;
+  padding-top: $indexDiffTitleH;
   height: 430px;
   background: $diffBg;
   position: relative;
+  
+  // border: 1px solid #eee;
+  overflow: hidden;
 }
 
 .index_diff_title{
@@ -127,9 +166,12 @@ $listScrollBarColor: #ddd;
   left: 0;
   top: 0;
   background: #fff;
-  line-height: 30px;
+  line-height: $indexDiffTitleH;
   width: 100%;
   text-align: center;
+  white-space: nowrap;
+  height: $indexDiffTitleH;
+  font-size: 16px;
 }
 
 .index_diff_item .loader{
@@ -142,6 +184,7 @@ $listScrollBarColor: #ddd;
   overflow: hidden;
   position: relative;
   width: 100%;
+
 }
 
 .index_diff_page{
@@ -258,7 +301,13 @@ $listScrollBarColor: #ddd;
 }
 
 
-
+.h-nav-navigator-disabled{
+  opacity: 1;
+}
+.api_nav.h-nav-navigator-disabled{
+  color: #000;
+  font-weight: bold;
+}
 
 .index_diff_page_detail{
   padding: 1px;
@@ -368,4 +417,27 @@ td.index_table_f{
 .index_codepen_wrap{
   width: 980px;
   margin: 0 auto;
+  height: 565px;
+}
+
+footer{
+  padding: 25px 0px;
+  line-height: 1.7em;
+  background-color: #eee;
+  text-align: center;
+  font-size: 14px;
+}
+
+.index_get_start{
+  text-align: center;
+  font-size: 30px;
+  margin-top: 20px;
+  padding-bottom: 50px;
+}
+
+.api_wrap{
+  h1{
+    text-align: center;
+  }
+ 
 }

@@ -15,7 +15,7 @@ function setup(app){
     app.use(v.url, eStatic(v.filePath));
   }
   // dev
-  app.use('/static', eStatic(path.join(__dirname, '../dist/static')));
+  app.use('/static', eStatic(path.join(__dirname, '../docs/static')));
   app.use('/mock', eStatic(path.join(__dirname, '../dist/mock')));
 };
 

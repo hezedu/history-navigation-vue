@@ -112,7 +112,7 @@ const webpackConf = {
   output: {
     path: outputPath,
     filename: filename + '.js',
-    library: 'HistoryNavigationVue',
+    library: 'historyNavigationVue',
     libraryTarget: 'umd'
   },
   module: {

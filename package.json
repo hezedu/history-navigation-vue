@@ -31,9 +31,6 @@
   "files": [
     "dist"
   ],
-  "directories": {
-    "lib": "dist"
-  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -1,10 +1,14 @@
 <template>
 <div class="index_page">
   <div class="wrap">
-    <!-- <img class="big_img" src="/static/logo.png" /> -->
+
+    <TopNav />
+  <header>
+
+    
     <h1>history-navigation-vue</h1>
 
-    <navigator to="/list"> List </navigator>
+    <!-- <navigator to="/list"> List </navigator>
     <br>
     <navigator to="/list" replace> replace List </navigator>
     <br>
@@ -12,33 +16,12 @@
     <br>
     <navigator to="/" replace>Replace to Index</navigator>
     <br>
-    <navigator to="/" relaunch>Relaunch to Index</navigator>
-    <!-- <h1>VueNavigationController</h1>controller -->
-    <h2>
-      <!-- The <b>h_nav-page navigation</b> for <b>Vue</b> single-page apps -->
-      <!-- The <b>Navigation</b> based on HTML5 <b>History</b>, implemented by <b>Vue</b> -->
-      <!-- HTML5 <b>History Navigation</b> for <b>Vue</b> web apps. -->
+    <navigator to="/" relaunch>Relaunch to Index</navigator> -->
+    <h2 class="index_desc">
       The native-like <b>Navigation</b> for web apps<br> Base on HTML5 <b>History</b><br>implemented by <b>Vue</b>
-      <!--
-      vue-nav-ctrl
-      vue-navigation-controller
-      The <b>h_nav-page navigation</b> for your <b>Vue</b> single-page apps<br> -->
-      
-      <!-- single-to-h_nav-page navigation apps.
-      The navigation single-to-h_nav -->
-     <!-- Generate h_navple-pages in the single-page application.
-      Routing and navigation for your single-page application. 
-     Routing and navigation for your React Native apps
-     The h_nav-Page navigation for your Vue web apps on the single-page.
-     
-     The h_nav-page navigation in the Vue single-page apps.
-     The h_nav-Page navigation on the Vue single-page apps.
-     The h_nav-Page navigation for your Vue single-page apps.
-
-     Generate h_navple-pages in the single-page application.
-     Generate h_navple-pages for your Vule single-page apps.
-     The h_nav-Page navigation in the single-page application. -->
+  
     </h2>
+    </header>
     <div class="index_diff">
      <div class="index_diff_item">
           <div class="index_diff_title">Normal single-page app</div>
@@ -87,7 +70,7 @@
       <h2>Compared with the Vue official Router</h2>
       <table class="index_table" border="1">
         <tr>
-          <th style="font-weight: normal; color: #999;">Feature</th>
+          <th style="font-weight: normal; color: #666;">Feature</th>
           <th>vue-router</th>
           <th>history-navigation-vue</th>
         </tr>
@@ -117,14 +100,22 @@
         </tr>
       </table>
     </div>
-    <h1>Simple to Use</h1>
+    <!-- <h2>Quick example</h2> -->
+    <!-- <h2>Simple to Use</h2> -->
+    <h2>Quick example</h2>
     <div class="index_codepen_wrap">
-      <iframe height="565" style="width: 100%;" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+      <iframe style="width: 100%; height: 100%" scrolling="no" title="MWJQORO" src="https://codepen.io/hezedu/embed/MWJQORO?height=265&theme-id=light&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
         See the Pen <a href='https://codepen.io/hezedu/pen/MWJQORO'>MWJQORO</a> by Du Wei
         (<a href='https://codepen.io/hezedu'>@hezedu</a>) on <a href='https://codepen.io'>CodePen</a>.
       </iframe>
 </div>
-    <h2>Just 5 API</h2>
+  <h2>The API is Simple</h2>
+  <div class="index_get_start">
+    <navigator to="/api">Get Started</navigator>
+  </div>
+  
+    <!-- <h2>APIs is also simple</h2>
+    Get a native experience quickly
     <div>
       <h3>config</h3>
       <h3>NavigationController</h3>
@@ -132,9 +123,14 @@
       <h3>$navigator</h3>
       <h3>$page</h3>
       <h3>onShow / onHide</h3>
-    </div>
-
+    </div> -->
   </div>
+  <footer>
+    <div>
+      Released under the <a href="https://opensource.org/licenses/MIT">MIT</a> License
+    </div>
+    Copyright © 2014-__NOW_YEAR__ hezedu
+  </footer>
 </div>
   
 </template>
@@ -142,14 +138,17 @@
 import DiffList from './diff/list.vue';
 import DiffDetail from './diff/detail.vue';
 import DiffStart from './diff/start.vue';
+import TopNav from '../nav.vue';
 import TimeoutMixin from './diff/timeout-mixin';
 
+
 export default {
-  mixins: [TimeoutMixin],
+  mixins: [ TimeoutMixin ],
   components: {
     DiffStart,
     DiffList,
-    DiffDetail
+    DiffDetail,
+    TopNav
   },
   data(){
     // let arr = [];
