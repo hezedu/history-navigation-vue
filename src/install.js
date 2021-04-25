@@ -15,7 +15,7 @@ export default function install(Vue, config) {
   const notFoundPageKey = 'not-found';
   
   const pageMap  = _formatPages(config.pages);
-  const historyUrlIsHash = config.historyUrlIsHash === undefined ? true : config.historyUrlIsHash;
+
 
   Vue.component(cmptPageSuffix + notFoundPageKey, config.notFoundPage || DefaultNotFound);
   let i, page;
@@ -28,7 +28,7 @@ export default function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   Vue.prototype.$navigator = navigator({
-    isHash: historyUrlIsHash,
+    isHash: config.isHash === undefined ? true : config.isHash,
     Vue,
     pageMap,
     cmptPageSuffix,

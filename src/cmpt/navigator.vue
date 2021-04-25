@@ -1,5 +1,5 @@
 <template>
-<a class="h-nav-navigator" :class="isDisabled ? 'h-nav-navigator-disabled' : '' " :href="href" @click.prevent="handleClick">
+<a :class="isDisabled ? 'h-nav-navigator-disabled' : '' " :href="href" @click.prevent="handleClick" v-bind="$attrs">
   <slot></slot>
 </a>
 </template>
