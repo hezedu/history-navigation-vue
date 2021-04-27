@@ -1,5 +1,9 @@
 <template>
-<a :class="isDisabled ? 'h-nav-navigator-disabled' : '' " :href="href" @click.prevent="handleClick" v-bind="$attrs">
+<a class="h-nav-navigator"
+  :class="{'h-nav-disabled': disabled,'h-nav-cannot-back' : isCannotBack}" 
+  :href="href" 
+  @click.prevent="handleClick" 
+  v-bind="$attrs">
   <slot></slot>
 </a>
 </template>
@@ -28,16 +32,13 @@ export default {
         ? this.$navigator.URL.toLocationUrl(this.to)
         : undefined;
     },
-    isBackDisabled(){
+    isCannotBack(){
       return this.back !== undefined && this.$page.stateKey === 1;
-    },
-    isDisabled(){
-      return this.disabled || this.isBackDisabled;
     }
   },
   methods: {
     handleClick(){
-      if(this.isDisabled){
+      if(this.disabled || this.isCannotBack){
         return;
       }
       if(this.back !== undefined){
@@ -52,9 +53,6 @@ export default {
       let method = this.replace === undefined ? 'push' : 'replace';
       this.$navigator[method](this.to);
     }
-  },
-  created(){
-    console.log('this.$page.route', this.$page.route)
   }
 }
 </script>

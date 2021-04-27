@@ -28,7 +28,8 @@ export default function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   Vue.prototype.$navigator = navigator({
-    isHash: config.isHash === undefined ? true : config.isHash,
+    isHash: config.urlIsHashMode === undefined ? true : config.isHash,
+    urlBase: config.urlBase || '',
     Vue,
     pageMap,
     cmptPageSuffix,

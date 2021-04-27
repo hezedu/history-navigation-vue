@@ -24,7 +24,8 @@ function History(opt){
     throw new Error('history-navigation-vue-vue required history.pushState API');
   }
   
-  this.isHashMode = opt.isHash === undefined ? true : opt.isHash;
+  this.isHashMode = opt.isHash;
+
   this.pageMap = opt.pageMap;
   this.cmptPageSuffix = opt.cmptPageSuffix;
   this.notFoundPageKey = opt.cmptPageSuffix + opt.notFoundPageKey;
@@ -33,7 +34,7 @@ function History(opt){
   // this.isPageDestoryWhenBack = true;
   this.onChange = noop;
   
-  this.URL = new URL({isHashMode: this.isHashMode});
+  this.URL = new URL({isHashMode: this.isHashMode, base: opt.urlBase});
   this._popstateHandle = () => {
     this.handlePop();
   }
