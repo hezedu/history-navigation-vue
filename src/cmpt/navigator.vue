@@ -1,6 +1,6 @@
 <template>
 <a class="h-nav-navigator"
-  :class="{'h-nav-disabled': disabled,'h-nav-cannot-back' : isCannotBack}" 
+  :class="{'h-nav-disabled': disabled}" 
   :href="href" 
   @click.prevent="handleClick" 
   v-bind="$attrs">
@@ -32,13 +32,13 @@ export default {
         ? this.$navigator.URL.toLocationUrl(this.to)
         : undefined;
     },
-    isCannotBack(){
-      return this.back !== undefined && this.$page.stateKey === 1;
-    }
+    // isCannotBack(){
+    //   return this.back !== undefined && this.$page.stateKey === 1;
+    // }
   },
   methods: {
     handleClick(){
-      if(this.disabled || this.isCannotBack){
+      if(this.disabled){
         return;
       }
       if(this.back !== undefined){

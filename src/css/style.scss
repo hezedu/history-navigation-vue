@@ -16,10 +16,8 @@ $transitionTime: .3s;
   transition: all $transitionTime;
   -webkit-overflow-scrolling: touch;
 }
-.h-nav-navigator{
-  cursor: pointer;
-}
-.h-nav-disabled, .h-nav-cannot-back{
+// , .h-nav-cannot-back
+.h-nav-disabled {
   opacity: .5;
 }
 
