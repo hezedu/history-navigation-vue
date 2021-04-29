@@ -93,8 +93,6 @@ History.prototype.switchTab = function(userUrl){
     return;
   }
   this.backToStartAndReplace(userUrl, 'switchtab');
-
-  
 }
 
 
@@ -310,3 +308,10 @@ History.prototype.destory = function(){
 }
 
 export default History;
+
+// window.addEventListener('beforeunload', function(event){
+//   console.log('beforeunload')
+//   event.preventDefault();
+//   event.returnValue = "Are you sure you want to exit?"
+//   return 'beforeunload';
+// })

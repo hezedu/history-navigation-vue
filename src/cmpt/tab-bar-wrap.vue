@@ -1,6 +1,6 @@
 <template>
 <div class="h-nav-page h-nav-tabs-ctrler">
-  <div class="h-nav-tabs-container">
+  <transition-group class="h-nav-tabs-container" :class="tabBehavior" name="h-nav-page" tag="div">
     <Page v-for="v in tabStackMap"
       :key="v.cmptKey" 
       :cmptKey="v.cmptKey"
@@ -11,7 +11,7 @@
       :style="{left: (v.info.tabIndex - info.tabIndex) + '00%', zIndex: v.info.tabIndex}"
     >
     </Page>
-  </div>
+  </transition-group>
   <TabBar :list="tabList" :currentId="info.id" :style="{zIndex: tabList.length}" />
 </div>
 </template>
@@ -28,7 +28,15 @@ export default {
   data(){
     return {
       tabStackMap: this.$navigator.tabStackMap,
-      tabList: this.$navigator.tabList
+      tabList: this.$navigator.tabList,
+      tabBehavior: ''
+    }
+  },
+  watch: {
+    'info.tabIndex'(newVal, oldVal){
+      let type = newVal > oldVal ? 'greater' : 'smaller';
+
+      this.tabBehavior = 'h-nav-tab-switch-' + type;
     }
   }
 }
