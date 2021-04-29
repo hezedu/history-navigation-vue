@@ -1,5 +1,5 @@
 
-$transitionTime: .3s;
+$transitionTime: 3s;
 $tabBarH: 50px;
 .h-nav-ctrler{
   width: 100%;
@@ -76,15 +76,18 @@ $tabBarH: 50px;
   opacity: 0;
 }
 
-.h-nav-tabbar-wrap{
+
+
+.h-nav-tabs-ctrler, .h-nav-tabs-container{
   width: 100%;
   height: 100%;
   position: relative;
 }
-.h-nav-tabbar-wrap > .h-nav-page{
+.h-nav-tabs-ctrler{
   padding-bottom: $tabBarH;
   box-sizing: border-box;
 }
+
 
 .h-nav-tabbar{
   position: absolute;
@@ -97,6 +100,7 @@ $tabBarH: 50px;
   justify-content: space-around;
   background-color: #eee;
 }
+
 .h-nav-tab-active{
   color: blue;
 }

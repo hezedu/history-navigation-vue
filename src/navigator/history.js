@@ -52,7 +52,6 @@ function History(opt){
     cmptKey: null,
     tabIndex: -1,
     isTab: false,
-    id: null,
     info: {},
     route: {}
   }
@@ -109,19 +108,20 @@ History.prototype._setMapItem = function(key, route){
   let page = this.pageMap[route.trimedPath];
   if(page){
     _page.isTab = page.isTab;
-    _page.tabIndex = page.tabIndex;
     _page.cmptKey = page.cmptKey;
-    _page.id = page.id;
     
     _page.info = {
       className: page.className,
-      path: page.path
+      path: page.path,
+      id: page.id,
+      tabIndex: page.tabIndex
     }
   } else {
     _page.isTab = false;
     _page.cmptKey = notFoundPageKey;
-    _page.id = -1;
-    _page.info = {}
+    _page.info = {
+      id: -1
+    }
   }
 
   if(_page.isTab){
@@ -185,9 +185,10 @@ History.prototype._replace = function(fullParse, behavior){
   const key = getCurrentStateKey();
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   // console.log('toUrl', toUrl)
-  this._delMapItem(key);
+  
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
   
+  // this._delMapItem(key);
   this._setMapItem(key, fullParse);
   Object.assign(this.behavior, {
     type: behavior || 'replace',
@@ -195,7 +196,6 @@ History.prototype._replace = function(fullParse, behavior){
     isPop: false
   })
   this.onChange();
-  
   // this._Vue.nextTick(() => {
 
   // })

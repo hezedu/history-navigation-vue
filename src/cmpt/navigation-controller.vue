@@ -3,7 +3,6 @@
   <transition-group
     class="h-nav-ctrler" 
     :class="'h-nav-behavior-' + behavior.type"
-    @before-leave="handleBeforeLeave"
     name="h-nav-page" tag="div">
     <component v-for="v in stackMap" 
     :is="v.isTab ? 'TabWrap' : 'Page'"
@@ -38,12 +37,7 @@ export default {
       currentPage: this.$navigator.currentPage
     }
   },
-  methods: {
-    handleBeforeLeave(el){
-      console.log('handleBeforeLeave', el)
-    }
-  },
-  created(){
+  mounted(){
     this.$navigator._load(this.entryPagePath);
   }
 }

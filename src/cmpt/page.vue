@@ -3,7 +3,6 @@
     <template v-if="isLoad">
       <transition name="h-nav-page-container" :appear="true">
         <div ref="container" class="h-nav-page-container" v-show="isActive">
-          {{isActive}}
           <component :is="cmptKey" />
         </div>
       </transition>
