@@ -17,13 +17,13 @@
     <br>
     <navigator to="/detail"> To Detail </navigator>
     <br>
-    <navigator back>Back</navigator>
+    <navigator type="back">Back</navigator>
         <br>
-    <navigator to="/list" replace>Replace to List</navigator>
+    <navigator to="/list" type="replace">Replace to List</navigator>
     <br>
-    <navigator to="/" replace>Replace to Index</navigator>
+    <navigator to="/" type="replace">Replace to Index</navigator>
     <br>
-    <navigator to="/" relaunch>Relaunch to Index</navigator>
+    <navigator to="/" type="reLaunch">Relaunch to Index</navigator>
 
   <h1 style="width: 100%; text-align: right; font">right {{$page.isShow}}</h1>
 

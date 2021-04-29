@@ -1,4 +1,4 @@
-import Index from './pages/index/index.vue';
+import Index from './pages/index.vue';
 import List from './pages/list.vue';
 import Detail from './pages/detail.vue';
 import API from './pages/api.vue';
@@ -11,5 +11,15 @@ export default {
     { path: '/api', component: API },
     { path: '/detail', component: Detail, className: 'hahahah' },
   ],
-  notFoundPage: NotFound
+  notFoundPage: NotFound,
+  tabBar: {
+    list: [{
+      pagePath: '/',
+      text: '首页'
+    },
+    {
+      pagePath: '/api',
+      text: 'API'
+    }]
+  }
 }

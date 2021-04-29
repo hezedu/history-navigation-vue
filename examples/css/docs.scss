@@ -43,8 +43,8 @@ form{
   background-image: linear-gradient(#eee, #999, #eee, #999);
 }
 a{
-  color: cornflowerblue;
   text-decoration: none;
+  cursor: pointer;
 }
 $transitionTime: .3s;
 .wrap{
@@ -300,11 +300,13 @@ $indexDiffTitleH: 35px;
   position: relative;
 }
 
-
-.h-nav-navigator-disabled{
+a {
+  cursor: pointer;
+}
+.h-nav-active{
   opacity: 1;
 }
-.api_nav.h-nav-navigator-disabled{
+.api_nav.h-nav-active{
   color: #000;
   font-weight: bold;
 }
