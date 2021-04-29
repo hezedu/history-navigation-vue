@@ -3,6 +3,7 @@
     <template v-if="isLoad">
       <transition name="h-nav-page-container" :appear="true">
         <div ref="container" class="h-nav-page-container" v-show="isActive">
+          {{isActive}}
           <component :is="cmptKey" />
         </div>
       </transition>
@@ -19,10 +20,6 @@ export default {
     }
   },
   props: {
-    stateKey: {
-      type: Number,
-      required: true
-    },
     cmptKey: {
       type: String,
       required: true
@@ -46,8 +43,7 @@ export default {
   },
   data(){
     return {
-      isLoad: this.isFirstLoaded,
-      currentPage: this.$navigator.currentPage
+      isLoad: this.isFirstLoaded
     }
   },
   watch: {

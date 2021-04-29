@@ -12,46 +12,43 @@
 export default {
   name: "HistoryNavigator",
   props: {
-    to: {
+
+    url: {
       type: String
     },
-    replace: {},
-    relaunch: {},
-    back: {},
+    type: {
+      type: String,
+      default: 'push'
+    },
+    delta: {
+      type: Number,
+      default: 1
+    },
     disabled: {
       type: Boolean,
       default: false
-    },
-    step: {
-      type: Number
     }
   },
   computed: { // ThroughClass , activeClass
     href(){
-      return (this.$navigator.isSetAHref && this.to) 
-        ? this.$navigator.URL.toLocationUrl(this.to)
-        : undefined;
-    },
-    // isCannotBack(){
-    //   return this.back !== undefined && this.$page.stateKey === 1;
-    // }
+      return this.$navigator.URL.toLocationUrl(this.url);
+      // return (this.$navigator.isSetAHref && this.url) 
+      //   ? this.$navigator.URL.toLocationUrl(this.url)
+      //   : undefined;
+    }
   },
   methods: {
     handleClick(){
       if(this.disabled){
         return;
       }
-      if(this.back !== undefined){
-        // const step = this.step === undefined ? 1 : this.step;
-        this.$navigator.back(this.step);
-        return;
+      switch(this.type){
+        case 'back':
+          this.$navigator.back(this.delta);
+          break;
+        default:
+          this.$navigator[this.type](this.url);
       }
-      if(this.relaunch !== undefined){
-        this.$navigator.relaunch(this.to);
-        return;
-      }
-      let method = this.replace === undefined ? 'push' : 'replace';
-      this.$navigator[method](this.to);
     }
   }
 }

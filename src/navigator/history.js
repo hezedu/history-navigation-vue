@@ -1,13 +1,8 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
+import { notFoundPageKey } from '../constant';
 function noop(){}
-
-// function _def(th, obj, key, defV){
-//   let v = obj[key];
-//   v = v === undefined ? defV : v;
-//   th[key] = v;
-// }
 
 let isCreated = false;
 function History(opt){
@@ -27,10 +22,17 @@ function History(opt){
   this.isHashMode = opt.isHash;
 
   this.pageMap = opt.pageMap;
-  this.cmptPageSuffix = opt.cmptPageSuffix;
-  this.notFoundPageKey = opt.cmptPageSuffix + opt.notFoundPageKey;
+  if(opt.tabBar){
+    this.tabMap = opt.tabBar.map;
+    this.tabList = opt.tabBar.list;
+    this.tabStackMap = Object.create(null);
+  }
   this.stackMap = Object.create(null);
+
+  
   this._relaunchTo = null;
+  this._switchTab = null;
+  this._whenPopInfo = null;
   // this.isPageDestoryWhenBack = true;
   this.onChange = noop;
   
@@ -48,9 +50,22 @@ function History(opt){
   this.currentPage = {
     stateKey: null,
     cmptKey: null,
+    tabIndex: -1,
+    isTab: false,
+    id: null,
     info: {},
     route: {}
   }
+}
+
+History.prototype._isTabRoute = function(trimedPath){
+  if(!this.tabMap){
+    return false;
+  }
+  if(this.tabMap[trimedPath]){
+    return true;
+  }
+  return false;
 }
 
 History.prototype._load = function(userUrl){
@@ -58,8 +73,32 @@ History.prototype._load = function(userUrl){
   let currRoute = userUrl === undefined 
   ? this.getFullUrlParseByLocation()
     : fullUrlParse(userUrl);
-  this.replace(currRoute.fullPath, 'loaded');
+  const key = getCurrentStateKey();
+  if(key !== 1){
+    if(this._isTabRoute()){
+      console.log('relaunch')
+      this.relaunch(currRoute.fullPath);
+      return;
+    }
+  }
+  this._replace(currRoute, 'loaded');
 }
+
+History.prototype.switchTab = function(userUrl){
+  // if(userUrl.indexOf('?') !== -1){
+  //   console.error('switchTab not support queryString');
+  // }
+  const fullParse = fullUrlParse(userUrl);
+  if(!this._isTabRoute(fullParse.trimedPath)){
+    console.error(userUrl + ' is not tab url');
+    return;
+  }
+  this.backToStartAndReplace(userUrl, 'switchtab');
+
+  
+}
+
+
 
 History.prototype._setMapItem = function(key, route){
 
@@ -69,14 +108,24 @@ History.prototype._setMapItem = function(key, route){
   }
   let page = this.pageMap[route.trimedPath];
   if(page){
-    _page.cmptKey = this.cmptPageSuffix + page.index;
+    _page.isTab = page.isTab;
+    _page.tabIndex = page.tabIndex;
+    _page.cmptKey = page.cmptKey;
+    _page.id = page.id;
+    
     _page.info = {
       className: page.className,
       path: page.path
     }
   } else {
-    _page.cmptKey = this.notFoundPageKey;
+    _page.isTab = false;
+    _page.cmptKey = notFoundPageKey;
+    _page.id = -1;
     _page.info = {}
+  }
+
+  if(_page.isTab){
+    this._Vue.set(this.tabStackMap, route.trimedPath, _page);
   }
 
   Object.assign(this.currentPage, _page);
@@ -90,15 +139,26 @@ History.prototype._delMapItem = function(key){
 History.prototype.getFullUrlParseByLocation = function(){
   return fullUrlParse(this.URL.getUrlByLocation());
 }
-
 History.prototype.push = function(userUrl){
+  const fullParse = fullUrlParse(userUrl);
+  if(this._isTabRoute(fullParse.trimedPath)){
+    console.error('Cannot push the tab url, please use switchTab');
+    return;
+  }
+  this._push(fullParse);
+}
+
+History.prototype._push = function(fullParse){
   /* 
     from [vue-router]
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
+  
+  
+
   this._clear();
-  const fullParse = fullUrlParse(userUrl);
+  
   const key = genStateKey();
 
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
@@ -111,25 +171,44 @@ History.prototype.push = function(userUrl){
   })
   this.onChange();
 }
-
 History.prototype.replace = function(userUrl, behavior){
-  this._clear();
   const fullParse = fullUrlParse(userUrl);
+  if(this._isTabRoute(fullParse.trimedPath)){
+    console.error('Cannot replace the tab url, please use switchTab');
+    return;
+  }
+  this._replace(fullParse, behavior);
+}
+History.prototype._replace = function(fullParse, behavior){
+
+  this._clear();
   const key = getCurrentStateKey();
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   // console.log('toUrl', toUrl)
-  this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
   this._delMapItem(key);
-  this._Vue.nextTick(() => {
-    this._setMapItem(key, fullParse);
-    Object.assign(this.behavior, {
-      type: behavior || 'replace',
-      step: 0,
-      isPop: false
-    })
-    this.onChange();
+  this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
+  
+  this._setMapItem(key, fullParse);
+  Object.assign(this.behavior, {
+    type: behavior || 'replace',
+    step: 0,
+    isPop: false
   })
+  this.onChange();
+  
+  // this._Vue.nextTick(() => {
 
+  // })
+
+}
+
+History.prototype._directReplace = function(userUrl, behavior){
+
+  const fullParse = 
+  typeof userUrl  === 'string' ? 
+   fullUrlParse(userUrl) 
+   : userUrl;
+  this._replace(fullParse, behavior);
 }
 
 History.prototype.back = function(step){
@@ -140,7 +219,6 @@ History.prototype.back = function(step){
   }
   if(typeof step === 'number' && step > 0){
     if(key - step < 1){
-      console.log('out range', key, step)
       return -1;
     }
     this._history.go(-step);
@@ -151,18 +229,29 @@ History.prototype.back = function(step){
 }
 
 History.prototype.relaunch = function(userUrl){
-  const key = getCurrentStateKey();
-  if(key > 1){
-    this._relaunchTo = userUrl;
-    this.back(key - 1);
-    console.log('relaunch back', key);
-  } else {
-    this._relaunch(userUrl);
+  // for(i in this.stackMap){
+  //   this._Vue.delete(this.stackMap, i);
+  // }
+  if(this.tabStackMap){
+    let i;
+    for(i in this.tabStackMap){
+      this._Vue.delete(this.tabStackMap, i);
+    }
   }
+  this.backToStartAndReplace(userUrl, 'relaunch');
 }
 
-History.prototype._relaunch = function(userUrl){
-  this.replace(userUrl, 'relaunch');
+History.prototype.backToStartAndReplace = function(userUrl, behavior){
+  const key = getCurrentStateKey();
+  if(key > 1){
+    this._whenPopInfo = {
+      userUrl,
+      behavior
+    };
+    this.back(key - 1);
+  } else {
+    this._directReplace(userUrl, behavior);
+  }
 }
 
 History.prototype._clear = function(){
@@ -182,10 +271,10 @@ History.prototype.handlePop = function(){
   const currKey = getCurrentStateKey();
   setPreStateKey(currKey);
 
-
-  if(this._relaunchTo !== null){
-    this._relaunch(this._relaunchTo);
-    this._relaunchTo = null;
+  const _info = this._whenPopInfo;
+  if(_info !== null){
+    this._directReplace(_info.userUrl, _info.behavior);
+    this._whenPopInfo = null;
     return;
   }
 

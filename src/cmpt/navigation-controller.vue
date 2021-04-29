@@ -1,13 +1,13 @@
 
 <template>
-  <transition-group ref="group"
-    class="h-nav-nav-ctrler" 
+  <transition-group
+    class="h-nav-ctrler" 
     :class="'h-nav-behavior-' + behavior.type"
     @before-leave="handleBeforeLeave"
     name="h-nav-page" tag="div">
-    <Page v-for="v in stackMap" 
+    <component v-for="v in stackMap" 
+    :is="v.isTab ? 'TabWrap' : 'Page'"
     :key="v.stateKey" 
-    :stateKey="v.stateKey"
     :cmptKey="v.cmptKey"
     :info="v.info" 
     :route="v.route"
@@ -18,16 +18,19 @@
 </template>
 <script>
 import Page from './page.vue';
+import TabWrap from './tab-bar-wrap.vue';
 export default {
+  components: {
+    Page,
+    TabWrap
+  },
   name: 'HistoryNavigationController',
   props: {
-    entry: {
+    entryPagePath: {
       type: String
     }
   },
-  components: {
-    Page
-  },
+
   data(){
     return {
       stackMap: this.$navigator.stackMap,
@@ -41,10 +44,7 @@ export default {
     }
   },
   created(){
-    this.$navigator._load(this.entry);
-  },
-  mounted(){
-    console.log('this.$refs.group', this.$refs.group)
+    this.$navigator._load(this.entryPagePath);
   }
 }
 </script>
