@@ -8,11 +8,15 @@
 </a>
 </template>
 <script>
-
+const methodMap = Object.assign(Object.create(null), {
+  push: true,
+  replace: true,
+  reLaunch: true,
+  switchTab: true
+});
 export default {
   name: "HistoryNavigator",
   props: {
-
     url: {
       type: String
     },
@@ -47,7 +51,12 @@ export default {
           this.$navigator.back(this.delta);
           break;
         default:
-          this.$navigator[this.type](this.url);
+          if(methodMap[this.type]){
+            this.$navigator[this.type](this.url);
+          } else {
+            console.error('navigator not support type: ' + this.type);
+          }
+          
       }
     }
   }

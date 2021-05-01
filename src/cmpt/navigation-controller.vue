@@ -37,7 +37,7 @@ export default {
       currentPage: this.$navigator.currentPage
     }
   },
-  mounted(){
+  created(){
     this.$navigator._load(this.entryPagePath);
   }
 }

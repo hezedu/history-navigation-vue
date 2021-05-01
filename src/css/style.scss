@@ -1,5 +1,5 @@
 
-$transitionTime: 3s;
+$transitionTime: .3s;
 $tabBarH: 50px;
 .h-nav-ctrler{
   width: 100%;
@@ -78,7 +78,6 @@ $tabBarH: 50px;
 }
 
 
-
 .h-nav-tabs-ctrler{
   padding-bottom: $tabBarH;
   box-sizing: border-box;
@@ -100,7 +99,15 @@ $tabBarH: 50px;
   justify-content: space-around;
   background-color: #eee;
 }
+.h-nav-tab{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .h-nav-tab-active{
   color: blue;
+  background-color: #000;
+  color: #fff;
 }

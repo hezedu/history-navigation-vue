@@ -75,8 +75,7 @@ History.prototype._load = function(userUrl){
   const key = getCurrentStateKey();
   if(key !== 1){
     if(this._isTabRoute()){
-      console.log('relaunch')
-      this.relaunch(currRoute.fullPath);
+      this.reLaunch(currRoute.fullPath);
       return;
     }
   }
@@ -92,7 +91,7 @@ History.prototype.switchTab = function(userUrl){
     console.error(userUrl + ' is not tab url');
     return;
   }
-  this.backToStartAndReplace(userUrl, 'switchtab');
+  this._backToStartAndReplace(userUrl, 'switchtab');
 }
 
 
@@ -185,18 +184,22 @@ History.prototype._replace = function(fullParse, behavior){
   // console.log('toUrl', toUrl)
   
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
-  
-  // this._delMapItem(key);
-  this._setMapItem(key, fullParse);
-  Object.assign(this.behavior, {
-    type: behavior || 'replace',
-    step: 0,
-    isPop: false
-  })
-  this.onChange();
-  // this._Vue.nextTick(() => {
+  let _after = () => {
+    this._setMapItem(key, fullParse);
+    Object.assign(this.behavior, {
+      type: behavior || 'replace',
+      step: 0,
+      isPop: false
+    })
+    this.onChange();
+  }
+  if(behavior !== 'switchtab'){
+    this._delMapItem(key);
+    this._Vue.nextTick(_after)
+  } else {
+    _after();
+  }
 
-  // })
 
 }
 
@@ -226,7 +229,7 @@ History.prototype.back = function(step){
   return 0;
 }
 
-History.prototype.relaunch = function(userUrl){
+History.prototype.reLaunch = function(userUrl){
   // for(i in this.stackMap){
   //   this._Vue.delete(this.stackMap, i);
   // }
@@ -236,10 +239,10 @@ History.prototype.relaunch = function(userUrl){
       this._Vue.delete(this.tabStackMap, i);
     }
   }
-  this.backToStartAndReplace(userUrl, 'relaunch');
+  this._backToStartAndReplace(userUrl, 'relaunch');
 }
 
-History.prototype.backToStartAndReplace = function(userUrl, behavior){
+History.prototype._backToStartAndReplace = function(userUrl, behavior){
   const key = getCurrentStateKey();
   if(key > 1){
     this._whenPopInfo = {
