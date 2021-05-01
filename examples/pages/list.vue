@@ -15,15 +15,15 @@
     <h1>now: {{now}}</h1>
     <input @focus="handleFocus" @blur="handleBlur" v-if="isShowInput" />
     <br>
-    <navigator to="/detail"> To Detail </navigator>
+    <navigator url="/detail"> To Detail </navigator>
     <br>
     <navigator type="back">Back</navigator>
         <br>
-    <navigator to="/list" type="replace">Replace to List</navigator>
+    <navigator url="/list" type="replace">Replace to List</navigator>
     <br>
-    <navigator to="/" type="replace">Replace to Index</navigator>
+    <navigator url="/" type="replace">Replace to Index</navigator>
     <br>
-    <navigator to="/" type="reLaunch">Relaunch to Index</navigator>
+    <navigator url="/" type="reLaunch">Relaunch to Index</navigator>
 
   <h1 style="width: 100%; text-align: right; font">right {{$page.isShow}}</h1>
 
