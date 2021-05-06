@@ -23,6 +23,10 @@ export default {
       type: String,
       required: true
     },
+    stateKey: {
+      type: Number,
+      required: true
+    },
     info: {
       type: Object,
       required: true

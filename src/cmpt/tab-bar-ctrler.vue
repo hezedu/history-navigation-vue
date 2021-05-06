@@ -4,6 +4,7 @@
     <Page v-for="v in tabStackMap"
       :key="v.cmptKey" 
       :cmptKey="v.cmptKey"
+      :stateKey="stateKey"
       :info="v.info" 
       :route="v.route"
       :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
@@ -25,7 +26,7 @@ export default {
     Page,
     TabBar
   },
-  props: ['isFirstLoaded', 'info', 'route', 'isActive', 'cmptKey'],
+  props: ['isFirstLoaded', 'info', 'route', 'isActive', 'cmptKey', 'stateKey'],
   name: "HistoryNavigationTabBarWrap",
   data(){
     return {

@@ -6,7 +6,8 @@
     name="h-nav-page" tag="div">
     <component v-for="v in stackMap" 
     :is="v.isTab ? 'TabCtrler' : 'Page'"
-    :key="v.stateKey" 
+    :key="v.stateKey"
+    :stateKey="v.stateKey" 
     :cmptKey="v.cmptKey"
     :info="v.info" 
     :route="v.route"
