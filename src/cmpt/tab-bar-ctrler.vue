@@ -12,7 +12,9 @@
     >
     </Page>
   </transition-group>
-  <TabBar :list="tabList" :currentId="info.id" :style="{zIndex: tabList.length}" />
+  <transition name="h-nav-tabbar">
+    <TabBar :list="tabList" :currentId="info.id" :style="{zIndex: tabList.length}" v-show="isActive" />
+  </transition>
 </div>
 </template>
 <script>
@@ -23,7 +25,7 @@ export default {
     Page,
     TabBar
   },
-  props: ['isFirstLoaded', 'info', 'route', 'isActive'],
+  props: ['isFirstLoaded', 'info', 'route', 'isActive', 'cmptKey'],
   name: "HistoryNavigationTabBarWrap",
   data(){
     return {

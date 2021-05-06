@@ -12,7 +12,7 @@
     :route="v.route"
     :isActive="v.stateKey === currentPage.stateKey"
     :isFirstLoaded="behavior.type === 'loaded'"
-    :style="{left: (v.stateKey - currentPage.stateKey) + '00%', zIndex: v.stateKey}" />
+    :style="{left: ((v.stateKey - currentPage.stateKey) * 33) + '%', zIndex: v.stateKey}" />
   </transition-group>
 </template>
 <script>

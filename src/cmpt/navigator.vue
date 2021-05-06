@@ -35,10 +35,10 @@ export default {
   },
   computed: { // ThroughClass , activeClass
     href(){
-      return this.$navigator.URL.toLocationUrl(this.url);
-      // return (this.$navigator.isSetAHref && this.url) 
-      //   ? this.$navigator.URL.toLocationUrl(this.url)
-      //   : undefined;
+      // return this.$navigator.URL.toLocationUrl(this.url);
+      return (this.$navigator.isSetAHref && this.url) 
+        ? this.$navigator.URL.toLocationUrl(this.url)
+        : undefined;
     }
   },
   methods: {
