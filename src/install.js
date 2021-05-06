@@ -5,7 +5,11 @@ import TabBarCtrler from './cmpt/tab-bar-ctrler.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
-import {cmptPageSuffix, notFoundPageKey, tabWrapKey} from './constant';
+import {cmptPageSuffix, 
+  notFoundPageKey, 
+  tabWrapKey, 
+  DEF_PAGE_INTERVAL_OFFSET_X, 
+  DEF_IS_SET_HREF} from './constant';
 
 export default function install(Vue, config) {
 
@@ -32,6 +36,11 @@ export default function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   Vue.prototype.$navigator = navigator({
+    global: {
+      pageIntervalOffsetX: _getDef(config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X),
+      navigatorCmptIsSetHref: _getDef(config, 'navigatorCmptIsSetHref', DEF_IS_SET_HREF)
+    },
+    
     homePagePath: config.homePagePath || config.pages[0].path,
 
     isHash: config.urlIsHashMode === undefined ? true : config.isHash,
@@ -94,4 +103,9 @@ function _formatTabBar(tabBar, pageMap){
     map,
     list: newList
   };
+}
+
+function _getDef(obj, key, def){
+  let v = obj[key];
+  return v === undefined ? def : v;
 }

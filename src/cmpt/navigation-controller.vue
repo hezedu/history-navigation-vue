@@ -12,7 +12,7 @@
     :route="v.route"
     :isActive="v.stateKey === currentPage.stateKey"
     :isFirstLoaded="behavior.type === 'loaded'"
-    :style="{left: ((v.stateKey - currentPage.stateKey) * 33) + '%', zIndex: v.stateKey}" />
+    :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}" />
   </transition-group>
 </template>
 <script>
@@ -34,7 +34,8 @@ export default {
     return {
       stackMap: this.$navigator.stackMap,
       behavior: this.$navigator.behavior,
-      currentPage: this.$navigator.currentPage
+      currentPage: this.$navigator.currentPage,
+      pageIntervalOffsetX: this.$navigator._global.pageIntervalOffsetX
     }
   },
   created(){
