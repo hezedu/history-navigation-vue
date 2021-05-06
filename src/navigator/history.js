@@ -35,6 +35,7 @@ function History(opt){
   this._relaunchTo = null;
   this._switchTab = null;
   this._whenPopInfo = null;
+  this._stackItemId = 0;
   // this.isPageDestoryWhenBack = true;
   this.onChange = noop;
   
@@ -57,6 +58,11 @@ function History(opt){
     info: {},
     route: {}
   }
+}
+
+History.prototype._genStackItemId = function(){
+  this._stackItemId = this._stackItemId + 1;
+  return this._stackItemId;
 }
 
 History.prototype._isTabRoute = function(trimedPath){
@@ -101,6 +107,7 @@ History.prototype.switchTab = function(userUrl){
 History.prototype._setMapItem = function(key, route){
 
   const _page = {
+    stackId: this._genStackItemId(),
     stateKey: key,
     route
   }
@@ -195,9 +202,8 @@ History.prototype._replace = function(fullParse, behavior){
     })
     this.onChange();
   }
-  if(behavior !== 'switchtab'){
-    this._delMapItem(key);
-    this._Vue.nextTick(_after)
+  if(behavior === 'loaded'){
+    this._Vue.nextTick(_after);
   } else {
     _after();
   }
