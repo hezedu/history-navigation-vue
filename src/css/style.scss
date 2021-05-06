@@ -37,18 +37,7 @@ $tabBarH: 50px;
   transform: translateX(100%);
 }
 
-.h-nav-behavior-loaded,
-.h-nav-behavior-relaunch {
-  >.h-nav-page-enter {
-    transform: translateY(-100%);
-  }
-}
 
-.h-nav-behavior-relaunch{
-  >.h-nav-page-leave-to {
-    transform: translateY(100%);
-  }
-}
 
 .h-nav-behavior-push,
 .h-nav-tab-switch-greater {
@@ -110,4 +99,22 @@ $tabBarH: 50px;
   color: blue;
   background-color: #000;
   color: #fff;
+}
+
+.h-nav-behavior-loaded,
+.h-nav-behavior-relaunch {
+  >.h-nav-page-enter {
+    transform: translateY(-100%);
+  }
+}
+
+.h-nav-behavior-relaunch{
+  >.h-nav-page-leave-to {
+    transform: translateY(100%);
+  }
+}
+
+.h-nav-tabs-container .h-nav-page,
+.h-nav-tabs-container .h-nav-page-container{
+  transition: none;
 }

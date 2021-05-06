@@ -1,7 +1,7 @@
 import NavigationController from './cmpt/navigation-controller.vue';
 import DefaultNotFound from './cmpt/default-not-found.vue';
 import Navigator from './cmpt/navigator.vue';
-import TabBarWrap from './cmpt/tab-bar-wrap.vue';
+import TabBarCtrler from './cmpt/tab-bar-ctrler.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
@@ -21,7 +21,7 @@ export default function install(Vue, config) {
   }
   
   Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
-  Vue.component(tabWrapKey, TabBarWrap);
+  Vue.component(tabWrapKey, TabBarCtrler);
   let i, page;
   for(i in pageMap){
     page = pageMap[i];

@@ -5,7 +5,7 @@
     :class="'h-nav-behavior-' + behavior.type"
     name="h-nav-page" tag="div">
     <component v-for="v in stackMap" 
-    :is="v.isTab ? 'TabWrap' : 'Page'"
+    :is="v.isTab ? 'TabCtrler' : 'Page'"
     :key="v.stateKey" 
     :cmptKey="v.cmptKey"
     :info="v.info" 
@@ -17,11 +17,11 @@
 </template>
 <script>
 import Page from './page.vue';
-import TabWrap from './tab-bar-wrap.vue';
+import TabCtrler from './tab-bar-ctrler.vue';
 export default {
   components: {
     Page,
-    TabWrap
+    TabCtrler
   },
   name: 'HistoryNavigationController',
   props: {
