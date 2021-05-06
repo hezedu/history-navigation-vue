@@ -17,6 +17,10 @@
     <br>
     <navigator url="/detail"> To Detail </navigator>
     <br>
+    <navigator url="/list" type="replace">replace to List</navigator>
+    <br>
+    <navigator url="/detail" type="replace">replace to Detail</navigator>
+    <br>
     <navigator type="back">Back</navigator>
         <br>
     <navigator url="/list" type="replace">Replace to List</navigator>

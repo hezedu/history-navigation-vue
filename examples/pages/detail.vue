@@ -3,7 +3,9 @@
   <h1>Detail</h1>
   <button @click="back">back to start {{$page.stateKey}}</button>
   <br>
-  <navigator to="/" relaunch>Relaunch to Index</navigator>
+  <navigator url="/list" type="replace">replace to list</navigator>
+  <br>
+  <navigator url="/" type="reLaunch">Relaunch to Index</navigator>
 </div>
 
 </template>

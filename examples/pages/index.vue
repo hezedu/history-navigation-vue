@@ -10,6 +10,8 @@
   <navigator url="/" type="reLaunch">reLaunch /</navigator>
   <br>
   <navigator url="/list">List</navigator>
+  <br>
+  <navigator url="/list" type="replace">replace to List</navigator>
 </div>
 
 </div>
