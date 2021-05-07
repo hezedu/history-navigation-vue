@@ -224,6 +224,7 @@ History.prototype.back = function(step){
   const key = getCurrentStateKey();
 
   if(key === 1){
+    console.error('Currnt page is first, Cannot back.');
     return -1;
   }
   if(typeof step === 'number' && step > 0){

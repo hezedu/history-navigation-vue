@@ -1,6 +1,5 @@
 <template>
-<a class="h-nav-navigator"
-  :class="{'h-nav-disabled': disabled}" 
+<a :class="{'h-nav-disabled': disabled}" 
   :href="href" 
   @click.prevent="handleClick" 
   v-bind="$attrs">

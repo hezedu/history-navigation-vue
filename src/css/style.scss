@@ -1,6 +1,6 @@
 
 $transitionTime: .3s;
-$tabBarH: 50px;
+$tabBarH: 48px;
 
 .h-nav-ctrler{
   width: 100%;
@@ -55,7 +55,8 @@ $tabBarH: 50px;
   left: 0;
   width: 100%;
   height: $tabBarH;
-  line-height: $tabBarH;
+  box-sizing: border-box;
+  border-top: 1px solid #c7c7c7;
   display: flex;
   justify-content: space-around;
   background-color: #eee;
@@ -66,11 +67,11 @@ $tabBarH: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 }
 
 .h-nav-tab-active{
-  background-color: #000;
-  color: #fff;
+  color: #3eaf7c;
 }
 
 // -------- tabBar end --------
