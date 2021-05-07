@@ -38,7 +38,7 @@ export default function install(Vue, config) {
   Vue.prototype.$navigator = navigator({
     global: {
       pageIntervalOffsetX: _getDef(config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X),
-      navigatorCmptIsSetHref: _getDef(config, 'navigatorCmptIsSetHref', DEF_IS_SET_HREF)
+      isSetAHref: _getDef(config, 'isSetAHref', DEF_IS_SET_HREF)
     },
     
     homePagePath: config.homePagePath || config.pages[0].path,

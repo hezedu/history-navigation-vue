@@ -11,7 +11,6 @@ function History(opt){
   }
   isCreated = true;
   this._global = opt.global;
-  this.isSetAHref = opt.isSetAHref;
   this.pageIntervalOffsetX = opt.pageIntervalOffsetX;
   this._window = nativeWindow;
   this._history = nativeHistory;
@@ -62,7 +61,7 @@ function History(opt){
 
 History.prototype._genStackItemId = function(){
   this._stackItemId = this._stackItemId + 1;
-  return this._stackItemId;
+  return 'stack_' + + this._stackItemId;
 }
 
 History.prototype._isTabRoute = function(trimedPath){

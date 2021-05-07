@@ -36,7 +36,7 @@ export default {
   computed: { // ThroughClass , activeClass
     href(){
       // return this.$navigator.URL.toLocationUrl(this.url);
-      return (this.$navigator._global.navigatorCmptIsSetHref && this.url) 
+      return (this.$navigator._global.isSetAHref && this.url) 
         ? this.$navigator.URL.toLocationUrl(this.url)
         : undefined;
     }
