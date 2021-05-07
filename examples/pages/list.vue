@@ -27,7 +27,7 @@
     <br>
     <navigator url="/" type="replace">Replace to Index</navigator>
     <br>
-    <navigator url="/" type="reLaunch">Relaunch to Index</navigator>
+    <navigator url="/" type="relaunch">Relaunch to Index</navigator>
 
   <h1 style="width: 100%; text-align: right; font">right {{$page.isShow}}</h1>
 
