@@ -11,7 +11,7 @@
 const methodMap = Object.assign(Object.create(null), {
   push: true,
   replace: true,
-  reLaunch: true,
+  relaunch: true,
   switchTab: true
 });
 export default {

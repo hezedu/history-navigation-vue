@@ -83,7 +83,7 @@ History.prototype._load = function(userUrl){
   const key = getCurrentStateKey();
   if(key !== 1){
     if(this._isTabRoute()){
-      this.reLaunch(currRoute.fullPath);
+      this.relaunch(currRoute.fullPath);
       return;
     }
   }
@@ -202,11 +202,12 @@ History.prototype._replace = function(fullParse, behavior){
     })
     this.onChange();
   }
-  if(behavior === 'loaded'){
-    this._Vue.nextTick(_after);
-  } else {
-    _after();
-  }
+  _after();
+  // if(behavior === 'loaded'){
+  //   this._Vue.nextTick(_after);
+  // } else {
+  //   _after();
+  // }
 
 
 }
@@ -237,7 +238,7 @@ History.prototype.back = function(step){
   return 0;
 }
 
-History.prototype.reLaunch = function(userUrl){
+History.prototype.relaunch = function(userUrl){
   // for(i in this.stackMap){
   //   this._Vue.delete(this.stackMap, i);
   // }

@@ -1,5 +1,5 @@
 
-$transitionTime: 3s;
+$transitionTime: .3s;
 $tabBarH: 50px;
 
 .h-nav-ctrler{
@@ -74,11 +74,30 @@ $tabBarH: 50px;
 }
 
 // -------- tabBar end --------
-.h-nav-page,
+
+.h-nav-behavior-push .h-nav-page, 
+.h-nav-behavior-back .h-nav-page,
+.h-nav-behavior-replace .h-nav-page{
+  transition: all $transitionTime ease;
+}
+// .h-nav-behavior-push .h-nav-page, 
+// .h-nav-behavior-back .h-nav-page,
+// .h-nav-behavior-replace .h-nav-page{
+//   transition: all $transitionTime ease-in;
+// }
+// .h-nav-behavior-push .h-nav-page-leave-active, 
+// .h-nav-behavior-back .h-nav-page-leave-active,
+// .h-nav-behavior-replace .h-nav-page-leave-active{
+//   transition: all $transitionTime ease-out;
+// }
+
+
+
 .h-nav-page-container,
 .h-nav-tabbar{
-  transition: all $transitionTime;
+  transition: inherit;
 }
+
 .h-nav-page-leave-to{
   transform: translateX(100%);
 }
@@ -130,11 +149,11 @@ $tabBarH: 50px;
 // .h-nav-behavior-relaunch > .h-nav-page{
 //   transition: none;
 // }
-.h-nav-behavior-loaded >.h-nav-page-enter {
-  transform: translateY(-100%);
-}
-.h-nav-tabs-ctrler > .h-nav-page {
-  transition: none;
-}
+// .h-nav-behavior-loaded >.h-nav-page-enter {
+//   transform: translateY(-100%);
+// }
+// .h-nav-tabs-ctrler > .h-nav-page {
+//   transition: none;
+// }
 
 // -------- transition end --------
