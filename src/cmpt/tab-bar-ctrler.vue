@@ -14,7 +14,7 @@
     </Page>
   </transition-group>
   <transition name="h-nav-tabbar">
-    <TabBar :list="tabList" :currentId="info.id" :style="{zIndex: tabList.length}" v-show="isActive" />
+    <TabBar :list="tabList" :currentIndex="info.tabIndex" :style="{zIndex: tabList.length}" v-show="isActive" />
   </transition>
 </div>
 </template>
@@ -29,9 +29,10 @@ export default {
   props: ['isFirstLoaded', 'info', 'route', 'isActive', 'cmptKey', 'stateKey'],
   name: "HistoryNavigationTabBarWrap",
   data(){
+    console.log('tabList', this.$navigator._h.tabList)
     return {
-      tabStackMap: this.$navigator.tabStackMap,
-      tabList: this.$navigator.tabList,
+      tabStackMap: this.$navigator._h.tabStackMap,
+      tabList: this.$navigator._h.tabList,
       tabBehavior: ''
     }
   },

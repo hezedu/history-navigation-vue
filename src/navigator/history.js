@@ -2,7 +2,6 @@ import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
 import { notFoundPageKey } from '../constant';
-function noop(){}
 
 let isCreated = false;
 function History(opt){
@@ -36,11 +35,11 @@ function History(opt){
   this._whenPopInfo = null;
   this._stackItemId = 0;
   // this.isPageDestoryWhenBack = true;
-  this.onChange = noop;
+  this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: this.isHashMode, base: opt.urlBase});
-  this._popstateHandle = () => {
-    this.handlePop();
+  this._popstateHandle = (e) => {
+    this.handlePop(e);
   }
 
   this.behavior = {
@@ -59,9 +58,19 @@ function History(opt){
   }
 }
 
+History.prototype._onRouted = function(behavior){
+  if(!this.onRouted){
+    return;
+  }
+  this.onRouted({
+    enterPage: this.currentPage,
+    behavior
+  });
+}
+
 History.prototype._genStackItemId = function(){
   this._stackItemId = this._stackItemId + 1;
-  return 'stack_' + + this._stackItemId;
+  return this._stackItemId;
 }
 
 History.prototype._isTabRoute = function(trimedPath){
@@ -106,7 +115,6 @@ History.prototype.switchTab = function(userUrl){
 History.prototype._setMapItem = function(key, route){
 
   const _page = {
-    stackId: this._genStackItemId(),
     stateKey: key,
     route
   }
@@ -116,21 +124,25 @@ History.prototype._setMapItem = function(key, route){
     _page.cmptKey = page.cmptKey;
     
     _page.info = {
-      className: page.className,
       path: page.path,
-      id: page.id,
+      className: page.className,
+      title: page.title,
+      extra: page.extra,
+      
+      isTab: page.isTab,
       tabIndex: page.tabIndex
     }
   } else {
     _page.isTab = false;
     _page.cmptKey = notFoundPageKey;
-    _page.info = {
-      id: -1
-    }
+    _page.info = {}
   }
 
   if(_page.isTab){
+    _page.stackId = 0;
     this._Vue.set(this.tabStackMap, route.trimedPath, _page);
+  } else {
+    _page.stackId = this._genStackItemId();
   }
 
   Object.assign(this.currentPage, _page);
@@ -169,12 +181,13 @@ History.prototype._push = function(fullParse){
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
   setPreStateKey(key);
   this._setMapItem(key, fullParse);
-  Object.assign(this.behavior, {
+  const newBehavior = {
     type: 'push',
     step: 1,
     isPop: false
-  })
-  this.onChange();
+  }
+  Object.assign(this.behavior, newBehavior);
+  this._onRouted(newBehavior);
 }
 History.prototype.replace = function(userUrl, behavior){
   const fullParse = fullUrlParse(userUrl);
@@ -194,12 +207,13 @@ History.prototype._replace = function(fullParse, behavior){
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
   let _after = () => {
     this._setMapItem(key, fullParse);
-    Object.assign(this.behavior, {
+    const newBehavior = {
       type: behavior || 'replace',
       step: 0,
       isPop: false
-    })
-    this.onChange();
+    }
+    Object.assign(this.behavior, newBehavior);
+    this._onRouted(newBehavior);
   }
   _after();
   // if(behavior === 'loaded'){
@@ -276,7 +290,8 @@ History.prototype._clear = function(){
 }
 
 
-History.prototype.handlePop = function(){
+History.prototype.handlePop = function(e){
+  e.stopPropagation();
   const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
   setPreStateKey(currKey);
@@ -304,17 +319,16 @@ History.prototype.handlePop = function(){
   } else {
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }
-
-  Object.assign(this.behavior, {
+  const newBehavior = {
     type: behavior,
     step: compare,
     isPop: true
-  })
-  this.onChange();
+  }
+  Object.assign(this.behavior, newBehavior);
+  this._onRouted(newBehavior);
 }
 
 History.prototype.destory = function(){
-  this.onChange = noop;
   this._window.removeEventListener('popstate', this._popstateHandle);
   isCreated = false;
 }

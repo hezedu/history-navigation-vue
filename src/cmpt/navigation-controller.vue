@@ -6,7 +6,7 @@
     name="h-nav-page" tag="div">
     <component v-for="v in stackMap" 
     :is="v.isTab ? 'TabCtrler' : 'Page'"
-    :key="v.isTab ? v.stateKey : v.stackId"
+    :key="v.stackId"
     :stateKey="v.stateKey" 
     :cmptKey="v.cmptKey"
     :info="v.info" 
@@ -33,14 +33,14 @@ export default {
 
   data(){
     return {
-      stackMap: this.$navigator.stackMap,
-      behavior: this.$navigator.behavior,
-      currentPage: this.$navigator.currentPage,
-      pageIntervalOffsetX: this.$navigator._global.pageIntervalOffsetX
+      stackMap: this.$navigator._h.stackMap,
+      behavior: this.$navigator._h.behavior,
+      currentPage: this.$navigator._h.currentPage,
+      pageIntervalOffsetX: this.$navigator._h._global.pageIntervalOffsetX
     }
   },
   created(){
-    this.$navigator._load(this.entryPagePath);
+    this.$navigator._h._load(this.entryPagePath);
   }
 }
 </script>

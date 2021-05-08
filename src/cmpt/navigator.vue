@@ -7,7 +7,7 @@
 </a>
 </template>
 <script>
-const methodMap = Object.assign(Object.create(null), {
+const allowedMethodMap = Object.assign(Object.create(null), {
   push: true,
   replace: true,
   relaunch: true,
@@ -34,9 +34,9 @@ export default {
   },
   computed: { // ThroughClass , activeClass
     href(){
-      // return this.$navigator.URL.toLocationUrl(this.url);
-      return (this.$navigator._global.isSetAHref && this.url) 
-        ? this.$navigator.URL.toLocationUrl(this.url)
+      // return this.$navigator._h.URL.toLocationUrl(this.url);
+      return (this.$navigator._h._global.isSetAHref && this.url) 
+        ? this.$navigator._h.URL.toLocationUrl(this.url)
         : undefined;
     }
   },
@@ -47,11 +47,11 @@ export default {
       }
       switch(this.type){
         case 'back':
-          this.$navigator.back(this.delta);
+          this.$navigator._h.back(this.delta);
           break;
         default:
-          if(methodMap[this.type]){
-            this.$navigator[this.type](this.url);
+          if(allowedMethodMap[this.type]){
+            this.$navigator._h[this.type](this.url);
           } else {
             console.error('navigator not support type: ' + this.type);
           }

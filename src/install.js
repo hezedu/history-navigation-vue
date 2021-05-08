@@ -67,7 +67,6 @@ function _formatPages(pages){
     map[tk] = Object.assign({}, page, {
       trimedPath: tk,
       isTab: false,
-      id: i,
       cmptKey: cmptPageSuffix + i
     });
   }
@@ -97,7 +96,7 @@ function _formatTabBar(tabBar, pageMap){
     page.isTab = true;
     page.tabIndex = i;
     map[tk] = true;
-    newList.push(Object.assign({id: page.id}, item));
+    newList.push(Object.assign({}, item));
   }
   return {
     map,

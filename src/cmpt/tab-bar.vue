@@ -1,9 +1,9 @@
 <template>
 <div class="h-nav-tabbar">
-  <navigator v-for="v in list" 
-    :key="v.id" 
+  <navigator v-for="(v, i) in list" 
+    :key="v.pagePath" 
     class="h-nav-tab"
-    :class="{'h-nav-tab-active': currentId === v.id}" 
+    :class="{'h-nav-tab-active': currentIndex === i}" 
     :url="v.pagePath" 
     type="switchTab">
     {{v.text}}
@@ -14,7 +14,7 @@
 import navigator from './navigator.vue'
 export default {
   components: { navigator },
-  props: ['list', 'currentId'],
+  props: ['list', 'currentIndex'],
   name: "HistoryNavigationTabBar"
 }
 </script>
