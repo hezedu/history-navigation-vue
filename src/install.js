@@ -1,33 +1,47 @@
 import NavigationController from './cmpt/navigation-controller.vue';
 import DefaultNotFound from './cmpt/default-not-found.vue';
 import Navigator from './cmpt/navigator.vue';
-import TabBarCtrler from './cmpt/tab-bar-ctrler.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
+import { def, throwErr } from './util';
 import {cmptPageSuffix, 
   notFoundPageKey, 
-  tabWrapKey, 
   DEF_PAGE_INTERVAL_OFFSET_X, 
   DEF_IS_SET_HREF,
   DEF_URL_BASE,
   DEF_URL_IS_HASH_MODE } from './constant';
 
+
+const defNotFoundPage = {
+  title: 'Not Found',
+  component: DefaultNotFound
+}
+
 export default function install(Vue, config) {
 
   if(!Array.isArray(config.pages)){
-    throw new Error('history-navigation-vue config.pages is not Array.');
+    throwErr('config.pages is not Array.');
   }
 
-  
   const pageMap  = _formatPages(config.pages);
   let tabBar;
   if(config.tabBar){
     tabBar = _formatTabBar(config.tabBar, pageMap);
   }
   
-  Vue.component(notFoundPageKey, config.notFoundPage || DefaultNotFound);
-  Vue.component(tabWrapKey, TabBarCtrler);
+  let notFoundPage = config.notFoundPage || defNotFoundPage;
+  Vue.component(notFoundPageKey, notFoundPage.component);
+
+  notFoundPage = {
+    path: null,
+    title: notFoundPage.title,
+    cmptKey: notFoundPageKey,
+    isTab: false,
+    
+    trimedPath: null
+  }
+
   let i, page;
   for(i in pageMap){
     page = pageMap[i];
@@ -38,8 +52,8 @@ export default function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   const globalOption = Object.create(null);
-  _def(globalOption, config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X);
-  _def(globalOption, config, 'isSetAHref', DEF_IS_SET_HREF);
+  def(globalOption, config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X);
+  def(globalOption, config, 'isSetAHref', DEF_IS_SET_HREF);
 
   const options = {
     global: globalOption,
@@ -47,12 +61,12 @@ export default function install(Vue, config) {
     Vue,
     pageMap,
     cmptPageSuffix,
-    notFoundPageKey,
+    notFoundPage,
     tabBar
-    
   }
-  _def(options, config, 'urlBase', DEF_URL_BASE);
-  _def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
+
+  def(options, config, 'urlBase', DEF_URL_BASE);
+  def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
 
   Vue.prototype.$navigator = navigator(options);
   Vue.mixin(ShowHideMixin);
@@ -66,7 +80,7 @@ function _formatPages(pages){
     page = pages[i];
     tk = trimSlash(page.path);
     if(map[tk]){
-      throw new Error(`history-navigation-vue pageMap key: ${tk} is same as ${page.path}`);
+      throwErr(`pageMap key: ${tk} is same as ${page.path}`);
     }
     map[tk] = Object.assign({}, page, {
       trimedPath: tk,
@@ -81,7 +95,7 @@ function _formatTabBar(tabBar, pageMap){
   const list = tabBar.list;
   let len = list.length;
   if(len < 2){
-    throw new Error(`history-navigation-vue tabBar list length must >= 2`);
+    throwErr(`tabBar list length must >= 2`);
   }
   let i = 0,  tk, item;
   
@@ -91,11 +105,11 @@ function _formatTabBar(tabBar, pageMap){
     item = list[i];
     tk = trimSlash(item.pagePath);
     const page = pageMap[tk];
-    if(!page){
-      throw new Error(`history-navigation-vue tabBar pagePath: ${i} is not found in pages`);
+    if(!page || page.path !== item.pagePath){
+      throwErr(`tabBar pagePath: ${i} is not found in pages`);
     }
     if(map[tk]){
-      throw new Error(`history-navigation-vue tabBar pagePath: ${tk} is same as ${i}`);
+      throwErr(`tabBar pagePath: ${tk} is same as ${i}`);
     }
     page.isTab = true;
     page.tabIndex = i;
@@ -109,8 +123,3 @@ function _formatTabBar(tabBar, pageMap){
 }
 
 
-
-function _def(dest, src, key, def){
-  let v = src[key];
-  dest[key] = v === undefined ? def : v;
-}

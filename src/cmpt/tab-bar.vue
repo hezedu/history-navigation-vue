@@ -1,20 +1,27 @@
 <template>
 <div class="h-nav-tabbar">
-  <navigator v-for="(v, i) in list" 
+  <Navigator v-for="(v, index) in list" 
     :key="v.pagePath" 
     class="h-nav-tab"
-    :class="{'h-nav-tab-active': currentIndex === i}" 
+    :class="{'h-nav-tab-active': currentIndex === index}" 
     :url="v.pagePath" 
     type="switchTab">
     {{v.text}}
-  </navigator>
+  </Navigator>
   </div>
 </template>
 <script>
-import navigator from './navigator.vue'
 export default {
-  components: { navigator },
-  props: ['list', 'currentIndex'],
-  name: "HistoryNavigationTabBar"
+  props: {
+    list: {
+      type: Array,
+      required: true
+    },
+    currentIndex: {
+      type: Number,
+      required: true
+    }
+  },
+  name: "HistoryNavigationDefTabBar"
 }
 </script>

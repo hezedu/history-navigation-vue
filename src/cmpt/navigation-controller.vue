@@ -8,22 +8,18 @@
     <div class="h-nav-page" 
       v-for="v in stackMap" 
       :key="v.stackId"
-      :class="v.info.className"
       :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}">
 
       <TabCtrler v-if="v.isTab"
-        :info="v.info"
-        :route="v.route"
+        v-bind="v"
         :isActive="v.stateKey === currentPage.stateKey"
-        :isFirstLoaded="behavior.type === 'loaded'"
+        :isFirstLoaded="isFirstLoaded"
        />
 
       <Page v-else
-        :cmptKey="v.cmptKey"
-        :info="v.info"
-        :route="v.route"
+        v-bind="v"
         :isActive="v.stateKey === currentPage.stateKey"
-        :isFirstLoaded="behavior.type === 'loaded'"
+        :isFirstLoaded="isFirstLoaded"
         />
     </div>
 <!-- 
@@ -42,6 +38,7 @@
 <script>
 import Page from './page.vue';
 import TabCtrler from './tab-bar-ctrler.vue';
+
 export default {
   components: {
     Page,
@@ -56,6 +53,7 @@ export default {
 
   data(){
     return {
+      isFirstLoaded: true,
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
       currentPage: this.$navigator._h.currentPage,
@@ -64,6 +62,10 @@ export default {
   },
   created(){
     this.$navigator._h._load(this.entryPagePath);
+    this.$nextTick(() => {
+      this.isFirstLoaded = false;
+    })
+    
   }
 }
 </script>

@@ -7,6 +7,8 @@
 </template>
 <script>
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
+import { genPageProps } from './common';
+
 export default {
   name: 'HistoryNavigationPage',
   provide(){
@@ -14,28 +16,7 @@ export default {
       $page: this
     }
   },
-  props: {
-    cmptKey: {
-      type: String,
-      required: true
-    },
-    info: {
-      type: Object,
-      required: true
-    },
-    route: {
-      type: Object,
-      required: true
-    },
-    isActive: {
-      type: Boolean,
-      required: true
-    },
-    isFirstLoaded: {
-      type: Boolean,
-      required: true
-    }
-  },
+  props: genPageProps(),
   data(){
     return {
       isLoad: this.isFirstLoaded

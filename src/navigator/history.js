@@ -1,12 +1,12 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
-import { notFoundPageKey } from '../constant';
+import { throwErr } from '../util';
 
 let isCreated = false;
 function History(opt){
   if(isCreated){
-    throw new Error('Only one instance can be generated.');
+    throwErr('Only one instance can be generated.');
   }
   isCreated = true;
   this._global = opt.global;
@@ -15,12 +15,11 @@ function History(opt){
   this._history = nativeHistory;
   this._location = nativeLocation;
   this._Vue = opt.Vue;
-  if(!this._history || !nativeHistory.pushState){
-    throw new Error('history-navigation-vue-vue required history.pushState API');
+  if(!this._history || !this._history.pushState){
+    throwErr('required history.pushState API');
   }
-  
-  console.log('opt.urlIsHashMode', opt.urlIsHashMode)
   this.pageMap = opt.pageMap;
+  this.notFoundPage = opt.notFoundPage;
   if(opt.tabBar){
     this.tabMap = opt.tabBar.map;
     this.tabList = opt.tabBar.list;
@@ -48,13 +47,18 @@ function History(opt){
   }
 
   this.currentPage = {
-    stateKey: null,
-    cmptKey: null,
-    tabIndex: -1,
+    path: null,
+    title: null,
     isTab: false,
-    info: {},
+    tabIndex: null,
+    cmptKey: null,
+
+    stackId: null,
+    stateKey: null,
+
     route: {}
   }
+
 }
 
 History.prototype._onRouted = function(behavior){
@@ -114,28 +118,18 @@ History.prototype.switchTab = function(userUrl){
 
 History.prototype._setMapItem = function(key, route){
 
+
+  let page = this.pageMap[route.trimedPath] || this.notFoundPage;
   const _page = {
+    path: page.path,
+    title: page.title,
+    cmptKey: page.cmptKey,
+    isTab: page.isTab,
+    tabIndex: page.tabIndex,
+
     stateKey: key,
-    route
-  }
-  let page = this.pageMap[route.trimedPath];
-  if(page){
-    _page.isTab = page.isTab;
-    _page.cmptKey = page.cmptKey;
     
-    _page.info = {
-      path: page.path,
-      className: page.className,
-      title: page.title,
-      extra: page.extra,
-      
-      isTab: page.isTab,
-      tabIndex: page.tabIndex
-    }
-  } else {
-    _page.isTab = false;
-    _page.cmptKey = notFoundPageKey;
-    _page.info = {}
+    route
   }
 
   if(_page.isTab){

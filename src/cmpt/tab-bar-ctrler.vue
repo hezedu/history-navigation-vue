@@ -1,32 +1,36 @@
 <template>
 <div class="h-nav-tabs-ctrler">
   <transition-group class="h-nav-tabs-container" :class="tabBehavior" name="h-nav-page" tag="div">
-    <Page v-for="v in tabStackMap"
-      :key="v.cmptKey" 
-      :cmptKey="v.cmptKey"
-      :info="v.info" 
-      :route="v.route"
-      :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
-      :isFirstLoaded="isFirstLoaded"
-      :style="{left: (v.info.tabIndex - info.tabIndex) + '00%', zIndex: v.info.tabIndex}"
-    >
-    </Page>
+    <div class="h-nav-page" 
+         v-for="v in tabStackMap"
+        :key="v.cmptKey"
+        :style="{left: (v.tabIndex - tabIndex) + '00%', zIndex: v.tabIndex}">
+        <Page
+          v-bind="v"
+          :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
+          :isFirstLoaded="isFirstLoaded"
+        />
+    </div>
   </transition-group>
   <transition name="h-nav-tabbar">
-    <TabBar :list="tabList" :currentIndex="info.tabIndex" :style="{zIndex: tabList.length}" v-show="isActive" />
+    <TabBar :list="tabList" :currentIndex="tabIndex" :style="{zIndex: tabList.length}" v-show="isActive" />
   </transition>
 </div>
 </template>
 <script>
 import Page from './page.vue';
 import TabBar from './tab-bar.vue';
+import { genPageProps } from './common';
+
 export default {
+  name: "HistoryNavigationTabBarController",
   components: {
     Page,
     TabBar
   },
-  props: ['info', 'route', 'isActive', 'isFirstLoaded'],
-  name: "HistoryNavigationTabBarWrap",
+
+  props: genPageProps(),
+  
   data(){
     console.log('tabList', this.$navigator._h.tabList)
     return {
@@ -36,7 +40,7 @@ export default {
     }
   },
   watch: {
-    'info.tabIndex'(newVal, oldVal){
+    'tabIndex'(newVal, oldVal){
       let type = newVal > oldVal ? 'greater' : 'smaller';
 
       this.tabBehavior = 'h-nav-tab-switch-' + type;

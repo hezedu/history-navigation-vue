@@ -1,4 +1,4 @@
-import {nativeLocation } from './native';
+import {  nativeLocation } from './native';
 function URL({isHashMode = true, base = ''}){
 
   this.isHashMode = isHashMode;
