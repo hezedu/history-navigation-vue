@@ -4,7 +4,8 @@ import Detail from './pages/detail.vue';
 import API from './pages/api.vue';
 import NotFound from './pages/not-found.vue';
 export default {
-  navigatorMode: 'hash',
+  urlIsHashMode: false,
+  urlBase: '/urlModeTest',
   pages: [
     { path: '/', component: Index },
     { path: '/list', component: List },
