@@ -40,6 +40,9 @@ $tabBarH: 48px;
 
 // -------- tabBar --------
 .h-nav-tabs-ctrler{
+  height: 100%;
+  width: 100%;
+  position: relative;
   padding-bottom: $tabBarH;
   box-sizing: border-box;
 }

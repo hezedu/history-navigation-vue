@@ -1,13 +1,9 @@
 <template>
-  <div class="h-nav-page" :class="info.className">
-    <template v-if="isLoad">
-      <transition name="h-nav-page-container" :appear="true">
-        <div ref="container" class="h-nav-page-container" v-show="isActive">
-          <component :is="cmptKey" />
-        </div>
-      </transition>
-    </template>
-  </div>
+  <transition name="h-nav-page-container" :appear="true" v-if="isLoad">
+    <div class="h-nav-page-container" v-show="isActive">
+      <component :is="cmptKey" />
+    </div>
+  </transition>
 </template>
 <script>
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
@@ -21,10 +17,6 @@ export default {
   props: {
     cmptKey: {
       type: String,
-      required: true
-    },
-    stateKey: {
-      type: Number,
       required: true
     },
     info: {

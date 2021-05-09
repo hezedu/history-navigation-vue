@@ -1,10 +1,9 @@
 <template>
-<div class="h-nav-page h-nav-tabs-ctrler">
+<div class="h-nav-tabs-ctrler">
   <transition-group class="h-nav-tabs-container" :class="tabBehavior" name="h-nav-page" tag="div">
     <Page v-for="v in tabStackMap"
       :key="v.cmptKey" 
       :cmptKey="v.cmptKey"
-      :stateKey="stateKey"
       :info="v.info" 
       :route="v.route"
       :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
@@ -26,7 +25,7 @@ export default {
     Page,
     TabBar
   },
-  props: ['isFirstLoaded', 'info', 'route', 'isActive', 'cmptKey', 'stateKey'],
+  props: ['info', 'route', 'isActive', 'isFirstLoaded'],
   name: "HistoryNavigationTabBarWrap",
   data(){
     console.log('tabList', this.$navigator._h.tabList)
