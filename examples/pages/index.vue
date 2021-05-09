@@ -20,6 +20,7 @@
 <script>
 
 export default {
+
   data(){
     return {
       now: Date.now()

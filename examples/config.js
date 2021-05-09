@@ -10,9 +10,12 @@ export default {
     { path: '/', component: Index },
     { path: '/list', component: List },
     { path: '/api', component: API },
-    { path: '/detail', component: Detail, className: 'hahahah' },
+    { path: '/detail', component: Detail },
   ],
-  notFoundPage: NotFound,
+  notFoundPage: {
+    title: '404',
+    component: NotFound
+  },
   tabBar: {
     list: [{
       pagePath: '/',

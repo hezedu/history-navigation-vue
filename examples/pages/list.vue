@@ -61,10 +61,6 @@ export default {
     },
     handleClick(){
       console.log('$page show', this.$page)
-    },
-
-    handleDocumentClick(){
-      console.log('document click', this.now);
     }
   },
   onShow(){
@@ -77,12 +73,6 @@ export default {
     
     console.log('$page', this);
     console.log('list created')
-  }, 
-  mounted(){
-    document.addEventListener('click', this.handleDocumentClick)
-  },
-  destroyed(){
-    document.removeEventListener('click', this.handleDocumentClick)
   }
 }
 </script>

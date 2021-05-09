@@ -16,7 +16,20 @@ export default {
       this.$navigator.back(this.$page.stateKey - 1);
     }
   },
+  onShow(){
+    console.log('detail onShow')
+  },
+  onHide(){
+    console.log('detail onHide')
+  },
   mounted(){
+    console.log('detail mounted')
+  },
+  beforeDestroy(){
+    console.log('detail beforeDestroy')
+  },
+  destroyed(){
+    console.log('detail destroyed')
   }
 }
 </script>
