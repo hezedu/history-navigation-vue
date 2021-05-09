@@ -53,7 +53,7 @@ export default {
           if(allowedMethodMap[this.type]){
             this.$navigator._h[this.type](this.url);
           } else {
-            console.error('navigator not support type: ' + this.type);
+            console.error('history-navigation-vue navigator not support type: ' + this.type);
           }
           
       }
