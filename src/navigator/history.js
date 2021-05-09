@@ -36,8 +36,8 @@ function History(opt){
   this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
-  this._popstateHandle = (e) => {
-    this.handlePop(e);
+  this._popstateHandle = () => {
+    this.handlePop();
   }
 
   this.behavior = {
@@ -282,8 +282,7 @@ History.prototype._clear = function(){
 }
 
 
-History.prototype.handlePop = function(e){
-  e.stopPropagation();
+History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
   setPreStateKey(currKey);
