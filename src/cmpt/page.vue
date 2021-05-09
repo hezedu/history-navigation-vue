@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     _handleShowHide(){
+      console.log('_handleShowHide', this.isActive)
       if(this.isActive){
         this.$emit(PAGE_E_SHOW_NAME);
       } else {
@@ -49,7 +50,10 @@ export default {
       // If don't use setTimeout, 
       // the next page's document addEventListener click will trigger in current page.
       this.isLoad = true;
-      this.$emit(PAGE_E_SHOW_NAME);
+      this.$nextTick(() => {
+        this.$emit(PAGE_E_SHOW_NAME);
+      })
+      
     });
 
   },
@@ -62,9 +66,9 @@ export default {
     // // Unlike window app. 
     // // It's like wehn input dom removed the blur event also trigger. 
     // // It's will trigger hide event before destroy.
-    // if(this.isActive){
-    //   this.$emit(PAGE_E_HIDE_NAME);
-    // }
+    if(this.isActive){
+      this.$emit(PAGE_E_HIDE_NAME);
+    }
     this.isLoad = false;
   }
 }

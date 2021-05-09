@@ -98,7 +98,6 @@ History.prototype._load = function(userUrl){
       return;
     }
   }
-  console.log('currRoute', currRoute)
   this._replace(currRoute, 'loaded');
 }
 
@@ -128,7 +127,7 @@ History.prototype._setMapItem = function(key, route){
     tabIndex: page.tabIndex,
 
     stateKey: key,
-    
+
     route
   }
 
@@ -196,9 +195,7 @@ History.prototype._replace = function(fullParse, behavior){
   this._clear();
   const key = getCurrentStateKey();
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
-  // console.log('toUrl', toUrl)
   
-  console.log('toUrl', toUrl)
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
   let _after = () => {
     this._setMapItem(key, fullParse);

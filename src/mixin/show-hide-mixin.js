@@ -7,7 +7,7 @@ export default {
     }
   },
   created(){
-    if(!this.$options.onShow || !this.$options.onHide){
+    if(!this.$options.onShow && !this.$options.onHide){
       return;
     }
     const $opts = this.$options;
