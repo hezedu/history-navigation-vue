@@ -9,7 +9,9 @@ import {cmptPageSuffix,
   notFoundPageKey, 
   tabWrapKey, 
   DEF_PAGE_INTERVAL_OFFSET_X, 
-  DEF_IS_SET_HREF} from './constant';
+  DEF_IS_SET_HREF,
+  DEF_URL_BASE,
+  DEF_URL_IS_HASH_MODE } from './constant';
 
 export default function install(Vue, config) {
 
@@ -35,22 +37,24 @@ export default function install(Vue, config) {
   Vue.component('NavigationController', NavigationController);
   Vue.component('Navigator', Navigator);
   
-  Vue.prototype.$navigator = navigator({
-    global: {
-      pageIntervalOffsetX: _getDef(config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X),
-      isSetAHref: _getDef(config, 'isSetAHref', DEF_IS_SET_HREF)
-    },
-    
-    homePagePath: config.homePagePath || config.pages[0].path,
+  const globalOption = Object.create(null);
+  _def(globalOption, config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X);
+  _def(globalOption, config, 'isSetAHref', DEF_IS_SET_HREF);
 
-    isHash: config.urlIsHashMode === undefined ? true : config.isHash,
-    urlBase: config.urlBase || '',
+  const options = {
+    global: globalOption,
+
     Vue,
     pageMap,
     cmptPageSuffix,
     notFoundPageKey,
     tabBar
-  });
+    
+  }
+  _def(options, config, 'urlBase', DEF_URL_BASE);
+  _def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
+
+  Vue.prototype.$navigator = navigator(options);
   Vue.mixin(ShowHideMixin);
 }
 
@@ -104,7 +108,9 @@ function _formatTabBar(tabBar, pageMap){
   };
 }
 
-function _getDef(obj, key, def){
-  let v = obj[key];
-  return v === undefined ? def : v;
+
+
+function _def(dest, src, key, def){
+  let v = src[key];
+  dest[key] = v === undefined ? def : v;
 }

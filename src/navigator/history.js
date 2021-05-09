@@ -19,8 +19,7 @@ function History(opt){
     throw new Error('history-navigation-vue-vue required history.pushState API');
   }
   
-  this.isHashMode = opt.isHash;
-
+  console.log('opt.urlIsHashMode', opt.urlIsHashMode)
   this.pageMap = opt.pageMap;
   if(opt.tabBar){
     this.tabMap = opt.tabBar.map;
@@ -37,7 +36,7 @@ function History(opt){
   // this.isPageDestoryWhenBack = true;
   this.onRouted = opt.onRouted;
   
-  this.URL = new URL({isHashMode: this.isHashMode, base: opt.urlBase});
+  this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
   this._popstateHandle = (e) => {
     this.handlePop(e);
   }
@@ -95,6 +94,7 @@ History.prototype._load = function(userUrl){
       return;
     }
   }
+  console.log('currRoute', currRoute)
   this._replace(currRoute, 'loaded');
 }
 
@@ -204,6 +204,7 @@ History.prototype._replace = function(fullParse, behavior){
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   // console.log('toUrl', toUrl)
   
+  console.log('toUrl', toUrl)
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
   let _after = () => {
     this._setMapItem(key, fullParse);

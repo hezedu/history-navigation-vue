@@ -1,13 +1,13 @@
 import {nativeLocation } from './native';
 function URL({isHashMode = true, base = ''}){
+
   this.isHashMode = isHashMode;
-  if(isHashMode){
-    this.base = '/' + trimSlash(base);
-  }
-  
+
   this._location = nativeLocation;
   if(isHashMode){
     this.hashBase = this._location.pathname + this._location.search + '#';
+  } else {
+    this.base = base;
   }
   
 }
@@ -24,16 +24,20 @@ URL.prototype.getUrlByLocation = function(){
   if(this.isHashMode){
     return this.getHashUrlByLocation();
   }
-  return this._location.pathname + this._location.search;
+  let pathname = this._location.pathname;
+  let i = pathname.indexOf(this.base);
+  if(i === 0){
+    pathname = pathname.substr(this.base.length);
+  }
+  return pathname + this._location.search;
 }
 
 URL.prototype.getRouteByLocation = function(){
   return urlParse(this.getUrlByLocation());
 }
 
-
 URL.prototype.toLocationUrl = function(fullPath){
-  return this.isHashMode ? (this.hashBase + fullPath) : _joinBase(this.base, fullPath);
+  return this.isHashMode ? (this.hashBase + fullPath) :  (this.base + fullPath);
 }
 
 
@@ -125,11 +129,11 @@ export function trimSlash(pathStr){
   return arr.join('/');
 }
 
-function _joinBase(base, fullPath){
-  if(fullPath[0] === '/'){
-    return base + fullPath;
-  }
-  return base + '/' + fullPath;
-}
+// function _joinBase(base, fullPath){
+//   if(fullPath[0] === '/'){
+//     return base + fullPath;
+//   }
+//   return base + '/' + fullPath;
+// }
 
 export default URL;
