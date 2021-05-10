@@ -1,7 +1,6 @@
 <template>
-<a :class="{'h-nav-disabled': disabled}" 
+<a :class="{'h-nav-actived': actived, 'h-nav-disabled': disabled}" 
   :href="href" 
-  @click.prevent="handleClick" 
   v-bind="$attrs">
   <slot></slot>
 </a>
@@ -27,22 +26,29 @@ export default {
       type: Number,
       default: 1
     },
+    actived: {
+      type: Boolean,
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
+    },
+    event: {
+      type: String
     }
   },
-  computed: { // ThroughClass , activeClass
+  computed: {
     href(){
-      // return this.$navigator._h.URL.toLocationUrl(this.url);
-      return (this.$navigator._h._global.isSetAHref && this.url) 
+      return this.url
         ? this.$navigator._h.URL.toLocationUrl(this.url)
         : undefined;
     }
   },
   methods: {
-    handleClick(){
-      if(this.disabled){
+    handleEvent(e){
+      e.preventDefault();
+      if(this.actived || this.disabled){
         return;
       }
       switch(this.type){
@@ -58,6 +64,10 @@ export default {
           
       }
     }
+  },
+  mounted(){
+    let eventName = this.event || this.$navigator._h._global.navigatorTriggerEvent;
+    this.$el.addEventListener(eventName, this.handleEvent);
   }
 }
 </script>

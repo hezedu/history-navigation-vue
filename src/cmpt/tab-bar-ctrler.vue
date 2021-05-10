@@ -1,5 +1,5 @@
 <template>
-<div class="h-nav-tabs-ctrler">
+<div class="h-nav-tabs-ctrler h-nav-tabbar-wrap">
   <transition-group class="h-nav-tabs-container" :class="tabBehavior" name="h-nav-page" tag="div">
     <div class="h-nav-page" 
          v-for="v in tabStackMap"

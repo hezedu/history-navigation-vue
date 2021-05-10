@@ -5,6 +5,7 @@ export const cmptPageSuffix = 'h-nav-page-';
 export const notFoundPageKey = cmptPageSuffix + 'not-found';
 
 export const DEF_PAGE_INTERVAL_OFFSET_X = 33;
-export const DEF_IS_SET_HREF = true;
+// export const DEF_IS_SET_HREF = true;
 export const DEF_URL_IS_HASH_MODE = true;
+export const DEF_NAVIGATOR_TRIGGER_EVENT = 'click';
 export const DEF_URL_BASE = '';
