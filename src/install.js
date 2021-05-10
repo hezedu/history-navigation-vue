@@ -61,7 +61,8 @@ export default function install(Vue, config) {
     pageMap,
     cmptPageSuffix,
     notFoundPage,
-    tabBar
+    tabBar,
+    onRouted: config.onRouted
   }
 
   def(options, config, 'urlBase', DEF_URL_BASE);

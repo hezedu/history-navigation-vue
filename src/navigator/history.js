@@ -61,13 +61,14 @@ function History(opt){
 
 }
 
-History.prototype._onRouted = function(behavior){
+History.prototype._onRouted = function(){
   if(!this.onRouted){
     return;
   }
+  const curr = this.currentPage;
   this.onRouted({
-    enterPage: this.currentPage,
-    behavior
+    title: curr.title,
+    routeFullPath: curr.route.fullPath
   });
 }
 
@@ -180,7 +181,7 @@ History.prototype._push = function(fullParse){
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
-  this._onRouted(newBehavior);
+  this._onRouted();
 }
 History.prototype.replace = function(userUrl, behavior){
   const fullParse = fullUrlParse(userUrl);
@@ -205,7 +206,7 @@ History.prototype._replace = function(fullParse, behavior){
       isPop: false
     }
     Object.assign(this.behavior, newBehavior);
-    this._onRouted(newBehavior);
+    this._onRouted();
   }
   _after();
   // if(behavior === 'loaded'){
@@ -316,7 +317,7 @@ History.prototype.handlePop = function(){
     isPop: true
   }
   Object.assign(this.behavior, newBehavior);
-  this._onRouted(newBehavior);
+  this._onRouted();
 }
 
 History.prototype.destory = function(){
