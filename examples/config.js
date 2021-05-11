@@ -4,18 +4,18 @@ import Detail from './pages/detail.vue';
 import API from './pages/api.vue';
 import NotFound from './pages/not-found.vue';
 export default {
-  urlIsHashMode: false,
+  // urlIsHashMode: false,
   urlBase: '/urlModeTest',
   pages: [
-    { path: '/', component: Index },
-    { path: '/list', component: List },
-    { path: '/api', component: API },
-    { path: '/detail', component: Detail },
+    { path: '/', component: Index, title: '首页' },
+    { path: '/list', component: List, title: '列表' },
+    { path: '/api', component: API, title: 'API' },
+    { path: '/detail', component: Detail, title: '详情' },
   ],
-  notFoundPage: {
-    title: '404',
-    component: NotFound
-  },
+  // notFoundPage: {
+  //   title: '404',
+  //   component: NotFound
+  // },
   tabBar: {
     list: [{
       pagePath: '/',
@@ -25,5 +25,8 @@ export default {
       pagePath: '/api',
       text: 'API'
     }]
+  },
+  onRouted(e){
+    document.title = e.title;
   }
 }

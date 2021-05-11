@@ -13,7 +13,7 @@
   <br>
   <navigator url="/list" type="replace">replace to List</navigator>
 </div>
-
+<div style="height: 300vh" />
 </div>
   
 </template>
@@ -25,6 +25,28 @@ export default {
     return {
       now: Date.now()
     }
+  },
+  methods: {
+    handlePageScroll(){
+      console.log('Page Scroll');
+    },
+    handleDocumentClick(){
+      console.log('Document clicked');
+    }
+  },
+  onShow(){
+    console.log('index onShow', this.now);
+    document.addEventListener('click', this.handleDocumentClick);
+  },
+  onHide(){
+    console.log('index onHide', this.now);
+    document.removeEventListener('click', this.handleDocumentClick);
+  },
+  mounted(){
+    this.$page.$el.addEventListener('scroll', this.handlePageScroll);
+  },
+  destoryed(){
+    this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
   }
 }
 </script>
