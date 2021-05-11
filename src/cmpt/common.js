@@ -1,8 +1,7 @@
 export function genPageProps(){
   return {
     path: {
-      type: String,
-      required: true
+      type: String
     },
 
     title: String,

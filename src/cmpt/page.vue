@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     _handleShowHide(){
-      console.log('_handleShowHide', this.isActive)
       if(this.isActive){
         this.$emit(PAGE_E_SHOW_NAME);
       } else {

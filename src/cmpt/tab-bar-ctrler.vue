@@ -32,7 +32,6 @@ export default {
   props: genPageProps(),
   
   data(){
-    console.log('tabList', this.$navigator._h.tabList)
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
