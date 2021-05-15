@@ -1,15 +1,12 @@
 
-$transitionTime: 3s;
+$transitionTime: .3s;
 $tabBarH: 48px;
 
 .h-nav-ctrler{
   width: 100%;
   height: 100%;
   overflow: hidden;
-  // $DEV
-  overflow: visible; 
   position: relative;
-  background-color: #fff;
 }
 
 .h-nav-page{
@@ -52,17 +49,12 @@ $tabBarH: 48px;
 }
 
 // -------- tabbar ctrler end --------
-.h-nav-page, 
-.h-nav-page-container, 
-.h-nav-tabbar{
-  transition: none $transitionTime ease;
-}
+
 .h-nav-behavior-push .h-nav-page, 
 .h-nav-behavior-back .h-nav-page,
 .h-nav-behavior-replace .h-nav-page{
-  transition-property: all;
+  transition: all $transitionTime ease;
 }
-
 // .h-nav-behavior-push .h-nav-page, 
 // .h-nav-behavior-back .h-nav-page,
 // .h-nav-behavior-replace .h-nav-page{
@@ -71,22 +63,27 @@ $tabBarH: 48px;
 // .h-nav-behavior-push .h-nav-page-leave-active, 
 // .h-nav-behavior-back .h-nav-page-leave-active,
 // .h-nav-behavior-replace .h-nav-page-leave-active{
-
-//   transition-timing-function: ease-out;
+//   transition: all $transitionTime ease-out;
 // }
 
 
-// .h-nav-page-leave-to{
-//   transform: translateX(100%);
-// }
 
-// .h-nav-behavior-push > .h-nav-page-enter {
-//   transform: translateX(100%);
-// }
+.h-nav-page-container,
+.h-nav-tabbar{
+  transition: inherit;
+}
 
-// .h-nav-behavior-back >.h-nav-page-enter{
-//   transform: translateX(-100%);
-// }
+.h-nav-page-leave-to{
+  transform: translateX(100%);
+}
+
+.h-nav-behavior-push > .h-nav-page-enter {
+  transform: translateX(100%);
+}
+
+.h-nav-behavior-back >.h-nav-page-enter{
+  transform: translateX(-100%);
+}
 
 .h-nav-behavior-replace > .h-nav-page-enter {
   transform: translateX(100%);
