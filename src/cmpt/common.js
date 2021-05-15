@@ -13,12 +13,6 @@ export function genPageProps(){
 
     tabIndex: Number,
 
-    cmptKey: {
-      type: String,
-      required: true
-    },
-
-    stackId: Number,
     stateKey: Number,
     
     route: {
@@ -34,6 +28,8 @@ export function genPageProps(){
     isFirstLoad: {
       type: Boolean,
       required: true
-    }
+    },
+    
+    stackId: Number
   }
 }

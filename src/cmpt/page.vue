@@ -1,7 +1,7 @@
 <template>
   <transition name="h-nav-page-container" :appear="true" v-if="isLoad">
     <div class="h-nav-page-container" v-show="isActive">
-      <component :is="cmptKey" />
+      <slot />
     </div>
   </transition>
 </template>

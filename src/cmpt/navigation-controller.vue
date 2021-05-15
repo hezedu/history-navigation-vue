@@ -8,19 +8,24 @@
     <div class="h-nav-page" 
       v-for="v in stackMap" 
       :key="v.stackId"
+      :class="v.isTab ? undefined : v.className"
       :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}">
 
       <TabCtrler v-if="v.isTab"
-        v-bind="v"
+        :currTabPage="v"
         :isActive="v.stateKey === currentPage.stateKey"
         :isFirstLoad="isFirstLoad"
        />
 
       <Page v-else
         v-bind="v"
+
+
+
         :isActive="v.stateKey === currentPage.stateKey"
-        :isFirstLoad="isFirstLoad"
-        />
+        :isFirstLoad="isFirstLoad">
+          <component :is="v.cmptKey" />
+        </Page>
     </div>
 <!-- 
     <component v-for="v in stackMap" 

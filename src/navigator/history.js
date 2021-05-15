@@ -49,6 +49,9 @@ function History(opt){
   this.currentPage = {
     path: null,
     title: null,
+    className: undefined,
+    transition: undefined,
+
     isTab: false,
     tabIndex: null,
     cmptKey: null,
@@ -123,18 +126,20 @@ History.prototype._setMapItem = function(key, route){
   const _page = {
     path: page.path,
     title: page.title,
+    tabIndex: page.tabIndex,
+    route,
+
     cmptKey: page.cmptKey,
     isTab: page.isTab,
-    tabIndex: page.tabIndex,
-
     stateKey: key,
+    className: page.className,
+    transition: page.transition
 
-    route
   }
 
   if(_page.isTab){
     _page.stackId = 0;
-    this._Vue.set(this.tabStackMap, route.trimedPath, _page);
+    this._Vue.set(this.tabStackMap, page.tabIndex, _page);
   } else {
     _page.stackId = this._genStackItemId();
   }

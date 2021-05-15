@@ -3,24 +3,24 @@
   <transition-group class="h-nav-tabs-container" :class="tabBehavior" name="h-nav-page" tag="div">
     <div class="h-nav-page" 
          v-for="v in tabStackMap"
-        :key="v.cmptKey"
-        :style="{left: (v.tabIndex - tabIndex) + '00%', zIndex: v.tabIndex}">
+        :key="v.tabIndex"
+        :style="{left: (v.tabIndex - currTabPage.tabIndex) + '00%', zIndex: v.tabIndex}">
         <Page
           v-bind="v"
-          :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
-          :isFirstLoad="isFirstLoad"
-        />
+          :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
+          :isFirstLoad="isFirstLoad">
+          <component :is="v.cmptKey" />
+        </Page>
     </div>
   </transition-group>
   <transition name="h-nav-tabbar">
-    <TabBar :list="tabList" :currentIndex="tabIndex" :style="{zIndex: tabList.length}" v-show="isActive" />
+    <TabBar :list="tabList" :currentIndex="currTabPage.tabIndex" :style="{zIndex: tabList.length}" v-show="isActive" />
   </transition>
 </div>
 </template>
 <script>
 import Page from './page.vue';
 import TabBar from './tab-bar.vue';
-import { genPageProps } from './common';
 
 export default {
   name: "HistoryNavigationTabBarController",
@@ -29,7 +29,20 @@ export default {
     TabBar
   },
 
-  props: genPageProps(),
+  props: {
+    currTabPage: {
+      type: Object,
+      required: true
+    },
+    isActive: {
+      type: Boolean,
+      required: true
+    },
+    isFirstLoad: {
+      type: Boolean,
+      required: true
+    }
+  },
   
   data(){
     return {
