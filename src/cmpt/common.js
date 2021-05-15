@@ -31,7 +31,7 @@ export function genPageProps(){
       required: true
     },
     
-    isFirstLoaded: {
+    isFirstLoad: {
       type: Boolean,
       required: true
     }

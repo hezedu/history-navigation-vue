@@ -13,13 +13,13 @@
       <TabCtrler v-if="v.isTab"
         v-bind="v"
         :isActive="v.stateKey === currentPage.stateKey"
-        :isFirstLoaded="isFirstLoaded"
+        :isFirstLoad="isFirstLoad"
        />
 
       <Page v-else
         v-bind="v"
         :isActive="v.stateKey === currentPage.stateKey"
-        :isFirstLoaded="isFirstLoaded"
+        :isFirstLoad="isFirstLoad"
         />
     </div>
 <!-- 
@@ -31,7 +31,7 @@
     :info="v.info" 
     :route="v.route"
     :isActive="v.stateKey === currentPage.stateKey"
-    :isFirstLoaded="behavior.type === 'loaded'"
+    :isFirstLoad="behavior.type === 'loaded'"
     :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}" /> -->
   </transition-group>
 </template>
@@ -53,7 +53,7 @@ export default {
 
   data(){
     return {
-      isFirstLoaded: true,
+      isFirstLoad: true,
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
       currentPage: this.$navigator._h.currentPage,
@@ -63,7 +63,7 @@ export default {
   created(){
     this.$navigator._h._load(this.entryPagePath);
     this.$nextTick(() => {
-      this.isFirstLoaded = false;
+      this.isFirstLoad = false;
     })
     
   }

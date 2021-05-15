@@ -19,7 +19,7 @@ export default {
   props: genPageProps(),
   data(){
     return {
-      isLoad: this.isFirstLoaded
+      isLoad: this.isFirstLoad
     }
   },
   watch: {

@@ -8,7 +8,7 @@
         <Page
           v-bind="v"
           :isActive="isActive && (route.trimedPath === v.route.trimedPath)"
-          :isFirstLoaded="isFirstLoaded"
+          :isFirstLoad="isFirstLoad"
         />
     </div>
   </transition-group>
