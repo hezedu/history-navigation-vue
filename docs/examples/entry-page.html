@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.0.8/dist/history-navigation-vue.min.css" />
+    <style>
+      html, body{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center;}
+    </style>
+    <title>Entry Page | Example | History Navigation Vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.0.8/dist/history-navigation-vue.min.js"></script>
+
+  <script type="text/x-template" id="index">
+    <div>
+      <h1>Index Page</h1>
+      <p>You logined</p>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="login">
+    <div>
+      <h1>Login Page</h1>
+      <p>You need to log in</p>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="root">
+    <div style="height: 100vh">
+      <NavigationController v-if="isReady" :entryPagePath="entryPagePath" />
+      <div v-else>Loading..</div>
+    </div>
+  </script>
+
+  <script>
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      pages: [
+        { path: '/', component: { template: '#index' } },
+        { path: '/login', component: { template: '#login' } }
+      ]
+    });
+    new window.Vue({
+      el: '#app',
+      template: "#root",
+      data(){
+        return {
+          isReady: false,
+          entryPagePath: undefined
+        }
+      },
+      created(){
+        setTimeout(() => {
+          let isLogin = Math.random() > 0.5;
+          this.entryPagePath = isLogin ? '/' : '/login';
+          this.isReady = true;
+        }, 200)
+      }
+    });
+  </script>
+  </body>
+</html>
