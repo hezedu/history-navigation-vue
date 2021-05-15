@@ -1,13 +1,12 @@
 <template>
-  <transition name="h-nav-page-container" :appear="true" v-if="isLoad">
-    <div class="h-nav-page-container" v-show="isActive">
+  <transition name="h-nav-page" :appear="true">
+    <div class="h-nav-page" v-show="isActive" :style="{zIndex: stateKey}">
       <slot />
     </div>
   </transition>
 </template>
 <script>
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
-import { genPageProps } from './common';
 
 export default {
   name: 'HistoryNavigationPage',
@@ -16,7 +15,39 @@ export default {
       $page: this
     }
   },
-  props: genPageProps(),
+  props: {
+    path: {
+      type: String
+    },
+
+    title: String,
+
+    transition: Object,
+
+    isTab: {
+      type: Boolean,
+      required: true
+    },
+
+    tabIndex: Number,
+
+    stateKey: Number,
+    
+    route: {
+      type: Object,
+      required: true
+    },
+
+    isActive: {
+      type: Boolean,
+      required: true
+    },
+    
+    isFirstLoad: {
+      type: Boolean,
+      required: true
+    }
+  },
   data(){
     return {
       isLoad: this.isFirstLoad

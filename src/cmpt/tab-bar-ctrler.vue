@@ -6,7 +6,15 @@
         :key="v.tabIndex"
         :style="{left: (v.tabIndex - currTabPage.tabIndex) + '00%', zIndex: v.tabIndex}">
         <Page
-          v-bind="v"
+          :path="v.path"
+          :title="v.title"
+          :transition="v.transition"
+          
+          :isTab="v.isTab"
+          :tabIndex="v.tabIndex"
+          :stateKey="v.stateKey"
+          :route="v.route"
+
           :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
           :isFirstLoad="isFirstLoad">
           <component :is="v.cmptKey" />
@@ -28,7 +36,6 @@ export default {
     Page,
     TabBar
   },
-
   props: {
     currTabPage: {
       type: Object,

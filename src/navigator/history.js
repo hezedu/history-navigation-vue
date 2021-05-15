@@ -50,7 +50,9 @@ function History(opt){
     path: null,
     title: null,
     className: undefined,
-    transition: undefined,
+    
+    transitionType: undefined,
+    transitionDuration: undefined,
 
     isTab: false,
     tabIndex: null,
@@ -124,6 +126,7 @@ History.prototype._setMapItem = function(key, route){
 
   let page = this.pageMap[route.trimedPath] || this.notFoundPage;
   const _page = {
+
     path: page.path,
     title: page.title,
     tabIndex: page.tabIndex,
@@ -132,8 +135,7 @@ History.prototype._setMapItem = function(key, route){
     cmptKey: page.cmptKey,
     isTab: page.isTab,
     stateKey: key,
-    className: page.className,
-    transition: page.transition
+    className: page.className
 
   }
 
@@ -144,8 +146,14 @@ History.prototype._setMapItem = function(key, route){
     _page.stackId = this._genStackItemId();
   }
 
-  Object.assign(this.currentPage, _page);
-  this._Vue.set(this.stackMap, key, _page);
+  
+  
+  
+  // Object.assign(this.currentPage, _page);
+  this._Vue.nextTick(() => {
+    this._Vue.set(this.stackMap, key, _page);
+    Object.assign(this.currentPage, _page);
+  })
 }
 
 History.prototype._delMapItem = function(key){
@@ -173,19 +181,21 @@ History.prototype._push = function(fullParse){
   
   
 
-  this._clear();
+  // this._cl2ear();
   
   const key = genStateKey();
 
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
   setPreStateKey(key);
-  this._setMapItem(key, fullParse);
   const newBehavior = {
     type: 'push',
     step: 1,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
+
+  this._setMapItem(key, fullParse);
+
   this._onRouted();
 }
 History.prototype.replace = function(userUrl, behavior){
@@ -198,7 +208,7 @@ History.prototype.replace = function(userUrl, behavior){
 }
 History.prototype._replace = function(fullParse, behavior){
 
-  this._clear();
+  // this._cl2ear();
   const key = getCurrentStateKey();
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   
@@ -304,24 +314,30 @@ History.prototype.handlePop = function(){
   const behavior = compare <  0 ? 'back' : 'forward';
 
   // this.isPageDestoryWhenBack && 
-  if(behavior === 'back'){
-    this._clear();
-  }
+
   let page = this.stackMap[currKey];
   // console.log('compare', compare);
   // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   if(page){
     Object.assign(this.currentPage, page);
-    console.log('page', page);
   } else {
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }
+
+
   const newBehavior = {
     type: behavior,
     step: compare,
     isPop: true
   }
   Object.assign(this.behavior, newBehavior);
+
+  if(behavior === 'back'){
+    this._Vue.nextTick(() => {
+      this._clear();
+    })
+    
+  }
   this._onRouted();
 }
 

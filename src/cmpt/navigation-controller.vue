@@ -1,44 +1,48 @@
 
 <template>
-  <transition-group
-    class="h-nav-ctrler" 
-    :class="'h-nav-behavior-' + behavior.type"
-    name="h-nav-page" tag="div">
+<transition-group class="h-nav-ctrler"
+  :class="'h-nav-behavior-' + behavior.type"
+  tag="div"
+  enter-class=""
+  leave-class=""
+  enter-to-class=""
+  leave-to-class=""
+  enter-active-class="h-nav--page-load" 
+  leave-active-class="h-nav--page-unload">
 
-    <div class="h-nav-page" 
+
+    <div 
+      class="h-nav-page-handle" 
       v-for="v in stackMap" 
-      :key="v.stackId"
-      :class="v.isTab ? undefined : v.className"
-      :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}">
-
+      :key="v.stackId" 
+      :class="v.isTab ? undefined : v.className">
+    
       <TabCtrler v-if="v.isTab"
+        :key="v.stackId"
         :currTabPage="v"
         :isActive="v.stateKey === currentPage.stateKey"
         :isFirstLoad="isFirstLoad"
-       />
+      />
 
       <Page v-else
-        v-bind="v"
+        :key="v.stackId"
+        :path="v.path"
+        :title="v.title"
+        :transition="v.transition"
 
-
+        :isTab="v.isTab"
+        :tabIndex="v.tabIndex"
+        :stateKey="v.stateKey"
+        :route="v.route"
 
         :isActive="v.stateKey === currentPage.stateKey"
         :isFirstLoad="isFirstLoad">
           <component :is="v.cmptKey" />
         </Page>
+        
     </div>
-<!-- 
-    <component v-for="v in stackMap" 
-    :is="v.isTab ? 'TabCtrler' : 'Page'"
-    :key="v.stackId"
-    :stateKey="v.stateKey" 
-    :cmptKey="v.cmptKey"
-    :info="v.info" 
-    :route="v.route"
-    :isActive="v.stateKey === currentPage.stateKey"
-    :isFirstLoad="behavior.type === 'loaded'"
-    :style="{left: ((v.stateKey - currentPage.stateKey) * pageIntervalOffsetX) + '%', zIndex: v.stateKey}" /> -->
-  </transition-group>
+</transition-group>
+
 </template>
 <script>
 import Page from './page.vue';

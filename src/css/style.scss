@@ -8,8 +8,12 @@ $tabBarH: 48px;
   overflow: hidden;
   position: relative;
 }
-
-.h-nav-page{
+.h-nav-page-handle{
+  width: 0;
+  height: 0;
+  position: static;
+}
+.h-nav-page {
   width: 100%;
   height: 100%;
   overflow:  hidden;
@@ -17,19 +21,9 @@ $tabBarH: 48px;
   left: 0;
   top: 0;
   background-color: #fff;
-}
-
-
-
-.h-nav-page-container{
-  width: 100%;
-  height: 100%;
-  overflow:  auto;
-  position: relative;
-  left: 0;
-  top: 0;
   -webkit-overflow-scrolling: touch;
 }
+
 
 
 
@@ -50,11 +44,11 @@ $tabBarH: 48px;
 
 // -------- tabbar ctrler end --------
 
-.h-nav-behavior-push .h-nav-page, 
-.h-nav-behavior-back .h-nav-page,
-.h-nav-behavior-replace .h-nav-page{
-  transition: all $transitionTime ease;
-}
+// .h-nav-behavior-push .h-nav-page, 
+// .h-nav-behavior-back .h-nav-page,
+// .h-nav-behavior-replace .h-nav-page{
+//   transition: all $transitionTime ease;
+// }
 // .h-nav-behavior-push .h-nav-page, 
 // .h-nav-behavior-back .h-nav-page,
 // .h-nav-behavior-replace .h-nav-page{
@@ -68,30 +62,30 @@ $tabBarH: 48px;
 
 
 
-.h-nav-page-container,
-.h-nav-tabbar{
-  transition: inherit;
-}
+// .h-nav-page-container,
+// .h-nav-tabbar{
+//   transition: inherit;
+// }
 
-.h-nav-page-leave-to{
-  transform: translateX(100%);
-}
+// .h-nav-page-leave-to{
+//   transform: translateX(100%);
+// }
 
-.h-nav-behavior-push > .h-nav-page-enter {
-  transform: translateX(100%);
-}
+// .h-nav-behavior-push > .h-nav-page-enter {
+//   transform: translateX(100%);
+// }
 
-.h-nav-behavior-back >.h-nav-page-enter{
-  transform: translateX(-100%);
-}
+// .h-nav-behavior-back >.h-nav-page-enter{
+//   transform: translateX(-100%);
+// }
 
-.h-nav-behavior-replace > .h-nav-page-enter {
-  transform: translateX(100%);
-}
+// .h-nav-behavior-replace > .h-nav-page-enter {
+//   transform: translateX(100%);
+// }
 
-.h-nav-behavior-replace > .h-nav-page-leave-to {
-  transform: none;
-}
+// .h-nav-behavior-replace > .h-nav-page-leave-to {
+//   transform: none;
+// }
 
 // .h-nav-behavior-relaunch >.h-nav-page-enter {
 //   transform: translateY(-100%);
@@ -100,6 +94,44 @@ $tabBarH: 48px;
 // .h-nav-behavior-relaunch >.h-nav-page-leave-to {
 //   transform: translateY(100%);
 // }
+.h-nav-page-handle{
+  transition-property: all;
+  transition-duration: 3s;
+  transition-timing-function: linear;
+}
+.h-nav-page,
+.h-nav-page-enter-active, 
+.h-nav-page-leave-active,
+.h-nav--page-unload > div{
+  transition: inherit;
+  animation: inherit;
+}
+
+
+
+.h-nav-behavior-push > div > .h-nav-page-enter,
+.h-nav-behavior-back > div > .h-nav-page-leave-to {
+  left: 100%;
+}
+
+.h-nav-behavior-push > div > .h-nav-page-leave-to,
+.h-nav-behavior-back > div > .h-nav-page-enter{
+  left: -100%;
+}
+
+.h-nav-behavior-back > div > .h-nav-page-enter {
+  left: -100%;
+}
+// when user reload broswer, and click back.
+// .h-nav-behavior-back > .h-nav--page-load > .h-nav-page-enter{
+//   left: -100%;
+// }
+
+
+.h-nav-behavior-replace > div > .h-nav-page-enter {
+  top: 100%;
+}
+
 
 
 

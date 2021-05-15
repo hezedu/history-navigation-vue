@@ -75,21 +75,26 @@ export default function install(Vue, config) {
 function _formatPages(pages){
 
   let map = Object.create(null);
-  let i = 0, len = pages.length, page, tk;
+  let i = 0, len = pages.length, page, tk, fpage;
   for(; i < len; i++){
     page = pages[i];
     tk = trimSlash(page.path);
     if(map[tk]){
       throwErr(`pageMap key: ${tk} is same as ${page.path}`);
     }
-    map[tk] = Object.assign({}, page, {
+    fpage = Object.assign({}, page);
+
+    Object.assign(fpage, {
       trimedPath: tk,
       isTab: false,
       cmptKey: cmptPageSuffix + i
     });
+
+    map[tk] = fpage;
   }
   return map;
 }
+
 
 function _formatTabBar(tabBar, pageMap){
   const list = tabBar.list;
