@@ -18,8 +18,6 @@
     "web app"
   ],
   "main": "dist/history-navigation-vue.js",
-  "unpkg": "dist/history-navigation-vue.min.js",
-  "jsdelivr": "dist/history-navigation-vue.min.js",
   "license": "MIT",
   "author": "hezedu",
   "repository": {
