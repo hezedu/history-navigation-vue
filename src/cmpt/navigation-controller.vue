@@ -67,8 +67,7 @@ export default {
       isFirstLoad: true,
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
-      currentPage: this.$navigator._h.currentPage,
-      pageIntervalOffsetX: this.$navigator._h._global.pageIntervalOffsetX
+      currentPage: this.$navigator._h.currentPage
     }
   },
   created(){

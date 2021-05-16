@@ -10,7 +10,6 @@ function History(opt){
   }
   isCreated = true;
   this._global = opt.global;
-  this.pageIntervalOffsetX = opt.pageIntervalOffsetX;
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;

@@ -7,7 +7,6 @@ import ShowHideMixin from './mixin/show-hide-mixin';
 import { def, throwErr } from './util';
 import {cmptPageSuffix, 
   notFoundPageKey, 
-  DEF_PAGE_INTERVAL_OFFSET_X, 
   DEF_NAVIGATOR_TRIGGER_EVENT,
   DEF_URL_BASE,
   DEF_URL_IS_HASH_MODE } from './constant';
@@ -52,7 +51,6 @@ export default function install(Vue, config) {
   Vue.component('Navigator', Navigator);
   
   const globalOption = Object.create(null);
-  def(globalOption, config, 'pageIntervalOffsetX', DEF_PAGE_INTERVAL_OFFSET_X);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
   const options = {
     global: globalOption,
