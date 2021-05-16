@@ -25,6 +25,7 @@
       />
       
       <Page v-else
+        transitionName="h-nav-page"
         :key="v.stackId"
         :path="v.path"
         :title="v.title"

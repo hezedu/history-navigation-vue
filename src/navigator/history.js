@@ -180,8 +180,7 @@ History.prototype._push = function(fullParse){
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
-
-  // this._cl2ear();
+  // this._clear();
   
   const key = genStateKey();
 
@@ -206,12 +205,12 @@ History.prototype.replace = function(userUrl, behavior){
   }
   this._replace(fullParse, behavior);
 }
-History.prototype._replace = function(fullParse, behavior){
+History.prototype._replace = function(fullParse, behavior, step){
 
-  // this._cl2ear();
+  this._clear();
   const newBehavior = {
     type: behavior || 'replace',
-    step: 0,
+    step: step === undefined ? 0 : step,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
@@ -224,6 +223,7 @@ History.prototype._replace = function(fullParse, behavior){
 
   this._Vue.nextTick(() => {
     this._setMapItem(key, fullParse);
+    
     this._onRouted();
   })
   
@@ -236,13 +236,13 @@ History.prototype._replace = function(fullParse, behavior){
 
 }
 
-History.prototype._directReplace = function(userUrl, behavior){
+History.prototype._directReplace = function(userUrl, behavior, compare){
 
   const fullParse = 
   typeof userUrl  === 'string' ? 
    fullUrlParse(userUrl) 
    : userUrl;
-  this._replace(fullParse, behavior);
+  this._replace(fullParse, behavior, compare);
 }
 
 History.prototype.back = function(step){
@@ -292,7 +292,6 @@ History.prototype._backToStartAndReplace = function(userUrl, behavior){
 History.prototype._clear = function(){
   const key = getCurrentStateKey();
   const map = this.stackMap;
-  // console.log('_clear', key, map);  
   for (var i in map) {
     if (Number(i) > key) {
       this._delMapItem(i);
@@ -307,14 +306,16 @@ History.prototype.handlePop = function(){
   setPreStateKey(currKey);
 
   const _info = this._whenPopInfo;
+  const compare = currKey - preKey;
+  const behavior = compare <  0 ? 'back' : 'forward';
+
   if(_info !== null){
-    this._directReplace(_info.userUrl, _info.behavior);
+    this._directReplace(_info.userUrl, _info.behavior, compare);
     this._whenPopInfo = null;
     return;
   }
 
-  const compare = currKey - preKey;
-  const behavior = compare <  0 ? 'back' : 'forward';
+
 
   // this.isPageDestoryWhenBack && 
 

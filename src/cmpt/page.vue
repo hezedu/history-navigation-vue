@@ -1,6 +1,6 @@
 <template>
-  <transition name="h-nav-page" :appear="true">
-    <div class="h-nav-page" v-show="isActive">
+  <transition :name="transitionName" :appear="true">
+    <div :class="transitionName" v-show="isActive">
       <slot />
     </div>
   </transition>
@@ -19,7 +19,10 @@ export default {
     path: {
       type: String
     },
-
+    transitionName: {
+      type: String,
+      default: 'h-nav-page'
+    },
     title: String,
 
     isTab: {

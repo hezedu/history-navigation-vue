@@ -8,26 +8,26 @@ $tabBarH: 48px;
   overflow: hidden;
   position: relative;
 }
-.h-nav-page-container{
-  width: 0;
-  height: 0;
-  position: static;
-}
-.h-nav-page, .h-nav-tabs-ctrler {
+
+.h-nav-page, .h-nav-tab-page {
   width: 100%;
   height: 100%;
   position: absolute;
   left: 0;
   top: 0;
-
-}
-
-.h-nav-page{
   overflow:  hidden;
   background-color: #fff;
   -webkit-overflow-scrolling: touch;
 }
 
+
+.h-nav-tabs-ctrler{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 
 .h-nav-tab-page-wrap{
   width: 100%;
@@ -35,84 +35,17 @@ $tabBarH: 48px;
   position: relative;
 }
 
-
-.h-nav-page-container{
-  transition-property: all;
-  transition-duration: 3s;
-  transition-timing-function: linear;
+.h-nav-page-container, 
+.h-nav-tab-page-container{
+  width: 0;
+  height: 0;
+  position: static;
 }
 
 .h-nav-page-enter-active, 
-.h-nav-page-leave-active {
+.h-nav-page-leave-active,
+.h-nav-tab-page-enter-active,
+.h-nav-tab-page--leave-active{
   transition: inherit;
   animation: inherit;
 }
-
-
-// ---------------- behavior loaded  start ----------------
-// default: none
-.h-nav-behavior-relaunch > div{
-  transition: none;
-}
-// .h-nav-behavior-loaded > div > .h-nav-page-enter{
-//   top: -100%;
-// }
-// ---------------- behavior loaded end ----------------
-
-
-// ---------------- behavior push/back start ----------------
-
-.h-nav-behavior-push > div > .h-nav-page-enter,
-.h-nav-behavior-back > div > .h-nav-page-leave-to {
-  left: 100%;
-}
-.h-nav-behavior-push > div > .h-nav-page-leave-to,
-.h-nav-behavior-back > div > .h-nav-page-enter{
-  left: -100%;
-}
-// when user reload broswer, and click back.
-// .h-nav-behavior-back > .h-nav-page_load > .h-nav-page-enter{
-//   left: -100%;
-// }
-// ---------------- behavior push/back end ----------------
-
-
-// ---------------- behavior replace start ----------------
-.h-nav-behavior-replace > div > .h-nav-page-enter {
-  top: 100%;
-}
-
-.h-nav-behavior-replace > div > .h-nav-page-leave-to {
-  top: -100%;
-}
-// ---------------- behavior replace  end ----------------
-
-
-// ---------------- behavior relaunch start ----------------
-// default: none
-// .h-nav-behavior-relaunch > div{
-//   transition: none;
-// }
-.h-nav-behavior-relaunch > div > .h-nav-page-enter{
-  top: -100%;
-}
-.h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
-  top: 100%;
-}
-// ---------------- behavior relaunch end ----------------
-
-
-// ---------------- switchTab  start ----------------
-// default: none
-/*
-.h-nav-tab-switch-smaller > div > .h-nav-page-enter,
-.h-nav-tab-switch-greater > div > .h-nav-page-leave-to{
-  left: -100%;
-}
-.h-nav-tab-switch-greater > div > .h-nav-page-enter,
-.h-nav-tab-switch-smaller > div > .h-nav-page-leave-to{
-  left: 100%;
-}
-*/
-// ---------------- switchTab end ----------------
-
