@@ -29,7 +29,7 @@ $tabBarH: 48px;
   top: 0;
 }
 
-.h-nav-tab-page-wrap{
+.h-nav-tab-pages-wrap{
   width: 100%;
   height: 100%;
   position: relative;
@@ -45,7 +45,19 @@ $tabBarH: 48px;
 .h-nav-page-enter-active, 
 .h-nav-page-leave-active,
 .h-nav-tab-page-enter-active,
-.h-nav-tab-page--leave-active{
+.h-nav-tab-page-leave-active{
+  transition: inherit;
+  animation: inherit;
+}
+
+.h-nav-tab-pages-wrap {
+  transition: inherit;
+  animation: inherit;
+  transition-property: none;
+  animation-name: none;
+}
+
+.h-nav-tab-page-container{
   transition: inherit;
   animation: inherit;
 }

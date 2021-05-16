@@ -7,19 +7,21 @@
   leave-class=""
   enter-to-class=""
   leave-to-class=""
-  enter-active-class="h-nav--page-load" 
-  leave-active-class="h-nav--page-unload">
+  enter-active-class="h-nav--page_load" 
+  leave-active-class="h-nav--page_unload">
 
 
     <div 
       class="h-nav-page-container" 
       v-for="v in stackMap" 
       :key="v.stackId" 
-      :class="v.className">
+      :class="v.className"
+      :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''">
       
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
         :currTabPage="v"
+        :style="{zIndex: v.stateKey}"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
       />

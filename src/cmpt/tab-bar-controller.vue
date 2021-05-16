@@ -1,10 +1,10 @@
 <template>
 <transition name="h-nav-page" :appear="true">
-  <div class="h-nav-tabs-ctrler h-nav-tabs-wrap" v-show="isActive" :style="{zIndex: currTabPage.stateKey}">
+  <div class="h-nav-tabs-ctrler h-nav-tabs-wrap" v-show="isActive">
     <transition-group 
-      class="h-nav-tab-page-wrap" 
+      class="h-nav-tab-pages-wrap" 
       tag="div" 
-      :class="tabBehavior" 
+      :class="'h-nav-tab-behavior-' + tabBehavior" 
       enter-class=""
       leave-class=""
       enter-to-class=""
@@ -14,7 +14,8 @@
 
       <div class="h-nav-tab-page-container" 
           v-for="v in tabStackMap"
-          :class="v.className"
+          :class="v.tabClassNames"
+          :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''"
           :key="v.tabIndex">
           <Page
             transitionName="h-nav-tab-page"
@@ -66,15 +67,25 @@ export default {
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
-      tabBehavior: ''
+      tabBehavior: 'enter'
     }
   },
   watch: {
     'currTabPage.tabIndex'(newVal, oldVal){
       let type = newVal > oldVal ? 'greater' : 'smaller';
-
-      this.tabBehavior = 'h-nav-tab-switch-' + type;
+      this.tabBehavior = 'to-' + type;
+    },
+    isActive(newVal, oldVal){
+      console.log('newVal === oldVal', newVal === oldVal, newVal, oldVal, this.isActive)
+      if(newVal){
+        this.tabBehavior = 'enter';
+      } else {
+        this.tabBehavior = 'leave'
+      }
     }
+  },
+  created(){
+    console.log('tab ctrler created')
   }
 }
 </script>

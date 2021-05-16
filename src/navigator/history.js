@@ -28,10 +28,9 @@ function History(opt){
   this.stackMap = Object.create(null);
 
   
-  this._relaunchTo = null;
-  this._switchTab = null;
   this._whenPopInfo = null;
   this._stackItemId = 1;
+  this.tabCtrlerStackId = 1;
   // this.isPageDestoryWhenBack = true;
   this.onRouted = opt.onRouted;
   
@@ -59,8 +58,9 @@ function History(opt){
     cmptKey: null,
 
     stackId: null,
+    
     stateKey: null,
-
+    isClean: false,
     route: {}
   }
 
@@ -79,7 +79,7 @@ History.prototype._onRouted = function(){
 
 History.prototype._genStackItemId = function(){
   this._stackItemId = this._stackItemId + 1;
-  return this._stackItemId;
+  return 'stack_' + this._stackItemId;
 }
 
 History.prototype._isTabRoute = function(trimedPath){
@@ -135,12 +135,13 @@ History.prototype._setMapItem = function(key, route){
     cmptKey: page.cmptKey,
     isTab: page.isTab,
     stateKey: key,
-    className: page.className
+    className: page.className,
 
+    isClean: false // when curr page leaveing, It doesn't work.
   }
 
   if(_page.isTab){
-    _page.stackId = 1;
+    _page.stackId = 'tab_stack_' + this.tabCtrlerStackId;
     this._Vue.set(this.tabStackMap, page.tabIndex, _page);
   } else {
     _page.stackId = this._genStackItemId();
@@ -159,6 +160,7 @@ History.prototype._setMapItem = function(key, route){
 }
 
 History.prototype._delMapItem = function(key){
+  this.stackMap[key].isClean = true;
   this._Vue.delete(this.stackMap, key);
 }
 
@@ -207,7 +209,7 @@ History.prototype.replace = function(userUrl, behavior){
 }
 History.prototype._replace = function(fullParse, behavior, step){
 
-  this._clear();
+  
   const newBehavior = {
     type: behavior || 'replace',
     step: step === undefined ? 0 : step,
@@ -216,15 +218,25 @@ History.prototype._replace = function(fullParse, behavior, step){
   Object.assign(this.behavior, newBehavior);
   const key = getCurrentStateKey();
   // this._delMapItem(key);
-  this.currentPage.stackId = -this.currentPage.stackId;
+  if(this.behavior.type !== 'switchtab' || step){
+    // unactive currentPage
+    this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
+  }
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
 
   this._Vue.nextTick(() => {
-    this._setMapItem(key, fullParse);
-    
-    this._onRouted();
+    if(newBehavior.type === 'relaunch'){
+      this.clearTabStatck();
+      this._clearAll();
+      this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
+      this._setMapItem(key, fullParse);
+    } else {
+      this._clear();
+      this._setMapItem(key, fullParse);
+      this._onRouted();
+    }
   })
   
   // if(behavior === 'loaded'){
@@ -264,16 +276,18 @@ History.prototype.back = function(step){
 }
 
 History.prototype.relaunch = function(userUrl){
-  // for(i in this.stackMap){
-  //   this._Vue.delete(this.stackMap, i);
-  // }
+
+  this._backToStartAndReplace(userUrl, 'relaunch');
+}
+
+History.prototype.clearTabStatck = function(){
   if(this.tabStackMap){
     let i;
     for(i in this.tabStackMap){
+      this.tabStackMap[i].isClean = true;
       this._Vue.delete(this.tabStackMap, i);
     }
   }
-  this._backToStartAndReplace(userUrl, 'relaunch');
 }
 
 History.prototype._backToStartAndReplace = function(userUrl, behavior){
@@ -298,7 +312,13 @@ History.prototype._clear = function(){
     }
   }
 }
+History.prototype._clearAll = function(){
 
+  const map = this.stackMap;
+  for (var i in map) {
+    this._delMapItem(i);
+  }
+}
 
 History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
@@ -335,16 +355,15 @@ History.prototype.handlePop = function(){
     this._setMapItem(currKey, this.getFullUrlParseByLocation());
   }
 
-
-
-
   if(behavior === 'back'){
     this._Vue.nextTick(() => {
       this._clear();
+      this._onRouted();
     })
-    
+  } else {
+    this._onRouted();
   }
-  this._onRouted();
+  
 }
 
 History.prototype.destory = function(){
