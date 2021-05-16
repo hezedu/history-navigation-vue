@@ -2,8 +2,8 @@
 <div style="height: 100%; padding: 10px;">
   
   <div style="height: 100%; overflow: auto;">
-    <h1>List </h1>
-
+    <h1>List {{Date.now()}}</h1>
+    <div style="background-color: red!important" class="red"></div>
 
     <!-- <div style="height: 150vh">
         <div style="height: 300px; width: 300px; overflow: auto;">
@@ -20,6 +20,10 @@
     <navigator url="/list" type="replace">replace to List</navigator>
     <br>
     <navigator url="/detail" type="replace">replace to Detail</navigator>
+      <br>
+    <navigator url="/detail" style="font-size: 3em" type="relaunch">Relaunch to Detail</navigator>
+    <br>
+    <navigator url="/" style="font-size: 3em" type="switchTab">switchTab to Index</navigator>
     <br>
     <navigator type="back">Back</navigator>
         <br>
@@ -47,17 +51,18 @@ export default {
       isShowInput: true
     }
   },
-  watch: {
-    '$page.isShow'(val){
-      console.log('list watch $page: ' + (val ? 'show' : 'hide'))
-    }
-  },
+  // watch: {
+  //   '$page.isShow'(val){
+  //     console.log('list watch $page: ' + (val ? 'show' : 'hide'))
+  //   }
+  // },
   methods: {
     handleFocus(){
       this.isShowInput = false;
     },
+
     handleBlur(){
-      console.log('handleBlur')
+      console.log('handleBlur');
     },
     handleClick(){
       console.log('$page show', this.$page)
@@ -70,8 +75,6 @@ export default {
     console.log('list onHide', this.now);
   },
   created(){
-    
-    console.log('$page', this);
     console.log('list created')
   }
 }

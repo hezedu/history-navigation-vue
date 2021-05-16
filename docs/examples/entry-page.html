@@ -3,8 +3,9 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.0.8/dist/history-navigation-vue.min.css" />
     <style>
-      html, body{height: 100%;}
-      body {padding: 0; margin: 0; text-align: center;}
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ddd;}
+      .root{max-width: 798px; margin: 0 auto;}
     </style>
     <title>Entry Page | Example | History Navigation Vue</title>
   </head>
@@ -29,7 +30,7 @@
 
   <script type="text/x-template" id="root">
     <div style="height: 100vh">
-      <NavigationController v-if="isReady" :entryPagePath="entryPagePath" />
+      <NavigationController class="root" v-if="isReady" :entryPagePath="entryPagePath" />
       <div v-else>Loading..</div>
     </div>
   </script>

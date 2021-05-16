@@ -3,7 +3,7 @@
   <div class="wrap">
   <div style="height: 1px"></div>
   <h1> Index {{now}}</h1>
-  <navigator url="/api" type="switchTab">switchTab API</navigator>
+  <navigator url="/api" type="switchTab">switchTab to API</navigator>
   <br>
   <navigator url="/api" type="relaunch">relaunch API</navigator>
   <br>

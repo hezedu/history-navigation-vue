@@ -6,9 +6,18 @@
 html, body {
   height: 100%;
 }
+
 body, h1, h2, ul, li, button, pre{
   padding: 0;
   margin: 0;
+}
+body {
+  background-color: red;
+}
+
+.h-nav-ctrler{
+  max-width: 768px;
+  margin: 0 auto; 
 }
 h1{
   font-size: 2em;
@@ -444,3 +453,14 @@ footer{
   }
  
 }
+.red{
+  height: 100px;
+  width: 100px;
+  background-color: blue!important;
+}
+// .custom-index{
+//   transition: all 13s ease;
+// }
+// .custom-index > .h-nav-page-enter{
+//   left: 33%;
+// }
