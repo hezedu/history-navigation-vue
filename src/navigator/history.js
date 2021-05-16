@@ -31,7 +31,7 @@ function History(opt){
   this._relaunchTo = null;
   this._switchTab = null;
   this._whenPopInfo = null;
-  this._stackItemId = 0;
+  this._stackItemId = 1;
   // this.isPageDestoryWhenBack = true;
   this.onRouted = opt.onRouted;
   
@@ -140,7 +140,7 @@ History.prototype._setMapItem = function(key, route){
   }
 
   if(_page.isTab){
-    _page.stackId = 0;
+    _page.stackId = 1;
     this._Vue.set(this.tabStackMap, page.tabIndex, _page);
   } else {
     _page.stackId = this._genStackItemId();
@@ -150,10 +150,12 @@ History.prototype._setMapItem = function(key, route){
   
   
   // Object.assign(this.currentPage, _page);
-  this._Vue.nextTick(() => {
-    this._Vue.set(this.stackMap, key, _page);
-    Object.assign(this.currentPage, _page);
-  })
+  this._Vue.set(this.stackMap, key, _page);
+  Object.assign(this.currentPage, _page);
+  // this._Vue.nextTick(() => {
+    
+    
+  // })
 }
 
 History.prototype._delMapItem = function(key){
@@ -178,8 +180,6 @@ History.prototype._push = function(fullParse){
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
-  
-  
 
   // this._cl2ear();
   
@@ -209,21 +209,24 @@ History.prototype.replace = function(userUrl, behavior){
 History.prototype._replace = function(fullParse, behavior){
 
   // this._cl2ear();
+  const newBehavior = {
+    type: behavior || 'replace',
+    step: 0,
+    isPop: false
+  }
+  Object.assign(this.behavior, newBehavior);
   const key = getCurrentStateKey();
+  // this._delMapItem(key);
+  this.currentPage.stackId = -this.currentPage.stackId;
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
   
   this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
-  let _after = () => {
+
+  this._Vue.nextTick(() => {
     this._setMapItem(key, fullParse);
-    const newBehavior = {
-      type: behavior || 'replace',
-      step: 0,
-      isPop: false
-    }
-    Object.assign(this.behavior, newBehavior);
     this._onRouted();
-  }
-  _after();
+  })
+  
   // if(behavior === 'loaded'){
   //   this._Vue.nextTick(_after);
   // } else {
@@ -318,6 +321,13 @@ History.prototype.handlePop = function(){
   let page = this.stackMap[currKey];
   // console.log('compare', compare);
   // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
+  const newBehavior = {
+    type: behavior,
+    step: compare,
+    isPop: true
+  }
+  Object.assign(this.behavior, newBehavior);
+
   if(page){
     Object.assign(this.currentPage, page);
   } else {
@@ -325,12 +335,7 @@ History.prototype.handlePop = function(){
   }
 
 
-  const newBehavior = {
-    type: behavior,
-    step: compare,
-    isPop: true
-  }
-  Object.assign(this.behavior, newBehavior);
+
 
   if(behavior === 'back'){
     this._Vue.nextTick(() => {

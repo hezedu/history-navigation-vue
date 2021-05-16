@@ -12,30 +12,29 @@
 
 
     <div 
-      class="h-nav-page-handle" 
+      class="h-nav-page-container" 
       v-for="v in stackMap" 
       :key="v.stackId" 
-      :class="v.isTab ? undefined : v.className">
-    
+      :class="v.className">
+      
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
         :currTabPage="v"
-        :isActive="v.stateKey === currentPage.stateKey"
+        :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
       />
-
+      
       <Page v-else
         :key="v.stackId"
         :path="v.path"
         :title="v.title"
-        :transition="v.transition"
 
         :isTab="v.isTab"
         :tabIndex="v.tabIndex"
         :stateKey="v.stateKey"
         :route="v.route"
-
-        :isActive="v.stateKey === currentPage.stateKey"
+        :style="{zIndex: v.stateKey}"
+        :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad">
           <component :is="v.cmptKey" />
         </Page>
@@ -46,7 +45,7 @@
 </template>
 <script>
 import Page from './page.vue';
-import TabCtrler from './tab-bar-ctrler.vue';
+import TabCtrler from './tab-bar-controller.vue';
 
 export default {
   components: {

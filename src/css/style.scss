@@ -8,159 +8,111 @@ $tabBarH: 48px;
   overflow: hidden;
   position: relative;
 }
-.h-nav-page-handle{
+.h-nav-page-container{
   width: 0;
   height: 0;
   position: static;
 }
-.h-nav-page {
+.h-nav-page, .h-nav-tabs-ctrler {
   width: 100%;
   height: 100%;
-  overflow:  hidden;
   position: absolute;
   left: 0;
   top: 0;
+
+}
+
+.h-nav-page{
+  overflow:  hidden;
   background-color: #fff;
   -webkit-overflow-scrolling: touch;
 }
 
 
-
-
-
-
-// -------- tabbar ctrler --------
-.h-nav-tabs-ctrler{
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-.h-nav-tabs-container{
+.h-nav-tab-page-wrap{
   width: 100%;
   height: 100%;
   position: relative;
 }
 
-// -------- tabbar ctrler end --------
 
-// .h-nav-behavior-push .h-nav-page, 
-// .h-nav-behavior-back .h-nav-page,
-// .h-nav-behavior-replace .h-nav-page{
-//   transition: all $transitionTime ease;
-// }
-// .h-nav-behavior-push .h-nav-page, 
-// .h-nav-behavior-back .h-nav-page,
-// .h-nav-behavior-replace .h-nav-page{
-//   transition: all $transitionTime ease-in;
-// }
-// .h-nav-behavior-push .h-nav-page-leave-active, 
-// .h-nav-behavior-back .h-nav-page-leave-active,
-// .h-nav-behavior-replace .h-nav-page-leave-active{
-//   transition: all $transitionTime ease-out;
-// }
-
-
-
-// .h-nav-page-container,
-// .h-nav-tabbar{
-//   transition: inherit;
-// }
-
-// .h-nav-page-leave-to{
-//   transform: translateX(100%);
-// }
-
-// .h-nav-behavior-push > .h-nav-page-enter {
-//   transform: translateX(100%);
-// }
-
-// .h-nav-behavior-back >.h-nav-page-enter{
-//   transform: translateX(-100%);
-// }
-
-// .h-nav-behavior-replace > .h-nav-page-enter {
-//   transform: translateX(100%);
-// }
-
-// .h-nav-behavior-replace > .h-nav-page-leave-to {
-//   transform: none;
-// }
-
-// .h-nav-behavior-relaunch >.h-nav-page-enter {
-//   transform: translateY(-100%);
-// }
-
-// .h-nav-behavior-relaunch >.h-nav-page-leave-to {
-//   transform: translateY(100%);
-// }
-.h-nav-page-handle{
+.h-nav-page-container{
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: linear;
 }
-.h-nav-page,
+
 .h-nav-page-enter-active, 
-.h-nav-page-leave-active,
-.h-nav--page-unload > div{
+.h-nav-page-leave-active {
   transition: inherit;
   animation: inherit;
 }
 
 
+// ---------------- behavior loaded  start ----------------
+// default: none
+.h-nav-behavior-relaunch > div{
+  transition: none;
+}
+// .h-nav-behavior-loaded > div > .h-nav-page-enter{
+//   top: -100%;
+// }
+// ---------------- behavior loaded end ----------------
+
+
+// ---------------- behavior push/back start ----------------
 
 .h-nav-behavior-push > div > .h-nav-page-enter,
 .h-nav-behavior-back > div > .h-nav-page-leave-to {
   left: 100%;
 }
-
 .h-nav-behavior-push > div > .h-nav-page-leave-to,
 .h-nav-behavior-back > div > .h-nav-page-enter{
   left: -100%;
 }
-
-.h-nav-behavior-back > div > .h-nav-page-enter {
-  left: -100%;
-}
 // when user reload broswer, and click back.
-// .h-nav-behavior-back > .h-nav--page-load > .h-nav-page-enter{
+// .h-nav-behavior-back > .h-nav-page_load > .h-nav-page-enter{
 //   left: -100%;
 // }
+// ---------------- behavior push/back end ----------------
 
 
+// ---------------- behavior replace start ----------------
 .h-nav-behavior-replace > div > .h-nav-page-enter {
   top: 100%;
 }
 
+.h-nav-behavior-replace > div > .h-nav-page-leave-to {
+  top: -100%;
+}
+// ---------------- behavior replace  end ----------------
 
 
-
-// .h-nav-page-leave-to,
-// .h-nav-page-container-enter, 
-// .h-nav-page-container-leave-to,
-// .h-nav-tabbar-enter,
-// .h-nav-tabbar-leave-to
-// {
-//   opacity: 0;
-// } pageIntervalOffsetX: 
-
-// .h-nav-tab-switch-smaller > .h-nav-page-enter {
-//   transform: translateX(-100%);
-// }
-
-// .h-nav-tab-switch-greater > .h-nav-page-enter {
-//   transform: translateX(100%);
-// }
-
-// .h-nav-behavior-loaded > .h-nav-page,
-// .h-nav-behavior-relaunch > .h-nav-page{
+// ---------------- behavior relaunch start ----------------
+// default: none
+// .h-nav-behavior-relaunch > div{
 //   transition: none;
 // }
-// .h-nav-behavior-loaded >.h-nav-page-enter {
-//   transform: translateY(-100%);
-// }
-// .h-nav-tabs-ctrler > .h-nav-page {
-//   transition: none;
-// }
+.h-nav-behavior-relaunch > div > .h-nav-page-enter{
+  top: -100%;
+}
+.h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
+  top: 100%;
+}
+// ---------------- behavior relaunch end ----------------
 
-// -------- transition end --------
+
+// ---------------- switchTab  start ----------------
+// default: none
+/*
+.h-nav-tab-switch-smaller > div > .h-nav-page-enter,
+.h-nav-tab-switch-greater > div > .h-nav-page-leave-to{
+  left: -100%;
+}
+.h-nav-tab-switch-greater > div > .h-nav-page-enter,
+.h-nav-tab-switch-smaller > div > .h-nav-page-leave-to{
+  left: 100%;
+}
+*/
+// ---------------- switchTab end ----------------
+

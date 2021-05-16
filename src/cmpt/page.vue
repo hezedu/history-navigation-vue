@@ -1,6 +1,6 @@
 <template>
   <transition name="h-nav-page" :appear="true">
-    <div class="h-nav-page" v-show="isActive" :style="{zIndex: stateKey}">
+    <div class="h-nav-page" v-show="isActive">
       <slot />
     </div>
   </transition>
@@ -21,8 +21,6 @@ export default {
     },
 
     title: String,
-
-    transition: Object,
 
     isTab: {
       type: Boolean,

@@ -1,5 +1,5 @@
 <style>
-.h-nav-tabbar-wrap{
+.h-nav-tabs-wrap{
   padding-bottom: 48px; /* tabbar height */
   box-sizing: border-box;
 }
