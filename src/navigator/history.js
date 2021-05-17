@@ -40,7 +40,7 @@ function History(opt){
 
   this.behavior = {
     type: '',
-    step: 0,
+    distance: 0,
     isPop: false
   }
 
@@ -59,6 +59,7 @@ function History(opt){
     stackId: null,
     
     stateKey: null,
+    zIndex: null,
     isClean: false,
     route: {}
   }
@@ -130,10 +131,10 @@ History.prototype._setMapItem = function(key, route){
     title: page.title,
     tabIndex: page.tabIndex,
     route,
-
     cmptKey: page.cmptKey,
     isTab: page.isTab,
     stateKey: key,
+    zIndex: key,
     className: page.className,
 
     isClean: false // when curr page leaveing, It doesn't work.
@@ -189,7 +190,7 @@ History.prototype._push = function(fullParse){
   setPreStateKey(key);
   const newBehavior = {
     type: 'push',
-    step: 1,
+    distance: 1,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
@@ -206,18 +207,17 @@ History.prototype.replace = function(userUrl, behavior){
   }
   this._replace(fullParse, behavior);
 }
-History.prototype._replace = function(fullParse, behavior, step){
-
+History.prototype._replace = function(fullParse, behavior, distance){
   
   const newBehavior = {
     type: behavior || 'replace',
-    step: step === undefined ? 0 : step,
+    distance: distance === undefined ? 0 : distance,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
   const key = getCurrentStateKey();
   // this._delMapItem(key);
-  if(this.behavior.type !== 'switchtab' || step){
+  if(this.behavior.type !== 'switchtab' || distance){
     // unactive currentPage
     this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
   }
@@ -256,18 +256,18 @@ History.prototype._directReplace = function(userUrl, behavior, compare){
   this._replace(fullParse, behavior, compare);
 }
 
-History.prototype.back = function(step){
+History.prototype.back = function(steps){
   const key = getCurrentStateKey();
 
   if(key === 1){
     console.error('Currnt page is first, Cannot back.');
     return -1;
   }
-  if(typeof step === 'number' && step > 0){
-    if(key - step < 1){
+  if(typeof steps === 'number' && steps > 0){
+    if(key - steps < 1){
       return -1;
     }
-    this._history.go(-step);
+    this._history.go(-steps);
   } else {
     this._history.back();
   }
@@ -275,7 +275,16 @@ History.prototype.back = function(step){
 }
 
 History.prototype.relaunch = function(userUrl){
-
+  if(this.currentPage.zIndex === 1 ){ 
+    const currPage = this.stackMap[1];
+    if(currPage){
+      this.currentPage.zIndex = currPage.zIndex = 2; // keep relaunch new page zIndex less than old page alway. 
+      this._Vue.nextTick(() => {
+        this.relaunch.apply(this, arguments);
+      })
+      return;
+    }
+  }
   this._backToStartAndReplace(userUrl, 'relaunch');
 }
 
@@ -343,7 +352,7 @@ History.prototype.handlePop = function(){
   // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   const newBehavior = {
     type: behavior,
-    step: compare,
+    distance: compare,
     isPop: true
   }
   Object.assign(this.behavior, newBehavior);

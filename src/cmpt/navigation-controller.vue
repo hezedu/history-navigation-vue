@@ -21,11 +21,11 @@
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
         :currTabPage="v"
-        :style="{zIndex: v.stateKey}"
+        :style="{zIndex: v.zIndex}"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
       />
-      
+    
       <Page v-else
         transitionName="h-nav-page"
         :key="v.stackId"
@@ -36,7 +36,7 @@
         :tabIndex="v.tabIndex"
         :stateKey="v.stateKey"
         :route="v.route"
-        :style="{zIndex: v.stateKey}"
+        :style="{zIndex: v.zIndex}"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad">
           <component :is="v.cmptKey" />

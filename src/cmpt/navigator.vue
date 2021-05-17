@@ -22,7 +22,7 @@ export default {
       type: String,
       default: 'push'
     },
-    delta: {
+    steps: {
       type: Number,
       default: 1
     },
@@ -53,7 +53,7 @@ export default {
       }
       switch(this.type){
         case 'back':
-          this.$navigator._h.back(this.delta);
+          this.$navigator._h.back(this.steps);
           break;
         default:
           if(allowedMethodMap[this.type]){
