@@ -59,7 +59,6 @@ function History(opt){
     stackId: null,
     
     stateKey: null,
-    zIndex: null,
     isClean: false,
     route: {}
   }
@@ -116,6 +115,11 @@ History.prototype.switchTab = function(userUrl){
     console.error(userUrl + ' is not tab url');
     return;
   }
+  // const key = getCurrentStateKey();
+  // // if(key !== 1){
+  // //   console.log('key', key)
+  // //   this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
+  // // }
   this._backToStartAndReplace(userUrl, 'switchtab');
 }
 
@@ -134,7 +138,6 @@ History.prototype._setMapItem = function(key, route){
     cmptKey: page.cmptKey,
     isTab: page.isTab,
     stateKey: key,
-    zIndex: key,
     className: page.className,
 
     isClean: false // when curr page leaveing, It doesn't work.
@@ -216,7 +219,7 @@ History.prototype._replace = function(fullParse, behavior, distance){
   }
   Object.assign(this.behavior, newBehavior);
   const key = getCurrentStateKey();
-  // this._delMapItem(key);
+
   if(this.behavior.type !== 'switchtab' || distance){
     // unactive currentPage
     this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
@@ -229,7 +232,6 @@ History.prototype._replace = function(fullParse, behavior, distance){
     if(newBehavior.type === 'relaunch'){
       this.clearTabStatck();
       this._clearAll();
-      this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
       this._setMapItem(key, fullParse);
     } else {
       this._clear();
@@ -275,6 +277,7 @@ History.prototype.back = function(steps){
 }
 
 History.prototype.relaunch = function(userUrl){
+  this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
   this._backToStartAndReplace(userUrl, 'relaunch');
 }
 

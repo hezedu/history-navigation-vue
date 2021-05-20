@@ -1,12 +1,13 @@
 .h-nav-behavior-push > div,
 .h-nav-behavior-back > div,
-.h-nav-behavior-replace > div{
+.h-nav-behavior-replace > div,
+.h-nav-behavior-switchtab > div{
   transition-property: all;
   transition-duration: 3s;
   transition-timing-function: ease;
 }
 
-.h-nav-behavior-switchtab > div,
+// .h-nav-behavior-switchtab > div,
 .h-nav-behavior-loaded > div,
 .h-nav-behavior-relaunch > div{
   transition: none;
