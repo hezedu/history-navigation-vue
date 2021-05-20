@@ -8,7 +8,8 @@
   enter-to-class=""
   leave-to-class=""
   enter-active-class="h-nav--page_load" 
-  leave-active-class="h-nav--page_unload">
+  leave-active-class="h-nav--page_unload"
+  :style="WH">
 
 
     <div 
@@ -67,7 +68,30 @@ export default {
       isFirstLoad: true,
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
-      currentPage: this.$navigator._h.currentPage
+      currentPage: this.$navigator._h.currentPage,
+      WH: this.$navigator._h.WH
+    }
+  },
+  methods: {
+    getSpecificWH(){
+      let w, h;
+      if(this.$el.getBoundingClientRect){
+        const rect = this.$el.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
+      } else {
+        w = this.$el.clientWidth;
+        h = this.$el.clientHeight;
+      }
+      this.WH.width = w + 'px';
+      this.WH.height = h + 'px';
+    },
+    autoFit(){
+      this.WH.width = '100%';
+      this.WH.height = '100%';
+      this.$nextTick(() => {
+        this.getSpecificWH();
+      })
     }
   },
   created(){
@@ -76,6 +100,16 @@ export default {
       this.isFirstLoad = false;
     })
     
+  },
+  mounted(){
+    this.getSpecificWH();
+    this.$options.__tmp_handle_win_resize = () => {
+      this.autoFit();
+    }
+    this.$navigator._h._window.addEventListener('resize', this.$options.__tmp_handle_win_resize);
+  },
+  destroyed(){
+    this.$navigator._h._window.removeEventListener('resize', this.$options.__tmp_handle_win_resize);
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <transition :name="transitionName" :appear="true">
-    <div :class="transitionName" v-show="isActive">
+    <div :class="transitionName" v-show="isActive" :style="{width: width, height: height}">
       <slot />
     </div>
   </transition>
@@ -54,6 +54,14 @@ export default {
       isLoad: this.isFirstLoad
     }
   },
+  computed: {
+    width(){
+      return this.$navigator._h.WH.width;
+    },
+    height(){
+      return this.$navigator._h.WH.height;
+    }
+  },
   watch: {
     isActive(){
       this._handleShowHide();
@@ -74,7 +82,6 @@ export default {
       return;
     }
     setTimeout(() => {
-      console.log('mounted setTimeout')
       if(this.$options._tmp_is_before_destroy){
         return;
       }
