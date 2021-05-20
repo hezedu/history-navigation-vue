@@ -9,7 +9,8 @@ import {cmptPageSuffix,
   notFoundPageKey, 
   DEF_NAVIGATOR_TRIGGER_EVENT,
   DEF_URL_BASE,
-  DEF_URL_IS_HASH_MODE } from './constant';
+  DEF_URL_IS_HASH_MODE,
+  DEF_TRANSITION } from './constant';
 
 
 const defNotFoundPage = {
@@ -52,6 +53,7 @@ export default function install(Vue, config) {
   
   const globalOption = Object.create(null);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
+  def(globalOption, config, 'transition', DEF_TRANSITION);
   const options = {
     global: globalOption,
 
