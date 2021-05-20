@@ -1,7 +1,7 @@
 <template>
 <div style="height: 3000px; padding: 10px;">
   <h1>Detail {{Date.now()}}</h1>
-  <button @click="back">back to start {{$page.stateKey}}</button>
+  <button @click="back">back to start</button>
   <br>
   <navigator url="/list" type="replace">replace to list</navigator>
   <br>

@@ -1,9 +1,13 @@
 <template>
-<div style="height: 100%; padding: 10px;">
+<div>
   
-  <div style="height: 100%; overflow: auto;">
+  <div>
     <h1>List {{Date.now()}}</h1>
-    <div style="background-color: red!important" class="red"></div>
+    <button  @click="switchInner">switchInner</button>
+    <transition :appear="true" name="list_inner">
+      <InnerShow class="list_inner_show" v-show="isShowInner" />
+    </transition>
+    
 
     <!-- <div style="height: 150vh">
         <div style="height: 300px; width: 300px; overflow: auto;">
@@ -23,7 +27,7 @@
       <br>
     <navigator url="/detail" style="font-size: 3em" type="relaunch">Relaunch to Detail</navigator>
     <br>
-    <navigator url="/" style="font-size: 3em" type="switchTab">switchTab to Index</navigator>
+    <navigator url="/api" style="font-size: 3em" type="switchTab">switchTab to api</navigator>
     <br>
     <navigator type="back">Back</navigator>
         <br>
@@ -33,8 +37,9 @@
     <br>
     <navigator url="/" type="relaunch">Relaunch to Index</navigator>
 
-  <h1 style="width: 100%; text-align: right; font">right {{$page.isShow}}</h1>
-
+  <h1 style="width: 100%; text-align: right;">right</h1>
+    <div style="height: 300vh; border-bottom: 10px solid #555;"></div>
+    <navigator url="/detail">Detail</navigator>
   </div>
 
   
@@ -44,9 +49,14 @@
 
 
 <script>
+import InnerShow from './_inner-show.vue';
 export default {
+  components: {
+    InnerShow
+  },
   data(){
     return {
+      isShowInner: true,
       now: Date.now(),
       isShowInput: true
     }
@@ -57,6 +67,10 @@ export default {
   //   }
   // },
   methods: {
+    switchInner(){
+      console.log('switchInner')
+      this.isShowInner = !this.isShowInner;
+    },
     handleFocus(){
       this.isShowInput = false;
     },
@@ -79,3 +93,11 @@ export default {
   }
 }
 </script>
+<style>
+.list_inner-leave-to{
+  opacity: 0;
+}
+.list_inner_show{
+  transition: all 3s ease;
+}
+</style>
