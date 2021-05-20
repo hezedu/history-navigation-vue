@@ -60,6 +60,7 @@
 // }
 // .h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
 //   left: 33%;
+//   z-index: 999999!important; // keep relaunch new page zIndex less than old page alway. 
 // }
 // ---------------- behavior relaunch end ----------------
 // ---------------- behavior relaunch start ----------------

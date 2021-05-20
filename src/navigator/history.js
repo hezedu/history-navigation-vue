@@ -275,16 +275,6 @@ History.prototype.back = function(steps){
 }
 
 History.prototype.relaunch = function(userUrl){
-  if(this.currentPage.zIndex === 1 ){ 
-    const currPage = this.stackMap[1];
-    if(currPage){
-      this.currentPage.zIndex = currPage.zIndex = 2; // keep relaunch new page zIndex less than old page alway. 
-      this._Vue.nextTick(() => {
-        this.relaunch.apply(this, arguments);
-      })
-      return;
-    }
-  }
   this._backToStartAndReplace(userUrl, 'relaunch');
 }
 
