@@ -68,7 +68,7 @@ export default {
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
-      tabBehavior: 'enter',
+      tabBehavior: '_inherit',
       tabBehaviorDistance: 0
     }
   },
@@ -79,12 +79,13 @@ export default {
       this.tabBehaviorDistance = distance;
       this.tabBehavior = type;
     },
-    isActive(newVal){
-      if(newVal){
-        this.tabBehavior = 'enter';
-      } else {
-        this.tabBehavior = 'leave';
-      }
+    isActive(){
+      this.tabBehavior = '_inherit';
+      // if(newVal){
+      //   this.tabBehavior = 'enter';
+      // } else {
+      //   this.tabBehavior = 'leave';
+      // }
     }
   },
   created(){

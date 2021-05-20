@@ -2,15 +2,15 @@
 .h-nav-behavior-push > div,
 .h-nav-behavior-back > div,
 .h-nav-behavior-replace > div
-// ,.h-nav-behavior-switchtab > div,
-// .h-nav-behavior-relaunch > div,
-// .h-nav-behavior-forward > div,
-// .h-nav-behavior-loaded > div
+/* ,.h-nav-behavior-switchtab > div,
+.h-nav-behavior-relaunch > div,
+.h-nav-behavior-forward > div,
+.h-nav-behavior-loaded > div */
 {
   transition: all .3s ease;
 }
 
-// ---------------- behavior push/back start ----------------
+/* ---------------- behavior push/back start ---------------- */
 .h-nav-behavior-push > div > .h-nav-page-enter,
 .h-nav-behavior-back > div > .h-nav-page-leave-to {
   left: 100%;
@@ -19,67 +19,67 @@
 .h-nav-behavior-back > div > .h-nav-page-enter{
   left: -33%;
 }
-// ---------------- behavior push/back end ----------------
+/* ---------------- behavior push/back end ---------------- */
 
-// ---------------- behavior replace start ----------------
+/* ---------------- behavior replace start ---------------- */
 .h-nav-behavior-replace > div > .h-nav-page-enter {
   top: 100%;
 }
 .h-nav-behavior-replace > div > .h-nav-page-leave-to {
   top: -33%;
 }
-// ---------------- behavior replace  end ----------------
+/* ---------------- behavior replace  end ---------------- */
 
 
-// ---------------- behavior loaded  start ----------------
-// .h-nav-behavior-loaded > div > .h-nav-page-enter{
-//   top: -100%;
-// }
-// ---------------- behavior loaded end ----------------
+/* ---------------- behavior loaded  start ---------------- 
+.h-nav-behavior-loaded > div > .h-nav-page-enter{
+  top: -100%;
+}
+ ---------------- behavior loaded end ---------------- */
 
-// ---------------- behavior relaunch start ----------------
-// .h-nav-behavior-relaunch > div > .h-nav-page-enter{
-//   top: -100%;
-// }
-// .h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
-//   left: 100%;
-//   z-index: 999999!important;
-// }
-// ---------------- behavior relaunch end ----------------
+/* ---------------- behavior relaunch start ----------------
+.h-nav-behavior-relaunch > div > .h-nav-page-enter{
+  top: -100%;
+}
+.h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
+  left: 100%;
+  z-index: 999999!important;
+}
+ ---------------- behavior relaunch end ---------------- */
 
-// ---------------- behavior switchtab start ----------------
-// .h-nav-behavior-switchtab > div > .h-nav-page-enter{
-//   top: -33%;
-//   left: -33%;
-// }
-// .h-nav-behavior-switchtab > div > .h-nav-page-leave-to{
-//   left: 100%;
-// }
-// ---------------- behavior switchtab end ----------------
+/* ---------------- behavior switchtab start ----------------
+.h-nav-behavior-switchtab > div > .h-nav-page-enter{
+  top: -33%;
+  left: -33%;
+}
+.h-nav-behavior-switchtab > div > .h-nav-page-leave-to{
+  left: 100%;
+}
+---------------- behavior switchtab end ---------------- */
 
-// ---------------- switchTab  start ----------------
-// .h-nav-tab-behavior-lower > div,
-// .h-nav-tab-behavior-upper > div{
-//   transition: all .3s ease;
-// }
+/* ---------------- switchTab  start ----------------
+.h-nav-tab-behavior-lower > div,
+.h-nav-tab-behavior-upper > div{
+  transition: all .3s ease;
+}
 
-// .h-nav-tab-behavior-lower > div > .h-nav-tab-page-enter,
-// .h-nav-tab-behavior-upper > div > .h-nav-tab-page-leave-to{
-//   left: -100%;
-// }
+.h-nav-tab-behavior-lower > div > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-upper > div > .h-nav-tab-page-leave-to{
+  left: -100%;
+}
 
-// .h-nav-tab-behavior-upper > div > .h-nav-tab-page-enter,
-// .h-nav-tab-behavior-lower > div > .h-nav-tab-page-leave-to{
-//   left: 100%;
-// }
-// ---------------- switchTab end ----------------
+.h-nav-tab-behavior-upper > div > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-lower > div > .h-nav-tab-page-leave-to{
+  left: 100%;
+}
+---------------- switchTab end ---------------- */
 
-// --------------- var() ---------------
-// .h-nav-behavior-back > div > .h-nav-page-enter{
-//   left: calc(100% * var(--h-nav-distance));
-// }
-// .h-nav-tab-behavior-lower > div > .h-nav-tab-page-enter,
-// .h-nav-tab-behavior-upper > div > .h-nav-tab-page-enter{
-//   left: calc(100% * var(--h-nav-tab-distance));
-// }
-// --------------- var() end ---------------
+/* --------------- var() ---------------
+.h-nav-behavior-back > div > .h-nav-page-enter{
+  left: calc(100% * var(--h-nav-distance));
+}
+.h-nav-tab-behavior-lower > div > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-upper > div > .h-nav-tab-page-enter{
+  left: calc(100% * var(--h-nav-tab-distance));
+}
+--------------- var() end --------------- */
