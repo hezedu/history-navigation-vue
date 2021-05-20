@@ -13,10 +13,10 @@
 
 
     <div 
-      class="h-nav-page-container" 
+      class="h-nav-page-handle" 
       v-for="v in stackMap" 
       :key="v.stackId" 
-      :class="v.className"
+      :class="v.transitionClassName"
       :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''">
       
       <TabCtrler v-if="v.isTab"
@@ -39,7 +39,8 @@
         :route="v.route"
         :style="{zIndex: v.stateKey}"
         :isActive="v.stackId === currentPage.stackId"
-        :isFirstLoad="isFirstLoad">
+        :isFirstLoad="isFirstLoad"
+        :class="v.className">
           <component :is="v.cmptKey" />
         </Page>
         

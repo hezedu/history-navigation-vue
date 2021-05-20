@@ -1,5 +1,4 @@
 
-$transitionTime: .3s;
 $tabBarH: 48px;
 
 .h-nav-ctrler{
@@ -35,11 +34,18 @@ $tabBarH: 48px;
   position: relative;
 }
 
-.h-nav-page-container, 
-.h-nav-tab-page-container{
-  width: 0;
-  height: 0;
-  position: static;
+.h-nav-page-handle, 
+.h-nav-tab-page-handle{
+  width: 0!important;
+  height: 0!important;
+  border: 0!important;
+  margin: 0!important;
+  padding: 0!important;
+  box-shadow: none!important;
+  outline: none!important;
+  position: static!important;
+  // transition-property: none!important;
+  // animation-name: none!important;
 }
 
 .h-nav-page-enter-active, 
@@ -57,7 +63,7 @@ $tabBarH: 48px;
   animation-name: none;
 }
 
-.h-nav-tab-page-container{
+.h-nav-tab-page-handle{
   transition: inherit;
   animation: inherit;
 }

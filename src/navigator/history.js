@@ -48,9 +48,8 @@ function History(opt){
     path: null,
     title: null,
     className: undefined,
-    
-    transitionType: undefined,
-    transitionDuration: undefined,
+    transitionClassName: undefined,
+
 
     isTab: false,
     tabIndex: null,
@@ -139,7 +138,7 @@ History.prototype._setMapItem = function(key, route){
     isTab: page.isTab,
     stateKey: key,
     className: page.className,
-
+    transitionClassName: page.transitionClassName,
     isClean: false // when curr page leaveing, It doesn't work.
   }
 

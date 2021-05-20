@@ -13,9 +13,8 @@
       enter-active-class="h-nav-tab_page_load"
       leave-active-class="h-nav-tab_page_unload">
 
-      <div class="h-nav-tab-page-container" 
+      <div class="h-nav-tab-page-handle" 
           v-for="v in tabStackMap"
-          :class="v.tabClassNames"
           :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''"
           :key="v.tabIndex">
           <Page
@@ -29,7 +28,8 @@
             :route="v.route"
             :style="{zIndex: v.tabIndex}"
             :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
-            :isFirstLoad="isFirstLoad">
+            :isFirstLoad="isFirstLoad"
+            :class="v.className">
             <component :is="v.cmptKey" />
           </Page>
       </div>
