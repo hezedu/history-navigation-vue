@@ -75,15 +75,15 @@ export default {
   watch: {
     'currTabPage.tabIndex'(newVal, oldVal){
       const distance = newVal - oldVal;
-      let type = distance > 0 ? 'greater' : 'smaller';
+      let type = distance > 0 ? 'upper' : 'lower';
       this.tabBehaviorDistance = distance;
-      this.tabBehavior = 'to-' + type;
+      this.tabBehavior = type;
     },
     isActive(newVal){
       if(newVal){
         this.tabBehavior = 'enter';
       } else {
-        this.tabBehavior = 'leave'
+        this.tabBehavior = 'leave';
       }
     }
   },

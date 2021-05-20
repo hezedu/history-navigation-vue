@@ -27,7 +27,8 @@
 }
 
 .h-nav-tab.h-nav-actived{
-  color: #3eaf7c;
+  color: #fff;
+  background-color:#3eaf7c;
 }
 </style>
 
