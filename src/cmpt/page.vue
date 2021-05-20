@@ -1,6 +1,6 @@
 <template>
   <transition :name="transitionName" :appear="true">
-    <div :class="transitionName" v-show="isActive" :style="{width: width, height: height}">
+    <div :class="transitionName" v-show="isActive">
       <slot />
     </div>
   </transition>
@@ -52,14 +52,6 @@ export default {
   data(){
     return {
       isLoad: this.isFirstLoad
-    }
-  },
-  computed: {
-    width(){
-      return this.$navigator._h.WH.width;
-    },
-    height(){
-      return this.$navigator._h.WH.height;
     }
   },
   watch: {
