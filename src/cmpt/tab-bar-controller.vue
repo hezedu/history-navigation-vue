@@ -5,6 +5,7 @@
       class="h-nav-tab-pages-wrap" 
       tag="div" 
       :class="'h-nav-tab-behavior-' + tabBehavior" 
+      :style="{'--h-nav-tab-distance': tabBehaviorDistance}"
       enter-class=""
       leave-class=""
       enter-to-class=""
@@ -67,16 +68,18 @@ export default {
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
-      tabBehavior: 'enter'
+      tabBehavior: 'enter',
+      tabBehaviorDistance: 0
     }
   },
   watch: {
     'currTabPage.tabIndex'(newVal, oldVal){
-      let type = newVal > oldVal ? 'greater' : 'smaller';
+      const distance = newVal - oldVal;
+      let type = distance > 0 ? 'greater' : 'smaller';
+      this.tabBehaviorDistance = distance;
       this.tabBehavior = 'to-' + type;
     },
-    isActive(newVal, oldVal){
-      console.log('newVal === oldVal', newVal === oldVal, newVal, oldVal, this.isActive)
+    isActive(newVal){
       if(newVal){
         this.tabBehavior = 'enter';
       } else {

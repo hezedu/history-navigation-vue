@@ -162,11 +162,6 @@ History.prototype._setMapItem = function(key, route){
   // })
 }
 
-History.prototype._delMapItem = function(key){
-  this.stackMap[key].isClean = true;
-  this._Vue.delete(this.stackMap, key);
-}
-
 History.prototype.getFullUrlParseByLocation = function(){
   return fullUrlParse(this.URL.getUrlByLocation());
 }
@@ -185,7 +180,7 @@ History.prototype._push = function(fullParse){
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
-  // this._clear();
+  // this._clearAfter();
   
   const key = genStateKey();
 
@@ -210,11 +205,11 @@ History.prototype.replace = function(userUrl, behavior){
   }
   this._replace(fullParse, behavior);
 }
-History.prototype._replace = function(fullParse, behavior, distance){
-  
+History.prototype._replace = function(fullParse, behavior, _distance){
+  const distance = _distance === undefined ? 0 : _distance;
   const newBehavior = {
     type: behavior || 'replace',
-    distance: distance === undefined ? 0 : distance,
+    distance,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
@@ -230,11 +225,17 @@ History.prototype._replace = function(fullParse, behavior, distance){
 
   this._Vue.nextTick(() => {
     if(newBehavior.type === 'relaunch'){
-      this.clearTabStatck();
-      this._clearAll();
-      this._setMapItem(key, fullParse);
+      this._setAllCleaned();
+      const oldKey = key - distance;
+      console.log('oldKey', oldKey, distance)
+      this.stackMap[oldKey].isClean = false;
+      this._Vue.nextTick(() => {
+        this._clearAll();
+        this._setMapItem(key, fullParse);
+      })
+      
     } else {
-      this._clear();
+      this._clearAfter();
       this._setMapItem(key, fullParse);
       this._onRouted();
     }
@@ -281,15 +282,19 @@ History.prototype.relaunch = function(userUrl){
   this._backToStartAndReplace(userUrl, 'relaunch');
 }
 
-History.prototype.clearTabStatck = function(){
-  if(this.tabStackMap){
-    let i;
-    for(i in this.tabStackMap){
-      this.tabStackMap[i].isClean = true;
-      this._Vue.delete(this.tabStackMap, i);
-    }
+History.prototype._setMapCleaned = function(map){
+  for(let i in map){
+     map[i].isClean = true;
   }
 }
+History.prototype._setAllCleaned = function(){
+  if(this.tabStackMap){
+    this._setMapCleaned(this.tabStackMap);
+  }
+  this._setMapCleaned(this.stackMap);
+}
+
+
 
 History.prototype._backToStartAndReplace = function(userUrl, behavior){
   const key = getCurrentStateKey();
@@ -304,21 +309,48 @@ History.prototype._backToStartAndReplace = function(userUrl, behavior){
   }
 }
 
-History.prototype._clear = function(){
+History.prototype._clearAfter = function(){
   const key = getCurrentStateKey();
   const map = this.stackMap;
-  for (var i in map) {
-    if (Number(i) > key) {
-      this._delMapItem(i);
+  let i, v;
+  const arr = [];
+  for (i in map) {
+    v = map[i];
+    if (v.stateKey > key) {
+      v.isClean = true;
+      arr.push(v);
+    }
+  }
+  let len = arr.length;
+  if(len){
+    const last = arr.pop();
+    last.isClean = false;
+    this._Vue.delete(map, last.stateKey);
+    len = arr.length;
+    if(len){
+      this._Vue.nextTick(() => {
+        i =  0;
+        for(; i < len; i++){
+          v = arr[i];
+          this._Vue.delete(map, v.stateKey);
+        }
+      })
     }
   }
 }
-History.prototype._clearAll = function(){
 
-  const map = this.stackMap;
-  for (var i in map) {
-    this._delMapItem(i);
+History.prototype._clearMap  = function(map){
+  let i;
+  for(i in map){
+    this._Vue.delete(map, i);
   }
+}
+
+History.prototype._clearAll = function(){
+  if(this.tabStackMap){
+    this._clearMap(this.tabStackMap);
+  }
+  this._clearMap(this.stackMap);
 }
 
 History.prototype.handlePop = function(){
@@ -358,7 +390,7 @@ History.prototype.handlePop = function(){
 
   if(behavior === 'back'){
     this._Vue.nextTick(() => {
-      this._clear();
+      this._clearAfter();
       this._onRouted();
     })
   } else {

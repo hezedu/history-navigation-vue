@@ -2,6 +2,7 @@
 <template>
 <transition-group class="h-nav-ctrler"
   :class="'h-nav-behavior-' + behavior.type"
+  :style="{'--h-nav-distance': behavior.distance}"
   tag="div"
   enter-class=""
   leave-class=""
