@@ -1,31 +1,31 @@
 
-.h-nav-behavior-push > div,
-.h-nav-behavior-back > div,
-.h-nav-behavior-replace > div
-/* ,.h-nav-behavior-switchtab > div,
-.h-nav-behavior-relaunch > div,
-.h-nav-behavior-forward > div,
-.h-nav-behavior-loaded > div */
+.h-nav-behavior-push > .h-nav-transition,
+.h-nav-behavior-back > .h-nav-transition,
+.h-nav-behavior-replace > .h-nav-transition
+/* ,.h-nav-behavior-switchtab > .h-nav-transition,
+.h-nav-behavior-relaunch > .h-nav-transition,
+.h-nav-behavior-forward > .h-nav-transition,
+.h-nav-behavior-loaded > .h-nav-transition */
 {
   transition: all .3s ease;
 }
 
 /* ---------------- behavior push/back start ---------------- */
-.h-nav-behavior-push > div > .h-nav-page-enter,
-.h-nav-behavior-back > div > .h-nav-page-leave-to {
-  left: 100%;
-}
-.h-nav-behavior-push  > div > .h-nav-page-leave-to,
-.h-nav-behavior-back > div > .h-nav-page-enter{
-  left: -33%;
-}
+// .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+// .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
+//   left: 100%;
+// }
+// .h-nav-behavior-push  > .h-nav-transition > .h-nav-page-leave-to,
+// .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
+//   left: -33%;
+// }
 /* ---------------- behavior push/back end ---------------- */
 
 /* ---------------- behavior replace start ---------------- */
-.h-nav-behavior-replace > div > .h-nav-page-enter {
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
   top: 100%;
 }
-.h-nav-behavior-replace > div > .h-nav-page-leave-to {
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-leave-to {
   top: -33%;
 }
 /* ---------------- behavior replace  end ---------------- */
@@ -33,7 +33,7 @@
 
 /* ---------------- behavior loaded  start ---------------- */
 /*
-.h-nav-behavior-loaded > div > .h-nav-page-enter{
+.h-nav-behavior-loaded > .h-nav-transition > .h-nav-page-enter{
   top: -100%;
 }
 */
@@ -41,11 +41,11 @@
 
 /* ---------------- behavior relaunch start ---------------- */
 /*
-.h-nav-behavior-relaunch > div > .h-nav-page-enter{
-  top: -100%;
+.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-enter{
+  top: -33%;
 }
-.h-nav-behavior-relaunch > div > .h-nav-page-leave-to{
-  left: 100%;
+.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-leave-to{
+  top: 100%;
   z-index: 999999!important;
 }
 */
@@ -53,30 +53,31 @@
 
 /* ---------------- behavior switchtab start ---------------- */
 /*
-.h-nav-behavior-switchtab > div > .h-nav-page-enter{
+.h-nav-behavior-switchtab > .h-nav-transition > .h-nav-page-enter{
   top: -33%;
   left: -33%;
 }
-.h-nav-behavior-switchtab > div > .h-nav-page-leave-to{
+.h-nav-behavior-switchtab > .h-nav-transition > .h-nav-page-leave-to{
   left: 100%;
+  top: 100%;
 }
 */
 /* ---------------- behavior switchtab end ---------------- */
 
 /* ---------------- switchTab  start ---------------- */
 /*
-.h-nav-tab-behavior-reduce > div,
-.h-nav-tab-behavior-increase > div{
+.h-nav-tab-behavior-reduce > .h-nav-transition,
+.h-nav-tab-behavior-increase > .h-nav-transition{
   transition: all .3s ease;
 }
 
-.h-nav-tab-behavior-reduce > div > .h-nav-tab-page-enter,
-.h-nav-tab-behavior-increase > div > .h-nav-tab-page-leave-to{
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-leave-to{
   left: -100%;
 }
 
-.h-nav-tab-behavior-increase > div > .h-nav-tab-page-enter,
-.h-nav-tab-behavior-reduce > div > .h-nav-tab-page-leave-to{
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-leave-to{
   left: 100%;
 }
 */
@@ -84,11 +85,11 @@
 
 /* --------------- var() --------------- */
 /*
-.h-nav-behavior-back > div > .h-nav-page-enter{
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
   left: calc(100% * var(--h-nav-distance));
 }
-.h-nav-tab-behavior-reduce > div > .h-nav-tab-page-enter,
-.h-nav-tab-behavior-increase > div > .h-nav-tab-page-enter{
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter{
   left: calc(100% * var(--h-nav-tab-distance));
 }
 */
