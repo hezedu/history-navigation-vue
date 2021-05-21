@@ -1,5 +1,4 @@
 import './css/style.scss';
-import './css/transition.scss';
 import install from './install';
 
 export const plugin = {
