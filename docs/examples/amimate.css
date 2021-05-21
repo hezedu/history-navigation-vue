@@ -1,0 +1,75 @@
+
+
+
+
+.h-nav-behavior-push > div,
+.h-nav-behavior-back > div,
+.h-nav-behavior-replace > div,
+.h-nav-behavior-loaded > div
+/* ,.h-nav-behavior-switchtab > div,
+// .h-nav-behavior-relaunch > div,
+// .h-nav-behavior-forward > div,
+//  */
+{
+  transition: none;
+  animation-duration: 1.2s;
+}
+
+
+.h-nav-behavior-push > div > .h-nav-page-enter,
+.h-nav-behavior-back > div > .h-nav-page-leave-to {
+  left: unset;
+}
+.h-nav-behavior-push  > div > .h-nav-page-leave-to,
+.h-nav-behavior-back > div > .h-nav-page-enter{
+  left: unset;
+}
+/* ---------------- behavior push/back end ---------------- */
+
+/* ---------------- behavior replace start ---------------- */
+.h-nav-behavior-replace > div > .h-nav-page-enter {
+  top: unset;
+}
+.h-nav-behavior-replace > div > .h-nav-page-leave-to {
+  top: unset;
+}
+/* ---------------- behavior replace end ---------------- */
+
+.h-nav-behavior-push > div,
+.h-nav-behavior-back > div,
+.h-nav-behavior-replace{
+  animation-duration: .5s;
+}
+
+.h-nav-behavior-push > div > .h-nav-page-enter-active{
+  animation-name: rotateInDownRight;
+}
+.h-nav-behavior-push > div > .h-nav-page-leave-active{
+  animation-name: rotateOutDownRight;
+}
+.h-nav-behavior-back > div > .h-nav-page-enter-active{
+  animation-name: rotateInDownLeft;
+}
+.h-nav-behavior-back > div > .h-nav-page-leave-active{
+  animation-name: rotateOutDownLeft;
+}
+.h-nav-behavior-replace > div > .h-nav-page-enter-active{
+  animation-name: rotateInUpLeft;
+}
+.h-nav-behavior-replace > div > .h-nav-page-leave-active{
+  animation-name: rotateOutUpLeft;
+}
+
+/* .h-nav-behavior-push > .custom-index > .h-nav-page-enter-to,
+.h-nav-behavior-back > .custom-index > .h-nav-page-leave-to {
+  animation-name: bounceInLeft;
+}
+.h-nav-behavior-push  > .custom-index > .h-nav-page-leave-to,
+.h-nav-behavior-back > .custom-index > .h-nav-page-enter-active{
+  animation-name: backOutLeft;
+  
+} */
+.h-nav-behavior-loaded > div > .h-nav-page-enter-to{
+
+  animation-name: bounceIn;
+}

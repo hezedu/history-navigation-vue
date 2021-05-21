@@ -36,7 +36,8 @@
     <navigator url="/" type="replace">Replace to Index</navigator>
     <br>
     <navigator url="/" type="relaunch">Relaunch to Index</navigator>
-
+    <br>
+    <button @click="traPushToDetail">Tra push to Detail</button>
   <h1 style="width: 100%; text-align: right;">right</h1>
     <div style="height: 300vh; border-bottom: 10px solid #555;"></div>
     <navigator url="/detail">Detail</navigator>
@@ -74,7 +75,15 @@ export default {
     handleFocus(){
       this.isShowInput = false;
     },
-
+    traPushToDetail(){
+      this.$navigator.push({
+        url: '/detail',
+        query: {
+          hello: 'wrold'
+        },
+        transition: 'customTra'
+      })
+    },
     handleBlur(){
       console.log('handleBlur');
     },
@@ -83,7 +92,7 @@ export default {
     }
   },
   onShow(){
-    console.log('list onShow', this.now);
+    console.log('list onShow', Date.now());
   },
   onHide(){
     console.log('list onHide', this.now);
