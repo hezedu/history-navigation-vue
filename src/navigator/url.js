@@ -43,7 +43,6 @@ URL.prototype.toLocationUrl = function(fullPath){
 
 export function urlParse(url){
   let i = url.indexOf('?');
-  let obj = Object.create(null);
   let path, qsString;
   if(i !== -1){
     path = url.substr(0, i);
@@ -52,7 +51,6 @@ export function urlParse(url){
     path = url;
     qsString = '';
   }
-  obj.query = queryParse(url.qsString);
   return {
     path,
     query: queryParse(qsString)

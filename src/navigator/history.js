@@ -2,7 +2,7 @@ import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
 import { throwErr } from '../util';
-
+const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
 function History(opt){
   if(isCreated){
@@ -31,6 +31,8 @@ function History(opt){
 
   
   this._whenPopInfo = null;
+  this._whenPopTra = null;
+
   this._stackItemId = 1;
   this.tabCtrlerStackId = 1;
   // this.isPageDestoryWhenBack = true;
@@ -93,39 +95,107 @@ History.prototype._isTabRoute = function(trimedPath){
   return false;
 }
 
+
+History.prototype._forMatInputArg = function(opt){
+  let fullParse, tra;
+  if(typeof opt === 'string'){
+    fullParse = fullUrlParse(opt);
+  } else {
+    fullParse = fullUrlParse({
+      path: opt.url,
+      query: opt.query
+    })
+    tra = opt.transition;
+  }
+  return {
+    fullParse,
+    tra
+  };
+}
+
+
 History.prototype._load = function(userUrl){
   this._window.addEventListener('popstate', this._popstateHandle);
-  let currRoute = userUrl === undefined 
-  ? this.getFullUrlParseByLocation()
-    : fullUrlParse(userUrl);
+  const _userUrl = userUrl === undefined ? 
+      this.URL.getUrlByLocation() : 
+      userUrl;
+  const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
+
   if(key !== 1){
     if(this._isTabRoute(currRoute.trimedPath)){
-      this._backToStartAndReplace(currRoute.fullPath, 'loaded');
+      this._backToStartAndReplace(currRoute, 'loaded');
       return;
     }
   }
   this._replace(currRoute, 'loaded');
 }
 
+History.prototype._setTra = function(className){
+  this._tra.className = className || this._global.transition;
+}
+
+History.prototype.push = function(userUrl){
+  const { fullParse, tra } = this._forMatInputArg(userUrl);
+  if(this._isTabRoute(fullParse.trimedPath)){
+    console.error('Cannot push the tab url, please use switchTab');
+    return;
+  }
+  this._setTra(tra);
+  this._push(fullParse, tra);
+}
+
+History.prototype.replace = function(userUrl){
+  const { fullParse, tra } = this._forMatInputArg(userUrl);
+  if(this._isTabRoute(fullParse.trimedPath)){
+    console.error('Cannot replace the tab url, please use switchTab');
+    return;
+  }
+  this._setTra(tra);
+  this._replace(fullParse);
+}
+
+
 History.prototype.switchTab = function(userUrl){
   // if(userUrl.indexOf('?') !== -1){
   //   console.error('switchTab not support queryString');
   // }
-  const fullParse = fullUrlParse(userUrl);
+  const { fullParse, tra } = this._forMatInputArg(userUrl);
   if(!this._isTabRoute(fullParse.trimedPath)){
     console.error(userUrl + ' is not tab url');
     return;
   }
-  // const key = getCurrentStateKey();
-  // // if(key !== 1){
-  // //   console.log('key', key)
-  // //   this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
-  // // }
-  this._backToStartAndReplace(userUrl, 'switchtab');
+
+  this._backToStartAndReplace(fullParse, 'switchtab', tra);
 }
 
+History.prototype.back = function(steps, tra){
+  const key = getCurrentStateKey();
 
+  if(key === 1){
+    console.error('Currnt page is first, Cannot back.');
+    return -1;
+  }
+  if(typeof steps === 'number' && steps > 0){
+    if(key - steps < 1){
+      return -1;
+    }
+  }
+  this._whenPopTra = tra;
+  if(steps){
+    this._history.go(-steps);
+  }else {
+    this._history.back();
+  }
+  
+  return 0;
+}
+
+History.prototype.relaunch = function(userUrl){
+  const { fullParse, tra } = this._forMatInputArg(userUrl);
+  this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
+  this._backToStartAndReplace(fullParse, 'relaunch', tra);
+}
 
 History.prototype._setMapItem = function(key, route){
 
@@ -163,27 +233,32 @@ History.prototype._setMapItem = function(key, route){
     
   // })
 }
-
-History.prototype.getFullUrlParseByLocation = function(){
-  return fullUrlParse(this.URL.getUrlByLocation());
-}
-History.prototype.push = function(userUrl){
-  const fullParse = fullUrlParse(userUrl);
-  if(this._isTabRoute(fullParse.trimedPath)){
-    console.error('Cannot push the tab url, please use switchTab');
-    return;
+History.prototype._getBackTra = function(){
+  const H = this._history;
+  if(H.state){
+    return H.state[BACK_TRA_PROP_KEY];
   }
-  this._push(fullParse);
 }
 
-History.prototype._push = function(fullParse){
+History.prototype._push = function(fullParse, tra){
   /* 
     from [vue-router]
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
   // this._clearAfter();
+  const oldTra = this._getBackTra();
   
+  if(tra !== oldTra){
+    let state = Object.assign({}, this._history.state);
+    if(tra){
+      state[BACK_TRA_PROP_KEY] = tra;
+    } else {
+      delete(state[BACK_TRA_PROP_KEY]);
+    }
+    console.log('oldTra', state, oldTra, tra)
+    this._history.replaceState(state, '');
+  }
   const key = genStateKey();
 
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
@@ -199,14 +274,7 @@ History.prototype._push = function(fullParse){
 
   this._onRouted();
 }
-History.prototype.replace = function(userUrl){
-  const fullParse = fullUrlParse(userUrl);
-  if(this._isTabRoute(fullParse.trimedPath)){
-    console.error('Cannot replace the tab url, please use switchTab');
-    return;
-  }
-  this._replace(fullParse);
-}
+
 History.prototype._replace = function(fullParse, behavior, _distance){
   const distance = _distance === undefined ? 0 : _distance;
   const newBehavior = {
@@ -222,8 +290,13 @@ History.prototype._replace = function(fullParse, behavior, _distance){
     this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
   }
   const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
+  let state =  this._history.state;
+  if(!state || !state[KEY_NAME]){
+    state = Object.assign({}, history.state);
+    state[KEY_NAME] = key;
+  }
   
-  this._history.replaceState({[KEY_NAME]: key}, '', toUrl);
+  this._history.replaceState(state, '', toUrl);
 
   this._Vue.nextTick(() => {
     if(newBehavior.type === 'relaunch'){
@@ -251,37 +324,9 @@ History.prototype._replace = function(fullParse, behavior, _distance){
 
 }
 
-History.prototype._directReplace = function(userUrl, behavior, compare){
 
-  const fullParse = 
-  typeof userUrl  === 'string' ? 
-   fullUrlParse(userUrl) 
-   : userUrl;
-  this._replace(fullParse, behavior, compare);
-}
 
-History.prototype.back = function(steps){
-  const key = getCurrentStateKey();
 
-  if(key === 1){
-    console.error('Currnt page is first, Cannot back.');
-    return -1;
-  }
-  if(typeof steps === 'number' && steps > 0){
-    if(key - steps < 1){
-      return -1;
-    }
-    this._history.go(-steps);
-  } else {
-    this._history.back();
-  }
-  return 0;
-}
-
-History.prototype.relaunch = function(userUrl){
-  this.tabCtrlerStackId = this.tabCtrlerStackId + 1;
-  this._backToStartAndReplace(userUrl, 'relaunch');
-}
 
 History.prototype._setMapCleaned = function(map){
   for(let i in map){
@@ -297,16 +342,17 @@ History.prototype._setAllCleaned = function(){
 
 
 
-History.prototype._backToStartAndReplace = function(userUrl, behavior){
+History.prototype._backToStartAndReplace = function(fullParse, behavior, tra){
   const key = getCurrentStateKey();
   if(key > 1){
     this._whenPopInfo = {
-      userUrl,
+      fullParse,
       behavior
     };
-    this.back(key - 1);
+    this.back(key - 1, tra);
   } else {
-    this._directReplace(userUrl, behavior);
+    this._setTra(tra);
+    this._replace(fullParse, behavior);
   }
 }
 
@@ -362,9 +408,15 @@ History.prototype.handlePop = function(){
   const _info = this._whenPopInfo;
   const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
-
+  let backTra = this._whenPopTra;
+  if(!backTra && behavior === 'back' && compare === -1){
+    backTra = this._getBackTra();
+    // console.log('--------------- backTra ---------------', backTra);
+  } 
+  this._setTra(backTra);
+  this._whenPopTra = null;
   if(_info !== null){
-    this._directReplace(_info.userUrl, _info.behavior, compare);
+    this._replace(_info.fullParse, _info.behavior, compare);
     this._whenPopInfo = null;
     return;
   }
@@ -386,7 +438,7 @@ History.prototype.handlePop = function(){
   if(page){
     Object.assign(this.currentPage, page);
   } else {
-    this._setMapItem(currKey, this.getFullUrlParseByLocation());
+    this._setMapItem(currKey, fullUrlParse(this.URL.getUrlByLocation()));
   }
 
   if(behavior === 'back'){
