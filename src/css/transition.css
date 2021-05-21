@@ -1,9 +1,9 @@
 
 .h-nav-behavior-push > .h-nav-transition,
 .h-nav-behavior-back > .h-nav-transition,
-.h-nav-behavior-replace > .h-nav-transition
+.h-nav-behavior-replace > .h-nav-transition,
+.h-nav-behavior-relaunch > .h-nav-transition
 /* ,.h-nav-behavior-switchtab > .h-nav-transition,
-.h-nav-behavior-relaunch > .h-nav-transition,
 .h-nav-behavior-forward > .h-nav-transition,
 .h-nav-behavior-loaded > .h-nav-transition */
 {
@@ -17,8 +17,9 @@
 }
 .h-nav-behavior-push  > .h-nav-transition > .h-nav-page-leave-to,
 .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
-  left: -33%;
+  left: -100%;
 }
+
 /* ---------------- behavior push/back end ---------------- */
 
 /* ---------------- behavior replace start ---------------- */
@@ -26,9 +27,19 @@
   top: 100%;
 }
 .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-leave-to {
-  top: -33%;
+  top: -100%;
 }
 /* ---------------- behavior replace  end ---------------- */
+
+/* ---------------- behavior relaunch start ---------------- */
+.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-enter{
+  top: -100%;
+}
+.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-leave-to{
+  top: 100%;
+  z-index: 999999!important;
+}
+/* ---------------- behavior relaunch end ---------------- */
 
 
 /* ---------------- behavior loaded  start ---------------- */
@@ -39,17 +50,7 @@
 */
  /* ---------------- behavior loaded end ---------------- */
 
-/* ---------------- behavior relaunch start ---------------- */
-/*
-.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-enter{
-  top: -33%;
-}
-.h-nav-behavior-relaunch > .h-nav-transition > .h-nav-page-leave-to{
-  top: 100%;
-  z-index: 999999!important;
-}
-*/
-/* ---------------- behavior relaunch end ---------------- */
+
 
 /* ---------------- behavior switchtab start ---------------- */
 /*
