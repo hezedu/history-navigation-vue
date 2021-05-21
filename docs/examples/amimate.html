@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@latest/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.1/dist/history-navigation-vue.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
     <link rel="stylesheet" href="./amimate.css" />
     <style>
@@ -17,25 +17,21 @@
   <body>
   <div id="app"></div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@latest/dist/history-navigation-vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.1/dist/history-navigation-vue.min.js"></script>
   
   <script type="text/x-template" id="index">
     <div>
-      <h1>Hello Wrold!</h1>
-      <Navigator url="/rotateOutDownLeft">rotateInDownRight Push</Navigator>
-      <Navigator url="/rollOut">rollOut Push</Navigator> 
+      <h1>Amimate</h1>
+      <p>To Detail</p>
+      <Navigator url="/detail?t=rotateOutDownLeft" transition="rotateOutDownLeft">rotateInDownRight</Navigator>
+      <br>
+      <Navigator url="/detail?t=rollOut" transition="rollOut">rollOut</Navigator> 
     </div>
   </script>
 
   <script type="text/x-template" id="rotateOutDownLeft">
     <div>
-      <h1>rotateOutDownLeft</h1>
-      <Navigator type="back">Back</Navigator>
-    </div>
-  </script>
-  <script type="text/x-template" id="rollOut">
-    <div>
-      <h1>rollOut</h1>
+      <h1>{{$page.route.query.t}}</h1>
       <Navigator type="back">Back</Navigator>
     </div>
   </script>
@@ -49,10 +45,10 @@
 
   <script>
     window.Vue.use(window.historyNavigationVue.plugin, {
+      transition: 'my-ami',
       pages: [
         { path: '/', component: { template: '#index' }, transitionClassName: 'custom-index' },
-        { path: '/rotateOutDownLeft', component: { template: '#rotateOutDownLeft' }, transitionClassName: 'custom-rotateOutDownLeft' },
-        { path: '/rollOut', component: { template: '#rollOut' }, transitionClassName: 'custom-rollOut' },
+        { path: '/detail', component: { template: '#detail' }},
         { path: '/me', component: { template: '#me' } }
       ],
       tabBar: {

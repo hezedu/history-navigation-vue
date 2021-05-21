@@ -1,62 +1,42 @@
 
 
 
-
-.h-nav-behavior-push > div,
-.h-nav-behavior-back > div,
-.h-nav-behavior-replace > div,
-.h-nav-behavior-loaded > div
-/* ,.h-nav-behavior-switchtab > div,
-// .h-nav-behavior-relaunch > div,
-// .h-nav-behavior-forward > div,
+.h-nav-behavior-loaded > .my-ami
+/* ,.h-nav-behavior-switchtab > .my-ami,
+// .h-nav-behavior-relaunch > .my-ami,
+// .h-nav-behavior-forward > .my-ami,
 //  */
 {
-  transition: none;
   animation-duration: 1.2s;
 }
 
-
-.h-nav-behavior-push > div > .h-nav-page-enter,
-.h-nav-behavior-back > div > .h-nav-page-leave-to {
-  left: unset;
-}
-.h-nav-behavior-push  > div > .h-nav-page-leave-to,
-.h-nav-behavior-back > div > .h-nav-page-enter{
-  left: unset;
-}
-/* ---------------- behavior push/back end ---------------- */
-
-/* ---------------- behavior replace start ---------------- */
-.h-nav-behavior-replace > div > .h-nav-page-enter {
-  top: unset;
-}
-.h-nav-behavior-replace > div > .h-nav-page-leave-to {
-  top: unset;
-}
-/* ---------------- behavior replace end ---------------- */
-
-.h-nav-behavior-push > div,
-.h-nav-behavior-back > div,
+.h-nav-behavior-push > .my-ami,
+.h-nav-behavior-back > .my-ami,
 .h-nav-behavior-replace{
   animation-duration: .5s;
 }
 
-.h-nav-behavior-push > div > .h-nav-page-enter-active{
+
+.h-nav-behavior-loaded > .bounceIn > .h-nav-page-enter-to{
+  animation-name: bounceIn;
+}
+
+.h-nav-behavior-push > .rotateInDownRight > .h-nav-page-enter-active{
   animation-name: rotateInDownRight;
 }
-.h-nav-behavior-push > div > .h-nav-page-leave-active{
+.h-nav-behavior-push > .rotateOutDownRight > .h-nav-page-leave-active{
   animation-name: rotateOutDownRight;
 }
-.h-nav-behavior-back > div > .h-nav-page-enter-active{
+.h-nav-behavior-back > .rotateInDownLeft > .h-nav-page-enter-active{
   animation-name: rotateInDownLeft;
 }
-.h-nav-behavior-back > div > .h-nav-page-leave-active{
+.h-nav-behavior-back > .rotateOutDownLeft > .h-nav-page-leave-active{
   animation-name: rotateOutDownLeft;
 }
-.h-nav-behavior-replace > div > .h-nav-page-enter-active{
+.h-nav-behavior-replace > .rotateInUpLeft > .h-nav-page-enter-active{
   animation-name: rotateInUpLeft;
 }
-.h-nav-behavior-replace > div > .h-nav-page-leave-active{
+.h-nav-behavior-replace > .rotateOutUpLeft > .h-nav-page-leave-active{
   animation-name: rotateOutUpLeft;
 }
 
@@ -69,7 +49,3 @@
   animation-name: backOutLeft;
   
 } */
-.h-nav-behavior-loaded > div > .h-nav-page-enter-to{
-
-  animation-name: bounceIn;
-}

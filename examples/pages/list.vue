@@ -8,18 +8,12 @@
       <InnerShow class="list_inner_show" v-show="isShowInner" />
     </transition>
     
-
-    <!-- <div style="height: 150vh">
-        <div style="height: 300px; width: 300px; overflow: auto;">
-          <div style="width: 200%; height: 200%"></div>
-        </div>
-
-    </div> -->
-    <h1 @click="handleClick">Date.now: {{Date.now()}}</h1>
     <h1>now: {{now}}</h1>
-    <input @focus="handleFocus" @blur="handleBlur" v-if="isShowInput" />
     <br>
     <navigator url="/detail"> To Detail </navigator>
+    <br>
+    <navigator url="/detail" transition="h-nav-transition custom"> custom To Detail </navigator>
+
     <br>
     <navigator url="/list" type="replace">replace to List</navigator>
     <br>
