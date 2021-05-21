@@ -26,14 +26,17 @@ export default {
   tabBar: {
     list: [{
       pagePath: '/',
+      icon: 'index_icon',
       text: '首页'
     },
     {
       pagePath: '/api',
+      icon: 'api_icon',
       text: 'API'
     },
     {
       pagePath: '/me',
+      icon: 'me_icon',
       text: 'Me'
     }]
   },

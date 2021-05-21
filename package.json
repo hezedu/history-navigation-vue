@@ -1,6 +1,6 @@
 {
   "name": "history-navigation-vue",
-  "version": "0.0.10-beta.2",
+  "version": "0.0.12",
   "description": "The HTML5 history navigation for Vue Web apps",
 
   "keywords": [
