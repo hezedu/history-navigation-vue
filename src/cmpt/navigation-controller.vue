@@ -16,7 +16,7 @@
       class="h-nav-page-handle" 
       v-for="v in stackMap" 
       :key="v.stackId" 
-      :class="v.transitionClassName"
+      :class="transition.className"
       :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''">
       
       <TabCtrler v-if="v.isTab"
@@ -69,7 +69,8 @@ export default {
       isFirstLoad: true,
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
-      currentPage: this.$navigator._h.currentPage
+      currentPage: this.$navigator._h.currentPage,
+      transition: this.$navigator._h._tra
     }
   },
 
@@ -79,6 +80,9 @@ export default {
       this.isFirstLoad = false;
     })
     
+  },
+  destroyed(){
+    this.$navigator._h.destory();
   }
 }
 </script>

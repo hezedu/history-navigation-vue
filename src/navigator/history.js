@@ -13,6 +13,9 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
+
+  this._tra = {className: this._global.transition};
+
   this._Vue = opt.Vue;
   if(!this._history || !this._history.pushState){
     throwErr('required history.pushState API');
@@ -97,8 +100,8 @@ History.prototype._load = function(userUrl){
     : fullUrlParse(userUrl);
   const key = getCurrentStateKey();
   if(key !== 1){
-    if(this._isTabRoute()){
-      this.relaunch(currRoute.fullPath);
+    if(this._isTabRoute(currRoute.trimedPath)){
+      this._backToStartAndReplace(currRoute.fullPath, 'loaded');
       return;
     }
   }
@@ -196,13 +199,13 @@ History.prototype._push = function(fullParse){
 
   this._onRouted();
 }
-History.prototype.replace = function(userUrl, behavior){
+History.prototype.replace = function(userUrl){
   const fullParse = fullUrlParse(userUrl);
   if(this._isTabRoute(fullParse.trimedPath)){
     console.error('Cannot replace the tab url, please use switchTab');
     return;
   }
-  this._replace(fullParse, behavior);
+  this._replace(fullParse);
 }
 History.prototype._replace = function(fullParse, behavior, _distance){
   const distance = _distance === undefined ? 0 : _distance;
@@ -226,7 +229,6 @@ History.prototype._replace = function(fullParse, behavior, _distance){
     if(newBehavior.type === 'relaunch'){
       this._setAllCleaned();
       const oldKey = key - distance;
-      console.log('oldKey', oldKey, distance)
       this.stackMap[oldKey].isClean = false;
       this._Vue.nextTick(() => {
         this._clearAll();

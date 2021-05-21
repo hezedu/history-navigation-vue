@@ -75,7 +75,7 @@ export default {
   watch: {
     'currTabPage.tabIndex'(newVal, oldVal){
       const distance = newVal - oldVal;
-      let type = distance > 0 ? 'upper' : 'lower';
+      let type = distance > 0 ? 'increase' : 'reduce';
       this.tabBehaviorDistance = distance;
       this.tabBehavior = type;
     },
