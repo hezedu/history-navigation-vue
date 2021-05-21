@@ -26,6 +26,9 @@ export default {
       type: Number,
       default: 1
     },
+    transition: {
+      type: String
+    },
     actived: {
       type: Boolean,
       default: false
@@ -47,17 +50,21 @@ export default {
   },
   methods: {
     handleEvent(e){
+      console.log('transition', this.transition)
       e.preventDefault();
       if(this.actived || this.disabled){
         return;
       }
       switch(this.type){
         case 'back':
-          this.$navigator._h.back(this.steps);
+          this.$navigator._h.back(this.steps, this.transition);
           break;
         default:
           if(allowedMethodMap[this.type]){
-            this.$navigator._h[this.type](this.url);
+            this.$navigator._h[this.type]({
+              url: this.url, 
+              transition: this.transition
+            });
           } else {
             console.error('history-navigation-vue navigator not support type: ' + this.type);
           }

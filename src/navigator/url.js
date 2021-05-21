@@ -110,6 +110,9 @@ function queryParse(qsString){
 }
 
 function queryStringify(obj){
+  if(!obj){
+    return '';
+  }
   let arr = [];
   Object.keys(obj).forEach(k => {
     arr.push(k + '=' + encodeURIComponent(obj[k]));
