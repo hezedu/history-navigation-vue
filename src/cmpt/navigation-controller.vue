@@ -21,6 +21,7 @@
       
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
+        :traClassName="transition.className"
         :currTabPage="v"
         :style="{zIndex: v.stateKey}"
         :isActive="v.stackId === currentPage.stackId"

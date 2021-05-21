@@ -15,6 +15,7 @@
 
       <div class="h-nav-tab-page-handle" 
           v-for="v in tabStackMap"
+          :class="traClassName"
           :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''"
           :key="v.tabIndex">
           <Page
@@ -61,6 +62,9 @@ export default {
     isFirstLoad: {
       type: Boolean,
       required: true
+    },
+    traClassName: {
+      type: String
     }
   },
   
