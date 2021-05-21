@@ -24,11 +24,29 @@
   justify-content: center;
   text-decoration: none;
   color: #333;
+  flex-direction: column;
 }
 
 .h-nav-tab.h-nav-actived{
-  color: #fff;
-  background-color:#3eaf7c;
+  color: #3eaf7c;
+}
+.h-nav-tab-icon{
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  margin-bottom: 4px;
+}
+.h-nav-tab-text{
+  font-size: 16px;
+  line-height: 1;
+}
+.h-nav-tab-icon + .h-nav-tab-text{
+  font-size: 12px;
 }
 </style>
 
@@ -40,7 +58,8 @@
     :actived="currentIndex === index"
     :url="v.pagePath" 
     type="switchTab">
-    {{v.text}}
+    <div class="h-nav-tab-icon" :class="v.icon" v-if="v.icon" />
+    <div class="h-nav-tab-text">{{v.text}}</div>
   </Navigator>
   </div>
 </template>
