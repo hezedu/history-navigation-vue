@@ -11,14 +11,14 @@
 }
 
 /* ---------------- behavior push/back start ---------------- */
-// .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
-// .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
-//   left: 100%;
-// }
-// .h-nav-behavior-push  > .h-nav-transition > .h-nav-page-leave-to,
-// .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
-//   left: -33%;
-// }
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
+  left: 100%;
+}
+.h-nav-behavior-push  > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
+  left: -33%;
+}
 /* ---------------- behavior push/back end ---------------- */
 
 /* ---------------- behavior replace start ---------------- */
