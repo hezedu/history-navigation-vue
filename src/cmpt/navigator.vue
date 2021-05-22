@@ -1,8 +1,8 @@
 <template>
-<a :class="{'h-nav-actived': actived, 'h-nav-disabled': disabled}" 
+<a :class="{'h-nav-active': isActive, 'h-nav-disabled': disabled}" 
   :href="href" 
   v-bind="$attrs">
-  <slot></slot>
+  <slot />
 </a>
 </template>
 <script>
@@ -29,7 +29,7 @@ export default {
     transition: {
       type: String
     },
-    actived: {
+    isActive: {
       type: Boolean,
       default: false
     },
@@ -52,7 +52,7 @@ export default {
     handleEvent(e){
       console.log('transition', this.transition)
       e.preventDefault();
-      if(this.actived || this.disabled){
+      if(this.isActive || this.disabled){
         return;
       }
       switch(this.type){

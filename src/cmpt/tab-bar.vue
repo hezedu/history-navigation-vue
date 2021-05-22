@@ -27,7 +27,7 @@
   flex-direction: column;
 }
 
-.h-nav-tab.h-nav-actived{
+.h-nav-tab.h-nav-active{
   color: #3eaf7c;
 }
 .h-nav-tab-icon{
@@ -55,7 +55,7 @@
   <Navigator v-for="(v, index) in list" 
     :key="v.pagePath" 
     class="h-nav-tab"
-    :actived="currentIndex === index"
+    :isActive="currentIndex === index"
     :url="v.pagePath" 
     type="switchTab">
     <div class="h-nav-tab-icon" :class="v.icon" v-if="v.icon" />
