@@ -2,9 +2,9 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.1/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="./amimate.css" />
+    <link rel="stylesheet" href="./animate.css" />
     <style>
       html, body, .root{height: 100%;}
       body {padding: 0; margin: 0; text-align: center; background-color: #ddd;}
@@ -12,16 +12,16 @@
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
     </style>
-    <title>Animate - example - history-navigation-vue</title>
+    <title>Transition With Amimate CSS - Example - history-navigation-vue</title>
   </head>
   <body>
   <div id="app"></div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.1/dist/history-navigation-vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.js"></script>
   
   <script type="text/x-template" id="index">
     <div>
-      <h1>Amimate</h1>
+      <h1>Transition With Amimate.CSS</h1>
       <p>To Detail</p>
       <Navigator url="/detail?t=rotateOutDownLeft" transition="rotateOutDownLeft">rotateInDownRight</Navigator>
       <br>
@@ -45,7 +45,7 @@
 
   <script>
     window.Vue.use(window.historyNavigationVue.plugin, {
-      transition: 'my-ami',
+      transition: 'my-ani',
       pages: [
         { path: '/', component: { template: '#index' }, transitionClassName: 'custom-index' },
         { path: '/detail', component: { template: '#detail' }},

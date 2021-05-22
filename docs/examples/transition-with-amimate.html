@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
+    <style>
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ddd;}
+      .root{max-width: 798px; margin: 0 auto;}
+      a {cursor: pointer; color: #3eaf7c;}
+      a:active {background: #ccc;}
+
+      .h-nav-behavior-loaded > .my-ani{
+        animation-duration: 1.2s;
+      }
+      .h-nav-behavior-loaded > .my-ani > .h-nav-page-enter-active{
+        animation-name: bounceIn;
+      }
+      
+      .h-nav-behavior-push > .my-ani,
+      .h-nav-behavior-back > .my-ani,
+      .h-nav-behavior-replace> .my-ani,
+      .h-nav-behavior-relaunch > .my-ani{
+        animation-duration: 1s;
+      }
+      /* push/back */
+      .h-nav-behavior-push > .my-ani > .h-nav-page-enter-active{
+        animation-name: rotateInDownRight;
+      }
+      .h-nav-behavior-back > .my-ani > .h-nav-page-enter-active{
+        animation-name: rotateInDownLeft;
+      }
+      .h-nav-behavior-push > .my-ani > .h-nav-page-leave-active{
+        animation-name: rotateOutDownRight;
+      }
+      .h-nav-behavior-back > .my-ani > .h-nav-page-leave-active{
+        animation-name: rotateOutDownLeft;
+      }
+      /* replace */
+      .h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
+        animation-name: backInUp;
+      }
+      .h-nav-behavior-replace > .my-ani > .h-nav-page-leave-active{
+        animation-name: backOutUp;
+      }
+
+      /* relaunch */
+      .h-nav-behavior-relaunch > .my-ani > .h-nav-page-enter-active {
+        animation-name: bounceIn;
+      }
+      .h-nav-behavior-relaunch > .my-ani > .h-nav-page-leave-active {
+        animation-name: bounceOutDown;
+        z-index: 9999!important;
+      }
+    </style>
+    <title>Transition With Amimate CSS - Example - history-navigation-vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.js"></script>
+  
+  <script type="text/x-template" id="index">
+    <div>
+      <h1>Transition With Amimate</h1>
+      <p>Now {{Date.now()}}</p>
+      <p>CSS source: <a href="https://animate.style/" style="color: #333" target="_blank">animate.css</a>@4.1.1</p>
+      <p>duration: loaded 1.2s, Others 1s</p>
+      <p>loaded: bounceIn</p>
+
+      <Navigator url="/detail">To Detail(rotateInDownRight)</Navigator>
+      <br><br>
+      <Navigator url="/" type="replace">Replace Self(backInUp)</Navigator> 
+      <br><br>
+      <Navigator url="/" type="relaunch">Relaunch Self(bounceOutDown)</Navigator>
+      
+    </div>
+  </script>
+
+  <script type="text/x-template" id="detail">
+    <div>
+      <h1>Detail</h1>
+      <Navigator type="back">Back</Navigator>
+    </div>
+  </script>
+
+  <script>
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      transition: 'my-ani', // replace default transitionClass
+      pages: [
+        { path: '/', component: { template: '#index' }, transitionClassName: 'custom-index' },
+        { path: '/detail', component: { template: '#detail' }}
+      ]
+    });
+    new window.Vue({
+      el: '#app',
+      template: '<NavigationController class="root" />'
+    });
+  </script>
+  </body>
+</html>

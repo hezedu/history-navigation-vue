@@ -3,14 +3,26 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <style>
       html, body, .root{height: 100%;}
       body {padding: 0; margin: 0; text-align: center; background-color: #ddd;}
       .root{max-width: 798px; margin: 0 auto;}
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
+
+      .h-nav-tabs-wrap{
+        padding-bottom: 0;
+        padding-top: 48px;
+      }
+      .h-nav-tabbar{
+        top: 0;
+        bottom: unset;
+        border-top: 0;
+        border-bottom: 1px solid #c7c7c7;
+      }
     </style>
-    <title>Tabbar - example - history-navigation-vue</title>
+    <title>Tabbar Position Top - example - history-navigation-vue</title>
   </head>
   <body>
   <div id="app"></div>
@@ -19,38 +31,25 @@
   
   <script type="text/x-template" id="index">
     <div>
-      <h1>Hello Wrold!</h1>
-      <p>Now: {{Date.now()}}</p>
-      <Navigator url="/detail">To Detail</Navigator>
+      <h1>Tabbar Position Top</h1>
+      <p>Just change the style sheet</p>
     </div>
   </script>
-
-  <script type="text/x-template" id="detail">
-    <div>
-      <h1>Detail</h1>
-      <p>Now: {{Date.now()}}</p>
-      <Navigator type="back">Back</Navigator>
-    </div>
-  </script>
-
   <script type="text/x-template" id="me">
     <div>
       <h1>Me</h1>
-      <p>Now: {{Date.now()}}</p>
     </div>
   </script>
-
   <script>
     window.Vue.use(window.historyNavigationVue.plugin, {
       pages: [
-        { path: '/', component: { template: '#index' } },
-        { path: '/detail', component: { template: '#detail' } },
-        { path: '/me', component: { template: '#me' } }
+        { path: '/', component: { template: '#index' }},
+        { path: '/me', component: { template: '#me' }}
       ],
       tabBar: {
         list: [
-          { pagePath: "/", text: "Home" },
-          { pagePath: "/me", text: "Me" }
+          {pagePath: '/', text: 'Index'},
+          {pagePath: '/me', text: 'Me'}
         ]
       }
     });

@@ -1,23 +1,23 @@
 
 
 
-.h-nav-behavior-loaded > .my-ami
-/* ,.h-nav-behavior-switchtab > .my-ami,
-// .h-nav-behavior-relaunch > .my-ami,
-// .h-nav-behavior-forward > .my-ami,
+.h-nav-behavior-loaded > .my-ani
+/* ,.h-nav-behavior-switchtab > .my-ani,
+// .h-nav-behavior-relaunch > .my-ani,
+// .h-nav-behavior-forward > .my-ani,
 //  */
 {
   animation-duration: 1.2s;
 }
 
-.h-nav-behavior-push > .my-ami,
-.h-nav-behavior-back > .my-ami,
+.h-nav-behavior-push > .my-ani,
+.h-nav-behavior-back > .my-ani,
 .h-nav-behavior-replace{
   animation-duration: .5s;
 }
 
 
-.h-nav-behavior-loaded > .bounceIn > .h-nav-page-enter-to{
+.h-nav-behavior-loaded > .bounceIn > .h-nav-page-enter-active{
   animation-name: bounceIn;
 }
 

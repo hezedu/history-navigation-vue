@@ -12,12 +12,8 @@ export default {
     { path: '/me', component: MePage, title: '我', className: 'custom-me'},
 
     { path: '/api', component: API, title: 'API' },
-    { path: '/list', component: List, title: '列表', className: 'custom-list' , transition: {
-      duration: 40000
-    }},
-    { path: '/detail', component: Detail, title: '详情', transition: {
-      duration: 1000
-    } },
+    { path: '/list', component: List, title: '列表', className: 'custom-list'},
+    { path: '/detail', component: Detail, title: '详情'},
   ],
   // notFoundPage: {
   //   title: '404',
@@ -42,6 +38,5 @@ export default {
   },
   onRouted(e){
     document.title = e.title;
-  },
-  pageIntervalOffsetX: 33
+  }
 }

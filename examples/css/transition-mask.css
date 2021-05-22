@@ -1,0 +1,37 @@
+.h-nav-behavior-loaded > .h-nav-transition{
+  transition: all 1s ease;
+}
+.h-nav-behavior-loaded > .h-nav-transition > .h-nav-page-enter{
+  top: -100%;
+}
+
+.h-nav-behavior-switchtab  > .h-nav-transition{
+  transition: all 1s ease;
+}
+.h-nav-behavior-switchtab > .h-nav-transition > .h-nav-page-enter{
+  top: -33%;
+  left: -33%;
+}
+.h-nav-behavior-switchtab > .h-nav-transition > .h-nav-page-leave-to{
+  left: 100%;
+  top: 100%;
+}
+
+.h-nav-tab-behavior-reduce > .h-nav-transition,
+.h-nav-tab-behavior-increase > .h-nav-transition{
+  transition: all .3s ease;
+}
+
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-leave-to{
+  left: -100%;
+}
+
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-leave-to{
+  left: 100%;
+}
+.h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-enter,
+.h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter{
+  left: calc(100% * var(--h-nav-tab-distance));
+}
