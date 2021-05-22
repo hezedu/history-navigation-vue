@@ -4,14 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.1.4/dist/history-navigation-vue.min.css" />
     <style>
-      html, body{height: 100%;}
-      body {padding: 0; margin: 0; text-align: center;}
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ddd;}
+      .root{max-width: 798px; margin: 0 auto;}
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
       .list {padding: 20px 10px;}
       .item {height: 50px;line-height: 50px;background: #eee;margin-bottom: 10px;display: block;}
     </style>
-    <title>Page Get Params - example - history-navigation-vue</title>
+    <title>Page Get Query - example - history-navigation-vue</title>
   </head>
   <body>
   <div id="app"></div>
@@ -20,7 +21,7 @@
 
   <script type="text/x-template" id="list">
     <div>
-      <h1>List</h1>
+      <h1>Page Get Query</h1>
       <div class="list">
         <Navigator v-for="v in 50" :key="v" 
           class="item" :url="'/detail?id=' + v">
@@ -47,7 +48,7 @@
     });
     new window.Vue({
       el: '#app',
-      template: '<NavigationController />'
+      template: '<NavigationController class="root" />'
     });
   </script>
   </body>

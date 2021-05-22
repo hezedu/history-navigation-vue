@@ -10,11 +10,6 @@
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
 
-       .mid {
-        border: 1px solid #333;
-        box-sizing: border-box;
-      }
-
       /* Add tab pages transition */
       .h-nav-tab-behavior-reduce > .h-nav-transition,
       .h-nav-tab-behavior-increase > .h-nav-transition{
@@ -69,7 +64,7 @@
     window.Vue.use(window.historyNavigationVue.plugin, {
       pages: [
         { path: '/', component: { template: '#index' }},
-        { path: '/mid', component: { template: '#mid' }, className: 'mid'},
+        { path: '/mid', component: { template: '#mid' }},
         { path: '/me', component: { template: '#me' }}
       ],
       tabBar: {

@@ -37,6 +37,19 @@
       .h-nav-behavior-back > .my-ani > .h-nav-page-leave-active{
         animation-name: rotateOutDownLeft;
       }
+      /* special */
+      .h-nav-behavior-push > .special > .h-nav-page-enter-active{
+        animation-name: lightSpeedInRight;
+      }
+      .h-nav-behavior-back > .special > .h-nav-page-enter-active{
+        animation-name: lightSpeedInLeft;
+      }
+      .h-nav-behavior-push > .special > .h-nav-page-leave-active{
+        animation-name: lightSpeedOutLeft;
+      }
+      .h-nav-behavior-back > .special > .h-nav-page-leave-active{
+        animation-name: lightSpeedOutRight;
+      }
       /* replace */
       .h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
         animation-name: backInUp;
@@ -44,7 +57,6 @@
       .h-nav-behavior-replace > .my-ani > .h-nav-page-leave-active{
         animation-name: backOutUp;
       }
-
       /* relaunch */
       .h-nav-behavior-relaunch > .my-ani > .h-nav-page-enter-active {
         animation-name: bounceIn;
@@ -74,7 +86,9 @@
       <Navigator url="/" type="replace">Replace Self(backInUp)</Navigator> 
       <br><br>
       <Navigator url="/" type="relaunch">Relaunch Self(bounceOutDown)</Navigator>
-      
+      <br><br>
+      <p>Special with Navigator transition option</p>
+      <Navigator url="/detail" transition="my-ani special">Special To Detail(lightSpeedOutRight)</Navigator>
     </div>
   </script>
 
