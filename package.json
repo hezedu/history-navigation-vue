@@ -28,7 +28,8 @@
     "start": "webpack-dev-server --progress --hot --inline --colors",
     "build": "npm run build_dev && npm run build_pro && node script/after_webpack_build.js",
     "build_pro": "webpack --node-env=production --colors --hide-modules --progress --config webpack.build.config.js",
-    "build_dev": "webpack --node-env=development --colors --hide-modules --progress --config webpack.build.config.js"
+    "build_dev": "webpack --node-env=development --colors --hide-modules --progress --config webpack.build.config.js",
+    "preview_docs": "node server/preview_docs.js"
   },
   "files": [
     "dist"
