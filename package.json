@@ -1,7 +1,7 @@
 {
   "name": "history-navigation-vue",
-  "version": "0.1.8",
-  "description": "A native-like Navigation for Web apps.",
+  "version": "0.1.10",
+  "description": "Multi-page Navigation for single-page apps.",
 
   "keywords": [
     "history",
@@ -29,7 +29,9 @@
     "build": "npm run build_dev && npm run build_pro && node script/after_webpack_build.js",
     "build_pro": "webpack --node-env=production --colors --hide-modules --progress --config webpack.build.config.js",
     "build_dev": "webpack --node-env=development --colors --hide-modules --progress --config webpack.build.config.js",
-    "preview_docs": "node server/preview_docs.js"
+    "build_ex": "webpack --node-env=production --colors --hide-modules --progress --config webpack.config.js",
+    "preview_docs": "node server/preview_docs.js",
+    "preview_ex": "node server/preview_ex.js"
   },
   "files": [
     "dist"

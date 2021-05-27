@@ -1,4 +1,4 @@
-.h-nav-behavior-loaded > .h-nav-transition{
+/* .h-nav-behavior-loaded > .h-nav-transition{
   transition: all 1s ease;
 }
 .h-nav-behavior-loaded > .h-nav-transition > .h-nav-page-enter{
@@ -34,4 +34,4 @@
 .h-nav-tab-behavior-reduce > .h-nav-transition > .h-nav-tab-page-enter,
 .h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter{
   left: calc(100% * var(--h-nav-tab-distance));
-}
+} */

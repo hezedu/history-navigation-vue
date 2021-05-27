@@ -23,6 +23,8 @@
     <br>
     <navigator url="/api" style="font-size: 3em" type="switchTab">switchTab to api</navigator>
     <br>
+    <navigator url="/me" style="font-size: 3em" type="switchTab">switchTab to Me</navigator>
+    <br>
     <navigator type="back">Back</navigator>
         <br>
     <navigator url="/list" type="replace">Replace to List</navigator>

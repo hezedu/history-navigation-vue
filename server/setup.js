@@ -12,7 +12,7 @@ function setup(app){
   });
   app.get('*', (req, res, next) => {
     if(req.url.indexOf('/static') === 0 || 
-    req.url.indexOf('/dev_dist') === 0){
+    req.url.indexOf('/dev') === 0){
       next();
     } else {
       res.type('html').send( fs.readFileSync(path.join(__dirname, '../index.html')));
@@ -25,8 +25,6 @@ function setup(app){
     app.use(v.url, eStatic(v.filePath));
   }
 
-  // dev
-  app.use('/static', eStatic(path.join(__dirname, '../docs/static')));
 
 
 };
