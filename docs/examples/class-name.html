@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.css" />
+    <style>
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ccc;}
+      .root{max-width: 798px; margin: 0 auto;}
+      a {cursor: pointer; color: #3eaf7c;}
+      a:active {background: #ccc;}
+      .custom-index{
+        background-color:cadetblue;
+      }
+      .custom-detail{
+        background-color:burlywood;
+      }
+    </style>
+    <title>Page className - example - history-navigation-vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.js"></script>
+
+  <script type="text/x-template" id="index">
+    <div>
+      <h1>Page className</h1>
+      <p>cadetblue</p>
+      <Navigator url="/detail">To Detail</Navigator>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="detail">
+    <div>
+      <h1>Detail</h1>
+      <p>burlywood</p>
+      <Navigator type="back">Back</Navigator>
+    </div>
+  </script>
+
+  <script>
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      pages: [
+        { path: '/', component: { template: "#index" }, className: 'custom-index' },
+        { path: '/detail', component: { template: "#detail" }, className: 'custom-detail' }
+      ]
+    });
+    new window.Vue({
+      el: '#app',
+      template: '<NavigationController class="root" />'
+    });
+  </script>
+  </body>
+</html>
