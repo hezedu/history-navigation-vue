@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="./animate.css" />
+    <style>
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ccc;}
+      .root{max-width: 798px; margin: 0 auto;}
+      a {cursor: pointer; color: #3eaf7c;}
+      a:active {background: #ccc;}
+      .detail{
+        background-color:#f0f0f0;
+      }
+
+      /* Added loaded */
+      .h-nav-behavior-loaded > .h-nav-transition{
+        transition: all 1s ease;
+      }
+      .h-nav-behavior-loaded > .h-nav-transition  > .h-nav-page-enter {
+        top: -100%;
+      }
+
+      /* Modify duration */
+      .h-nav-behavior-push > .h-nav-transition,
+      .h-nav-behavior-back > .h-nav-transition,
+      .h-nav-behavior-replace > .h-nav-transition,
+      .h-nav-behavior-relaunch > .h-nav-transition{
+        transition-duration: .5s;
+      }
+      /* Extend push/back */
+      .h-nav-behavior-push  > .left-100 > .h-nav-page-leave-to,
+      .h-nav-behavior-back > .left-100 > .h-nav-page-enter{
+        left: -100%;
+      }
+      /* custom */
+      .h-nav-behavior-replace > .custom-3d{
+        transition: all .5s ease;
+      }
+      .h-nav-behavior-replace > .custom-3d > .h-nav-page-enter {
+        transform: perspective(500px) translate3d(0, 100%, 80px);
+      }
+      .h-nav-behavior-replace > .custom-3d > .h-nav-page-leave-to {
+        transform: perspective(500px) translate3d(0, -33%, -80px);
+        opacity: .67;
+      }
+    </style>
+    <title>Transition Extend And Custom Default - example - history-navigation-vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.js"></script>
+  
+  <script type="text/x-template" id="index">
+    <div>
+      <h1>Transition Extend&Custom Default</h1>
+      <p>Now {{Date.now()}}</p>
+      <p>Added loaded behavior transition. </p>
+      <p>duration: loaded 1s, Others modified to 1s</p>
+
+      <Navigator url="/" type="relaunch">Relaunch Self(Default)</Navigator>
+      <br>
+      <br>
+      <Navigator url="/detail">To Detail(Default)</Navigator>
+      <br>
+      <br>
+      
+      <Navigator url="/" type="replace">Replace Self(Default)</Navigator>
+      <br>
+      <br>
+      <p>Extended With Navigator transition option</p>
+      <Navigator url="/detail" transition="h-nav-transition left-100">Extended To Detail(Left -100%)</Navigator> 
+      <p>Custom With Navigator transition option</p>
+      <Navigator url="/" type="replace" transition="custom-3d">Custom Replace Self(translate3d)</Navigator>
+    </div>
+  </script>
+  <script type="text/x-template" id="detail">
+    <div>
+      <h1>Detail</h1>
+      <Navigator type="back">Back</Navigator>
+    </div>
+  </script>
+  <script>
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      pages: [
+        { path: '/', component: { template: '#index' }, className: 'index'},
+        { path: '/detail', component: { template: '#detail' }, className: 'detail'}
+      ]
+    });
+    new window.Vue({
+      el: '#app',
+      template: '<NavigationController class="root" />'
+    });
+  </script>
+  </body>
+</html>

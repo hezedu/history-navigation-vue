@@ -1,0 +1,22 @@
+{
+  "name": "vue-press-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev src  --temp .temp",
+    "build": "vuepress build src",
+    "yarnI": "yarn add @vuepress/plugin-google-analytics --dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vuepress/plugin-active-header-links": "^1.8.2",
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-google-analytics": "^1.8.2",
+    "vuepress": "^1.8.2",
+    "yarn": "^1.22.10"
+  }
+}

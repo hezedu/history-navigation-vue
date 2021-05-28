@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.css" />
+    <style>
+      html, body{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center;}
+      a {cursor: pointer; color: #3eaf7c;}
+      a:active {background: #ccc;}
+      .wrap {
+        height: 350%;
+        padding-top: 1px;
+        background-image: linear-gradient(#eee, #888, #eee);
+      }
+      .fixed{
+        position: fixed;
+        top: 0;
+        text-align: center;
+        width: 188px;
+        padding: 10px;
+        border: 1px solid #333;
+        background-color: #eee;
+      }
+      h1 {
+        margin-top: 0;
+        padding-top: 200px;
+      }
+    </style>
+    <title>Page Event Handing - history-navigation-vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@0.2.1/dist/history-navigation-vue.min.js"></script>
+
+  <script type="text/x-template" id="index">
+    <div class="wrap">
+      <div class="fixed">
+        <p>Index Scroll Count: {{indexCount}}</p>
+        <p>Detail Scroll Count: {{detailCount}}</p>
+        <Navigator url="/detail">To Detail</Navigator>
+      </div>
+      <h1>Page Event Handing</h1>
+      
+    </div>
+  </script>
+
+  <script type="text/x-template" id="detail">
+    <div class="wrap">
+      <div class="fixed">
+        <p>Index Scroll Count: {{indexCount}}</p>
+        <p>Detail Scroll Count: {{detailCount}}</p>
+        <Navigator type="back">Back</Navigator>
+      </div>
+              <h1>Detail</h1>
+        
+    </div>
+  </script>
+
+  <script>
+    var indexCount = 0;
+    var detailCount = 0;
+    var countMixin = {
+      data: function() {
+        return {
+          indexCount: indexCount,
+          detailCount: detailCount
+        }
+      },
+      mounted(){
+        this.$page.$el.addEventListener('scroll', this.handlePageScroll);
+      },
+      destoryed(){
+        this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
+      }
+    }
+
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      pages: [
+        {
+          path: '/',
+          component: {
+            mixins: [ countMixin ],
+            template: '#index',
+            methods: {
+              handlePageScroll: function(){
+                this.indexCount = indexCount = indexCount + 1;
+                this.detailCount = detailCount;
+              }
+            }
+          }
+        },
+        {
+          path: '/detail',
+          component: {
+              mixins: [ countMixin ],
+              template: '#detail',
+              methods: {
+                handlePageScroll: function(){
+                  this.indexCount = indexCount;
+                  this.detailCount = detailCount = detailCount + 1;
+                }
+              }
+          }
+        }
+      ]
+    });
+    new window.Vue({
+      el: '#app',
+      template: '<NavigationController />'
+    });
+  </script>
+  </body>
+</html>
