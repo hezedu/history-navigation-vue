@@ -15,7 +15,7 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
 - Hello World!
   <source-preview name="hello-world" />
 
-- Navigator
+- Navigator.
   <source-preview name="two-pages" />
 
 - Synchronize Document Title.
@@ -39,13 +39,13 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
 
 
 ### TabBar
-- TabBar
+- TabBar.
   <source-preview name="tabbar" />
 
 - TabBar With Icon.
   <source-preview name="tabbar-with-icon" />
 
-- TabBar Position Top
+- TabBar Position Top.
   <source-preview name="tabbar-position-top" />
 
 ### Transition

@@ -1,17 +1,11 @@
 # Guide
 ## Introduction
 <!-- a native-like **Navigation** for web apps. -->
-**history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/).
-- It is a multi-page **architecture** on the single-page.
-- It solved the pain points of single-page apps(See [Compared with the normal single-page apps](/#index-compared)).
-- It supports tabBar mode.
-- It can set various transition effects at will.
-- It can be perfectly combined with the system/browser **back button**. 
+**history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/). It is a multi-page **architecture** in the single-page, which can be perfectly combined with the system/browser **back button**, you can happily use it to build modern web apps with a native experience.
 
-You can use it happily to build modern web apps with a native experience. 
 ## Compatibility Note
 ### Browser / Webview
-history-navigation-vue required HTML5 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) and not has fallback. Some older browsers may not supported. You’d better check first and provide hints:
+history-navigation-vue required HTML5 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) and not has fallback. Some very old browsers may not supported. You’d better check first and provide hints:
 ```js
 if(!history || !history.pushState){
   var error = "Sorry, You Your browser doesn't support history";

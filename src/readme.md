@@ -4,7 +4,7 @@ heroImage: /logo.png
 actionText: Get Started →
 actionLink: ./guide.html
 features:
-- title: Keep Alive
+- title: Keep Pages Alive
   details: Keep all previous pages alive. Solve the pain point of the single-page apps with only one page alive.
 - title: Tabbar Mode
   details: Go back to the initial state of history and switch to a new page, It provides features that are only available on native apps.
