@@ -15,6 +15,7 @@
     "native-like",
     "routing",
     "router",
+    "hybrid",
     "web app"
   ],
   "main": "dist/history-navigation-vue.js",
