@@ -16,6 +16,11 @@ module.exports = {
       // description: 'A native-like Navigation for Web apps.',
       // description: 'Multi-page navigation on single-page apps.',
       description: 'A native-like navigation for web apps.'
+    },
+    '/zh/': {
+      lang: 'zh-CN',
+      title: 'History Navigation Vue',
+      description: '一个原生体验的 web 端页面导航'
     }
   },
   // markdown: {
@@ -37,7 +42,7 @@ module.exports = {
   themeConfig: {
     logo: '/logo.png',
     repo: 'hezedu/history-navigation-vue',
-    docsDir: 'docs',
+    docsDir: 'src',
     smoothScroll: true,
     lastUpdated: 'Last Updated', // string | boolean
     locales: {
@@ -45,10 +50,23 @@ module.exports = {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
+        docsBranch: 'gh-pages',
+        editLinks: true,
         nav: [
           { text: 'Guide', link: '/guide/' },
           { text: 'API', link: '/api/' },
           { text: 'Examples', link: '/examples/' }
+        ],
+        sidebar: 'auto'
+      },
+      "/zh/": {
+        label: '简体中文',
+        selectText: '选择语言',
+        editLinkText: '在 GitHub 上编辑此页',
+        nav: [
+          { text: '指南', link: '/zh/guide/' },
+          { text: 'API', link: '/zh/api/' },
+          { text: '示例', link: '/zh/examples/' }
         ],
         sidebar: 'auto'
       }
