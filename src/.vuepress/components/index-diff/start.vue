@@ -4,8 +4,8 @@
       Index
     </div>
     <div class="index_diff_start_top">
-    <div class="index_diff_start_use"> Use </div>
-     <b>{{text}}</b>
+    <!-- <div class="index_diff_start_use"> Use </div> -->
+     <b>Single-Page Apps</b>
       
   </div>
   <div class="index_diff_start_bottom">

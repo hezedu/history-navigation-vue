@@ -14,7 +14,8 @@ module.exports = {
       // description: 'Native-like Navigation for Vue web apps'
       // description: 'A multi-page Navigation for single-page apps.'
       // description: 'A native-like Navigation for Web apps.',
-      description: 'A multi-page navigation on the single-page apps.'
+      // description: 'Multi-page navigation on single-page apps.',
+      description: 'A native-like navigation for web apps.'
     }
   },
   // markdown: {
