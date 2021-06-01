@@ -1,7 +1,8 @@
 {
-  "name": "vue-press-demo",
+  "name": "docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "docs of history-navigation-vue",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,8 +11,8 @@
     "yarnI": "yarn add @vuepress/plugin-google-analytics --dev"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "hezedu",
+  "license": "MIT",
   "devDependencies": {
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "@vuepress/plugin-back-to-top": "^1.8.2",

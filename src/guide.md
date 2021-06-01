@@ -1,7 +1,16 @@
 # Guide
 ## Introduction
 <!-- a native-like **Navigation** for web apps. -->
-**history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/). It is a multi-page **architecture** in the single-page, which can be perfectly combined with the system/browser **back button**, you can happily use it to build modern web apps with a native experience.
+<!-- **history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/). It is a multi-page **architecture** in the single-page, which can be perfectly combined with the system/browser **back button**, you can happily use it to build modern web apps with a native experience. -->
+
+**history-navigation-vue** is a native-like multi-page **Navigation** on the Web single-page apps.  It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/).
+- It is a multi-page **architecture** on the single-page.
+- It solved the pain points of single-page apps(See [Compared with the normal single-page apps](/#index-compared)).
+- It supports tabBar mode.
+- It can set various transition effects at will.
+- It can be perfectly combined with the system/browser **back button**. 
+
+You can use it happily to build modern web apps with a **native experience**. 
 
 ## Compatibility Note
 ### Browser / Webview
