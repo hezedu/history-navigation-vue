@@ -1,7 +1,7 @@
 {
   "name": "history-navigation-vue",
-  "version": "0.2.3",
-  "description": "A multi-page navigation on the single-page apps.",
+  "version": "0.2.4",
+  "description": "A native-like navigation for web apps.",
 
   "keywords": [
     "history",
