@@ -7,7 +7,7 @@ sidebar: false
 所有示例都是**单 HTML** 文件。
 
 ### 快速示例
-模拟 Ajax & 触底加载 & TabBar.
+模拟 Ajax & 触底加载 & TabBar。
 <source-preview name="quick-example" />
 
 ### 基础

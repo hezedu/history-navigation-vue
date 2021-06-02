@@ -35,6 +35,12 @@ sidebar: false
 [Mock Ajax & Load More Content On Scroll Down & TabBar](https://hezedu.github.io/history-navigation-vue/examples/quick-example.html)
 
 </div> -->
+<br>
+<h2 id="quickExample">Quick Example</h2>
+<p style="text-align: center;">
+<br>
+<a href="https://hezedu.github.io/history-navigation-vue/examples/quick-example.html" target="_blank" rel="noopener noreferrer">Mock Ajax & Load More Content On Scroll Down & TabBar<span class="open_new_win_icon"></span></a>
+</p>
+<br>
+<br>
 
-<br>
-<br>
