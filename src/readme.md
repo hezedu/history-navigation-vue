@@ -4,10 +4,10 @@ heroImage: /logo.png
 actionText: Get Started →
 actionLink: ./guide.html
 features:
-- title: Keep Alive
+- title: Multi-Page Architecture
   details: Keep all previous pages alive. Solve the pain point of the single-page apps with only one page alive.
 - title: Tabbar Mode
-  details: Go back to the initial state of history and switch to a new page, It provides features that are only available on native apps.
+  details: Go back to the initial state of history and switch to a new page, It achieves native-like features.
 - title: Transition Effects
   details: Accurately identify push/back/replace behaviors, and have corresponding settable page transition effects.
 

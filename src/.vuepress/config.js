@@ -15,12 +15,12 @@ module.exports = {
       // description: 'A multi-page Navigation for single-page apps.'
       // description: 'A native-like Navigation for Web apps.',
       // description: 'Multi-page navigation on single-page apps.',
-      description: 'A native-like navigation for web apps.'
+      description: 'Multi-page navigation on single-page apps.'
     },
     '/zh/': {
       lang: 'zh-CN',
       title: 'History Navigation Vue',
-      description: '一个原生体验的 web 端页面导航'
+      description: '单页面应用上的多页导航'
     }
   },
   // markdown: {

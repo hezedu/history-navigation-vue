@@ -3,8 +3,8 @@
 <!-- a native-like **Navigation** for web apps. -->
 <!-- **history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/). It is a multi-page **architecture** in the single-page, which can be perfectly combined with the system/browser **back button**, you can happily use it to build modern web apps with a native experience. -->
 
-**history-navigation-vue** is a native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/).
-- It is a multi-page **architecture** on the single-page.
+**history-navigation-vue** is a multi-page **navigation** on single-page apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/).
+<!-- - It is a multi-page **architecture** on the single-page. -->
 - It solved the pain points of single-page apps(See [Compared with the normal single-page apps](/#index-compared)).
 - It supports tabBar mode.
 - It can set various transition effects at will.
@@ -75,7 +75,7 @@ Finished!
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/hello-world.html) 
 <!-- [Go here to see Simple Single HTML Example](/examples.html#hello-world) -->
 
-### Navigator
+### Jumping between pages
 You will also get another global component: `<Navigator>`, With it, You can use it to jump between different pages.
 
 Add a new page **/detail** and modify the `config.pages`:

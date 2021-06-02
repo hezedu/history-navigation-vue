@@ -3,7 +3,7 @@
 <!-- a native-like **Navigation** for web apps. -->
 <!-- **history-navigation-vue** is A native-like **Navigation** for Web apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/). It is a multi-page **architecture** in the single-page, which can be perfectly combined with the system/browser **back button**, you can happily use it to build modern web apps with a native experience. -->
 
-**history-navigation-vue** 是一个原生体验的 web 端页面导航， 它基于 HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History)， 由 [Vue](https://vuejs.org/) 实现的。
+**history-navigation-vue** 是一个原生体验的 web 端页面导航， 它基于 HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History)， 由 [Vue](https://vuejs.org/) 实现。
 - 它是在单页面上的多页架构。
 - 它旨在解决单页面应用的痛点(详见 [和普通单页面应用对比](/zh/#index-compared))。
 - 它支持 tabBar 模式。
@@ -75,7 +75,7 @@ new window.Vue({
 [预览](https://hezedu.github.io/history-navigation-vue/examples/hello-world.html) 
 <!-- [Go here to see Simple Single HTML Example](/examples.html#hello-world) -->
 
-### Navigator
+### 不同的页面跳转
 你还会得到一个全局组件： `<Navigator>`, 有了它，你可以在不同页面跳转了。
 
 添加一个新页面 **/detail** 然后修改 `config.pages`:
@@ -110,7 +110,7 @@ new window.Vue({
 ### Tabbar
 如果设计稿上有 tabbar 在底部， 但这是一个 web 项目，该怎么办？
 
-有了这个项目，只需要添加 `tabBar` 选项：
+不要慌，有了这个项目，只需要添加 `tabBar` 选项：
 ```js{16-21}
 {
   pages: [
