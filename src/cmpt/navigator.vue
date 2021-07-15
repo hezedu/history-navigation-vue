@@ -1,7 +1,6 @@
 <template>
 <a :class="{'h-nav-active': isActive, 'h-nav-disabled': disabled}" 
-  :href="href" 
-  v-bind="$attrs">
+  :href="href">
   <slot />
 </a>
 </template>
@@ -50,7 +49,6 @@ export default {
   },
   methods: {
     handleEvent(e){
-      console.log('transition', this.transition)
       e.preventDefault();
       if(this.isActive || this.disabled){
         return;
