@@ -34,7 +34,6 @@ Provides the installed version as a `string`.
     urlIsHashMode?: boolean,
     urlBase?: string,
     // global options
-    pageIntervalOffsetX?: number,
     navigatorTriggerEvent?: string
   }
   ```

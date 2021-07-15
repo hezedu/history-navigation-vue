@@ -33,7 +33,6 @@ Vue.use(historyNavigationVue.plugin, globalConfig)
     urlIsHashMode?: boolean,
     urlBase?: string,
     // global options
-    pageIntervalOffsetX?: number,
     navigatorTriggerEvent?: string
   }
   ```
