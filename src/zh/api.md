@@ -33,6 +33,7 @@ Vue.use(historyNavigationVue.plugin, globalConfig)
     urlIsHashMode?: boolean,
     urlBase?: string,
     // global options
+    pageStyle?: Object,
     navigatorTriggerEvent?: string
   }
   ```
@@ -45,7 +46,9 @@ Vue.use(historyNavigationVue.plugin, globalConfig)
   interface PageConfig {
     path: string,
     component: VueComponent,
-    title?: string
+    title?: string,
+    className?: string,
+    style?: object
   }
   ```
 - 必填
@@ -194,6 +197,10 @@ type: `Function`
 ```
 [预览](https://hezedu.github.io/history-navigation-vue/examples/synchronize-document-title.html)
 
+### pageStyle
+  - 类型: `object`
+
+  全局的页面样式。
 
 ### navigatorTriggerEvent
   - 类型: `string`
@@ -280,7 +287,7 @@ export default {
   - 类型: `string` 页面全局设置中的 title.
 
 
-#### Route
+#### route
 解析好的路由信息。
   - 类型: <code id="type_route">Route</code>
   ```ts

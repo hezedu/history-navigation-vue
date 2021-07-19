@@ -34,7 +34,9 @@ Provides the installed version as a `string`.
     urlIsHashMode?: boolean,
     urlBase?: string,
     // global options
-    navigatorTriggerEvent?: string
+    pageStyle?: Object,
+    navigatorTriggerEvent?: string,
+    
   }
   ```
 Global config of `historyNavigationVue`.
@@ -46,7 +48,9 @@ Global config of `historyNavigationVue`.
   interface PageConfig {
     path: string,
     component: VueComponent,
-    title?: string
+    title?: string,
+    className?: string,
+    style?: object
   }
   ```
 - required
