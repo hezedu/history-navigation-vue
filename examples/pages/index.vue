@@ -44,6 +44,7 @@ export default {
   },
   mounted(){
     this.$page.$el.addEventListener('scroll', this.handlePageScroll);
+    console.log(this.$page)
   },
   destoryed(){
     this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
