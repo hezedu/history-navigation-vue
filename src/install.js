@@ -54,6 +54,7 @@ export default function install(Vue, config) {
   const globalOption = Object.create(null);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
   def(globalOption, config, 'transition', DEF_TRANSITION);
+  def(globalOption, config, 'pageStyle', undefined);
   const options = {
     global: globalOption,
 

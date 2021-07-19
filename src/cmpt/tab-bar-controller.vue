@@ -27,7 +27,7 @@
             :tabIndex="v.tabIndex"
             :stateKey="v.stateKey"
             :route="v.route"
-            :style="{zIndex: v.tabIndex}"
+            :style="[globalPageStyle, v.style, {zIndex: v.tabIndex}]"
             :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
             :isFirstLoad="isFirstLoad"
             :class="v.className">
@@ -72,6 +72,7 @@ export default {
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
+      globalPageStyle: this.$navigator._h._global.pageStyle,
       tabBehavior: '_inherit',
       tabBehaviorDistance: 0
     }

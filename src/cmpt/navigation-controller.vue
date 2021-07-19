@@ -23,7 +23,7 @@
         :key="v.stackId"
         :traClassName="transition.className"
         :currTabPage="v"
-        :style="{zIndex: v.stateKey}"
+        :style="[{zIndex: v.stateKey}]"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
       />
@@ -33,12 +33,11 @@
         :key="v.stackId"
         :path="v.path"
         :title="v.title"
-
         :isTab="v.isTab"
         :tabIndex="v.tabIndex"
         :stateKey="v.stateKey"
         :route="v.route"
-        :style="{zIndex: v.stateKey}"
+        :style="[globalPageStyle, v.style, {zIndex: v.stateKey}]"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
         :class="v.className">
@@ -71,6 +70,7 @@ export default {
       stackMap: this.$navigator._h.stackMap,
       behavior: this.$navigator._h.behavior,
       currentPage: this.$navigator._h.currentPage,
+      globalPageStyle: this.$navigator._h._global.pageStyle,
       transition: this.$navigator._h._tra
     }
   },

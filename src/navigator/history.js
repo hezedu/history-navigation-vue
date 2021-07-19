@@ -210,6 +210,7 @@ History.prototype._setMapItem = function(key, route){
     isTab: page.isTab,
     stateKey: key,
     className: page.className,
+    style: page.style,
     isClean: false // when curr page leaveing, It doesn't work.
   }
 
