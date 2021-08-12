@@ -9,7 +9,7 @@ export default {
   urlBase: '/urlModeTest',
   pageStyle: {background: 'green'},
   pages: [
-    { path: '/', component: Index, title: '首页', style: {color: "blue"}, className: 'custom-index'},
+    { path: '/', component: Index, title: '首页', style: {background: "blue"}, className: 'custom-index'},
     { path: '/me', component: MePage, title: '我', className: 'custom-me'},
 
     { path: '/api', component: API, title: 'API' },
