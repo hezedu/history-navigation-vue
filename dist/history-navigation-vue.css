@@ -1,0 +1,143 @@
+/*!
+  * history-navigation-vue v0.4.0
+  * (c) 2021 hezedu
+  * @license MIT
+  */
+ .h-nav-ctrler {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.h-nav-page, .h-nav-tab-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  box-sizing: border-box;
+  background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.h-nav-tabs-ctrler {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.h-nav-tab-pages-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.h-nav-page-handle,
+.h-nav-tab-page-handle {
+  width: 0 !important;
+  height: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  position: static !important;
+}
+
+.h-nav-page-enter-active,
+.h-nav-page-leave-active,
+.h-nav-tab-page-enter-active,
+.h-nav-tab-page-leave-active {
+  transition: inherit;
+  animation: inherit;
+}
+
+.h-nav-tab-pages-wrap {
+  transition: inherit;
+  animation: inherit;
+  transition-property: none;
+  animation-name: none;
+}
+
+.h-nav-tab-page-handle {
+  transition: inherit;
+  animation: inherit;
+}
+
+.h-nav-tab-behavior-_inherit {
+  transition: inherit !important;
+  animation: inherit !important;
+}
+
+/* ---------------- behavior push/back start ---------------- */
+/* .h-nav-behavior-push > .h-nav-transition,
+.h-nav-behavior-back > .h-nav-transition{
+  transition: all .3s ease;
+}
+
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
+  transform: translateX(100%);
+} */
+/* ---------------- behavior push/back end ---------------- */
+
+.h-nav-tabs-wrap {
+  padding-bottom: 48px;
+  /* tabbar height */
+  box-sizing: border-box;
+}
+.h-nav-tabbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  /* tabbar height */
+  box-sizing: border-box;
+  border-top: 1px solid #c7c7c7;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #eee;
+}
+.h-nav-tab {
+  -ms-flex-positive: 1;
+      flex-grow: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  text-decoration: none;
+  color: #333;
+  -ms-flex-direction: column;
+      flex-direction: column;
+}
+.h-nav-tab.h-nav-active {
+  color: #3eaf7c;
+}
+.h-nav-tab-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  margin-bottom: 4px;
+}
+.h-nav-tab-text {
+  font-size: 16px;
+  line-height: 1;
+}
+.h-nav-tab-icon + .h-nav-tab-text {
+  font-size: 12px;
+}
+
