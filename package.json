@@ -1,6 +1,6 @@
 {
   "name": "history-navigation-vue",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Multi-page navigation on single-page apps.",
 
   "keywords": [
@@ -27,8 +27,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --progress --hot --inline --colors",
-    "build": "npm run build_dev && npm run build_pro && node script/after_webpack_build.js",
-    "build_pro": "webpack --node-env=production --colors --hide-modules --progress --config webpack.build.config.js",
+    "build": "npm run build_dev && npm run _build_pro && node script/after_webpack_build.js",
+    "_build_pro": "webpack --node-env=production --colors --hide-modules --progress --config webpack.build.config.js",
     "build_dev": "webpack --node-env=development --colors --hide-modules --progress --config webpack.build.config.js",
     "build_ex": "webpack --node-env=production --colors --hide-modules --progress --config webpack.config.js",
     "preview_docs": "node server/preview_docs.js",
