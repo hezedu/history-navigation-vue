@@ -141,7 +141,7 @@ new window.Vue({
 <!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/tabbar.html) -->
 [预览](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
-### 过渡
+<!-- ### 过渡
 这个项目默认带了一些过渡，能够根据不同行为做出不同的效果。如果你不喜欢，你可以自定义。本项目拥有强大的基于 CSS 的 API，你可以全局配置，也可以在跳转时设置：
 ```html
 <Navigator url="/foo" transition="some-custom">Foo</Navigator>
@@ -158,7 +158,7 @@ new window.Vue({
   animation-name: backOutUp;
 }
 ```
-[预览](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html)
+[预览](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 
 <!-- It can recognize `back` / `push` / `replace` behavior, and make corresponding effects. In addition, we also have some extended behaviors, Some of them have no transition by default(such as tab switching). You can enable it by writing CSS. We have a strong [CSS API](/api.html#transition-css). You can modify the default like this:
 ```css

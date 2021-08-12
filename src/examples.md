@@ -48,7 +48,7 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
 - TabBar Position Top.
   <source-preview name="tabbar-position-top" />
 
-### Transition
+<!-- ### Transition
 - Transition Extend&Custom Default.
   <source-preview name="transition-extend-and-custom-default" />
 
@@ -59,4 +59,4 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
   <source-preview name="transition-of-tab-pages-slide" />
 
 - Transition of Tab Slide Using CSS Var.
-  <source-preview name="transition-of-tab-pages-slide-css-var" />
+  <source-preview name="transition-of-tab-pages-slide-css-var" /> -->

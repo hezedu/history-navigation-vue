@@ -141,9 +141,8 @@ Finished!
 <!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/tabbar.html) -->
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
-### Transition
-By default, this project comes with some transitions, It can make different effects according to different behaviors.
-If you don’t like it, you can customize. We have a powerful CSS-based API. You can configure it globally, or you can set it every routing.
+<!-- ### Transition
+We have a powerful CSS-based API. You can configure it globally, or you can set it every routing.
 ```html
 <Navigator url="/foo" transition="some-custom">Foo</Navigator>
 ```
@@ -159,7 +158,7 @@ By the CSS-base API, It can also easily cooperate with third-party libraries suc
   animation-name: backOutUp;
 }
 ```
-[Preview](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html)
+[Preview](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 
 <!-- It can recognize `back` / `push` / `replace` behavior, and make corresponding effects. In addition, we also have some extended behaviors, Some of them have no transition by default(such as tab switching). You can enable it by writing CSS. We have a strong [CSS API](/api.html#transition-css). You can modify the default like this:
 ```css

@@ -47,7 +47,7 @@ sidebar: false
 - TabBar 在顶部。
   <source-preview name="tabbar-position-top" />
 
-### 过渡
+<!-- ### 过渡
 - 扩展和自定义默认过渡。
   <source-preview name="transition-extend-and-custom-default" />
 
@@ -58,4 +58,4 @@ sidebar: false
   <source-preview name="transition-of-tab-pages-slide" />
 
 - tab 的滑动过渡(使用了CSS Var).
-  <source-preview name="transition-of-tab-pages-slide-css-var" />
+  <source-preview name="transition-of-tab-pages-slide-css-var" /> -->

@@ -555,7 +555,7 @@ ___Props:___
     animation-name: rotateOutUpLeft;
   }
   ```
-  示例: [结合 amimate.css 过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html)
+  <!-- 示例: [结合 amimate.css 过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 ### behaviorClass
 #### Page Behavior
 class 前缀: `h-nav-behavior-`
@@ -603,9 +603,9 @@ class 前缀: `h-nav-tab-behavior-`
   从小索引切换到大索引。比如当前 tab **1**，点击 tab **2**。
 
 ### transitionClass
-由全局配置或导航器的 transition 选项设置。
+CSS 类名，由全局配置或导航器的 transition 选项设置。
 
-默认: `h-nav-transition`. 详见: [transition.css](https://github.com/hezedu/history-navigation-vue/blob/main/src/css/transition.css)
+默认: `h-nav-transition`. 
 
 ::: 警告
 如果你用导航器 push 方法并设置了过渡，你也得设置 back 行为的过渡。应为当你无参数回退时(相当于手动点击浏览器后退键)，它将跟随之前进入的效果类名。
@@ -627,7 +627,7 @@ class 前缀: `h-nav-tab-page-`
 ``` 
 -->
 
-示例: [tab 的滑动过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide.html)
+<!-- 示例: [tab 的滑动过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide.html) -->
 ### CSS Var
 本项目还提供了一些 CSS 变量还用于过渡的加速度效果。
 
@@ -648,4 +648,4 @@ class 前缀: `h-nav-tab-page-`
 
 **注意:** 关于 [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), 一些老旧浏览器可能不支持(安卓 Webview 要 版本 5 以上), 但是并不重要，本来就是锦上添花的事。
 
- 示例: [tab 的滑动过渡(使用了CSS Var)](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html)
+ <!-- 示例: [tab 的滑动过渡(使用了CSS Var)](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html) -->

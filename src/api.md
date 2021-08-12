@@ -514,8 +514,9 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
 
   **behaviorClass** > **transitionClass**
   ```css
-  .h-nav-behavior-replace > .h-nav-transition{
-    transition: all 1s ease;
+  .h-nav-behavior-push > .h-nav-transition,
+  .h-nav-behavior-back > .h-nav-transition{
+    transition: all .3s ease;
   }
   ```
   Then Set the action CSS with suffix `-enter`, `-leave-to`:
@@ -525,15 +526,11 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
 
 
   ```css
-  .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
-    top: 100%;
-  }
-  .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-leave-to {
-    top: -33%;
-    opacity: .67;
+  .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+  .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
+    transform: translateX(100%);
   }
   ```
-Example: [Transition Extend&Custom Default](https://hezedu.github.io/history-navigation-vue/examples/transition-extend-and-custom-default.html)
 
 - **With CSS animation**
 
@@ -558,7 +555,7 @@ Example: [Transition Extend&Custom Default](https://hezedu.github.io/history-nav
     animation-name: rotateOutUpLeft;
   }
   ```
-  Example: [Transition With Amimate](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html)
+  <!-- Example: [Transition With Amimate](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 ### behaviorClass
 #### Page Behavior
 class prefix: `h-nav-behavior-`
@@ -606,9 +603,9 @@ Behavior of [Tab Page](#tab-page), It only happens when tabbar switches.
   From small tab index to large tab index. For example When click tab **1** to tab **2**
 
 ### transitionClass
-Set by global config transition or navigator transition option. 
+CSS class name. Set by global config transition or navigator transition option. 
 
-Default is: `h-nav-transition`. The default transition effects see: [transition.css](https://github.com/hezedu/history-navigation-vue/blob/main/src/css/transition.css)
+Default is: `h-nav-transition`.
 
 ::: warning
 If you use navigator.push set the  transition option, You also need to provide the same class with back behavior. Because when you back, It will follow the previous effect(If not set back transition option and steps is 1, eq click the browser Back button)
@@ -630,7 +627,7 @@ Only affected by [Tab Behavior](#tab-behavior).
 ``` 
 -->
 
-Example: [Tab Pages Slide](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide.html)
+<!-- Example: [Tab Pages Slide](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide.html) -->
 ### CSS Var
 Provides some CSS variables for transition acceleration effect.
 
@@ -651,4 +648,4 @@ Provides some CSS variables for transition acceleration effect.
 
 **Notice:** About [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), some older browsers may not supported(Android Webview 5+), But it doesn't matter.
 
- Example: [Tab Pages Slide Using Css Var](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html)
+ <!-- Example: [Tab Pages Slide Using Css Var](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html) -->
