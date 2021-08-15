@@ -48,11 +48,11 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
 - TabBar Position Top.
   <source-preview name="tabbar-position-top" />
 
-<!-- ### Transition
-- Transition Extend&Custom Default.
-  <source-preview name="transition-extend-and-custom-default" />
+### Transition
+- Simple Transition, No performance impact.
+  <source-preview name="transition-simple" />
 
-- Transition With Amimate.css.
+<!-- - Transition With Amimate.css.
   <source-preview name="transition-with-amimate" />
 
 - Transition of Tab Slide.

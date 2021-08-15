@@ -141,24 +141,23 @@ Finished!
 <!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/tabbar.html) -->
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
-<!-- ### Transition
-We have a powerful CSS-based API. You can configure it globally, or you can set it every routing.
-```html
-<Navigator url="/foo" transition="some-custom">Foo</Navigator>
-```
-By the CSS-base API, It can also easily cooperate with third-party libraries such as [animate.css](https://animate.style/):
+### Transition
+For performance, this project does not provide any transition effect. We a provide powerful CSS-based API. You can configure it globally, or you can set it every routing.
+
 ```css
-.h-nav-behavior-replace> .my-ani {
-  animation-duration: 1s;
+.h-nav-behavior-push > .h-nav-transition,
+.h-nav-behavior-back > .h-nav-transition,
+.h-nav-behavior-replace > .h-nav-transition{
+  transition: all .3s ease;
 }
-.h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
-  animation-name: backInUp;
-}
-.h-nav-behavior-replace > .my-ani > .h-nav-page-leave-active{
-  animation-name: backOutUp;
+
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+  transform: translateX(100%);
 }
 ```
-[Preview](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
+[Preview](https://hezedu.github.io/history-navigation-vue/examples/transition-simple.html)
 
 <!-- It can recognize `back` / `push` / `replace` behavior, and make corresponding effects. In addition, we also have some extended behaviors, Some of them have no transition by default(such as tab switching). You can enable it by writing CSS. We have a strong [CSS API](/api.html#transition-css). You can modify the default like this:
 ```css
