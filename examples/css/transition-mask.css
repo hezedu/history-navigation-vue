@@ -35,3 +35,18 @@
 .h-nav-tab-behavior-increase > .h-nav-transition > .h-nav-tab-page-enter{
   left: calc(100% * var(--h-nav-tab-distance));
 } */
+.h-nav-behavior-push > .h-nav-transition,
+.h-nav-behavior-back > .h-nav-transition,
+.h-nav-behavior-replace > .h-nav-transition{
+  transition: all .3s ease;
+}
+
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+  transform: translateX(100%);
+}
+
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
+  transform: translateX(calc(100% * var(--h-nav-distance)));
+}
