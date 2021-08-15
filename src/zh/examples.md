@@ -47,10 +47,10 @@ sidebar: false
 - TabBar 在顶部。
   <source-preview name="tabbar-position-top" />
 
-<!-- ### 过渡
-- 扩展和自定义默认过渡。
-  <source-preview name="transition-extend-and-custom-default" />
-
+### 过渡
+- 简单的过渡效果，安全的性能。
+  <source-preview name="transition-simple" />
+<!-- 
 - 结合 amimate.css 过渡。
   <source-preview name="transition-with-amimate" />
 

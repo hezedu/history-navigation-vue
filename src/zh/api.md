@@ -523,14 +523,10 @@ ___Props:___
 
   ```css
   .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
-    top: 100%;
-  }
-  .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-leave-to {
-    top: -33%;
-    opacity: .67;
+    transform: translateX(100%);
   }
   ```
-示例: [扩展和自定义默认过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-extend-and-custom-default.html)
+<!-- 示例: [扩展和自定义默认过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-extend-and-custom-default.html)
 
 - **基于 CSS animation 属性**
 
@@ -549,12 +545,12 @@ ___Props:___
 
   ```css
   .h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
-    animation-name: rotateInUpLeft;
+    animation-name: rotateInUpL2eft;
   }
   .h-nav-behavior-replace > .my-ani > .h-nav-page-leave-active{
-    animation-name: rotateOutUpLeft;
+    animation-name: rotateOutUpL2eft;
   }
-  ```
+  ``` -->
   <!-- 示例: [结合 amimate.css 过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 ### behaviorClass
 #### Page Behavior
@@ -636,7 +632,7 @@ class 前缀: `h-nav-tab-page-`
   两个页面间的距离。比如当使用 `this.$navigator.back(2)`, 该变量将会是 `-2`.
   ```css
   .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
-    left: calc(100% * var(--h-nav-distance));
+    transform: translateX(calc(100% * var(--h-nav-distance)));
   }
   ```
 

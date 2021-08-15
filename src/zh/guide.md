@@ -141,40 +141,25 @@ new window.Vue({
 <!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/tabbar.html) -->
 [预览](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
-<!-- ### 过渡
-这个项目默认带了一些过渡，能够根据不同行为做出不同的效果。如果你不喜欢，你可以自定义。本项目拥有强大的基于 CSS 的 API，你可以全局配置，也可以在跳转时设置：
-```html
-<Navigator url="/foo" transition="some-custom">Foo</Navigator>
-```
-拜基于 CSS 的API 所赐，你可以轻松的结合一些第三方库使用，比如 [animate.css](https://animate.style/):
+
+### 过渡
+默认，本项目不提供任何过渡效果。但我们提供强大的基于 CSS 的 API。你可以全局配置，也可以在跳转时设置。
+::: 注意
+请确保性能安全，如果你不精通 CSS 过渡/过画，很容易造成卡顿。那么还不如不设。
+:::
+
+#### 示例
+性能安全的过渡:
 ```css
-.h-nav-behavior-replace> .my-ani {
-  animation-duration: 1s;
+.h-nav-behavior-push > .h-nav-transition,
+.h-nav-behavior-back > .h-nav-transition,
+.h-nav-behavior-replace > .h-nav-transition{
+  transition: all .3s ease;
 }
-.h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
-  animation-name: backInUp;
-}
-.h-nav-behavior-replace > .my-ani > .h-nav-page-leave-active{
-  animation-name: backOutUp;
-}
-```
-[预览](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
 
-<!-- It can recognize `back` / `push` / `replace` behavior, and make corresponding effects. In addition, we also have some extended behaviors, Some of them have no transition by default(such as tab switching). You can enable it by writing CSS. We have a strong [CSS API](/api.html#transition-css). You can modify the default like this:
-```css
-.h-nav-behavior-push  > .h-nav-transition > .h-nav-page-leave-to,
-.h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
-  left: -100%;
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+  transform: translateX(100%);
 }
 ```
-You can also set different transitions at will through the navigator:
-```html
-<Navigator url="/foo" transition="some-custom">Foo</Navigator>
-```
-It can also easily cooperate with third-party libraries such as [animate.css](https://animate.style/): -->
-
-<!-- Example: -->
-<!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/transition-with-amimate.html) -->
-
-
-

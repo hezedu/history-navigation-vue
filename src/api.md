@@ -636,7 +636,7 @@ Provides some CSS variables for transition acceleration effect.
   Distance between pages. For example when used `this.$navigator.back(2)`, the var will be `-2`.
   ```css
   .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter{
-    left: calc(100% * var(--h-nav-distance));
+    transform: translateX(calc(100% * var(--h-nav-distance)));
   }
   ```
 

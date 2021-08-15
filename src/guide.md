@@ -142,8 +142,13 @@ Finished!
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
 ### Transition
-For performance, this project does not provide any transition effect. We a provide powerful CSS-based API. You can configure it globally, or you can set it every routing.
+By default, this project does not provide any transition effect. But We provide a powerful CSS-based API. You can configure it globally, or you can set it every routing.
+::: warning
+Please ensure performance safety, If you are not a master of CSS animation, it is easy to cause Caton. Then you might as well not set it.
+:::
 
+#### Example
+Performance Safety Transition:
 ```css
 .h-nav-behavior-push > .h-nav-transition,
 .h-nav-behavior-back > .h-nav-transition,
@@ -157,7 +162,6 @@ For performance, this project does not provide any transition effect. We a provi
   transform: translateX(100%);
 }
 ```
-[Preview](https://hezedu.github.io/history-navigation-vue/examples/transition-simple.html)
 
 <!-- It can recognize `back` / `push` / `replace` behavior, and make corresponding effects. In addition, we also have some extended behaviors, Some of them have no transition by default(such as tab switching). You can enable it by writing CSS. We have a strong [CSS API](/api.html#transition-css). You can modify the default like this:
 ```css
