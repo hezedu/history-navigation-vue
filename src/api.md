@@ -283,6 +283,12 @@ export default {
 }
 </script>
 ```
+
+### Scrolling Performance
+$page uses DIV to scroll. In Chrome, If the DIV background is not set or RGBA Alpha is less than 1, it will cause **performance problems**.see [BUG](https://bugs.chromium.org/p/chromium/issues/detail?id=823751). So the default $page background is opaque white. If you want to change the background, please do not set the transparency.
+
+<i>References: [chrome下div滚动卡顿该怎么处理？](https://www.zhihu.com/question/268016229)</i>
+
 ### props
 
 #### title
@@ -403,7 +409,7 @@ this.$navigator.push({
   - `transition`
       - type: `string`
 
-<!-- 关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages 获取当前的页面栈，决定需要返回几层。
+<!-- 关闭当前页面, 返回上一页面或多级页面. 可通过 getCurrentPages 获取当前的页面栈, 决定需要返回几层. 
 
 参数 -->
 Close the current page and return to the previous page or multi-level pages.
@@ -419,7 +425,7 @@ this.$navigator.back(2);
       - type: `string | NavigatorUrlObject`
       - required
 
-<!-- 关闭当前页面，跳转到应用内的某个页面。但是不允许跳转到 tabbar 页面。 -->
+<!-- 关闭当前页面, 跳转到应用内的某个页面. 但是不允许跳转到 tabbar 页面.  -->
 Close the current page and jump one page. But it is not allowed to jump to the tabbar page.
 ```js
 this.$navigator.push('/replace');

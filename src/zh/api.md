@@ -281,6 +281,10 @@ export default {
 }
 </script>
 ```
+### 滚动性能
+$page 使用 DIV 滚动。在 Chrome 中，如果 DIV 背景没有设或有透明，将会引发**性能问题**。详见 [BUG](https://bugs.chromium.org/p/chromium/issues/detail?id=823751)。所以默认的 $page 背景为不透明的白色。如果你要改变背景，请不要设透明度。
+
+<i>引用:[chrome下div滚动卡顿该怎么处理？](https://www.zhihu.com/question/268016229)</i>
 ### props
 
 #### title
