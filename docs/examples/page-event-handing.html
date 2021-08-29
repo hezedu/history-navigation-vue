@@ -71,7 +71,7 @@
       mounted(){
         this.$page.$el.addEventListener('scroll', this.handlePageScroll);
       },
-      destoryed(){
+      destroyed(){
         this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
       }
     }

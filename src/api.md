@@ -277,7 +277,7 @@ export default {
   mounted(){
     this.$page.$el.addEventListener('scroll', this.handlePageScroll);
   },
-  destoryed(){
+  destroyed(){
     this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
   }
 }
@@ -320,7 +320,7 @@ Page's Lifecycle Hooks.
 - `onShow`: When the page mounted, or backed(E.g. Use the $navigator.back method back to this page), It will trigger.
   
   - The style of `$page.$el` will be `display: block`.
-- `onHide`: When the page leave(E.g. Use the $navigator.push method to jump to other page) or beforeDestory, It will trigger.
+- `onHide`: When the page leave(E.g. Use the $navigator.push method to jump to other page) or beforedestroy, It will trigger.
 
   
   - After the transition effect is over, The style of `$page.$el` will be `display: none`.

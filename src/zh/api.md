@@ -275,7 +275,7 @@ export default {
   mounted(){
     this.$page.$el.addEventListener('scroll', this.handlePageScroll);
   },
-  destoryed(){
+  destroyed(){
     this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
   }
 }
@@ -316,7 +316,7 @@ $page 使用 DIV 滚动。在 Chrome 中，如果 DIV 背景没有设或有透�
 - `onShow`: 当页面已挂载(mounted), 或者已返回(比如点浏览器后退按钮), 它将会触发。
   
   - `$page.$el` 的样式将会是： `display: block`.
-- `onHide`: 当页面离开(比如：使用 $navigator.push 方法跳转到一个新页面) 或销毁之前(beforeDestory), 它将会触发。
+- `onHide`: 当页面离开(比如：使用 $navigator.push 方法跳转到一个新页面) 或销毁之前(beforedestroy), 它将会触发。
 
   
   - 在过渡完成后, `$page.$el` 的样式将会变成 `display: none`.
