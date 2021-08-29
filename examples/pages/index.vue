@@ -1,6 +1,7 @@
 <template>
 <div class="index_page">
   <div class="wrap">
+    <button @click="showModal">showModal</button>
   <div style="height: 1px"></div>
   <h1> Index {{now}}</h1>
   <navigator url="/api" type="switchTab">switchTab to API</navigator>
@@ -13,13 +14,17 @@
   <br>
   <navigator url="/list" type="replace">replace to List</navigator>
 </div>
-<div style="height: 300vh" />
+ <div style="height: 100vh" />
+  <button @click="showModal">showModal</button>
 </div>
   
 </template>
 <script>
-
+import Modal from './modal.vue';
 export default {
+  // components: {
+  //   Modal
+  // },
 
   data(){
     return {
@@ -27,6 +32,9 @@ export default {
     }
   },
   methods: {
+    showModal(){
+      this.$navigator.modal({component: Modal});
+    },
     handlePageScroll(){
       console.log('Page Scroll');
     },

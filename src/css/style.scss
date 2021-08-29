@@ -6,31 +6,32 @@
 }
 
 .h-nav-page, .h-nav-tab-page {
-  width: 100%;
-  height: 100%;
+
   position: absolute;
   left: 0;
   top: 0;
-  overflow:  auto;
-  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+.h-nav-page-main {
+  position: relative;
   background-color: #fff;
   -webkit-overflow-scrolling: touch;
-}
-
-
-.h-nav-tabs-ctrler{
+  overflow:  auto;
   width: 100%;
   height: 100%;
+}
+
+.h-nav-tabs-ctrler{
   position: absolute;
   left: 0;
   top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
 }
 
-.h-nav-tab-pages-wrap{
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+
 
 .h-nav-page-handle, 
 .h-nav-tab-page-handle{
@@ -68,6 +69,23 @@
   animation: inherit!important;
 }
 
+.h-nav-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  // background-color: rgba(0, 0, 0, .5);
+}
+
+// .h-nav-tab-page .h-nav-modal {
+//   z-index: 2000;
+// }
+.h-nav-page-has-modal {
+  overflow: hidden;
+}
 /* ---------------- behavior push/back start ---------------- */
 /* .h-nav-behavior-push > .h-nav-transition,
 .h-nav-behavior-back > .h-nav-transition,

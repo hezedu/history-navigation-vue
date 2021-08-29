@@ -6,7 +6,7 @@ export default function(opt){
     _h: h
   };
 
-  ['push', 'back', 'replace', 'relaunch', 'switchTab'].forEach(k => {
+  ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {
     _bindToOther(obj, k, h);
   })
   

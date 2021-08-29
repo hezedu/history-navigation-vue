@@ -1,6 +1,8 @@
 <template>
-<div style="height: 3000px; padding: 10px;">
+<div style="">
   <h1>Detail {{Date.now()}}</h1>
+
+  
   <button @click="back">back to start</button>
   <br>
   <navigator url="/list" type="replace">replace to list</navigator>
@@ -8,6 +10,8 @@
   <navigator url="/list" style="font-size: 2em" type="relaunch">Relaunch to list</navigator>
   <br>
   <navigator url="/" type="relaunch">Relaunch to Index</navigator>
+  <!-- <div style="height: 100vh" />
+  <button @click="showModal">showModal</button> -->
 </div>
 
 </template>
@@ -19,6 +23,9 @@ export default {
     },
     handleDocClick(){
       console.log('------------------------------ document Click ------------------------------')
+    },
+    showModal(){
+      this.$page.showModal();
     }
   },
   onShow(){

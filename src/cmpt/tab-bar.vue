@@ -1,20 +1,19 @@
 <style>
-.h-nav-tabs-wrap{
-  padding-bottom: 48px; /* tabbar height */
-  box-sizing: border-box;
-}
-
 .h-nav-tabbar{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 48px; /* tabbar height */
   box-sizing: border-box;
   border-top: 1px solid #c7c7c7;
   display: flex;
   justify-content: space-around;
   background-color: #eee;
+}
+.h-nav-tabbar {
+  height: 48px;
+}
+.h-nav-tab-page , .h-nav-tab-pages-wrap {
+  height: calc(100% - 48px);
+}
+.h-nav-tab-page .h-nav-modal {
+  height: calc(100% + 48px);
 }
 
 .h-nav-tab{

@@ -1,7 +1,15 @@
 <template>
   <transition :name="transitionName" :appear="true">
     <div :class="transitionName" v-show="isActive">
-      <slot />
+      <div class="h-nav-page-main">
+        <slot />
+      </div>
+      
+      <div class="h-nav-modal"  v-for="v in modalList" :key="v.key" :style="{zIndex: v.key}"
+      >
+        <div :id="'h_nav_modal_' + v.key" />
+      </div>
+
     </div>
   </transition>
 </template>
@@ -10,6 +18,9 @@ import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
 
 export default {
   name: 'HistoryNavigationPage',
+  // components: {
+  //   Modal
+  // },
   provide(){
     return {
       $page: this
@@ -19,6 +30,7 @@ export default {
     path: {
       type: String
     },
+    modalList: Array,
     transitionName: {
       type: String,
       default: 'h-nav-page'
@@ -51,7 +63,9 @@ export default {
   },
   data(){
     return {
-      isLoad: this.isFirstLoad
+      isLoad: this.isFirstLoad,
+      modalCount: false,
+      modalTop: 0
     }
   },
   watch: {
@@ -60,6 +74,13 @@ export default {
     }
   },
   methods: {
+    showModal(){
+      this.$navigator.modal();
+      this.modalCount = this.modalCount + 1;
+    },
+    hideModal(){
+      this.modalCount = this.modalCount - 1;
+    },
     _handleShowHide(){
       if(this.isActive){
         this.$emit(PAGE_E_SHOW_NAME);

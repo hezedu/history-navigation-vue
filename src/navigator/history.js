@@ -28,14 +28,13 @@ function History(opt){
     this.tabStackMap = Object.create(null);
   }
   this.stackMap = Object.create(null);
-
   
   this._whenPopInfo = null;
   this._whenPopTra = null;
 
   this._stackItemId = 1;
   this.tabCtrlerStackId = 1;
-  // this.isPageDestoryWhenBack = true;
+  // this.isPageDestroyWhenBack = true;
   this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
@@ -62,6 +61,7 @@ function History(opt){
     stackId: null,
     
     stateKey: null,
+    modalList: [],
     isClean: false,
     route: {}
   }
@@ -120,7 +120,7 @@ History.prototype._load = function(userUrl){
       userUrl;
   const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
-
+  this.clearModalWhenLoad();
   if(key !== 1){
     if(this._isTabRoute(currRoute.trimedPath)){
       this._backToStartAndReplace(currRoute, 'loaded');
@@ -170,8 +170,12 @@ History.prototype.switchTab = function(userUrl){
 
 History.prototype.back = function(steps, tra){
   const key = getCurrentStateKey();
-
-  if(key === 1){
+  const state = this._history.state;
+  let modalKey;
+  if(state){
+    modalKey = state._h_nav_modal_i;
+  }
+  if(key === 1 && !modalKey){
     console.error('Currnt page is first, Cannot back.');
     return -1;
   }
@@ -211,6 +215,7 @@ History.prototype._setMapItem = function(key, route){
     stateKey: key,
     className: page.className,
     style: page.style,
+    modalList: [],
     isClean: false // when curr page leaveing, It doesn't work.
   }
 
@@ -402,6 +407,25 @@ History.prototype._clearAll = function(){
 History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
+  if(preKey === currKey){
+    const modalKey = this._history.state._h_nav_modal_i;
+    if(typeof modalKey === 'number'){
+      const page = this.stackMap[currKey];
+      if(page){
+        const arr = page.modalList.splice(modalKey);
+        arr.forEach(item => {
+          item._isDestroy = true;
+          if(item._cmpt){
+            item._cmpt.$destroy();
+          }
+        })
+      }
+      if(modalKey === 0){
+        this.removeModalKeyWhenBackPage();
+      }
+    }
+    return;
+  }
   setPreStateKey(currKey);
 
   const _info = this._whenPopInfo;
@@ -420,9 +444,7 @@ History.prototype.handlePop = function(){
     return;
   }
 
-
-
-  // this.isPageDestoryWhenBack && 
+  // this.isPageDestroyWhenBack && 
 
   let page = this.stackMap[currKey];
   // console.log('compare', compare);
@@ -448,10 +470,59 @@ History.prototype.handlePop = function(){
   } else {
     this._onRouted();
   }
-  
 }
 
-History.prototype.destory = function(){
+History.prototype.modal = function({component, propsData, parent, success}){
+  const key = getCurrentStateKey();
+  const page = this.stackMap[key];
+  const state = this._history.state;
+  let modalKey = state._h_nav_modal_i;
+  if(!modalKey) {
+    modalKey = 0;
+    this._history.replaceState({[KEY_NAME]: key, _h_nav_modal_i: modalKey}, '');
+  }
+  modalKey = modalKey + 1;
+  this._history.pushState({[KEY_NAME]: key, _h_nav_modal_i: modalKey}, '');
+  const item = {
+    key: modalKey
+  }
+  page.modalList.push(item);
+  const Cmpt = this._Vue.extend(component);
+  
+  this._Vue.nextTick(() => {
+    if(!item._isDestroy){
+      const cmpt = new Cmpt({
+        el: '#h_nav_modal_' + modalKey,
+        parent,
+        propsData
+      });
+      item._cmpt = cmpt;
+      success && success(cmpt);
+    }
+
+  })
+}
+History.prototype.clearModalWhenLoad = function(){
+  const state = this._history.state;
+  if(state){
+    const modalKey = state._h_nav_modal_i;
+    if(modalKey !== undefined){
+      if(modalKey === 0){
+        this.removeModalKeyWhenBackPage();
+      } else if(modalKey > 0){
+        this._history.go(-modalKey);
+      }
+    }
+  }
+}
+
+History.prototype.removeModalKeyWhenBackPage = function(){
+  const newState = Object.assign({}, this._history.state);
+  delete(newState._h_nav_modal_i);
+  this._history.replaceState(newState, '');
+}
+
+History.prototype.destroy = function(){
   this._window.removeEventListener('popstate', this._popstateHandle);
   isCreated = false;
 }

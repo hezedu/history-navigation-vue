@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v0.4.0
+  * history-navigation-vue v1.0.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -11,29 +11,29 @@
 }
 
 .h-nav-page, .h-nav-tab-page {
-  width: 100%;
-  height: 100%;
   position: absolute;
   left: 0;
   top: 0;
-  overflow: auto;
-  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.h-nav-page-main {
+  position: relative;
   background-color: #fff;
   -webkit-overflow-scrolling: touch;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
 }
 
 .h-nav-tabs-ctrler {
-  width: 100%;
-  height: 100%;
   position: absolute;
   left: 0;
   top: 0;
-}
-
-.h-nav-tab-pages-wrap {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
 }
 
 .h-nav-page-handle,
@@ -73,30 +73,35 @@
   animation: inherit !important;
 }
 
+.h-nav-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.h-nav-page-has-modal {
+  overflow: hidden;
+}
+
 /* ---------------- behavior push/back start ---------------- */
 /* .h-nav-behavior-push > .h-nav-transition,
-.h-nav-behavior-back > .h-nav-transition{
+.h-nav-behavior-back > .h-nav-transition,
+.h-nav-behavior-replace > .h-nav-transition{
   transition: all .3s ease;
 }
 
 .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
-.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to {
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
   transform: translateX(100%);
 } */
 /* ---------------- behavior push/back end ---------------- */
 
-.h-nav-tabs-wrap {
-  padding-bottom: 48px;
-  /* tabbar height */
-  box-sizing: border-box;
-}
 .h-nav-tabbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 48px;
-  /* tabbar height */
   box-sizing: border-box;
   border-top: 1px solid #c7c7c7;
   display: -ms-flexbox;
@@ -104,6 +109,15 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
   background-color: #eee;
+}
+.h-nav-tabbar {
+  height: 48px;
+}
+.h-nav-tab-page, .h-nav-tab-pages-wrap {
+  height: calc(100% - 48px);
+}
+.h-nav-tab-page .h-nav-modal {
+  height: calc(100% + 48px);
 }
 .h-nav-tab {
   -ms-flex-positive: 1;

@@ -18,7 +18,7 @@
       :key="v.stackId" 
       :class="transition.className"
       :style="v.isClean ? 'transition: none!important; animation: none!important;' : ''">
-      
+   
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
         :traClassName="transition.className"
@@ -30,10 +30,12 @@
     
       <Page v-else
         transitionName="h-nav-page"
+        :v="v"
         :key="v.stackId"
         :path="v.path"
         :title="v.title"
         :isTab="v.isTab"
+        :modalList="v.modalList"
         :tabIndex="v.tabIndex"
         :stateKey="v.stateKey"
         :route="v.route"
@@ -83,7 +85,7 @@ export default {
     
   },
   destroyed(){
-    this.$navigator._h.destory();
+    this.$navigator._h.destroy();
   }
 }
 </script>

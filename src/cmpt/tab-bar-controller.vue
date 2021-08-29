@@ -26,6 +26,7 @@
             :isTab="v.isTab"
             :tabIndex="v.tabIndex"
             :stateKey="v.stateKey"
+            :modalList="v.modalList"
             :route="v.route"
             :style="[globalPageStyle, v.style, {zIndex: v.tabIndex}]"
             :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
@@ -36,7 +37,7 @@
       </div>
     </transition-group>
 
-    <TabBar :list="tabList" :currentIndex="currTabPage.tabIndex" :style="{zIndex: tabList.length}" />
+    <TabBar :list="tabList" :currentIndex="currTabPage.tabIndex" />
   </div>
 </transition>
 </template>
