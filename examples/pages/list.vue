@@ -64,6 +64,9 @@ export default {
   //   }
   // },
   methods: {
+    handlePageScroll(){
+      console.log('Page Scroll');
+    },
     switchInner(){
       console.log('switchInner')
       this.isShowInner = !this.isShowInner;
@@ -86,6 +89,13 @@ export default {
     handleClick(){
       console.log('$page show', this.$page)
     }
+  },
+  mounted(){
+    this.$page.$refs.main.addEventListener('scroll', this.handlePageScroll);
+  },
+ destroyed(){
+   console.log('destroyed')
+    this.$page.$refs.main.removeEventListener('scroll', this.handlePageScroll);
   },
   onShow(){
     console.log('list onShow', Date.now());

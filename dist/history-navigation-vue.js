@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.0.0
+  * history-navigation-vue v1.0.1
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -165,12 +165,12 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./cmpt/navigation-controller.vue?vue&type=template&id=0aa5f836&
 
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=527d985e&
-var pagevue_type_template_id_527d985e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName},[_c('div',{staticClass:"h-nav-page-main"},[_vm._t("default")],2),_vm._v(" "),_vm._l((_vm.modalList),function(v){return _c('div',{key:v.key,staticClass:"h-nav-modal",style:({zIndex: v.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + v.key}})])})],2)])}
-var pagevue_type_template_id_527d985e_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=57f99852&
+var pagevue_type_template_id_57f99852_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName},[_c('div',{ref:"main",staticClass:"h-nav-page-main"},[_vm._t("default")],2),_vm._v(" "),_vm._l((_vm.modalList),function(v){return _c('div',{key:v.key,staticClass:"h-nav-modal",style:({zIndex: v.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + v.key}})])})],2)])}
+var pagevue_type_template_id_57f99852_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=527d985e&
+// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=57f99852&
 
 // CONCATENATED MODULE: ./constant.js
 var PAGE_E_SHOW_NAME = '_h_nav_page_show';
@@ -417,8 +417,8 @@ function normalizeComponent (
 
 var page_component = normalizeComponent(
   cmpt_pagevue_type_script_lang_js_,
-  pagevue_type_template_id_527d985e_render,
-  pagevue_type_template_id_527d985e_staticRenderFns,
+  pagevue_type_template_id_57f99852_render,
+  pagevue_type_template_id_57f99852_staticRenderFns,
   false,
   null,
   null,
@@ -1945,7 +1945,7 @@ function _formatTabBar(tabBar, pageMap) {
 var bundle_plugin = {
   install: install
 };
-var version = '1.0.0';
+var version = '1.0.1';
 
 /***/ })
 /******/ ]);

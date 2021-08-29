@@ -1,7 +1,7 @@
 <template>
   <transition :name="transitionName" :appear="true">
     <div :class="transitionName" v-show="isActive">
-      <div class="h-nav-page-main">
+      <div ref="main" class="h-nav-page-main">
         <slot />
       </div>
       
