@@ -6,16 +6,16 @@
 }
 
 .h-nav-page, .h-nav-tab-page {
-
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
 }
+
 .h-nav-page-main {
-  position: relative;
   background-color: #fff;
+  position: relative;
   -webkit-overflow-scrolling: touch;
   overflow:  auto;
   width: 100%;

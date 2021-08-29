@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.0.1
+  * history-navigation-vue v1.1.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -19,8 +19,8 @@
 }
 
 .h-nav-page-main {
-  position: relative;
   background-color: #fff;
+  position: relative;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
   width: 100%;

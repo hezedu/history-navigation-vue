@@ -91,11 +91,11 @@ export default {
     }
   },
   mounted(){
-    this.$page.$refs.main.addEventListener('scroll', this.handlePageScroll);
+    this.$page.$el.addEventListener('scroll', this.handlePageScroll);
   },
  destroyed(){
    console.log('destroyed')
-    this.$page.$refs.main.removeEventListener('scroll', this.handlePageScroll);
+    this.$page.$el.removeEventListener('scroll', this.handlePageScroll);
   },
   onShow(){
     console.log('list onShow', Date.now());

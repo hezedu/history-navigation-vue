@@ -30,21 +30,11 @@
     
       <Page v-else
         transitionName="h-nav-page"
-        :v="v"
         :key="v.stackId"
-        :path="v.path"
-        :title="v.title"
-        :isTab="v.isTab"
-        :modalList="v.modalList"
-        :tabIndex="v.tabIndex"
-        :stateKey="v.stateKey"
-        :route="v.route"
-        :style="[globalPageStyle, v.style, {zIndex: v.stateKey}]"
+        :v="v"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
-        :class="v.className">
-          <component :is="v.cmptKey" />
-        </Page>
+        ></Page>
         
     </div>
 </transition-group>

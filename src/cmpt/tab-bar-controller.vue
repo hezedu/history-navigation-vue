@@ -20,20 +20,9 @@
           :key="v.tabIndex">
           <Page
             transitionName="h-nav-tab-page"
-            :path="v.path"
-            :title="v.title"
-            
-            :isTab="v.isTab"
-            :tabIndex="v.tabIndex"
-            :stateKey="v.stateKey"
-            :modalList="v.modalList"
-            :route="v.route"
-            :style="[globalPageStyle, v.style, {zIndex: v.tabIndex}]"
+            :v="v"
             :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
-            :isFirstLoad="isFirstLoad"
-            :class="v.className">
-            <component :is="v.cmptKey" />
-          </Page>
+            :isFirstLoad="isFirstLoad"></Page>
       </div>
     </transition-group>
 
@@ -73,7 +62,6 @@ export default {
     return {
       tabStackMap: this.$navigator._h.tabStackMap,
       tabList: this.$navigator._h.tabList,
-      globalPageStyle: this.$navigator._h._global.pageStyle,
       tabBehavior: '_inherit',
       tabBehaviorDistance: 0
     }
