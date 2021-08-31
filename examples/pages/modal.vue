@@ -2,7 +2,7 @@
 <div class="modal_wrap">
   <div class="modal_mask" @click="handleMaskClick"></div>
   <div class="modal_body">
-    <h1>Modal</h1>
+    <h1 @click="handleH1Click">Modal</h1>
   </div>
 </div>
 
@@ -13,6 +13,9 @@ export default {
   methods: {
     handleMaskClick(){
       this.$navigator.back();
+    },
+    handleH1Click(){
+      this.$emit('hahah', 'hhhhhhhhhhhhh')
     }
   }
 }

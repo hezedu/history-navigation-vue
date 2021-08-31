@@ -487,20 +487,24 @@ History.prototype.modal = function({component, propsData, parent, success}){
     key: modalKey
   }
   page.modalList.push(item);
-  const Cmpt = this._Vue.extend(component);
   
-  this._Vue.nextTick(() => {
-    if(!item._isDestroy){
-      const cmpt = new Cmpt({
-        el: '#h_nav_modal_' + modalKey,
-        parent,
-        propsData
-      });
-      item._cmpt = cmpt;
-      success && success(cmpt);
-    }
+  const id = 'h_nav_modal_' + modalKey;
+  if(component){
+    this._Vue.nextTick(() => {
+      if(!item._isDestroy){
+        const Cmpt = this._Vue.extend(component);
+        const cmpt = new Cmpt({
+          el: '#' + id,
+          parent,
+          propsData
+        });
+        item._cmpt = cmpt;
+        success && success(cmpt);
+      }
+    });
+  }
 
-  })
+  return id;
 }
 History.prototype.clearModalWhenLoad = function(){
   const state = this._history.state;

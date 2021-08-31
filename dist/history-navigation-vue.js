@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.1.0
+  * history-navigation-vue v1.1.2
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1698,7 +1698,8 @@ History.prototype.handlePop = function () {
 };
 
 History.prototype.modal = function (_ref) {
-  var _this$_history$pushSt2;
+  var _this$_history$pushSt2,
+      _this5 = this;
 
   var component = _ref.component,
       propsData = _ref.propsData,
@@ -1725,20 +1726,25 @@ History.prototype.modal = function (_ref) {
     key: modalKey
   };
   page.modalList.push(item);
+  var id = 'h_nav_modal_' + modalKey;
 
-  var Cmpt = this._Vue.extend(component);
+  if (component) {
+    this._Vue.nextTick(function () {
+      if (!item._isDestroy) {
+        var Cmpt = _this5._Vue.extend(component);
 
-  this._Vue.nextTick(function () {
-    if (!item._isDestroy) {
-      var cmpt = new Cmpt({
-        el: '#h_nav_modal_' + modalKey,
-        parent: parent,
-        propsData: propsData
-      });
-      item._cmpt = cmpt;
-      success && success(cmpt);
-    }
-  });
+        var cmpt = new Cmpt({
+          el: '#' + id,
+          parent: parent,
+          propsData: propsData
+        });
+        item._cmpt = cmpt;
+        success && success(cmpt);
+      }
+    });
+  }
+
+  return id;
 };
 
 History.prototype.clearModalWhenLoad = function () {
@@ -1986,7 +1992,7 @@ function _formatTabBar(tabBar, pageMap) {
 var bundle_plugin = {
   install: install
 };
-var version = '1.1.0';
+var version = '1.1.2';
 
 /***/ })
 /******/ ]);

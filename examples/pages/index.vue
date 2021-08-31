@@ -33,7 +33,11 @@ export default {
   },
   methods: {
     showModal(){
-      this.$navigator.modal({component: Modal});
+      this.$navigator.modal({component: Modal, listeners: {
+        hahah: (e) => {
+          console.log(e)
+        }
+      }});
     },
     handlePageScroll(){
       console.log('Page Scroll');
