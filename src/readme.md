@@ -6,10 +6,10 @@ actionLink: ./guide.html
 features:
 - title: Multi-Page Architecture
   details: Keep all previous pages alive. Solve the pain point of the single-page apps with only one page alive.
-- title: Tabbar Mode
+- title: Support Tabbar
   details: Go back to the initial state of history and switch to a new page, It achieves native-like features.
-- title: Transition Effects
-  details: Accurately identify push/back/replace behaviors, and have corresponding settable page transition effects.
+- title: Support Modal
+  details: Support unlimited custom modal, which can be closed by pressing the back key.
 
 
 footer: MIT Licensed | Copyright © 2021 hezedu

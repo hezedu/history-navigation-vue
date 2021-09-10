@@ -6,10 +6,10 @@ actionLink: ./guide.html
 features:
 - title: 多页架构
   details: 保持之前所有的页面活着，解决了单页面应用只能有一个页面活着的痛点。
-- title: Tabbar 模式
+- title: 支持 Tabbar
   details: 通过回到历史最初状态然后再切换到一个新页面，它实现了原生应用才能看到的功能。
-- title: 过渡效果
-  details: 精确的识别 push/back/replace 行为, 然后给予相应的过渡效果，并且可随意配置。
+- title: 支持 Modal
+  details: 支持 无限的自定义modal, 可以通过回退键关闭。
 
 
 footer: MIT Licensed | Copyright © 2021 hezedu

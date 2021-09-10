@@ -6,9 +6,11 @@
 **history-navigation-vue** 是一个原生体验的 web 端页面导航， 它基于 HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History)， 由 [Vue](https://vuejs.org/) 实现。
 - 它是在单页面上的多页架构。
 - 它旨在解决单页面应用的痛点(详见 [和普通单页面应用对比](/zh/#index-compared))。
-- 它支持 tabBar 模式。
+- 它支持 Tabbar 模式。
+- 它支持 Modal 模式。
 - 它可以随意设置过渡效果。
-- 它和浏览器/系统的**回退键**完美结合. 
+- 它和浏览器/系统的**回退键**完美结合。
+- 它很小， 6.83 KiB min+gzip(CSS + JS)
 
 你可以开心的用它来构建原生体验的现代 web apps。
 

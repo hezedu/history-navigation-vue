@@ -6,10 +6,11 @@
 **history-navigation-vue** is a multi-page **navigation** on single-page apps. It base on HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History) and implemented by [Vue](https://vuejs.org/).
 <!-- - It is a multi-page **architecture** on the single-page. -->
 - It solved the pain points of single-page apps(See [Compared with the normal single-page apps](/#index-compared)).
-- It supports tabBar mode.
+- It supports Tabbar mode.
+- It supports Modal mode.
 - It can set various transition effects at will.
 - It can be perfectly combined with the system/browser **back button**. 
-
+- It is small, 6.83 KiB min+gzip(CSS + JS).
 You can use it happily to build modern web apps with a **native experience**. 
 
 ## Compatibility Note
