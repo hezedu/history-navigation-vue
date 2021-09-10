@@ -11,7 +11,7 @@
 - It can set various transition effects at will.
 - It can be perfectly combined with the system/browser **back button**. 
 - It is small, 6.83 KiB min+gzip(CSS + JS).
-You can use it happily to build modern web apps with a **native experience**. 
+<!-- You can use it happily to build modern web apps with a **native experience**.  -->
 
 ## Compatibility Note
 ### Browser / Webview
