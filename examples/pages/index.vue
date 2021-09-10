@@ -20,7 +20,7 @@
   
 </template>
 <script>
-import Modal from './modal.vue';
+import Modal from './index_modal.vue';
 export default {
   // components: {
   //   Modal
@@ -33,7 +33,18 @@ export default {
   },
   methods: {
     showModal(){
-      this.$navigator.modal({component: Modal});
+      this.$navigator.modal({
+        component: Modal,
+        parent: this,
+        propsData: {
+          text: 'Hello'
+        },
+        success: (modalVM) => {
+          modalVM.$on('textClick', () => {
+            console.log('modalVM clicked text');
+          })
+        }
+      });
     },
     handlePageScroll(){
       console.log('Page Scroll');

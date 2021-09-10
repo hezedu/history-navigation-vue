@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.1.2
+  * history-navigation-vue v1.1.3
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1992,7 +1992,7 @@ function _formatTabBar(tabBar, pageMap) {
 var bundle_plugin = {
   install: install
 };
-var version = '1.1.2';
+var version = '1.1.3';
 
 /***/ })
 /******/ ]);
