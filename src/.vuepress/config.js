@@ -15,7 +15,7 @@ module.exports = {
       // description: 'A multi-page Navigation for single-page apps.'
       // description: 'A native-like Navigation for Web apps.',
       // description: 'Multi-page navigation on single-page apps.',
-      description: 'Multi-page navigation on single-page apps.'
+      description: 'The native-like Navigation for Web apps.'
     },
     '/zh/': {
       lang: 'zh-CN',

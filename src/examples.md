@@ -48,6 +48,10 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
 - TabBar Position Top.
   <source-preview name="tabbar-position-top" />
 
+### Modal
+- modal
+<source-preview name="modal" />
+
 ### Transition
 - Simple Transition, No performance impact.
   <source-preview name="transition-simple" />

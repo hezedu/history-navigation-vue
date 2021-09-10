@@ -47,6 +47,10 @@ sidebar: false
 - TabBar 在顶部。
   <source-preview name="tabbar-position-top" />
 
+### Modal
+- modal
+<source-preview name="modal" />
+
 ### 过渡
 - 简单的过渡效果，安全的性能。
   <source-preview name="transition-simple" />
