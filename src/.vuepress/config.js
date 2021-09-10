@@ -20,7 +20,7 @@ module.exports = {
     '/zh/': {
       lang: 'zh-CN',
       title: 'History Navigation Vue',
-      description: '单页面应用上的多页导航'
+      description: '用于 Web apps 的原生体验导航'
     }
   },
   // markdown: {
