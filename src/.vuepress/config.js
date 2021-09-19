@@ -40,7 +40,7 @@ module.exports = {
     ]
   ],
   themeConfig: {
-    logo: '/logo-new.png',
+    logo: '/logo.png',
     repo: 'hezedu/history-navigation-vue',
     docsDir: 'src',
     smoothScroll: true,
