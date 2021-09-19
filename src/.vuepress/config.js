@@ -3,7 +3,7 @@ module.exports = {
   base: "/history-navigation-vue/",
   dest: path.join(__dirname, '../../docs/'),
   head: [
-    ['link', { rel: 'icon', href: '/logo-fav-end.png' }]
+    ['link', { rel: 'icon', href: '/logo-new-fav.png' }]
   ],
   locales: {
     '/': {
@@ -15,7 +15,7 @@ module.exports = {
       // description: 'A multi-page Navigation for single-page apps.'
       // description: 'A native-like Navigation for Web apps.',
       // description: 'Multi-page navigation on single-page apps.',
-      description: 'The native-like Navigation for Web apps.'
+      description: 'The native-like Navigation for Web apps'
     },
     '/zh/': {
       lang: 'zh-CN',
@@ -40,7 +40,7 @@ module.exports = {
     ]
   ],
   themeConfig: {
-    logo: '/logo.png',
+    logo: '/logo-new.png',
     repo: 'hezedu/history-navigation-vue',
     docsDir: 'src',
     smoothScroll: true,
