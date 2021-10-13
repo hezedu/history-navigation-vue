@@ -54,12 +54,3 @@ sidebar: false
 ### 过渡
 - 简单的过渡效果，安全的性能。
   <source-preview name="transition-simple" />
-<!-- 
-- 结合 amimate.css 过渡。
-  <source-preview name="transition-with-amimate" />
-
-- tab 的滑动过渡。
-  <source-preview name="transition-of-tab-pages-slide" />
-
-- tab 的滑动过渡(使用了CSS Var).
-  <source-preview name="transition-of-tab-pages-slide-css-var" /> -->

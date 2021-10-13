@@ -9,6 +9,18 @@
       .root{max-width: 798px; margin: 0 auto;}
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
+      /* transition */
+      .h-nav-behavior-push > .h-nav-transition,
+      .h-nav-behavior-back > .h-nav-transition,
+      .h-nav-behavior-replace > .h-nav-transition{
+        transition: all .3s ease;
+      }
+      .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
+      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
+      .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+        transform: translateX(100%);
+      }
+      /* transition end */
       .loading, .not-more{
         height: 50px;
         position: relative;
