@@ -8,7 +8,7 @@ export default function(opt){
 
   ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {
     _bindToOther(obj, k, h);
-  })
+  });
   
   return obj;
 

@@ -39,5 +39,22 @@ export default {
   },
   onRouted(e){
     document.title = e.title;
+  },
+  onExit: againToExit(2000, 'Press Back Again to Exit')
+}
+
+function againToExit(interval, tips){
+  let isAgain = false;
+  return function handleExit(e){
+    console.log('onExit', isAgain)
+    if(!isAgain){
+      e.preventDefault();
+      isAgain = true;
+      window.$simpleTips.tips(tips);
+      setTimeout(() => {
+        isAgain = false;
+      }, interval);
+    }
+
   }
 }

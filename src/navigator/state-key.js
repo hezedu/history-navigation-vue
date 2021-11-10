@@ -6,7 +6,7 @@ export function getCurrentStateKey () {
   if (state && typeof state[KEY_NAME] === 'number') {
     return state[KEY_NAME];
   }
-  return 1;
+  return 0;
 }
 
 export function genStateKey () {

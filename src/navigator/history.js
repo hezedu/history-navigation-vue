@@ -13,9 +13,10 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
-
+  this._exitImmediately = true;
+  this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
-
+  console.log('opt.global.againToExit', opt.global.againToExit);
   this._Vue = opt.Vue;
   if(!this._history || !this._history.pushState){
     throwErr('required history.pushState API');
@@ -114,19 +115,32 @@ History.prototype._forMatInputArg = function(opt){
 
 
 History.prototype._load = function(userUrl){
+  console.log('_load', history.state);
   this._window.addEventListener('popstate', this._popstateHandle);
   const _userUrl = userUrl === undefined ? 
       this.URL.getUrlByLocation() : 
       userUrl;
   const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
-  this.clearModalWhenLoad();
-  if(key !== 1){
-    if(this._isTabRoute(currRoute.trimedPath)){
-      this._backToStartAndReplace(currRoute, 'loaded');
-      return;
+  if(key === 0){
+    console.log('[first load]: start');
+    this._history.replaceState({[KEY_NAME]: key}, '');
+    console.log('[first load]: init state ok', history.state);
+    const nextKey = genStateKey();
+    this._history.pushState({[KEY_NAME]: nextKey}, '');
+    setPreStateKey(nextKey);
+    console.log('[first load]: push state ok', history.state);
+  } else {
+    this.clearModalWhenLoad();
+    if(key !== 1){
+      if(this._isTabRoute(currRoute.trimedPath)){
+        this._backToStartAndReplace(currRoute, 'loaded');
+        return;
+      }
     }
   }
+  
+  console.log('_load _replace', history.state);
   this._replace(currRoute, 'loaded');
 }
 
@@ -168,20 +182,21 @@ History.prototype.switchTab = function(userUrl){
   this._backToStartAndReplace(fullParse, 'switchtab', tra);
 }
 
-History.prototype.back = function(steps, tra){
+History.prototype.back = function(_steps, tra){
   const key = getCurrentStateKey();
-  const state = this._history.state;
-  let modalKey;
-  if(state){
-    modalKey = state._h_nav_modal_i;
-  }
-  if(key === 1 && !modalKey){
-    console.error('Currnt page is first, Cannot back.');
-    return -1;
-  }
+  // const state = this._history.state;
+  // let modalKey;
+  // if(state){
+  //   modalKey = state._h_nav_modal_i;
+  // }
+  // if(key === 1 && !modalKey){
+  //   console.error('Currnt page is first, Cannot back.');
+  //   return -1;
+  // }
+  let steps = _steps;
   if(typeof steps === 'number' && steps > 0){
     if(key - steps < 1){
-      return -1;
+      steps = key - 1;
     }
   }
   this._whenPopTra = tra;
@@ -260,7 +275,7 @@ History.prototype._push = function(fullParse, tra){
     } else {
       delete(state[BACK_TRA_PROP_KEY]);
     }
-    console.log('oldTra', state, oldTra, tra)
+    
     this._history.replaceState(state, '');
   }
   const key = genStateKey();
@@ -407,7 +422,34 @@ History.prototype._clearAll = function(){
 History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
-  if(preKey === currKey){
+  const compare = currKey - preKey;
+  const behavior = compare <  0 ? 'back' : 'forward';
+  const isZero = currKey === 0;
+  const isBack = behavior === 'back';
+  if(isZero && isBack){
+    this.onExit({
+      preventDefault: () => {
+        this._exitImmediately = false;
+      }
+    });
+
+    if(this._exitImmediately){
+      console.log('_exitImmediately exit');
+      this._history.back();
+    } else {
+      console.log('not _exitImmediately');
+      this._history.forward();
+    }
+    this._exitImmediately = true;
+    
+    return;
+  }
+
+  if(!isBack && preKey === 0){
+    console.log('forward');
+  }
+
+  if(preKey === currKey && this._history.state){
     const modalKey = this._history.state._h_nav_modal_i;
     if(typeof modalKey === 'number'){
       const page = this.stackMap[currKey];
@@ -429,8 +471,6 @@ History.prototype.handlePop = function(){
   setPreStateKey(currKey);
 
   const _info = this._whenPopInfo;
-  const compare = currKey - preKey;
-  const behavior = compare <  0 ? 'back' : 'forward';
   let backTra = this._whenPopTra;
   if(!backTra && behavior === 'back' && compare === -1){
     backTra = this._getBackTra();
@@ -447,8 +487,6 @@ History.prototype.handlePop = function(){
   // this.isPageDestroyWhenBack && 
 
   let page = this.stackMap[currKey];
-  // console.log('compare', compare);
-  // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
   const newBehavior = {
     type: behavior,
     distance: compare,
@@ -464,7 +502,9 @@ History.prototype.handlePop = function(){
 
   if(behavior === 'back'){
     this._Vue.nextTick(() => {
-      this._clearAfter();
+      if(!isZero){
+        this._clearAfter();
+      }
       this._onRouted();
     })
   } else {

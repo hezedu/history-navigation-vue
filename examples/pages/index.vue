@@ -4,6 +4,7 @@
     <button @click="showModal">showModal</button>
   <div style="height: 1px"></div>
   <h1> Index {{now}}</h1>
+  <button @click="closeWin">Close</button>
   <navigator url="/api" type="switchTab">switchTab to API</navigator>
   <br>
   <navigator url="/api" type="relaunch">relaunch API</navigator>
@@ -32,6 +33,9 @@ export default {
     }
   },
   methods: {
+    closeWin(){
+      window.close();
+    },
     showModal(){
       this.$navigator.modal({
         component: Modal,

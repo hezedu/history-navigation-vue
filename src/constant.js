@@ -10,3 +10,8 @@ export const DEF_NAVIGATOR_TRIGGER_EVENT = 'click';
 export const DEF_URL_BASE = '';
 
 export const DEF_TRANSITION = 'h-nav-transition';
+
+export const DEF_PAGE_STYLE = undefined;
+
+// export const AGAIN_TO_EXIT_INTERVAL = 2000;
+// export const AGAIN_TO_EXIT_TIP = 'Press Back Again to Exit';

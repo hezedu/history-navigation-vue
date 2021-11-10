@@ -4,13 +4,14 @@ import Navigator from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
-import { def, throwErr } from './util';
+import { def, noop, throwErr } from './util';
 import {cmptPageSuffix, 
   notFoundPageKey, 
   DEF_NAVIGATOR_TRIGGER_EVENT,
   DEF_URL_BASE,
   DEF_URL_IS_HASH_MODE,
-  DEF_TRANSITION } from './constant';
+  DEF_TRANSITION,
+  DEF_PAGE_STYLE } from './constant';
 
 
 const defNotFoundPage = {
@@ -54,16 +55,18 @@ export default function install(Vue, config) {
   const globalOption = Object.create(null);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
   def(globalOption, config, 'transition', DEF_TRANSITION);
-  def(globalOption, config, 'pageStyle', undefined);
+  def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
+  
+
   const options = {
     global: globalOption,
-
     Vue,
     pageMap,
     cmptPageSuffix,
     notFoundPage,
     tabBar,
-    onRouted: config.onRouted
+    onRouted: config.onRouted,
+    onExit: config.onExit || noop
   }
 
   def(options, config, 'urlBase', DEF_URL_BASE);

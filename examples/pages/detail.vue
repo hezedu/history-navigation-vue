@@ -1,5 +1,5 @@
 <template>
-<div style="">
+<div>
   <h1>Detail {{Date.now()}}</h1>
 
   
@@ -10,6 +10,8 @@
   <navigator url="/list" style="font-size: 2em" type="relaunch">Relaunch to list</navigator>
   <br>
   <navigator url="/" type="relaunch">Relaunch to Index</navigator>
+  <button @click="back999">back999</button>
+  <hr />
   <!-- <div style="height: 100vh" />
   <button @click="showModal">showModal</button> -->
 </div>
@@ -18,6 +20,9 @@
 <script>
 export default {
   methods: {
+    back999(){
+      this.$navigator.back(9999);
+    },
     back(){
       this.$navigator.back(this.$page.stateKey - 1);
     },
