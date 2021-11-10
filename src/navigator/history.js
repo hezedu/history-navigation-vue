@@ -17,7 +17,7 @@ function History(opt){
   this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   console.log('opt.global.againToExit', opt.global.againToExit);
-  this._Vue = opt.Vue;
+  this._Vue = opt._Vue;
   if(!this._history || !this._history.pushState){
     throwErr('required history.pushState API');
   }
@@ -247,10 +247,6 @@ History.prototype._setMapItem = function(key, route){
   // Object.assign(this.currentPage, _page);
   this._Vue.set(this.stackMap, key, _page);
   Object.assign(this.currentPage, _page);
-  // this._Vue.nextTick(() => {
-    
-    
-  // })
 }
 History.prototype._getBackTra = function(){
   const H = this._history;
@@ -333,13 +329,6 @@ History.prototype._replace = function(fullParse, behavior, _distance){
       this._onRouted();
     }
   })
-  
-  // if(behavior === 'loaded'){
-  //   this._Vue.nextTick(_after);
-  // } else {
-  //   _after();
-  // }
-
 
 }
 
