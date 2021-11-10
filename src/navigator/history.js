@@ -17,7 +17,7 @@ function History(opt){
   this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   console.log('opt.global.againToExit', opt.global.againToExit);
-  this._Vue = opt._Vue;
+  this.uniteVue = opt.uniteVue;
   if(!this._history || !this._history.pushState){
     throwErr('required history.pushState API');
   }
@@ -236,7 +236,7 @@ History.prototype._setMapItem = function(key, route){
 
   if(_page.isTab){
     _page.stackId = 'tab_stack_' + this.tabCtrlerStackId;
-    this._Vue.set(this.tabStackMap, page.tabIndex, _page);
+    this.uniteVue.set(this.tabStackMap, page.tabIndex, _page);
   } else {
     _page.stackId = this._genStackItemId();
   }
@@ -245,7 +245,7 @@ History.prototype._setMapItem = function(key, route){
   
   
   // Object.assign(this.currentPage, _page);
-  this._Vue.set(this.stackMap, key, _page);
+  this.uniteVue.set(this.stackMap, key, _page);
   Object.assign(this.currentPage, _page);
 }
 History.prototype._getBackTra = function(){
@@ -313,12 +313,12 @@ History.prototype._replace = function(fullParse, behavior, _distance){
   
   this._history.replaceState(state, '', toUrl);
 
-  this._Vue.nextTick(() => {
+  this.uniteVue.nextTick(() => {
     if(newBehavior.type === 'relaunch'){
       this._setAllCleaned();
       const oldKey = key - distance;
       this.stackMap[oldKey].isClean = false;
-      this._Vue.nextTick(() => {
+      this.uniteVue.nextTick(() => {
         this._clearAll();
         this._setMapItem(key, fullParse);
       })
@@ -380,14 +380,14 @@ History.prototype._clearAfter = function(){
   if(len){
     const last = arr.pop();
     last.isClean = false;
-    this._Vue.delete(map, last.stateKey);
+    this.uniteVue.delete(map, last.stateKey);
     len = arr.length;
     if(len){
-      this._Vue.nextTick(() => {
+      this.uniteVue.nextTick(() => {
         i =  0;
         for(; i < len; i++){
           v = arr[i];
-          this._Vue.delete(map, v.stateKey);
+          this.uniteVue.delete(map, v.stateKey);
         }
       })
     }
@@ -397,7 +397,7 @@ History.prototype._clearAfter = function(){
 History.prototype._clearMap  = function(map){
   let i;
   for(i in map){
-    this._Vue.delete(map, i);
+    this.uniteVue.delete(map, i);
   }
 }
 
@@ -490,7 +490,7 @@ History.prototype.handlePop = function(){
   }
 
   if(behavior === 'back'){
-    this._Vue.nextTick(() => {
+    this.uniteVue.nextTick(() => {
       if(!isZero){
         this._clearAfter();
       }
@@ -519,10 +519,15 @@ History.prototype.modal = function({component, propsData, parent, success}){
   
   const id = 'h_nav_modal_' + modalKey;
   if(component){
-    this._Vue.nextTick(() => {
+    this.uniteVue.nextTick(() => {
       if(!item._isDestroy){
-        const Cmpt = this._Vue.extend(component);
-        const cmpt = new Cmpt({
+        // const Cmpt = this.uniteVue.extend(component);
+        // const cmpt = new Cmpt({
+        //   el: '#' + id,
+        //   parent,
+        //   propsData
+        // });
+        const cmpt = this.uniteVue.newComponent(component, {
           el: '#' + id,
           parent,
           propsData
@@ -532,7 +537,6 @@ History.prototype.modal = function({component, propsData, parent, success}){
       }
     });
   }
-
   return id;
 }
 History.prototype.clearModalWhenLoad = function(){
