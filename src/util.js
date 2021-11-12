@@ -21,3 +21,8 @@ export function throwErr(msg){
   throw new Error(`history-navigation-vue: ${msg}`);
 }
 
+export function getVueV(_Vue){
+  let v = _Vue.version;
+  v = v.substr(0, v.indexOf('.'));
+  return Number(v);
+}

@@ -4,7 +4,8 @@ import Navigator from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
-import { def, noop, throwErr } from './util';
+import { def, noop, throwErr, getVueV } from './util';
+import { uniteVue2, uniteVue3 } from './fit_vue';
 import {cmptPageSuffix, 
   notFoundPageKey, 
   DEF_NAVIGATOR_TRIGGER_EVENT,
@@ -19,7 +20,17 @@ const defNotFoundPage = {
   component: DefaultNotFound
 }
 
-export default function install(Vue, config) {
+export default function install(_Vue, config) {
+  const vueV = getVueV(_Vue);
+  let uniteVue;
+  if(vueV === 2){
+    uniteVue = uniteVue2(_Vue);
+  } else if(vueV === 3){
+    uniteVue = uniteVue3(_Vue);
+  } else {
+    throw new Error('Unsupported version of Vue ' + vueV);
+  }
+
 
   if(!Array.isArray(config.pages)){
     throwErr('config.pages is not Array.');
@@ -32,7 +43,7 @@ export default function install(Vue, config) {
   }
   
   let notFoundPage = config.notFoundPage || defNotFoundPage;
-  Vue.component(notFoundPageKey, notFoundPage.component);
+  _Vue.component(notFoundPageKey, notFoundPage.component);
 
   notFoundPage = {
     path: null,
@@ -46,11 +57,11 @@ export default function install(Vue, config) {
   let i, page;
   for(i in pageMap){
     page = pageMap[i];
-    Vue.component(page.cmptKey, page.component);
+    _Vue.component(page.cmptKey, page.component);
   }
 
-  Vue.component('NavigationController', NavigationController);
-  Vue.component('Navigator', Navigator);
+  _Vue.component('NavigationController', NavigationController);
+  _Vue.component('Navigator', Navigator);
   
   const globalOption = Object.create(null);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
@@ -60,7 +71,7 @@ export default function install(Vue, config) {
 
   const options = {
     global: globalOption,
-    Vue,
+    uniteVue,
     pageMap,
     cmptPageSuffix,
     notFoundPage,
@@ -72,8 +83,8 @@ export default function install(Vue, config) {
   def(options, config, 'urlBase', DEF_URL_BASE);
   def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
 
-  Vue.prototype.$navigator = navigator(options);
-  Vue.mixin(ShowHideMixin);
+  uniteVue.proto.$navigator = navigator(options);
+  _Vue.mixin(ShowHideMixin);
 }
 
 function _formatPages(pages){
