@@ -1,0 +1,15 @@
+{
+  "name": "examples_vue3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "create": "vue create vue3_project"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/cli": "^4.5.15"
+  }
+}

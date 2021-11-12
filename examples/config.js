@@ -6,7 +6,7 @@ import MePage from './pages/me.vue';
 // import NotFound from './pages/not-found.vue';
 export default {
   // urlIsHashMode: false,
-  urlBase: '/urlModeTest',
+  // urlBase: '/urlModeTest',
   pageStyle: {background: '#fff'},
   pages: [
     { path: '/', component: Index, title: '首页',  className: 'custom-index'},
@@ -46,7 +46,7 @@ export default {
 function againToExit(interval, tips){
   let isAgain = false;
   return function handleExit(e){
-    console.log('onExit', isAgain)
+    console.log('onExit', isAgain);
     if(!isAgain){
       e.preventDefault();
       isAgain = true;

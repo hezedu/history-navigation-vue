@@ -1,5 +1,7 @@
 /*.db
 /node_modules
+/examples_vue3/node_modules
+/examples_vue3/vue3_project/node_modules
 /package-lock.json
 /.vscode
 /.npmrc
