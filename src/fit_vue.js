@@ -12,7 +12,10 @@ export function uniteVue2(_Vue){
       cmpt.$destroy();
     },
     set: _Vue.set,
-    delete: _Vue.delete
+    delete: _Vue.delete,
+    // reactive: function(obj){ // vue3 API
+    //   return obj;
+    // }
   }
 }
 
@@ -38,6 +41,9 @@ export function uniteVue3(app){
     },
     delete: function(obj, k){
       delete obj[k];
+    },
+    reactive: function(obj){ // vue3 API
+      return _Vue3.reactive(obj);
     }
   }
 }

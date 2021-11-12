@@ -66,7 +66,7 @@ function History(opt){
     isClean: false,
     route: {}
   }
-
+  this.fitVue3();
 }
 
 History.prototype._onRouted = function(){
@@ -566,6 +566,18 @@ History.prototype.removeModalKeyWhenBackPage = function(){
 History.prototype.destroy = function(){
   this._window.removeEventListener('popstate', this._popstateHandle);
   isCreated = false;
+}
+
+History.prototype.fitVue3 = function(){
+  if(this.uniteVue.is3){
+    let v;
+    ['stackMap', 'behavior', 'currentPage', '_tra', 'tabList', 'tabStackMap'].forEach(k => {
+      v = this[k];
+      if(v){
+        this[k] = this.uniteVue.reactive(v)
+      }
+    })
+  }
 }
 
 export default History;

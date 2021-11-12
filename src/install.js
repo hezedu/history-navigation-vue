@@ -27,6 +27,7 @@ export default function install(_Vue, config) {
     uniteVue = uniteVue2(_Vue);
   } else if(vueV === 3){
     uniteVue = uniteVue3(_Vue);
+    uniteVue.is3 = true;
   } else {
     throw new Error('Unsupported version of Vue ' + vueV);
   }
