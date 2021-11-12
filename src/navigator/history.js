@@ -416,12 +416,14 @@ History.prototype.handlePop = function(){
   const isZero = currKey === 0;
   const isBack = behavior === 'back';
   if(isZero && isBack){
-    this.onExit({
-      preventDefault: () => {
-        this._exitImmediately = false;
-      }
-    });
-
+    const _prePage = this.stackMap[preKey];
+    if(_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey){
+      this.onExit({
+        preventDefault: () => {
+          this._exitImmediately = false;
+        }
+      });
+    }
     if(this._exitImmediately){
       console.log('_exitImmediately exit');
       this._history.back();
@@ -446,8 +448,8 @@ History.prototype.handlePop = function(){
         const arr = page.modalList.splice(modalKey);
         arr.forEach(item => {
           item._isDestroy = true;
-          if(item._cmpt){
-            item._cmpt.$destroy();
+          if(item._destoryCmpt){
+            item._destoryCmpt();
           }
         })
       }
@@ -532,7 +534,9 @@ History.prototype.modal = function({component, propsData, parent, success}){
           parent,
           propsData
         });
-        item._cmpt = cmpt;
+        item._destoryCmpt = () => {
+          this.uniteVue.destroy(cmpt);
+        };
         success && success(cmpt);
       }
     });
