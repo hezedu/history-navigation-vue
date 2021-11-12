@@ -22,7 +22,8 @@
             transitionName="h-nav-tab-page"
             :v="v"
             :isActive="isActive && (currTabPage.tabIndex === v.tabIndex)"
-            :isFirstLoad="isFirstLoad"></Page>
+            :isFirstLoad="isFirstLoad"
+            :globalPageStyle="globalPageStyle"></Page>
       </div>
     </transition-group>
 
@@ -55,13 +56,15 @@ export default {
     },
     traClassName: {
       type: String
-    }
+    },
+    globalPageStyle: undefined,
+
+    tabList: Array,
+    tabStackMap: Object
   },
   
   data(){
     return {
-      tabStackMap: this.$navigator._h.tabStackMap,
-      tabList: this.$navigator._h.tabList,
       tabBehavior: '_inherit',
       tabBehaviorDistance: 0
     }

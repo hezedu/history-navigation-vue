@@ -52,12 +52,8 @@ export default {
     isFirstLoad: {
       type: Boolean,
       required: true
-    }
-  },
-  data(){
-    return {
-      globalPageStyle: this.$navigator._h._global.pageStyle
-    }
+    },
+    globalPageStyle: undefined
   }
 }
 

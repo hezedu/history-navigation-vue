@@ -43,7 +43,7 @@ export default {
   computed: {
     href(){
       return this.url
-        ? this.$navigator._h.URL.toLocationUrl(this.url)
+        ? this.$navigator.URL.toLocationUrl(this.url)
         : undefined;
     }
   },
@@ -55,11 +55,11 @@ export default {
       }
       switch(this.type){
         case 'back':
-          this.$navigator._h.back(this.steps, this.transition);
+          this.$navigator.back(this.steps, this.transition);
           break;
         default:
           if(allowedMethodMap[this.type]){
-            this.$navigator._h[this.type]({
+            this.$navigator[this.type]({
               url: this.url, 
               transition: this.transition
             });
@@ -71,7 +71,7 @@ export default {
     }
   },
   mounted(){
-    let eventName = this.event || this.$navigator._h._global.navigatorTriggerEvent;
+    let eventName = this.event || this.$navigator._global.navigatorTriggerEvent;
     this.$el.addEventListener(eventName, this.handleEvent);
   }
 }

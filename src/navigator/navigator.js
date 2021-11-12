@@ -3,9 +3,11 @@ import History from './history';
 export default function(opt){
   const h = new History(opt);
   const obj = {
-    _h: h
+    _h: h,
+    URL: h.URL,
+    _global: h._global
   };
-
+  
   ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {
     _bindToOther(obj, k, h);
   });

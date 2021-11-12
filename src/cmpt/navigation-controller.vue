@@ -21,11 +21,14 @@
    
       <TabCtrler v-if="v.isTab"
         :key="v.stackId"
+        :tabStackMap="tabStackMap"
+        :tabList="tabList"
         :traClassName="transition.className"
         :currTabPage="v"
         :style="[{zIndex: v.stateKey}]"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
+        :globalPageStyle="globalPageStyle"
       />
     
       <Page v-else
@@ -34,6 +37,7 @@
         :v="v"
         :isActive="v.stackId === currentPage.stackId"
         :isFirstLoad="isFirstLoad"
+        :globalPageStyle="globalPageStyle"
         ></Page>
         
     </div>
@@ -57,13 +61,17 @@ export default {
   },
 
   data(){
+    const _h = this.$navigator._h;
     return {
       isFirstLoad: true,
-      stackMap: this.$navigator._h.stackMap,
-      behavior: this.$navigator._h.behavior,
-      currentPage: this.$navigator._h.currentPage,
-      globalPageStyle: this.$navigator._h._global.pageStyle,
-      transition: this.$navigator._h._tra
+      stackMap: _h.stackMap,
+      behavior: _h.behavior,
+      currentPage: _h.currentPage,
+      globalPageStyle: _h._global.pageStyle,
+      transition: _h._tra,
+
+      tabStackMap: _h.tabStackMap,
+      tabList: _h.tabList
     }
   },
 
@@ -71,8 +79,7 @@ export default {
     this.$navigator._h._load(this.entryPagePath);
     this.$nextTick(() => {
       this.isFirstLoad = false;
-    })
-    
+    });
   },
   destroyed(){
     this.$navigator._h.destroy();
