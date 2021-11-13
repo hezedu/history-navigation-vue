@@ -5,7 +5,7 @@ export default function(opt){
   const obj = {
     _h: h,
     URL: h.URL,
-    _global: h._global
+    GLOBAL_CONFIG: h._global
   };
   
   ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {

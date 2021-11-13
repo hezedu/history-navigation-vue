@@ -71,7 +71,7 @@ export default {
     }
   },
   mounted(){
-    let eventName = this.event || this.$navigator._global.navigatorTriggerEvent;
+    let eventName = this.event || this.$navigator.GLOBAL_CONFIG.navigatorTriggerEvent;
     this.$el.addEventListener(eventName, this.handleEvent);
   }
 }
