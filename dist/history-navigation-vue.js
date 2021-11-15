@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.1.3
+  * history-navigation-vue v1.2.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -158,26 +158,26 @@ __webpack_require__.d(__webpack_exports__, "version", function() { return /* bin
 // EXTERNAL MODULE: ./css/style.scss
 var style = __webpack_require__(2);
 
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigation-controller.vue?vue&type=template&id=2cdd01ce&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition-group',{staticClass:"h-nav-ctrler",class:'h-nav-behavior-' + _vm.behavior.type,style:({'--h-nav-distance': _vm.behavior.distance}),attrs:{"tag":"div","enter-class":"","leave-class":"","enter-to-class":"","leave-to-class":"","enter-active-class":"h-nav--page_load","leave-active-class":"h-nav--page_unload"}},_vm._l((_vm.stackMap),function(v){return _c('div',{key:v.stackId,staticClass:"h-nav-page-handle",class:_vm.transition.className,style:(v.isClean ? 'transition: none!important; animation: none!important;' : '')},[(v.isTab)?_c('TabCtrler',{key:v.stackId,style:([{zIndex: v.stateKey}]),attrs:{"traClassName":_vm.transition.className,"currTabPage":v,"isActive":v.stackId === _vm.currentPage.stackId,"isFirstLoad":_vm.isFirstLoad}}):_c('Page',{key:v.stackId,attrs:{"transitionName":"h-nav-page","v":v,"isActive":v.stackId === _vm.currentPage.stackId,"isFirstLoad":_vm.isFirstLoad}})],1)}),0)}
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigation-controller.vue?vue&type=template&id=5546eff4&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition-group',{staticClass:"h-nav-ctrler",class:'h-nav-behavior-' + _vm.behavior.type,style:({'--h-nav-distance': _vm.behavior.distance}),attrs:{"tag":"div","enter-class":"","enter-from-class":"","leave-class":"","enter-to-class":"","leave-to-class":"","enter-active-class":"h-nav--page_load","leave-active-class":"h-nav--page_unload"}},_vm._l((_vm.stackMap),function(v){return _c('div',{key:v.stackId,staticClass:"h-nav-page-handle",class:_vm.transition.className,style:(v.isClean ? 'transition: none!important; animation: none!important;' : '')},[(v.isTab)?_c('TabCtrler',{key:v.stackId,style:([{zIndex: v.stateKey}]),attrs:{"tabStackMap":_vm.tabStackMap,"tabList":_vm.tabList,"traClassName":_vm.transition.className,"currTabPage":v,"isActive":v.stackId === _vm.currentPage.stackId,"isFirstLoad":_vm.isFirstLoad,"globalPageStyle":_vm.globalPageStyle}}):_c('Page',{key:v.stackId,attrs:{"transitionName":"h-nav-page","v":v,"isActive":v.stackId === _vm.currentPage.stackId,"isFirstLoad":_vm.isFirstLoad,"globalPageStyle":_vm.globalPageStyle}})],1)}),0)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/navigation-controller.vue?vue&type=template&id=2cdd01ce&
+// CONCATENATED MODULE: ./cmpt/navigation-controller.vue?vue&type=template&id=5546eff4&
 
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=37365f88&
-var pagevue_type_template_id_37365f88_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName,style:({zIndex: _vm.v.stateKey})},[_c('PageMain',{class:_vm.v.className,style:([_vm.globalPageStyle, _vm.v.style]),attrs:{"path":_vm.v.path,"title":_vm.v.title,"isTab":_vm.v.isTab,"tabIndex":_vm.v.tabIndex,"stateKey":_vm.v.stateKey,"route":_vm.v.route,"isFirstLoad":_vm.isFirstLoad,"isActive":_vm.isActive}},[_c(_vm.v.cmptKey,{tag:"component"})],1),_vm._v(" "),_vm._l((_vm.v.modalList),function(modal){return _c('div',{key:modal.key,staticClass:"h-nav-modal",style:({zIndex: modal.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + modal.key}})])})],2)])}
-var pagevue_type_template_id_37365f88_staticRenderFns = []
-
-
-// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=37365f88&
-
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=template&id=667e5854&
-var page_mainvue_type_template_id_667e5854_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-nav-page-main"},[_vm._t("default")],2)}
-var page_mainvue_type_template_id_667e5854_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=37add962&
+var pagevue_type_template_id_37add962_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"persisted":true,"appear":true,"enter-from-class":_vm.transitionName + '-enter'},on:{"leave":_vm.handleLeave,"before-leave":_vm.handleBeforeLeave,"after-leave":_vm.handleAfterLeave}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName,style:({zIndex: _vm.v.stateKey})},[_c('PageMain',{class:_vm.v.className,style:([_vm.globalPageStyle, _vm.v.style]),attrs:{"path":_vm.v.path,"title":_vm.v.title,"isTab":_vm.v.isTab,"tabIndex":_vm.v.tabIndex,"stateKey":_vm.v.stateKey,"route":_vm.v.route,"isFirstLoad":_vm.isFirstLoad,"isActive":_vm.isActive}},[_c(_vm.v.cmptKey,{tag:"component"})],1),_vm._v(" "),_vm._l((_vm.v.modalList),function(modal){return _c('div',{key:modal.key,staticClass:"h-nav-modal",style:({zIndex: modal.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + modal.key}})])})],2)])}
+var pagevue_type_template_id_37add962_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/page_main.vue?vue&type=template&id=667e5854&
+// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=37add962&
+
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=template&id=26e18686&
+var page_mainvue_type_template_id_26e18686_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-nav-page-main"},[_vm._t("default")],2)}
+var page_mainvue_type_template_id_26e18686_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./cmpt/page_main.vue?vue&type=template&id=26e18686&
 
 // CONCATENATED MODULE: ./constant.js
 var PAGE_E_SHOW_NAME = '_h_nav_page_show';
@@ -189,6 +189,8 @@ var DEF_URL_IS_HASH_MODE = true;
 var DEF_NAVIGATOR_TRIGGER_EVENT = 'click';
 var DEF_URL_BASE = '';
 var DEF_TRANSITION = 'h-nav-transition';
+var DEF_PAGE_STYLE = undefined; // export const AGAIN_TO_EXIT_INTERVAL = 2000;
+// export const AGAIN_TO_EXIT_TIP = 'Press Back Again to Exit';
 // CONCATENATED MODULE: ../node_modules/babel-loader/lib!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=script&lang=js&
 //
 //
@@ -240,18 +242,41 @@ var DEF_TRANSITION = 'h-nav-transition';
   methods: {
     _handleShowHide: function _handleShowHide() {
       if (this.isActive) {
-        this.$emit(PAGE_E_SHOW_NAME);
+        this._uniteEmit(PAGE_E_SHOW_NAME);
       } else {
-        this.$emit(PAGE_E_HIDE_NAME);
+        this._uniteEmit(PAGE_E_HIDE_NAME);
       }
+    },
+    _uniteEmit: function _uniteEmit(key) {
+      this.$emit(key);
+    },
+    _uniteBeforeDestory: function _uniteBeforeDestory() {
+      if (!this.isLoad) {
+        return;
+      }
+
+      this.$options._tmp_is_before_destroy = true; // // Unlike window app. 
+      // // It's like wehn input dom removed the blur event also trigger. 
+      // // It's will trigger hide event before destroy.
+
+      if (this.isActive) {
+        this._uniteEmit(PAGE_E_HIDE_NAME);
+      }
+
+      this.isLoad = false;
     }
+  },
+  beforeCreate: function beforeCreate() {// if(this.$navigator.vueIs3){ // FIT_VUE_3_SWITCH
+    //   vue$3FitEmitOnOff(this);
+    // }
   },
   mounted: function mounted() {
     var _this = this;
 
     if (this.isLoad) {
       // For pre rendering or server rendering
-      this.$emit(PAGE_E_SHOW_NAME);
+      this._uniteEmit(PAGE_E_SHOW_NAME);
+
       return;
     }
 
@@ -265,24 +290,15 @@ var DEF_TRANSITION = 'h-nav-transition';
       _this.isLoad = true;
 
       _this.$nextTick(function () {
-        _this.$emit(PAGE_E_SHOW_NAME);
+        _this._uniteEmit(PAGE_E_SHOW_NAME);
       });
     });
   },
   beforeDestroy: function beforeDestroy() {
-    if (!this.isLoad) {
-      return;
-    }
-
-    this.$options._tmp_is_before_destroy = true; // // Unlike window app. 
-    // // It's like wehn input dom removed the blur event also trigger. 
-    // // It's will trigger hide event before destroy.
-
-    if (this.isActive) {
-      this.$emit(PAGE_E_HIDE_NAME);
-    }
-
-    this.isLoad = false;
+    this._uniteBeforeDestory();
+  },
+  beforeUnmount: function beforeUnmount() {
+    this._uniteBeforeDestory();
   }
 });
 // CONCATENATED MODULE: ./cmpt/page_main.vue?vue&type=script&lang=js&
@@ -397,8 +413,8 @@ function normalizeComponent (
 
 var page_main_component = normalizeComponent(
   cmpt_page_mainvue_type_script_lang_js_,
-  page_mainvue_type_template_id_667e5854_render,
-  page_mainvue_type_template_id_667e5854_staticRenderFns,
+  page_mainvue_type_template_id_26e18686_render,
+  page_mainvue_type_template_id_26e18686_staticRenderFns,
   false,
   null,
   null,
@@ -460,12 +476,13 @@ var page_main_component = normalizeComponent(
     isFirstLoad: {
       type: Boolean,
       required: true
-    }
+    },
+    globalPageStyle: undefined
   },
-  data: function data() {
-    return {
-      globalPageStyle: this.$navigator._h._global.pageStyle
-    };
+  methods: {
+    handleLeave: function handleLeave() {},
+    handleBeforeLeave: function handleBeforeLeave() {},
+    handleAfterLeave: function handleAfterLeave() {}
   }
 });
 // CONCATENATED MODULE: ./cmpt/page.vue?vue&type=script&lang=js&
@@ -480,8 +497,8 @@ var page_main_component = normalizeComponent(
 
 var page_component = normalizeComponent(
   cmpt_pagevue_type_script_lang_js_,
-  pagevue_type_template_id_37365f88_render,
-  pagevue_type_template_id_37365f88_staticRenderFns,
+  pagevue_type_template_id_37add962_render,
+  pagevue_type_template_id_37add962_staticRenderFns,
   false,
   null,
   null,
@@ -490,12 +507,12 @@ var page_component = normalizeComponent(
 )
 
 /* harmony default export */ var cmpt_page = (page_component.exports);
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/tab-bar-controller.vue?vue&type=template&id=328c4877&
-var tab_bar_controllervue_type_template_id_328c4877_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"h-nav-page","appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],staticClass:"h-nav-tabs-ctrler h-nav-tabs-wrap"},[_c('transition-group',{staticClass:"h-nav-tab-pages-wrap",class:'h-nav-tab-behavior-' + _vm.tabBehavior,style:({'--h-nav-tab-distance': _vm.tabBehaviorDistance}),attrs:{"tag":"div","enter-class":"","leave-class":"","enter-to-class":"","leave-to-class":"","enter-active-class":"h-nav-tab_page_load","leave-active-class":"h-nav-tab_page_unload"}},_vm._l((_vm.tabStackMap),function(v){return _c('div',{key:v.tabIndex,staticClass:"h-nav-tab-page-handle",class:_vm.traClassName,style:(v.isClean ? 'transition: none!important; animation: none!important;' : '')},[_c('Page',{attrs:{"transitionName":"h-nav-tab-page","v":v,"isActive":_vm.isActive && (_vm.currTabPage.tabIndex === v.tabIndex),"isFirstLoad":_vm.isFirstLoad}})],1)}),0),_vm._v(" "),_c('TabBar',{attrs:{"list":_vm.tabList,"currentIndex":_vm.currTabPage.tabIndex}})],1)])}
-var tab_bar_controllervue_type_template_id_328c4877_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/tab-bar-controller.vue?vue&type=template&id=84945b88&
+var tab_bar_controllervue_type_template_id_84945b88_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"h-nav-page","appear":true,"enter-from-class":"h-nav-page-enter"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],staticClass:"h-nav-tabs-ctrler h-nav-tabs-wrap"},[_c('transition-group',{staticClass:"h-nav-tab-pages-wrap",class:'h-nav-tab-behavior-' + _vm.tabBehavior,style:({'--h-nav-tab-distance': _vm.tabBehaviorDistance}),attrs:{"tag":"div","enter-class":"","enter-from-class":"","leave-class":"","enter-to-class":"","leave-to-class":"","enter-active-class":"h-nav-tab_page_load","leave-active-class":"h-nav-tab_page_unload"}},_vm._l((_vm.tabStackMap),function(v){return _c('div',{key:v.tabIndex,staticClass:"h-nav-tab-page-handle",class:_vm.traClassName,style:(v.isClean ? 'transition: none!important; animation: none!important;' : '')},[_c('Page',{attrs:{"transitionName":"h-nav-tab-page","v":v,"isActive":_vm.isActive && (_vm.currTabPage.tabIndex === v.tabIndex),"isFirstLoad":_vm.isFirstLoad,"globalPageStyle":_vm.globalPageStyle}})],1)}),0),_vm._v(" "),_c('TabBar',{attrs:{"list":_vm.tabList,"currentIndex":_vm.currTabPage.tabIndex}})],1)])}
+var tab_bar_controllervue_type_template_id_84945b88_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/tab-bar-controller.vue?vue&type=template&id=328c4877&
+// CONCATENATED MODULE: ./cmpt/tab-bar-controller.vue?vue&type=template&id=84945b88&
 
 // CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/tab-bar.vue?vue&type=template&id=17ae9964&
 var tab_barvue_type_template_id_17ae9964_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-nav-tabbar"},_vm._l((_vm.list),function(v,index){return _c('Navigator',{key:v.pagePath,staticClass:"h-nav-tab",attrs:{"isActive":_vm.currentIndex === index,"url":v.pagePath,"type":"switchTab"}},[(v.icon)?_c('div',{staticClass:"h-nav-tab-icon",class:v.icon}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"h-nav-tab-text"},[_vm._v(_vm._s(v.text))])])}),1)}
@@ -643,6 +660,8 @@ var tab_bar_component = normalizeComponent(
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ var tab_bar_controllervue_type_script_lang_js_ = ({
@@ -666,12 +685,13 @@ var tab_bar_component = normalizeComponent(
     },
     traClassName: {
       type: String
-    }
+    },
+    globalPageStyle: undefined,
+    tabList: Array,
+    tabStackMap: Object
   },
   data: function data() {
     return {
-      tabStackMap: this.$navigator._h.tabStackMap,
-      tabList: this.$navigator._h.tabList,
       tabBehavior: '_inherit',
       tabBehaviorDistance: 0
     };
@@ -705,8 +725,8 @@ var tab_bar_component = normalizeComponent(
 
 var tab_bar_controller_component = normalizeComponent(
   cmpt_tab_bar_controllervue_type_script_lang_js_,
-  tab_bar_controllervue_type_template_id_328c4877_render,
-  tab_bar_controllervue_type_template_id_328c4877_staticRenderFns,
+  tab_bar_controllervue_type_template_id_84945b88_render,
+  tab_bar_controllervue_type_template_id_84945b88_staticRenderFns,
   false,
   null,
   null,
@@ -716,6 +736,11 @@ var tab_bar_controller_component = normalizeComponent(
 
 /* harmony default export */ var tab_bar_controller = (tab_bar_controller_component.exports);
 // CONCATENATED MODULE: ../node_modules/babel-loader/lib!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigation-controller.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
 //
 //
 //
@@ -772,14 +797,22 @@ var tab_bar_controller_component = normalizeComponent(
     }
   },
   data: function data() {
+    var _h = this.$navigator._h;
     return {
       isFirstLoad: true,
-      stackMap: this.$navigator._h.stackMap,
-      behavior: this.$navigator._h.behavior,
-      currentPage: this.$navigator._h.currentPage,
-      globalPageStyle: this.$navigator._h._global.pageStyle,
-      transition: this.$navigator._h._tra
+      stackMap: _h.stackMap,
+      behavior: _h.behavior,
+      currentPage: _h.currentPage,
+      globalPageStyle: this.$navigator.GLOBAL_CONFIG.pageStyle,
+      transition: _h._tra,
+      tabStackMap: _h.tabStackMap,
+      tabList: _h.tabList
     };
+  },
+  methods: {
+    _uniteDestroy: function _uniteDestroy() {
+      this.$navigator._h.destroy();
+    }
   },
   created: function created() {
     var _this = this;
@@ -791,7 +824,10 @@ var tab_bar_controller_component = normalizeComponent(
     });
   },
   destroyed: function destroyed() {
-    this.$navigator._h.destroy();
+    this._uniteDestroy();
+  },
+  unmounted: function unmounted() {
+    this._uniteDestroy();
   }
 });
 // CONCATENATED MODULE: ./cmpt/navigation-controller.vue?vue&type=script&lang=js&
@@ -842,12 +878,12 @@ var default_not_found_component = normalizeComponent(
 )
 
 /* harmony default export */ var default_not_found = (default_not_found_component.exports);
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigator.vue?vue&type=template&id=5a82c21a&
-var navigatorvue_type_template_id_5a82c21a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('a',{class:{'h-nav-active': _vm.isActive, 'h-nav-disabled': _vm.disabled},attrs:{"href":_vm.href}},[_vm._t("default")],2)}
-var navigatorvue_type_template_id_5a82c21a_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigator.vue?vue&type=template&id=55866d54&
+var navigatorvue_type_template_id_55866d54_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('a',{class:{'h-nav-active': _vm.isActive, 'h-nav-disabled': _vm.disabled},attrs:{"href":_vm.href}},[_vm._t("default")],2)}
+var navigatorvue_type_template_id_55866d54_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/navigator.vue?vue&type=template&id=5a82c21a&
+// CONCATENATED MODULE: ./cmpt/navigator.vue?vue&type=template&id=55866d54&
 
 // CONCATENATED MODULE: ../node_modules/babel-loader/lib!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/navigator.vue?vue&type=script&lang=js&
 //
@@ -893,7 +929,7 @@ var allowedMethodMap = Object.assign(Object.create(null), {
   },
   computed: {
     href: function href() {
-      return this.url ? this.$navigator._h.URL.toLocationUrl(this.url) : undefined;
+      return this.url ? this.$navigator.URL.toLocationUrl(this.url) : undefined;
     }
   },
   methods: {
@@ -906,13 +942,12 @@ var allowedMethodMap = Object.assign(Object.create(null), {
 
       switch (this.type) {
         case 'back':
-          this.$navigator._h.back(this.steps, this.transition);
-
+          this.$navigator.back(this.steps, this.transition);
           break;
 
         default:
           if (allowedMethodMap[this.type]) {
-            this.$navigator._h[this.type]({
+            this.$navigator[this.type]({
               url: this.url,
               transition: this.transition
             });
@@ -924,7 +959,7 @@ var allowedMethodMap = Object.assign(Object.create(null), {
     }
   },
   mounted: function mounted() {
-    var eventName = this.event || this.$navigator._h._global.navigatorTriggerEvent;
+    var eventName = this.event || this.$navigator.GLOBAL_CONFIG.navigatorTriggerEvent;
     this.$el.addEventListener(eventName, this.handleEvent);
   }
 });
@@ -940,8 +975,8 @@ var allowedMethodMap = Object.assign(Object.create(null), {
 
 var navigator_component = normalizeComponent(
   cmpt_navigatorvue_type_script_lang_js_,
-  navigatorvue_type_template_id_5a82c21a_render,
-  navigatorvue_type_template_id_5a82c21a_staticRenderFns,
+  navigatorvue_type_template_id_55866d54_render,
+  navigatorvue_type_template_id_55866d54_staticRenderFns,
   false,
   null,
   null,
@@ -1141,7 +1176,7 @@ function getCurrentStateKey() {
     return state[KEY_NAME];
   }
 
-  return 1;
+  return 0;
 }
 function genStateKey() {
   return getCurrentStateKey() + 1;
@@ -1156,12 +1191,29 @@ function setPreStateKey(key) {
   _preKey = key;
 }
 // CONCATENATED MODULE: ./util.js
+function noop() {}
 function def(dest, src, key, defValue) {
   var v = src[key];
   dest[key] = v === undefined ? defValue : v;
-}
+} // export function defNew(defObj, src){
+//   const dest = Object.create(null);
+//   const keys = Object.keys(defObj);
+//   const len = keys.length;
+//   let i = 0, k;
+//   for(; i < len; i++){
+//     k = keys[i];
+//     def(dest, src, k, defObj[k]);
+//   }
+//   return dest;
+// }
+
 function throwErr(msg) {
   throw new Error("history-navigation-vue: ".concat(msg));
+}
+function getVueV(_Vue) {
+  var v = _Vue.version;
+  v = v.substr(0, v.indexOf('.'));
+  return Number(v);
 }
 // CONCATENATED MODULE: ./navigator/history.js
 
@@ -1184,10 +1236,13 @@ function History(opt) {
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
+  this._exitImmediately = true;
+  this.onExit = opt.onExit; // Chrome must touch the document once to work.
+
   this._tra = {
     className: this._global.transition
   };
-  this._Vue = opt.Vue;
+  this.uniteVue = opt.uniteVue;
 
   if (!this._history || !this._history.pushState) {
     throwErr('required history.pushState API');
@@ -1235,7 +1290,7 @@ function History(opt) {
     modalList: [],
     isClean: false,
     route: {}
-  };
+  }; // this.fitVue$3(); // FIT_VUE_3_SWITCH
 }
 
 History.prototype._onRouted = function () {
@@ -1293,13 +1348,24 @@ History.prototype._load = function (userUrl) {
 
   var currRoute = fullUrlParse(_userUrl);
   var key = getCurrentStateKey();
-  this.clearModalWhenLoad();
 
-  if (key !== 1) {
-    if (this._isTabRoute(currRoute.trimedPath)) {
-      this._backToStartAndReplace(currRoute, 'loaded');
+  if (key === 0) {
+    this._history.replaceState(defineProperty_default()({}, KEY_NAME, key), '');
 
-      return;
+    var nextKey = genStateKey();
+
+    this._history.pushState(defineProperty_default()({}, KEY_NAME, nextKey), '');
+
+    setPreStateKey(nextKey);
+  } else {
+    this.clearModalWhenLoad();
+
+    if (key !== 1) {
+      if (this._isTabRoute(currRoute.trimedPath)) {
+        this._backToStartAndReplace(currRoute, 'loaded');
+
+        return;
+      }
     }
   }
 
@@ -1356,23 +1422,22 @@ History.prototype.switchTab = function (userUrl) {
   this._backToStartAndReplace(fullParse, 'switchtab', tra);
 };
 
-History.prototype.back = function (steps, tra) {
-  var key = getCurrentStateKey();
-  var state = this._history.state;
-  var modalKey;
+History.prototype.back = function (_steps, tra) {
+  var key = getCurrentStateKey(); // const state = this._history.state;
+  // let modalKey;
+  // if(state){
+  //   modalKey = state._h_nav_modal_i;
+  // }
+  // if(key === 1 && !modalKey){
+  //   console.error('Currnt page is first, Cannot back.');
+  //   return -1;
+  // }
 
-  if (state) {
-    modalKey = state._h_nav_modal_i;
-  }
-
-  if (key === 1 && !modalKey) {
-    console.error('Currnt page is first, Cannot back.');
-    return -1;
-  }
+  var steps = _steps;
 
   if (typeof steps === 'number' && steps > 0) {
     if (key - steps < 1) {
-      return -1;
+      steps = key - 1;
     }
   }
 
@@ -1416,17 +1481,14 @@ History.prototype._setMapItem = function (key, route) {
 
   if (_page.isTab) {
     _page.stackId = 'tab_stack_' + this.tabCtrlerStackId;
-
-    this._Vue.set(this.tabStackMap, page.tabIndex, _page);
+    this.uniteVue.set(this.tabStackMap, page.tabIndex, _page);
   } else {
     _page.stackId = this._genStackItemId();
   } // Object.assign(this.currentPage, _page);
 
 
-  this._Vue.set(this.stackMap, key, _page);
-
-  Object.assign(this.currentPage, _page); // this._Vue.nextTick(() => {
-  // })
+  this.uniteVue.set(this.stackMap, key, _page);
+  Object.assign(this.currentPage, _page);
 };
 
 History.prototype._getBackTra = function () {
@@ -1502,14 +1564,14 @@ History.prototype._replace = function (fullParse, behavior, _distance) {
 
   this._history.replaceState(state, '', toUrl);
 
-  this._Vue.nextTick(function () {
+  this.uniteVue.nextTick(function () {
     if (newBehavior.type === 'relaunch') {
       _this2._setAllCleaned();
 
       var oldKey = key - distance;
       _this2.stackMap[oldKey].isClean = false;
 
-      _this2._Vue.nextTick(function () {
+      _this2.uniteVue.nextTick(function () {
         _this2._clearAll();
 
         _this2._setMapItem(key, fullParse);
@@ -1521,12 +1583,7 @@ History.prototype._replace = function (fullParse, behavior, _distance) {
 
       _this2._onRouted();
     }
-  }); // if(behavior === 'loaded'){
-  //   this._Vue.nextTick(_after);
-  // } else {
-  //   _after();
-  // }
-
+  });
 };
 
 History.prototype._setMapCleaned = function (map) {
@@ -1581,19 +1638,17 @@ History.prototype._clearAfter = function () {
   if (len) {
     var last = arr.pop();
     last.isClean = false;
-
-    this._Vue.delete(map, last.stateKey);
-
+    this.uniteVue.delete(map, last.stateKey);
     len = arr.length;
 
     if (len) {
-      this._Vue.nextTick(function () {
+      this.uniteVue.nextTick(function () {
         i = 0;
 
         for (; i < len; i++) {
           v = arr[i];
 
-          _this3._Vue.delete(map, v.stateKey);
+          _this3.uniteVue.delete(map, v.stateKey);
         }
       });
     }
@@ -1604,7 +1659,7 @@ History.prototype._clearMap = function (map) {
   var i;
 
   for (i in map) {
-    this._Vue.delete(map, i);
+    this.uniteVue.delete(map, i);
   }
 };
 
@@ -1621,8 +1676,35 @@ History.prototype.handlePop = function () {
 
   var preKey = getPreStateKey();
   var currKey = getCurrentStateKey();
+  var compare = currKey - preKey;
+  var behavior = compare < 0 ? 'back' : 'forward';
+  var isZero = currKey === 0;
+  var isBack = behavior === 'back';
 
-  if (preKey === currKey) {
+  if (isZero && isBack) {
+    var _prePage = this.stackMap[preKey];
+
+    if (_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey) {
+      this.onExit({
+        preventDefault: function preventDefault() {
+          _this4._exitImmediately = false;
+        }
+      });
+    }
+
+    if (this._exitImmediately) {
+      this._history.back();
+    } else {
+      this._history.forward();
+    }
+
+    this._exitImmediately = true;
+    return;
+  }
+
+  if (!isBack && preKey === 0) {}
+
+  if (preKey === currKey && this._history.state) {
     var modalKey = this._history.state._h_nav_modal_i;
 
     if (typeof modalKey === 'number') {
@@ -1634,8 +1716,8 @@ History.prototype.handlePop = function () {
         arr.forEach(function (item) {
           item._isDestroy = true;
 
-          if (item._cmpt) {
-            item._cmpt.$destroy();
+          if (item._destoryCmpt) {
+            item._destoryCmpt();
           }
         });
       }
@@ -1650,8 +1732,6 @@ History.prototype.handlePop = function () {
 
   setPreStateKey(currKey);
   var _info = this._whenPopInfo;
-  var compare = currKey - preKey;
-  var behavior = compare < 0 ? 'back' : 'forward';
   var backTra = this._whenPopTra;
 
   if (!backTra && behavior === 'back' && compare === -1) {
@@ -1670,9 +1750,7 @@ History.prototype.handlePop = function () {
   } // this.isPageDestroyWhenBack && 
 
 
-  var page = this.stackMap[currKey]; // console.log('compare', compare);
-  // console.log('poped',  page, preKey, currKey, getCurrentStateKey())
-
+  var page = this.stackMap[currKey];
   var newBehavior = {
     type: behavior,
     distance: compare,
@@ -1687,8 +1765,10 @@ History.prototype.handlePop = function () {
   }
 
   if (behavior === 'back') {
-    this._Vue.nextTick(function () {
-      _this4._clearAfter();
+    this.uniteVue.nextTick(function () {
+      if (!isZero) {
+        _this4._clearAfter();
+      }
 
       _this4._onRouted();
     });
@@ -1698,7 +1778,7 @@ History.prototype.handlePop = function () {
 };
 
 History.prototype.modal = function (_ref) {
-  var _this$_history$pushSt2,
+  var _this$_history$pushSt3,
       _this5 = this;
 
   var component = _ref.component,
@@ -1711,16 +1791,16 @@ History.prototype.modal = function (_ref) {
   var modalKey = state._h_nav_modal_i;
 
   if (!modalKey) {
-    var _this$_history$replac;
+    var _this$_history$replac2;
 
     modalKey = 0;
 
-    this._history.replaceState((_this$_history$replac = {}, defineProperty_default()(_this$_history$replac, KEY_NAME, key), defineProperty_default()(_this$_history$replac, "_h_nav_modal_i", modalKey), _this$_history$replac), '');
+    this._history.replaceState((_this$_history$replac2 = {}, defineProperty_default()(_this$_history$replac2, KEY_NAME, key), defineProperty_default()(_this$_history$replac2, "_h_nav_modal_i", modalKey), _this$_history$replac2), '');
   }
 
   modalKey = modalKey + 1;
 
-  this._history.pushState((_this$_history$pushSt2 = {}, defineProperty_default()(_this$_history$pushSt2, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt2, "_h_nav_modal_i", modalKey), _this$_history$pushSt2), '');
+  this._history.pushState((_this$_history$pushSt3 = {}, defineProperty_default()(_this$_history$pushSt3, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt3, "_h_nav_modal_i", modalKey), _this$_history$pushSt3), '');
 
   var item = {
     key: modalKey
@@ -1729,16 +1809,24 @@ History.prototype.modal = function (_ref) {
   var id = 'h_nav_modal_' + modalKey;
 
   if (component) {
-    this._Vue.nextTick(function () {
+    this.uniteVue.nextTick(function () {
       if (!item._isDestroy) {
-        var Cmpt = _this5._Vue.extend(component);
-
-        var cmpt = new Cmpt({
+        // const Cmpt = this.uniteVue.extend(component);
+        // const cmpt = new Cmpt({
+        //   el: '#' + id,
+        //   parent,
+        //   propsData
+        // });
+        var cmpt = _this5.uniteVue.newComponent(component, {
           el: '#' + id,
           parent: parent,
           propsData: propsData
         });
-        item._cmpt = cmpt;
+
+        item._destoryCmpt = function () {
+          _this5.uniteVue.destroy(cmpt);
+        };
+
         success && success(cmpt);
       }
     });
@@ -1774,7 +1862,18 @@ History.prototype.destroy = function () {
   this._window.removeEventListener('popstate', this._popstateHandle);
 
   isCreated = false;
-};
+}; // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
+//   if(this.uniteVue.is3){
+//     let v;
+//     ['stackMap', 'behavior', 'currentPage', '_tra', 'tabList', 'tabStackMap'].forEach(k => {
+//       v = this[k];
+//       if(v){
+//         this[k] = vue$3Reactive(v)
+//       }
+//     })
+//   }
+// }
+
 
 /* harmony default export */ var navigator_history = (History); // window.addEventListener('beforeunload', function(event){
 //   console.log('beforeunload')
@@ -1787,7 +1886,10 @@ History.prototype.destroy = function () {
 /* harmony default export */ var navigator_navigator = (function (opt) {
   var h = new navigator_history(opt);
   var obj = {
-    _h: h
+    _h: h,
+    URL: h.URL,
+    // vueIs3: h.uniteVue.is3, FIT_VUE_3_SWITCH
+    GLOBAL_CONFIG: h._global
   };
   ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(function (k) {
     _bindToOther(obj, k, h);
@@ -1802,22 +1904,25 @@ function _bindToOther(obj, attr, h) {
 }
 // CONCATENATED MODULE: ./mixin/show-hide-mixin.js
 
-/* harmony default export */ var show_hide_mixin = ({
-  inject: {
-    $page: {
-      default: null
+
+/* harmony default export */ var show_hide_mixin = (function (isV3) {
+  var key = isV3 ? 'unmounted' : 'destroyed';
+  return defineProperty_default()({
+    inject: {
+      $page: {
+        default: null
+      }
+    },
+    created: function created() {
+      if ((this.$options.onShow || this.$options.onHide) && this.$page) {
+        _handleOnShow(this);
+      }
     }
-  },
-  created: function created() {
-    if ((this.$options.onShow || this.$options.onHide) && this.$page) {
-      _handleOnShow(this);
-    }
-  },
-  destroyed: function destroyed() {
+  }, key, function () {
     if (this.$options.__tmp_h_nav_show_hide_has) {
       _handleOnHide(this);
     }
-  }
+  });
 });
 
 function _handleOnShow(self) {
@@ -1856,7 +1961,92 @@ function _handleOnHide(self) {
     self.$page.$off(PAGE_E_HIDE_NAME, handle);
   }
 }
+// CONCATENATED MODULE: ./fit_vue.js
+function uniteVue2(_Vue) {
+  return {
+    proto: _Vue.prototype,
+    nextTick: _Vue.nextTick,
+    newComponent: function newComponent(Cmpt, newOpts) {
+      var CmptExtend = _Vue.extend(Cmpt);
+
+      return new CmptExtend(newOpts);
+    },
+    destroy: function destroy(cmpt) {
+      cmpt.$destroy();
+    },
+    set: _Vue.set,
+    delete: _Vue.delete
+  };
+}
+/* FIT_VUE_3_SWITCH
+let _Vue3; // createApp, h, nextTick;
+export function fitVue3(_Vue){
+  _Vue3 = _Vue;
+}
+
+export function uniteVue3(app){
+  return {
+    proto: app.config.globalProperties,
+    nextTick: _Vue3.nextTick,
+    newComponent: (Cmpt, newOpts) => {
+      let app = _Vue3.createApp(Cmpt, newOpts.propsData);
+      app.mount(newOpts.el);
+      return app;
+    },
+    destroy: function(cmpt){
+      cmpt.unmount();
+    },
+    set: function(obj, k, v){
+      obj[k] = v;
+    },
+    delete: function(obj, k){
+      delete obj[k];
+    }
+  }
+}
+
+export function vue3Reactive(obj){ // vue3 API
+  return _Vue3.reactive(obj);
+}
+
+export function vue3FitEmitOnOff(self){
+  const eMap =  self.$options._tmp_e_map =  Object.create(null);
+  self.$on = function(key, handle){
+    let list = eMap[key];
+    if(!list){
+      list = eMap[key] = [];
+    }
+    list.push(handle);
+  }
+
+  self.$off = function(key, handle){
+    const list = eMap[key];
+    if(list){
+      const i = list.indexOf(handle);
+      if(i !== -1){
+        list.splice(i, 1);
+      }
+    }
+    if(!list.length){
+      delete eMap[key];
+    }
+  }
+
+  self._uniteEmit = function(key) {
+    const list = eMap[key];
+    if(list) {
+      const len = list.length;
+      let i = 0;
+      for(; i < len; i++){
+        list[i]();
+      }
+    }
+  }
+}
+
+*/
 // CONCATENATED MODULE: ./install.js
+
 
 
 
@@ -1869,7 +2059,18 @@ var defNotFoundPage = {
   title: 'Not Found',
   component: default_not_found
 };
-function install(Vue, config) {
+function install(_Vue, config) {
+  var vueV = getVueV(_Vue);
+  var uniteVue;
+
+  if (vueV === 2) {
+    uniteVue = uniteVue2(_Vue); // } else if(vueV === 3){ // FIT_VUE_3_SWITCH
+    //   uniteVue = uniteVue$3(_Vue);
+    //   uniteVue.is3 = true;
+  } else {
+    throw new Error('Unsupported version of Vue ' + vueV);
+  }
+
   if (!Array.isArray(config.pages)) {
     throwErr('config.pages is not Array.');
   }
@@ -1883,7 +2084,9 @@ function install(Vue, config) {
   }
 
   var notFoundPage = config.notFoundPage || defNotFoundPage;
-  Vue.component(notFoundPageKey, notFoundPage.component);
+
+  _Vue.component(notFoundPageKey, notFoundPage.component);
+
   notFoundPage = {
     path: null,
     title: notFoundPage.title,
@@ -1895,28 +2098,33 @@ function install(Vue, config) {
 
   for (i in pageMap) {
     page = pageMap[i];
-    Vue.component(page.cmptKey, page.component);
+
+    _Vue.component(page.cmptKey, page.component);
   }
 
-  Vue.component('NavigationController', navigation_controller);
-  Vue.component('Navigator', cmpt_navigator);
+  _Vue.component('NavigationController', navigation_controller);
+
+  _Vue.component('Navigator', cmpt_navigator);
+
   var globalOption = Object.create(null);
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
   def(globalOption, config, 'transition', DEF_TRANSITION);
-  def(globalOption, config, 'pageStyle', undefined);
+  def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
   var options = {
     global: globalOption,
-    Vue: Vue,
+    uniteVue: uniteVue,
     pageMap: pageMap,
     cmptPageSuffix: cmptPageSuffix,
     notFoundPage: notFoundPage,
     tabBar: tabBar,
-    onRouted: config.onRouted
+    onRouted: config.onRouted,
+    onExit: config.onExit || noop
   };
   def(options, config, 'urlBase', DEF_URL_BASE);
   def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
-  Vue.prototype.$navigator = navigator_navigator(options);
-  Vue.mixin(show_hide_mixin);
+  uniteVue.proto.$navigator = navigator_navigator(options);
+
+  _Vue.mixin(show_hide_mixin(uniteVue.is3));
 }
 
 function _formatPages(pages) {
@@ -1991,8 +2199,9 @@ function _formatTabBar(tabBar, pageMap) {
 
 var bundle_plugin = {
   install: install
-};
-var version = '1.1.3';
+}; // export { fitVue$3 } from './fit_vue';
+
+var version = '1.2.0';
 
 /***/ })
 /******/ ]);
