@@ -5,7 +5,6 @@
   :style="{'--h-nav-distance': behavior.distance}"
   tag="div"
   enter-class=""
-  enter-from-class=""
   leave-class=""
   enter-to-class=""
   leave-to-class=""
