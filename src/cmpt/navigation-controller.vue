@@ -5,6 +5,7 @@
   :style="{'--h-nav-distance': behavior.distance}"
   tag="div"
   enter-class=""
+  enter-from-class=""
   leave-class=""
   enter-to-class=""
   leave-to-class=""
@@ -47,7 +48,6 @@
 <script>
 import Page from './page.vue';
 import TabCtrler from './tab-bar-controller.vue';
-
 export default {
   components: {
     Page,
@@ -67,22 +67,30 @@ export default {
       stackMap: _h.stackMap,
       behavior: _h.behavior,
       currentPage: _h.currentPage,
-      globalPageStyle: _h._global.pageStyle,
+      globalPageStyle: this.$navigator.GLOBAL_CONFIG.pageStyle,
       transition: _h._tra,
 
       tabStackMap: _h.tabStackMap,
       tabList: _h.tabList
     }
   },
-
+  methods: {
+    _uniteDestroy(){
+      this.$navigator._h.destroy();
+    }
+  },
   created(){
     this.$navigator._h._load(this.entryPagePath);
     this.$nextTick(() => {
       this.isFirstLoad = false;
     });
   },
+
   destroyed(){
-    this.$navigator._h.destroy();
+    this._uniteDestroy();
+  },
+  unmounted(){
+    this._uniteDestroy();
   }
 }
 </script>

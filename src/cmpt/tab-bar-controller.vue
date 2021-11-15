@@ -1,5 +1,5 @@
 <template>
-<transition name="h-nav-page" :appear="true">
+<transition name="h-nav-page" :appear="true" enter-from-class="h-nav-page-enter">
   <div class="h-nav-tabs-ctrler h-nav-tabs-wrap" v-show="isActive">
     <transition-group 
       class="h-nav-tab-pages-wrap" 
@@ -7,6 +7,7 @@
       :class="'h-nav-tab-behavior-' + tabBehavior" 
       :style="{'--h-nav-tab-distance': tabBehaviorDistance}"
       enter-class=""
+      enter-from-class=""
       leave-class=""
       enter-to-class=""
       leave-to-class=""

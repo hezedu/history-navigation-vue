@@ -5,7 +5,7 @@ import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
 import { def, noop, throwErr, getVueV } from './util';
-import { uniteVue2, uniteVue3 } from './fit_vue';
+import { uniteVue2} from './fit_vue';
 import {cmptPageSuffix, 
   notFoundPageKey, 
   DEF_NAVIGATOR_TRIGGER_EVENT,
@@ -25,9 +25,9 @@ export default function install(_Vue, config) {
   let uniteVue;
   if(vueV === 2){
     uniteVue = uniteVue2(_Vue);
-  } else if(vueV === 3){
-    uniteVue = uniteVue3(_Vue);
-    uniteVue.is3 = true;
+  // } else if(vueV === 3){ // FIT_VUE_3_SWITCH
+  //   uniteVue = uniteVue$3(_Vue);
+  //   uniteVue.is3 = true;
   } else {
     throw new Error('Unsupported version of Vue ' + vueV);
   }
@@ -85,7 +85,7 @@ export default function install(_Vue, config) {
   def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
 
   uniteVue.proto.$navigator = navigator(options);
-  _Vue.mixin(ShowHideMixin);
+  _Vue.mixin(ShowHideMixin(uniteVue.is3));
 }
 
 function _formatPages(pages){

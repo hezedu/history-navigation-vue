@@ -5,7 +5,6 @@
 </template>
 <script>
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
-
 export default {
   name: 'HistoryNavigationPage',
   provide(){
@@ -55,15 +54,37 @@ export default {
   methods: {
     _handleShowHide(){
       if(this.isActive){
-        this.$emit(PAGE_E_SHOW_NAME);
+        this._uniteEmit(PAGE_E_SHOW_NAME);
       } else {
-        this.$emit(PAGE_E_HIDE_NAME);
+        this._uniteEmit(PAGE_E_HIDE_NAME);
       }
+    },
+    _uniteEmit(key){
+      this.$emit(key);
+    },
+    _uniteBeforeDestory(){
+      if(!this.isLoad){
+        return;
+      }
+      this.$options._tmp_is_before_destroy = true;
+
+      // // Unlike window app. 
+      // // It's like wehn input dom removed the blur event also trigger. 
+      // // It's will trigger hide event before destroy.
+      if(this.isActive){
+        this._uniteEmit(PAGE_E_HIDE_NAME);
+      }
+      this.isLoad = false;
     }
+  },
+  beforeCreate(){
+    // if(this.$navigator.vueIs3){ // FIT_VUE_3_SWITCH
+    //   vue$3FitEmitOnOff(this);
+    // }
   },
   mounted(){
     if(this.isLoad){ // For pre rendering or server rendering
-      this.$emit(PAGE_E_SHOW_NAME);
+      this._uniteEmit(PAGE_E_SHOW_NAME);
       return;
     }
     setTimeout(() => {
@@ -74,25 +95,18 @@ export default {
       // the next page's document addEventListener click will trigger in current page.
       this.isLoad = true;
       this.$nextTick(() => {
-        this.$emit(PAGE_E_SHOW_NAME);
+        this._uniteEmit(PAGE_E_SHOW_NAME);
       })
       
     });
 
   },
   beforeDestroy(){
-    if(!this.isLoad){
-      return;
-    }
-    this.$options._tmp_is_before_destroy = true;
+    this._uniteBeforeDestory();
+  },
 
-    // // Unlike window app. 
-    // // It's like wehn input dom removed the blur event also trigger. 
-    // // It's will trigger hide event before destroy.
-    if(this.isActive){
-      this.$emit(PAGE_E_HIDE_NAME);
-    }
-    this.isLoad = false;
+  beforeUnmount(){
+    this._uniteBeforeDestory();
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transitionName" :appear="true">
+  <transition :name="transitionName" :persisted="true" :appear="true" :enter-from-class="transitionName + '-enter'" @leave="handleLeave" @before-leave="handleBeforeLeave" @after-leave="handleAfterLeave">
     <div :class="transitionName" v-show="isActive" :style="{zIndex: v.stateKey}">
       <PageMain 
             :path="v.path"
@@ -54,6 +54,17 @@ export default {
       required: true
     },
     globalPageStyle: undefined
+  },
+  methods: {
+    handleLeave(){
+      console.log('handleLeave')
+    },
+    handleBeforeLeave(){
+      console.log('handleBeforeLeave');
+    },
+    handleAfterLeave(){
+      console.log('handleAfterLeave')
+    }
   }
 }
 

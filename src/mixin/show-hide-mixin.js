@@ -1,19 +1,21 @@
 import { PAGE_E_SHOW_NAME, PAGE_E_HIDE_NAME } from '../constant';
-
-export default {
-  inject: {
-    $page: {
-      default: null
-    }
-  },
-  created(){
-    if((this.$options.onShow || this.$options.onHide) && this.$page){
-      _handleOnShow(this);
-    }
-  },
-  destroyed(){
-    if(this.$options.__tmp_h_nav_show_hide_has){
-      _handleOnHide(this);
+export default function (isV3) {
+  const key = isV3 ? 'unmounted' : 'destroyed'; 
+  return {
+    inject: {
+      $page: {
+        default: null
+      }
+    },
+    created(){
+      if((this.$options.onShow || this.$options.onHide) && this.$page){
+        _handleOnShow(this);
+      }
+    },
+    [key](){
+      if(this.$options.__tmp_h_nav_show_hide_has){
+        _handleOnHide(this);
+      }
     }
   }
 }

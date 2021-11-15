@@ -5,6 +5,7 @@ export default function(opt){
   const obj = {
     _h: h,
     URL: h.URL,
+    // vueIs3: h.uniteVue.is3, FIT_VUE_3_SWITCH
     GLOBAL_CONFIG: h._global
   };
   

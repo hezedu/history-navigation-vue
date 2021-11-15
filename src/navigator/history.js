@@ -66,7 +66,7 @@ function History(opt){
     isClean: false,
     route: {}
   }
-  this.fitVue3();
+  // this.fitVue$3(); // FIT_VUE_3_SWITCH
 }
 
 History.prototype._onRouted = function(){
@@ -568,17 +568,17 @@ History.prototype.destroy = function(){
   isCreated = false;
 }
 
-History.prototype.fitVue3 = function(){
-  if(this.uniteVue.is3){
-    let v;
-    ['stackMap', 'behavior', 'currentPage', '_tra', 'tabList', 'tabStackMap'].forEach(k => {
-      v = this[k];
-      if(v){
-        this[k] = this.uniteVue.reactive(v)
-      }
-    })
-  }
-}
+// History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
+//   if(this.uniteVue.is3){
+//     let v;
+//     ['stackMap', 'behavior', 'currentPage', '_tra', 'tabList', 'tabStackMap'].forEach(k => {
+//       v = this[k];
+//       if(v){
+//         this[k] = vue$3Reactive(v)
+//       }
+//     })
+//   }
+// }
 
 export default History;
 
