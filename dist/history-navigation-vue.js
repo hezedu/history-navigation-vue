@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.2.1
+  * history-navigation-vue v1.2.2
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -983,17 +983,17 @@ var defineProperty = __webpack_require__(0);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // CONCATENATED MODULE: ./navigator/native.js
-var nativeWindow, nativeHistory, nativeLocation, nativeRAF;
+var nativeWindow, nativeHistory, nativeLocation; // , nativeRAF
 
 if (typeof window !== 'undefined') {
   nativeWindow = window;
   nativeHistory = window.history;
-  nativeLocation = window.location;
-  nativeRAF = window.requestAnimationFrame || setTimeout;
-} else {
-  // nativeRAF = function(cb){cb()};
-  nativeRAF = setTimeout;
-}
+  nativeLocation = window.location; // nativeRAF = window.requestAnimationFrame || setTimeout;
+} //  else {
+//   // nativeRAF = function(cb){cb()};
+//   // nativeRAF = setTimeout;
+// }
+
 
 
 // CONCATENATED MODULE: ./navigator/url.js
@@ -2194,7 +2194,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.2.1';
+var version = '1.2.2';
 
 /***/ })
 /******/ ]);

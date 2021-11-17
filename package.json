@@ -1,7 +1,7 @@
 {
   "name": "history-navigation-vue",
-  "version": "1.2.1",
-  "description": "The native-like Navigation for Web apps.",
+  "version": "1.2.2",
+  "description": "Native-like Navigation for Web apps.",
 
   "keywords": [
     "history",
