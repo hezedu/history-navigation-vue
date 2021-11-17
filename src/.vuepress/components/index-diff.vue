@@ -1,7 +1,7 @@
 <template>
     <div class="index_diff">
      <div class="index_diff_item">
-          <div class="index_diff_title">Normal single-page app</div>
+          <div class="index_diff_title">Normal Routers</div>
           <div class="index_diff_body">
             <DiffStart v-if="currAni === 'start'" @diffStart="handleDiffStart" type="normal" />
             <DiffList v-if="currAni === 'list'" type="normal" :isBack="isDetailBacked" @diffGoToDetail="handleDiffGoToDetail" @diffGotoStart="handleDiffGotoStart" />
@@ -9,7 +9,7 @@
           </div>
      </div>
       <div class="index_diff_item">
-          <div class="index_diff_title">Use history-navigation-vue</div>
+          <div class="index_diff_title">Used history-navigation-vue</div>
 
           <div class="index_diff_body">
             <div class="index_diff_body_h_nav"

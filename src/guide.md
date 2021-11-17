@@ -18,7 +18,7 @@
 history-navigation-vue required HTML5 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) and not has fallback. Some very old browsers may not supported. You’d better check first and provide hints:
 ```js
 if(!history || !history.pushState){
-  var error = "Sorry, You Your browser doesn't support history";
+  var error = new Error("Sorry, You Your browser doesn't support history");
   document.write(error.message);
   throw error;
 }
