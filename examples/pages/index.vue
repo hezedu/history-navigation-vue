@@ -13,10 +13,14 @@
   <br>
   <navigator url="/list">List</navigator>
   <br>
+  <navigator url="/tra-per">过渡性能测试</navigator>
+  <br>
   <navigator url="/list" type="replace">replace to List</navigator>
 </div>
  <div style="height: 100vh" />
   <button @click="showModal">showModal</button>
+<button @click="isHomePage">isHomePage</button>
+  isHomePage
 </div>
   
 </template>
@@ -35,6 +39,9 @@ export default {
   methods: {
     closeWin(){
       window.close();
+    },
+    isHomePage(){
+      console.log(this.$page.isHomePage())
     },
     showModal(){
       this.$navigator.modal({

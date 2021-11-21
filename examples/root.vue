@@ -1,6 +1,6 @@
 <template>
 <div style="height: 100%">
-  <NavigationController />
+  <NavigationController>hahaah</NavigationController>
   <Tips ref="tips" />
 </div>
 </template>

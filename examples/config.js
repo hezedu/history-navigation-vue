@@ -3,6 +3,8 @@ import List from './pages/list.vue';
 import Detail from './pages/detail.vue';
 import API from './pages/api.vue';
 import MePage from './pages/me.vue';
+import TraPer from './pages/tra-performance.vue';
+import TraPerDetail from './pages/tra-performance-detail.vue';
 // import NotFound from './pages/not-found.vue';
 export default {
   // urlIsHashMode: false,
@@ -15,30 +17,33 @@ export default {
     { path: '/api', component: API, title: 'API' },
     { path: '/list', component: List, title: '列表', className: 'custom-list'},
     { path: '/detail', component: Detail, title: '详情'},
+    { path: '/tra-per', component: TraPer, title: '过渡性能'},
+    { path: '/tra-per-detail', component: TraPerDetail, title: '过渡性能详情'},
   ],
   // notFoundPage: {
   //   title: '404',
   //   component: NotFound
   // },
-  // tabBar: {
-  //   list: [{
-  //     pagePath: '/',
-  //     icon: 'index_icon',
-  //     text: '首页'
-  //   },
-  //   {
-  //     pagePath: '/api',
-  //     icon: 'api_icon',
-  //     text: 'API'
-  //   },
-  //   {
-  //     pagePath: '/me',
-  //     icon: 'me_icon',
-  //     text: 'Me'
-  //   }]
-  // },
+  tabBar: {
+    list: [{
+      pagePath: '/',
+      icon: 'index2_icon',
+      text: '首页'
+    },
+    {
+      pagePath: '/api',
+      icon: 'api_icon',
+      text: 'API'
+    },
+    {
+      pagePath: '/me',
+      icon: 'me_icon',
+      text: 'Me'
+    }]
+  },
   onRouted(e){
     document.title = e.title;
+    console.log(history.length)
   },
   onExit: againToExit(2000, 'Press Back Again to Exit')
 }
@@ -46,15 +51,15 @@ export default {
 function againToExit(interval, tips){
   let isAgain = false;
   return function handleExit(e){
-    console.log('onExit', isAgain);
-    if(!isAgain){
-      e.preventDefault();
-      isAgain = true;
-      window.$simpleTips.tips(tips);
-      setTimeout(() => {
-        isAgain = false;
-      }, interval);
+    if(e.isTabPage() || e.isHomePage()){
+      if(!isAgain){
+        e.preventDefault();
+        isAgain = true;
+        window.$simpleTips.tips(tips);
+        setTimeout(() => {
+          isAgain = false;
+        }, interval);
+      }
     }
-
   }
 }
