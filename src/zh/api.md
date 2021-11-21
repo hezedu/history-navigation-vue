@@ -61,14 +61,16 @@ Vue.use(historyNavigationVue.plugin, globalConfig)
   pages: [
     {
       path: '/',
+      title: '首页',
+      className: 'index',
+      style: { backgroundColor: '#eee' },
       component: {
-        template: '<h1>Hello Wrold!</h1>'
+        template: '<h1>Hello World!</h1>'
       }
     }
   ]
 }
 ```
-[预览](https://hezedu.github.io/history-navigation-vue/examples/hello-world.html)
 ### notFoundPage
   - 类型: `NotFoundPageConfig`
     ```ts
@@ -218,6 +220,30 @@ type: `Function`
 这是 [transitionClass](#transitionclass) 的全局配置。
 
 如果你不想要任何过渡效果，那把它设成 `""`。
+
+
+### homePagePath
+  - type: `string`
+  - default: 第一个页面的路径。
+### onExit
+  - type: `function`
+
+**onExit(exitEvent)**
+- exitEvent
+
+  - type `ExitEvent`
+    ```ts
+    interface ExitEvent {
+      preventDefault: function, // 调用它将会阻止退出.
+      isTabPage: function, 
+      isHomePage: function
+    }
+    ```
+当按后退键将要退出时触发。
+*示例:* 
+
+[再按一次退出程序](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+
 ## `<NavigationController>`
 根容器， 负理包含并管理所有页面。
 
@@ -245,6 +271,13 @@ ___Props:___
 
 示例: [入口页面](https://hezedu.github.io/history-navigation-vue/examples/entry-page.html)
 
+__Slot:__
+当浏览器不支持 HTML5 history API 时显示。默认会有一些内置的提示。你可以自定义。
+```html
+<NavigationController>
+  错误，没有找到 HTML5 history API.
+</NavigationController>
+```
 
 ## $page
   - 类型: `Vue instance`

@@ -8,7 +8,7 @@
         <div class="index_f_m_i"></div>
       </div>
     </div>
-    <div class="index_f_i_info">Multi-Page Architecture</div>
+    <div class="index_f_i_info">{{TEXT[1]}}</div>
   </div>
 
   <div class="index_f_item">
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="index_f_i_info">Support Tabbar</div>
+    <div class="index_f_i_info">{{TEXT[2]}}</div>
   </div>
 
   <div class="index_f_item">
@@ -30,16 +30,16 @@
         <div class="index_f_mo_m" />
       </div>
     </div>
-    <div class="index_f_i_info">Support Modal</div>
+    <div class="index_f_i_info">{{TEXT[3]}}</div>
   </div>
 
   <div class="index_f_item">
     <div class="index_f_img">
       <div class="index_f_g">
-        <div class="index_f_g_i">Press Back Again to Exit</div>
+        <div class="index_f_g_i">{{TEXT[4]}}</div>
       </div>
     </div>
-    <div class="index_f_i_info">Graceful Exit</div>
+    <div class="index_f_i_info">{{TEXT._4_2}}</div>
   </div>
 
   <div class="index_f_b">
@@ -47,7 +47,7 @@
     <div class="index_f_img">
       <div class="index_f_b_a"></div>
     </div>
-    <div class="index_f_b_info">All Perfectly bind the physical back button</div>
+    <div class="index_f_b_info">{{TEXT[5]}}</div>
   </div>
 
 </div>
@@ -56,10 +56,14 @@
 
 
 export default {
-  props: ['lang'],
-  mounted(){
-    console.log(this)
-  }
+  props: {
+    TEXT: {
+      type: Object
+    }
+  },
+  // mounted(){
+  //   console.log(this)
+  // }
 }
 </script>
 <style>
@@ -245,7 +249,8 @@ export default {
 }
 .index_f_b_info {
   font-size: 13px;
-  
+  word-break: break-all;
+  white-space: pre-wrap;
   line-height: 1.5;
 }
 

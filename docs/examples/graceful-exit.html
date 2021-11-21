@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.css" />
+    <style>
+      html, body, .root{height: 100%;}
+      body {padding: 0; margin: 0; text-align: center; background-color: #ccc;}
+      .root{max-width: 798px; margin: 0 auto;}
+      a {cursor: pointer; color: #3eaf7c;}
+      a:active {background: #ccc;}
+      .tips {
+        position: fixed;
+        width: 100%;
+        text-align: center;
+        bottom: 20%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 9999;
+        text-align: center;
+        transition: all .3s;
+      }
+      .tips > span{
+        border-radius: 1em;
+        padding: .8em;
+        line-height: 1;
+        background-color: rgba(185, 185, 185, .7);
+      }
+      .fade-enter, .fade-leave-to{
+        opacity: 0;
+      }
+    </style>
+    <title>Press Back Again to Exit - example - history-navigation-vue</title>
+  </head>
+  <body>
+  <div id="app"></div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.js"></script>
+
+  <script type="text/x-template" id="tips">
+    <transition name="fade" mode="out-in">
+      <div class="tips" v-show="isShow">
+        <span>{{text}}</span>
+      </div>
+      </transition>
+  </script>
+
+  <script>
+    window.Vue.use(window.historyNavigationVue.plugin, {
+      pages: [
+        { path: '/', component: { template: "<h1>Press Back Again to Exit</h1>" } }
+      ],
+      onExit: againToExit(2000, 'Press Back Again to Exit')
+    });
+
+    function againToExit(interval, tips){
+      let isAgain = false;
+      return function handleExit(e){
+        if(e.isTabPage() || e.isHomePage()){
+          if(!isAgain){
+            e.preventDefault();
+            isAgain = true;
+            window.$simpleTips.tips(tips);
+            setTimeout(() => {
+              isAgain = false;
+            }, interval);
+          }
+        }
+      }
+    }
+    const SimpleTips = {
+      template: '#tips',
+      props: {
+        interval: {
+          type: Number,
+          default: 1500
+        }
+      },
+      data(){
+        return {
+          text: '',
+          isShow: false
+        }
+      },
+      methods: {
+        tips(text){
+          let $opt = this.$options;
+          if($opt._tmp_t){
+            clearTimeout($opt._tmp_t);
+            $opt._tmp_t = null;
+            this.isShow = false;
+          }
+          this.text = text;
+          this.$nextTick(() => {
+            this.isShow = true;
+            $opt._tmp_t = setTimeout(() => {
+                this.isShow = false;
+                $opt._tmp_t = null;
+            }, this.interval);
+          })
+        }
+      }
+    }
+    new window.Vue({
+      components: {
+        Tips: SimpleTips
+      },
+      el: '#app',
+      template: '<div class="root"><NavigationController /><Tips ref="tips" /></div>',
+      mounted(){
+        window.$simpleTips = this.$refs.tips;
+      }
+    });
+  </script>
+  </body>
+</html>

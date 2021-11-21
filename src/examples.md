@@ -7,16 +7,16 @@ sidebar: false
 All examples are **simple single HTML**.
 
 
-### Quick Example
-Mock Ajax & Load More Content On Scroll Down & TabBar.
+### Solve pain points
+Solve the pain point of the Normal Routers.
 <source-preview name="quick-example" />
 
 ### Base
 - Hello World!
-  <source-preview name="hello-world" />
-
-- Navigator.
   <source-preview name="two-pages" />
+
+<!-- - Navigator.
+  <source-preview name="two-pages" /> -->
 
 - Synchronize Document Title.
   <source-preview name="synchronize-document-title" />
@@ -49,11 +49,15 @@ Mock Ajax & Load More Content On Scroll Down & TabBar.
   <source-preview name="tabbar-position-top" />
 
 ### Modal
-- modal
+- Modal
 <source-preview name="modal" />
 
+### Exit
+- Press Back Again to Exit.
+<source-preview name="graceful-exit" />
+
 ### Transition
-- Simple Transition, No performance impact.
+- Simple Transition.
   <source-preview name="transition-simple" />
 
 <!-- - Transition With Amimate.css.

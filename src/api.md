@@ -63,14 +63,16 @@ The page list.
   pages: [
     {
       path: '/',
+      title: 'Home',
+      className: 'index',
+      style: { backgroundColor: '#eee' },
       component: {
-        template: '<h1>Hello Wrold!</h1>'
+        template: '<h1>Hello World!</h1>'
       }
     }
   ]
 }
 ```
-[Preview](https://hezedu.github.io/history-navigation-vue/examples/hello-world.html)
 ### notFoundPage
   - type: `NotFoundPageConfig`
     ```ts
@@ -218,6 +220,29 @@ This is global option of [transitionClass](#transitionclass).
 
 
 If you don't want any transition effect, Set it to `""`
+### homePagePath
+  - type: `string`
+  - default: First page's path.
+### onExit
+  - type: `function`
+
+**onExit(exitEvent)**
+- exitEvent
+
+  - type `ExitEvent`
+    ```ts
+    interface ExitEvent {
+      preventDefault: function, // Calling it will prevent exit.
+      isTabPage: function, 
+      isHomePage: function
+    }
+    ```
+Triggered when clicking back button to exit.
+
+*Example:* 
+
+[Press Back Again to Exit](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+
 ## `<NavigationController>`
 The root container view controller for management all pages.
 
@@ -234,6 +259,8 @@ The root container view controller for management all pages.
 
 <!-- Or directly set the style -->
 <NavigationController style="height: 100vh" />
+
+
 ```
 ___Props:___
 ### entryPagePath
@@ -245,7 +272,14 @@ Which page will appear first.
 
 Example: [Entry Page](https://hezedu.github.io/history-navigation-vue/examples/entry-page.html)
 
-
+__Slot:__
+When Browser cannot support HTML5 history API, will show. There will be some built-in tips by default.
+You can customize it.
+```html
+<NavigationController>
+  Error, not has HTML5 history API.
+</NavigationController>
+```
 ## $page
   - type: `Vue instance`
 

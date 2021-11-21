@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.1.2/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.css" />
     <style>
       html, body, .root{height: 100%;}
       body {padding: 0; margin: 0; text-align: center; background-color: #ccc;}
@@ -10,15 +10,10 @@
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
       /* transition */
-      .h-nav-behavior-push > .h-nav-transition,
-      .h-nav-behavior-back > .h-nav-transition,
-      .h-nav-behavior-replace > .h-nav-transition{
-        transition: all .3s ease;
-      }
-      .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
-      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
-      .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
-        transform: translateX(100%);
+
+      .h-nav-behavior-push > .h-nav-transition > .h-nav-page-leave-to,
+      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter {
+        transform: translateX(-33%);
       }
       /* transition end */
       .loading, .not-more{
@@ -60,7 +55,7 @@
   <body>
   <div id="app"></div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.1.2/dist/history-navigation-vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.js"></script>
   
   <script type="text/x-template" id="index">
     <div>

@@ -5,25 +5,28 @@
 
 **history-navigation-vue** 是一个原生体验的 web 端页面导航， 它基于 HTML5 [History](https://developer.mozilla.org/en-US/docs/Web/API/History)， 由 [Vue](https://vuejs.org/) 实现。
 - 它是在单页面上的多页架构。
-- 它旨在解决单页面应用的痛点(详见 [和普通单页面应用对比](/zh/#index-compared))。
 - 它支持 Tabbar 模式。
 - 它支持 Modal 模式。
+- 它支持 "再按一次退出程序"。
 - 它可以随意设置过渡效果。
 - 它和浏览器/系统的**回退键**完美结合。
-- 它很小， 6.83 KiB min+gzip(CSS + JS)
+- 它很小， 不到 8 KiB min+gzip(CSS + JS)
 
-<!-- 你可以开心的用它来构建原生体验的现代 web apps。 -->
 
 ## 兼容性
 ### 浏览器 / Webview
-history-navigation-vue 需要 HTML5 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) 并且没有备用措施。一些很老的浏览器可能不支持。你最好给个提示：
+history-navigation-vue 需要 HTML5 [History API](https://developer.mozilla.org/en-US/docs/Web/API/History) 并且没有备用措施。
+
+
+<!-- 一些很老的浏览器可能不支持。你最好给个提示：
 ```js
 if(!history || !history.pushState){
   var error = "Sorry, You Your browser doesn't support history";
   document.write(error.message);
   throw error;
 }
-```
+``` -->
+
 ### Vue
 需要 **2.1.8+**. 
 
@@ -44,69 +47,49 @@ import * as historyNavigationVue from 'history-navigation-vue';
 编译好的文件在包含在 npm 包的 `dist` 目录下：
 ```html
 <!-- css -->
-<link rel="stylesheet" href="..somedir/dist/history-navigation-vue.min.css" />
+<link rel="stylesheet" href="..somedir/history-navigation-vue.min.css" />
 <!-- js -->
-<script src="..somedir/dist/history-navigation-vue.min.js"></script>
+<script src="..somedir/history-navigation-vue.min.js"></script>
 ```
 
 ## 教程
-### Hello Wrold
-- 首先你需要设置一下全局配置，它是以 Vue 插件形式引入的，配置的 pages 选项必须:
-  ```js
-  Vue.use(historyNavigationVue.plugin, {
-    pages: [
-      {
-        path: '/',
-        component: {
-          template: '<h1>Hello Wrold!</h1>'
-        }
-      }
-    ]
-  });
-  ```
-- 你将会得到一个全局组件： `<NavigationController>`. 它就是根容器，把它放到模版里:
+### Hello World
+- 首先你需要设置一下全局配置，它是以 Vue 插件形式引入的。
+- 你将会得到一个全局组件：`<NavigationController>`, 它是根容器。
+- 你还会得到一个全局组件： `<Navigator>`, 有了它，你可以在不同页面跳转了。
 ```js
+window.Vue.use(window.historyNavigationVue.plugin, 
+{
+  pages: [
+    {
+      path: '/',
+      component: {
+        template: `<div>
+          <h1>Hello</h1>
+          <Navigator url="/detail">To Detail</Navigator>
+        </div>`
+      }
+    },
+    {
+      path: '/detail',
+      component: {
+        template: `<div>
+          <h1>World!</h1>
+          <Navigator type="back">Back</Navigator>
+        </div>`
+      }
+    }
+  ]
+});
 new window.Vue({
   el: '#app',
-  template: '<NavigationController />'
+  template: '<NavigationController class="root" />'
 });
 ```
-完成了! 
-
-<!-- Example: [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/hello-world.html)  -->
-[预览](https://hezedu.github.io/history-navigation-vue/examples/hello-world.html) 
-<!-- [Go here to see Simple Single HTML Example](/examples.html#hello-world) -->
-
-### 不同的页面跳转
-你还会得到一个全局组件： `<Navigator>`, 有了它，你可以在不同页面跳转了。
-
-添加一个新页面 **/detail** 然后修改 `config.pages`:
-
-```js{7,16}
-[
-  {
-    path: '/',
-    component: {
-      template: `<div>
-        <h1>Hello Wrold!</h1>
-        <Navigator url="/detail">To Detail</Navigator>
-      </div>`
-    }
-  },
-  {
-    path: '/detail',
-    component: {
-      template: `<div>
-        <h1>Detail</h1>
-        <Navigator type="back">Back</Navigator>
-      </div>`
-    }
-  }
-]
-```
-完成了! 
-
 [预览](https://hezedu.github.io/history-navigation-vue/examples/two-pages.html)
+
+
+
 
 
 ### Tabbar
@@ -137,31 +120,103 @@ new window.Vue({
   }
 }
 ```
-完成了! 
-
-<!-- simple single HTML Example -->
-<!-- [Source](https://github.com/hezedu/history-navigation-vue/tree/main/docs/examples/tabbar.html) -->
 [预览](https://hezedu.github.io/history-navigation-vue/examples/tabbar.html)
 
 
+
+### Modal
+你想要轻松获得一个按后退键能关闭的模态框么？
+```html{11-19,24-29}
+<script type="text/x-template" id="modal">
+  <div class="modal">
+    <div class="modal-mask" @click="closeModal" />
+    <div class="modal-main">
+      <h1>{{text}}</h1>
+      <button style="font-size: 20px;" @click="close">Close</button>
+    </div>
+  </div>
+</script>
+<script>
+var Modal = {
+  props: ['text'],
+  template: '#modal',
+  methods: {
+    close(){
+      this.$navigator.back();
+    }
+  }
+};
+var Index = {
+  template : '<button @click="showModal">showModal</button>',
+  methods: {
+    showModal(){
+        this.$navigator.modal({
+            component: Modal
+            propsData: {
+              text: 'Hello Modal!'
+            }
+      });
+    }
+  }
+}
+// ...
+</script>
+```
+[预览](https://hezedu.github.io/history-navigation-vue/examples/modal.html)
+
+### 再按一次退出程序
+你想在 PWA 上也能 “再按一次退出程序” 么？
+```js{10,13-27}
+var config = {
+  pages: [
+    {
+      path: '/',
+      component: {
+        template: '<h1>Press Back Again to Exit</h1>'
+      }
+    }
+  ],
+  onExit: againToExit(2000, 'Press Back Again to Exit')
+}
+
+function againToExit(interval, tips){
+  let isAgain = false;
+  return function handleExit(e){
+    if(e.isTabPage() || e.isHomePage()){
+      if(!isAgain){
+        e.preventDefault();
+        isAgain = true;
+        window.$simpleTips.tips(tips);
+        setTimeout(() => {
+          isAgain = false;
+        }, interval);
+      }
+    }
+  }
+}
+// ...
+```
+[预览](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+
 ### 过渡
-默认，本项目不提供任何过渡效果。但我们提供强大的基于 CSS 的 API。你可以全局配置，也可以在跳转时设置。
-::: 注意
-请确保性能安全，如果你不精通 CSS 过渡/过画，很容易造成卡顿。那么还不如不设。
+默认，本项目提供一些简单过渡效果。 你可以改变它, 只需修改 CSS.
+::: warning
+请注意性能问题，尤其是在移动端。
 :::
 
-#### 示例
-性能安全的过渡:
-```css
+#### Example
+```css{3,11}
 .h-nav-behavior-push > .h-nav-transition,
-.h-nav-behavior-back > .h-nav-transition,
-.h-nav-behavior-replace > .h-nav-transition{
-  transition: all .3s ease;
+.h-nav-behavior-back > .h-nav-transition{
+  transition: all 1s ease;
 }
-
 .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
-.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
-.h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to{
   transform: translateX(100%);
 }
+.h-nav-behavior-push > .h-nav-transition > .h-nav-page-leave-to,
+.h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter {
+  transform: translateX(-33%);
+}
 ```
+[预览](https://hezedu.github.io/history-navigation-vue/examples/transition-simple.html)

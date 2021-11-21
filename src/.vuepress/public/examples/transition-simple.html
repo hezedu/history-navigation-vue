@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.1.2/dist/history-navigation-vue.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" />
     <link rel="stylesheet" href="./animate.css" />
     <style>
@@ -11,18 +11,19 @@
       .root{max-width: 798px; margin: 0 auto;}
       a {cursor: pointer; color: #3eaf7c;}
       a:active {background: #ccc;}
-
+      .detail {background-color: #ddd;}
       /* Added loaded */
       .h-nav-behavior-push > .h-nav-transition,
-      .h-nav-behavior-back > .h-nav-transition,
-      .h-nav-behavior-replace > .h-nav-transition{
-        transition: all .3s ease;
+      .h-nav-behavior-back > .h-nav-transition{
+        transition: all 1s ease;
       }
-
       .h-nav-behavior-push > .h-nav-transition > .h-nav-page-enter,
-      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to,
-      .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-enter {
+      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to{
         transform: translateX(100%);
+      }
+      .h-nav-behavior-push > .h-nav-transition > .h-nav-page-leave-to,
+      .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter {
+        transform: translateX(-33%);
       }
     </style>
     <title>Simple Transition</title>
@@ -30,7 +31,7 @@
   <body>
   <div id="app"></div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.1.2/dist/history-navigation-vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/history-navigation-vue@1.3.1/dist/history-navigation-vue.min.js"></script>
   
   <script type="text/x-template" id="index">
     <div>
@@ -41,7 +42,7 @@
       <br>
       <br>
       
-      <Navigator url="/" type="replace">Replace Self</Navigator>
+      <!-- <Navigator url="/" type="replace">Replace Self</Navigator> -->
       <br>
     </div>
   </script>

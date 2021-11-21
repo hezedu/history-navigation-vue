@@ -11,8 +11,6 @@ sidebar: false
 <source-preview name="quick-example" />
 
 ### 基础
-- Hello World!
-  <source-preview name="hello-world" />
 
 - 导航器。
   <source-preview name="two-pages" />
