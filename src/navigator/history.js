@@ -450,6 +450,7 @@ History.prototype.handlePop = function(e){
     if(this._exitImmediately){
       console.log('_exitImmediately exit');
       this._history.back();
+      window.close(); 
     } else {
       console.log('not _exitImmediately');
       this._history.forward();
