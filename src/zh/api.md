@@ -240,6 +240,9 @@ type: `Function`
     }
     ```
 当按后退键将要退出时触发。
+::: warning
+在Chrome(Safari 没准也是) 中，需要用户和 document 交互一次(比如 mousedown, touchstart)才起作用。
+:::
 *示例:* 
 
 [再按一次退出程序](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)

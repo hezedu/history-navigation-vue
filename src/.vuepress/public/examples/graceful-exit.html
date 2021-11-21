@@ -45,11 +45,18 @@
       </div>
       </transition>
   </script>
-
+  <script type="text/x-template" id="index">
+    <div>
+      <h1>Press Back Again to Exit</h1>
+      <p style="background-color: yellow; margin: 0 20px; padding: 10px;">
+      In </b>Chrome</b> (and maybe safari too),User needs to interact(for example: mousedown, touchstart) with the document once to work.
+      </p>
+    </div>
+  </script>
   <script>
     window.Vue.use(window.historyNavigationVue.plugin, {
       pages: [
-        { path: '/', component: { template: "<h1>Press Back Again to Exit</h1>" } }
+        { path: '/', component: { template: "#index" } }
       ],
       onExit: againToExit(2000, 'Press Back Again to Exit')
     });

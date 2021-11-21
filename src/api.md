@@ -238,7 +238,9 @@ If you don't want any transition effect, Set it to `""`
     }
     ```
 Triggered when clicking back button to exit.
-
+::: warning
+In Chrome (and maybe safari too),User needs to interact(for example: mousedown, touchstart) with the document once to work.
+:::
 *Example:* 
 
 [Press Back Again to Exit](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
