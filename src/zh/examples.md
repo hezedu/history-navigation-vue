@@ -6,13 +6,13 @@ sidebar: false
 <!-- ## Simple Single HTML -->
 所有示例都是**单 HTML** 文件。
 
-### 快速示例
-模拟 Ajax & 触底加载 & TabBar。
+### 解决痛点
+解决了普通单页面路由的痛点。
 <source-preview name="quick-example" />
 
 ### 基础
 
-- 导航器。
+- Hello World!
   <source-preview name="two-pages" />
 
 - 同步 Document Title.
@@ -49,6 +49,10 @@ sidebar: false
 - modal
 <source-preview name="modal" />
 
+### 退出
+- 再按一次退出程序。
+<source-preview name="graceful-exit" />
+
 ### 过渡
-- 简单的过渡效果，安全的性能。
+- 简单的过渡效果。
   <source-preview name="transition-simple" />

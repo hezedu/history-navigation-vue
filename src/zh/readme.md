@@ -17,7 +17,7 @@ sidebar: false
 ---
 <custom-index :TEXT="{1: '多页架构', 2: '支持 Tabbar', 3: '支持 Modal', 4: '再按一次退出程序', _4_2: '优雅的退出', 5: '所有都完美绑定\n物理后退键'}" />
 
-<h2 id="index-compared" class="index-h2-c">和普通路由对比</h2>
+<h2 id="index-compared" class="index-h2-c">解决了单页面普通路由的痛点</h2>
 
 <!-- - **Normal single-page apps:** When it back to the list page from the details page, The list page has to be recreated, and the API is requested again, and the scroll bar goes to the top.
 - **Use history-navigation-vue:** When it back to the list page from the details page, list page everything remains the same, and has the corresponding transition effect. -->

@@ -17,9 +17,9 @@ home: true
 footer: MIT Licensed | Copyright © 2021-present hezedu
 sidebar: false
 ---
-<custom-index :TEXT="{1: 'Multi-Page Architecture', 2: 'Support Tabbar', 3: 'Support Modal', 4: 'Press Back Again to Exit', _4_2: 'Graceful Exit', 5: 'All Perfectly bind the physical back button'}" />
+<custom-index :TEXT="{1: 'Multi-Page Architecture', 2: 'Support Tabbar', 3: 'Support Modal', 4: 'Press Back Again to Exit', _4_2: 'Graceful Exit', 5: 'All Perfectly bind the\nphysical back button'}" />
 
-<h2 id="index-compared" class="index-h2-c">Solve the pain point of the Normal Routers</h2>
+<h2 id="index-compared" class="index-h2-c">Solve the pain point of the single-page normal routers</h2>
 
 <!-- - **Normal single-page apps:** When it back to the list page from the details page, The list page has to be recreated, and the API is requested again, and the scroll bar goes to the top.
 - **Use history-navigation-vue:** When it back to the list page from the details page, list page everything remains the same, and has the corresponding transition effect. -->

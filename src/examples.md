@@ -8,7 +8,7 @@ All examples are **simple single HTML**.
 
 
 ### Solve pain points
-Solve the pain point of the Normal Routers.
+Solve the pain point of the single-page normal routers.
 <source-preview name="quick-example" />
 
 ### Base
