@@ -37,7 +37,7 @@
 } */
 
 
-.h-nav-tab-behavior-reduce > .h-nav-transition,
+/* .h-nav-tab-behavior-reduce > .h-nav-transition,
 .h-nav-tab-behavior-increase > .h-nav-transition{
   transition: all .3s ease;
 }
@@ -68,7 +68,7 @@
 .h-nav-behavior-back > .h-nav-transition > .h-nav-page-enter,
 .h-nav-behavior-replace > .h-nav-transition > .h-nav-page-leave-to{
   transform: translateX(-33%);
-}
+} */
 
 /* .h-nav-behavior-back > .h-nav-transition > .h-nav-page-leave-to{
 
