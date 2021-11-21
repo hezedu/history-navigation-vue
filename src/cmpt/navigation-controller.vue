@@ -41,6 +41,11 @@
         ></Page>
         
     </div>
+
+    <div class="h-nav-not-support" key="not_support" v-if="isErr">
+      <slot><h1>history-navigation-vue</h1>
+      <p>Sorry, Your browser doesn't support HTML history API.</p></slot>
+    </div>
 </transition-group>
 
 </template>
@@ -62,6 +67,7 @@ export default {
   data(){
     const _h = this.$navigator._h;
     return {
+      isErr: false,
       isFirstLoad: true,
       stackMap: _h.stackMap,
       behavior: _h.behavior,
@@ -79,7 +85,12 @@ export default {
     }
   },
   created(){
-    this.$navigator._h._load(this.entryPagePath);
+    const _h = this.$navigator._h;
+    if(!_h.checkCompatibility()){
+      this.isErr = true;
+      return;
+    }
+    _h._load(this.entryPagePath);
     this.$nextTick(() => {
       this.isFirstLoad = false;
     });

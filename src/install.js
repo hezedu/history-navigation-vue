@@ -68,7 +68,7 @@ export default function install(_Vue, config) {
   def(globalOption, config, 'navigatorTriggerEvent', DEF_NAVIGATOR_TRIGGER_EVENT);
   def(globalOption, config, 'transition', DEF_TRANSITION);
   def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
-  
+  def(globalOption, config, 'homePagePath', config.pages[0].path);
 
   const options = {
     global: globalOption,

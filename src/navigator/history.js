@@ -1,6 +1,6 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
-import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME} from './state-key';
+import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME, isUserPopPush} from './state-key';
 import { throwErr } from '../util';
 const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
@@ -16,7 +16,6 @@ function History(opt){
   this._exitImmediately = true;
   this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
-  console.log('opt.global.againToExit', opt.global.againToExit);
   this.uniteVue = opt.uniteVue;
   if(!this._history || !this._history.pushState){
     throwErr('required history.pushState API');
@@ -39,8 +38,8 @@ function History(opt){
   this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
-  this._popstateHandle = () => {
-    this.handlePop();
+  this._popstateHandle = (e) => {
+    this.handlePop(e);
   }
 
   this.behavior = {
@@ -67,6 +66,12 @@ function History(opt){
     route: {}
   }
   // this.fitVue$3(); // FIT_VUE_3_SWITCH
+}
+History.prototype.checkCompatibility = function(){
+  if(this._history && this._history.pushState){
+    return true;
+  }
+  return false;
 }
 
 History.prototype._onRouted = function(){
@@ -175,7 +180,7 @@ History.prototype.switchTab = function(userUrl){
   // }
   const { fullParse, tra } = this._forMatInputArg(userUrl);
   if(!this._isTabRoute(fullParse.trimedPath)){
-    console.error(userUrl + ' is not tab url');
+    console.error(fullParse, ' is not tab url');
     return;
   }
 
@@ -321,6 +326,7 @@ History.prototype._replace = function(fullParse, behavior, _distance){
       this.uniteVue.nextTick(() => {
         this._clearAll();
         this._setMapItem(key, fullParse);
+        this._onRouted();
       })
       
     } else {
@@ -408,17 +414,34 @@ History.prototype._clearAll = function(){
   this._clearMap(this.stackMap);
 }
 
-History.prototype.handlePop = function(){
+History.prototype.handlePop = function(e){
   const preKey = getPreStateKey();
+  
+  const isPopPush = isUserPopPush();
+  if(isPopPush){
+    let _popPushKey = preKey + 1;
+    this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
+    setPreStateKey(_popPushKey);
+    this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
+    console.log('_popPushKey', _popPushKey);
+    return;
+  }
   const currKey = getCurrentStateKey();
   const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
+  console.log('handlePop', behavior, compare, currKey, preKey, window.history.state, e)
   const isZero = currKey === 0;
   const isBack = behavior === 'back';
   if(isZero && isBack){
     const _prePage = this.stackMap[preKey];
     if(_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey){
       this.onExit({
+        isTabPage: () => {
+          return _prePage.isTab
+        },
+        isHomePage: () => {
+          return _prePage.path === this._global.homePagePath;
+        },
         preventDefault: () => {
           this._exitImmediately = false;
         }
@@ -564,8 +587,10 @@ History.prototype.removeModalKeyWhenBackPage = function(){
 }
 
 History.prototype.destroy = function(){
-  this._window.removeEventListener('popstate', this._popstateHandle);
-  isCreated = false;
+  if(isCreated){
+    this._window.removeEventListener('popstate', this._popstateHandle);
+    isCreated = false;
+  }
 }
 
 // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
