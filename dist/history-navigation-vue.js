@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.3.3
+  * history-navigation-vue v1.3.2
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1766,9 +1766,9 @@ History.prototype.handlePop = function (e) {
     }
 
     if (this._exitImmediately) {
-      window.close();
-
       this._history.back();
+
+      window.close();
     } else {
       this._history.forward();
     }
@@ -2279,7 +2279,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.3.3';
+var version = '1.3.2';
 
 /***/ })
 /******/ ]);
