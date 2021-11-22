@@ -1,11 +1,11 @@
 <template>
 <span>
   
-  <a :href="'https://hezedu.github.io/history-navigation-vue/examples/' + name + '.html'" target="_blank" rel="noopener noreferrer">Preview<span class="open_new_win_icon"></span></a>
+  <a :href="'/history-navigation-vue/examples/' + name + '.html'" target="_blank" rel="noopener noreferrer">Preview<span class="open_new_win_icon"></span></a>
 
     &nbsp;&nbsp;&nbsp;
 
-  <a :href="'https://github.com/hezedu/history-navigation-vue/blob/gh-pages/docshttps://hezedu.github.io/history-navigation-vue/examples/' + name + '.html'" target="_blank" rel="noopener noreferrer" style="margin-right: 0.5em;">Source Code<span class="open_new_win_icon"></span></a>
+  <a :href="'https://github.com/hezedu/history-navigation-vue/blob/gh-pages/docs/examples/' + name + '.html'" target="_blank" rel="noopener noreferrer" style="margin-right: 0.5em;">Source Code<span class="open_new_win_icon"></span></a>
 </span> 
 </template>
 <script>
