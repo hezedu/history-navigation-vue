@@ -45,21 +45,21 @@ export default {
     document.title = e.title;
     console.log(history.length)
   },
-  onExit: againToExit(2000, 'Press Back Again to Exit')
+  // onExit: againToExit(2000, 'Press Back Again to Exit')
 }
 
-function againToExit(interval, tips){
-  let isAgain = false;
-  return function handleExit(e){
-    if(e.isTabPage() || e.isHomePage()){
-      if(!isAgain){
-        e.preventDefault();
-        isAgain = true;
-        window.$simpleTips.tips(tips);
-        setTimeout(() => {
-          isAgain = false;
-        }, interval);
-      }
-    }
-  }
-}
+// function againToExit(interval, tips){
+//   let isAgain = false;
+//   return function handleExit(e){
+//     if(e.isTabPage() || e.isHomePage()){
+//       if(!isAgain){
+//         e.preventDefault();
+//         isAgain = true;
+//         window.$simpleTips.tips(tips);
+//         setTimeout(() => {
+//           isAgain = false;
+//         }, interval);
+//       }
+//     }
+//   }
+// }
