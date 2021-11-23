@@ -45,6 +45,11 @@ export default {
     document.title = e.title;
     console.log(history.length)
   },
+  backAgainToExit: {
+    onFirstTrigger(){
+      window.$simpleTips.tips('Press Back Again to Exit');
+    }
+  }
   // onExit: againToExit(2000, 'Press Back Again to Exit')
 }
 

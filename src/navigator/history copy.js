@@ -1,7 +1,7 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME, isUserPopPush} from './state-key';
-import { throwErr, noop } from '../util';
+import { throwErr } from '../util';
 const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
 function History(opt){
@@ -13,16 +13,11 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
-  // this._exitImmediately = false;
-  this._BAETimer = null;
-  this._BAEWhenForwardInfo = null;
-  this._BAEWhenBackInfo = null;
-  if(opt.backAgainToExit){
-    this.backAgainToExit = Object.assign({
-      maxInterval: 2000,
-      onFirstTrigger: noop
-    }, opt.backAgainToExit);
-  }
+  
+  this._exitImmediately = true;
+  this._isPushedZero = false;
+  this.backAgainToExit = opt.backAgainToExit;
+
   this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   this.uniteVue = opt.uniteVue;
@@ -62,8 +57,10 @@ function History(opt){
     title: null,
     className: undefined,
 
-    isHome: false,
+
     isTab: false,
+    isHome: false,
+
     tabIndex: null,
     cmptKey: null,
 
@@ -127,48 +124,48 @@ History.prototype._forMatInputArg = function(opt){
   };
 }
 
-History.prototype._isHomeOrTab = function(trimedPath){
+
+
+History.prototype._isNeedFromZero = function(trimedPath){
+  if(!this.backAgainToExit || this._isPushedZero){
+    return false;
+  }
   const page = this.pageMap[trimedPath];
-  if(page && (page.isHome || page.isTab)){
+  if(page.isHome || page.isTab){
     return true;
   }
   return false;
 }
 
-History.prototype._isBAE = function(trimedPath){
-  console.log('backAgainToExit', this.backAgainToExit, trimedPath)
-  if(this.backAgainToExit){
-    if(this._isHomeOrTab(trimedPath)){
-      return true;
-    }
-  }
-  return false;
+History.prototype._isHomePage = function(trimedPath){
+  return this.pageMap[trimedPath].isHome;
 }
 
 History.prototype._load = function(userUrl){
-
+  console.log('_load', history.state);
+  this._window.addEventListener('popstate', this._popstateHandle);
   const _userUrl = userUrl === undefined ? 
       this.URL.getUrlByLocation() : 
       userUrl;
   const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
-  console.log('currRoute', currRoute)
+  
   if(key === 0){
-    if(this._isBAE(currRoute.trimedPath)){
-      console.log('[BAE load]: start');
+    const nextKey = genStateKey();
+    console.log('this.pageMap', this.pageMap)
+    if(this._isNeedFromZero(currRoute.trimedPath)){
+      console.log('[Zero first load]: start');
       this._history.replaceState({[KEY_NAME]: key}, '');
-      console.log('[BAE load]: init state ok', history.state);
-      const nextKey = genStateKey();
+      console.log('[Zero first load]: init state ok', history.state);
       this._history.pushState({[KEY_NAME]: nextKey}, '');
-      setPreStateKey(nextKey);
-      console.log('[BAE load]: push state ok', history.state);
+      this._isPushedZero = true;
     } else {
-      const nextKey = genStateKey();
-      this._history.replaceState({[KEY_NAME]: nextKey, _h_n_n_0: 1}, '');
-      setPreStateKey(nextKey);
+      this._history.replaceState({[KEY_NAME]: nextKey}, '');
     }
+    setPreStateKey(nextKey);
+
   } else {
-    this.clearModalWhenLoad();
+    this.clearModalWhenLoad(); 
     if(key !== 1){
       if(this._isTabRoute(currRoute.trimedPath)){
         this._backToStartAndReplace(currRoute, 'loaded');
@@ -177,9 +174,6 @@ History.prototype._load = function(userUrl){
     }
   }
 
-  this._window.addEventListener('popstate', this._popstateHandle);
-
-  // console.log('_load', history.state);
   // if(key === 0){
   //   console.log('[first load]: start');
   //   this._history.replaceState({[KEY_NAME]: key}, '');
@@ -284,8 +278,8 @@ History.prototype._setMapItem = function(key, route){
     tabIndex: page.tabIndex,
     route,
     cmptKey: page.cmptKey,
-    isHome: page.isHome,
     isTab: page.isTab,
+    isHome: page.isHome,
     stateKey: key,
     className: page.className,
     style: page.style,
@@ -315,12 +309,6 @@ History.prototype._getBackTra = function(){
 }
 
 History.prototype._push = function(fullParse, tra){
-  this._clearBAE();
-  const currKey = getCurrentStateKey();
-  if(currKey === 0){
-    this._forwardAndCall('_push', arguments);
-    return;
-  }
   /* 
     from [vue-router]
     try...catch the pushState call to get around Safari
@@ -334,7 +322,7 @@ History.prototype._push = function(fullParse, tra){
     if(tra){
       state[BACK_TRA_PROP_KEY] = tra;
     } else {
-      delete state[BACK_TRA_PROP_KEY];
+      delete(state[BACK_TRA_PROP_KEY]);
     }
     
     this._history.replaceState(state, '');
@@ -355,60 +343,7 @@ History.prototype._push = function(fullParse, tra){
   this._onRouted();
 }
 
-History.prototype._forwardAndCall = function(method, args){
-  this._BAEWhenForwardInfo = {
-    method,
-    args
-  }
-  console.log('_forwardAndCall')
-  this._history.forward();
-}
-
-History.prototype._backAndApply = function(method, args){
-  this._BAEWhenBackInfo = {
-    method,
-    args
-  }
-  this._history.back();
-}
-
-History.prototype._BAEZeroReplaceNormal = function(fullParse){
-  const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
-  this._history.replaceState({KEY_NAME: 1, _h_n_n_0: 1}, '', toUrl);
-  this._replace.apply(this, arguments);
-}
-
 History.prototype._replace = function(fullParse, behavior, _distance){
-  this._clearBAE();
-  const key = getCurrentStateKey();
-
-  if(key === 0){
-    this._forwardAndCall('_replace', arguments);
-    return;
-  }
-
-  const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
-
-  let state =  this._history.state;
-  if(key === 1){
-    const isBAE = this._isBAE(fullParse.trimedPath);
-    if(isBAE){
-      if(state && state._h_n_n_0){
-        this._history.replaceState({KEY_NAME: 0}, '', toUrl);
-        state = Object.assign({}, state);
-        delete state._h_n_n_0;
-        this._history.pushState(state, '', toUrl);
-      }
-    } else {
-      if(state && !state._h_n_n_0){
-        state = Object.assign({}, state);
-        this._history.replaceState({KEY_NAME: key, _h_n_f_1: 1}, '');
-        this._backAndApply('_BAEZeroReplace', arguments);
-        return;
-      }
-    }
-  } 
-
   const distance = _distance === undefined ? 0 : _distance;
   const newBehavior = {
     type: behavior || 'replace',
@@ -416,23 +351,19 @@ History.prototype._replace = function(fullParse, behavior, _distance){
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
-  
+  const key = getCurrentStateKey();
 
   if(this.behavior.type !== 'switchtab' || distance){
     // unactive currentPage
     this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
   }
-  
-  
+  const toUrl = this.URL.toLocationUrl(fullParse.fullPath);
+  let state =  this._history.state;
   if(!state || !state[KEY_NAME]){
     state = Object.assign({}, history.state);
     state[KEY_NAME] = key;
-  } else {
-    state = Object.assign({}, history.state);
   }
-
-  delete state._h_nav_modal_i;
-
+  
   this._history.replaceState(state, '', toUrl);
 
   this.uniteVue.nextTick(() => {
@@ -531,116 +462,55 @@ History.prototype._clearAll = function(){
   this._clearMap(this.stackMap);
 }
 
-History.prototype._clearBAE = function(){
-  if(this._BAETimer){
-    clearTimeout(this._BAETimer);
-    this._BAETimer = null;
-  }
-}
-
-History.prototype._setBAE = function(){
-  this._clearBAE();
-  const { maxInterval, onFirstTrigger } = this.backAgainToExit;
-  onFirstTrigger();
-
-  this._BAETimer = setTimeout(() => {
-    this._BAETimer = null;
-    this._history.forward();
-  }, maxInterval);
-}
-
-// History.prototype._isBAEByStateKey = function(stateKey){
-//   if(this.backAgainToExit){
-//     const page = this.stackMap[stateKey];
-//     if(page && page.isHome || this._isTabRoute()){
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-History.prototype._popPush = function(){
-  this._clearBAE();
-  const preKey = getPreStateKey();
-  if(preKey === 0){
-    this._forwardAndCall('_popPush');
-    return;
-  }
-  let _popPushKey = preKey + 1;
-  this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
-  setPreStateKey(_popPushKey);
-  this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
-}
-
 History.prototype.handlePop = function(e){
-
+  const preKey = getPreStateKey();
+  
   const isPopPush = isUserPopPush();
   if(isPopPush){
-    this._popPush();
+    let _popPushKey = preKey + 1;
+    this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
+    setPreStateKey(_popPushKey);
+    this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
+    console.log('_popPushKey', _popPushKey);
     return;
   }
-
-  const preKey = getPreStateKey();
   const currKey = getCurrentStateKey();
   const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
+  console.log('handlePop', behavior, compare, currKey, preKey, window.history.state, e)
   const isZero = currKey === 0;
   const isBack = behavior === 'back';
-  if(!isBack && currKey === 1 && preKey === 0){ // !BAE forward
-    setPreStateKey(currKey);
-    console.log('BAE Forward Start');
-    this._clearBAE();
-    const fInfo = this._BAEWhenForwardInfo;
-    if(fInfo){
-      this[fInfo.method].apply(this, fInfo.args);
-      this._BAEWhenForwardInfo = null;
+  if(isZero && isBack){
+    const _prePage = this.stackMap[preKey];
+    if(_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey){
+      this.onExit({
+        isTabPage: () => {
+          return _prePage.isTab
+        },
+        isHomePage: () => {
+          return _prePage.path === this._global.homePagePath;
+        },
+        preventDefault: () => {
+          this._exitImmediately = false;
+        }
+      });
     }
-    return;
-  }
-
-  if(isBack && isZero){ // !BAE back
-    setPreStateKey(currKey);
-    const bInfo = this._BAEWhenBackInfo;
-    if(bInfo){
-      this[bInfo.method].apply(this, bInfo.args);
-      this._BAEWhenBackInfo = null;
-      return;
-    }
-    if(!this._BAETimer){
-      this._setBAE();
+    if(this._exitImmediately){
+      console.log('_exitImmediately exit');
+      this._history.back();
+      window.close(); 
     } else {
-      this._clearBAE(); // exit;
+      console.log('not _exitImmediately');
+      this._history.forward();
     }
+    this._exitImmediately = true;
+    
     return;
   }
 
-  // if(isZero && isBack){
-  //   const _prePage = this.stackMap[preKey];
-  //   if(_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey){
-  //     this.onExit({
-  //       isTabPage: () => {
-  //         return _prePage.isTab
-  //       },
-  //       isHomePage: () => {
-  //         return _prePage.path === this._global.homePagePath;
-  //       },
-  //       preventDefault: () => {
-  //         this._exitImmediatel3y = false;
-  //       }
-  //     });
-  //   }
-  //   if(this._exitImmediatel3y){
-  //     console.log('_exitImmediatel3y exit');
-  //     this._history.back();
-  //     window.close(); 
-  //   } else {
-  //     console.log('not _exitImmediatel3y');
-  //     this._history.forward();
-  //   }
-  //   this._exitImmediatel3y = true;
-    
-  //   return;
-  // }
-  this._clearBAE();
+  if(!isBack && preKey === 0){
+    console.log('forward');
+  }
 
   if(preKey === currKey && this._history.state){
     const modalKey = this._history.state._h_nav_modal_i;
@@ -706,13 +576,7 @@ History.prototype.handlePop = function(e){
 }
 
 History.prototype.modal = function({component, propsData, parent, success}){
-  this._clearBAE();
   const key = getCurrentStateKey();
-  if(key === 0){
-    this._forwardAndCall('modal', arguments);
-    return;
-  }
-
   const page = this.stackMap[key];
   const state = this._history.state;
   let modalKey = state._h_nav_modal_i;
@@ -767,14 +631,13 @@ History.prototype.clearModalWhenLoad = function(){
 
 History.prototype.removeModalKeyWhenBackPage = function(){
   const newState = Object.assign({}, this._history.state);
-  delete newState._h_nav_modal_i;
+  delete(newState._h_nav_modal_i);
   this._history.replaceState(newState, '');
 }
 
 History.prototype.destroy = function(){
   if(isCreated){
     this._window.removeEventListener('popstate', this._popstateHandle);
-    this._clearBAE();
     isCreated = false;
   }
 }
