@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.3.2
+  * history-navigation-vue v1.4.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1206,7 +1206,7 @@ function getCurrentStateKey() {
     return state[KEY_NAME];
   }
 
-  return 0;
+  return 1;
 }
 function genStateKey() {
   return getCurrentStateKey() + 1;
@@ -1219,20 +1219,16 @@ function getPreStateKey() {
 }
 function setPreStateKey(key) {
   _preKey = key;
-}
-function isUserPopPush() {
-  // User manually enters the address bar
-  var state = nativeHistory.state;
-  var hasKey;
-
-  if (!state) {
-    hasKey = false;
-  } else {
-    hasKey = typeof state[KEY_NAME] === 'number';
-  }
-
-  return _preKey > 0 && !hasKey;
-}
+} // export function isUserPopPush () { // User manually enters the address bar
+//   const state = nativeHistory.state;
+//   let hasKey; 
+//   if(!state){
+//     hasKey = false;
+//   } else {
+//     hasKey = typeof state[KEY_NAME] === 'number';
+//   }
+//   return _preKey > 0 && !hasKey;
+// }
 // CONCATENATED MODULE: ./util.js
 function noop() {}
 function def(dest, src, key, defValue) {
@@ -1278,18 +1274,15 @@ function History(opt) {
   this._global = opt.global;
   this._window = nativeWindow;
   this._history = nativeHistory;
-  this._location = nativeLocation;
-  this._exitImmediately = true;
-  this.onExit = opt.onExit; // Chrome must touch the document once to work.
+  this._location = nativeLocation; // this._exitImmediately = true;
+  // this.onExit = opt.onExit; // Chrome must touch the document once to work.
 
   this._tra = {
     className: this._global.transition
   };
-  this.uniteVue = opt.uniteVue;
-
-  if (!this._history || !this._history.pushState) {
-    throwErr('required history.pushState API');
-  }
+  this.uniteVue = opt.uniteVue; // if(!this._history || !this._history.pushState){
+  //   throwErr('required history.pushState API');
+  // }
 
   this.pageMap = opt.pageMap;
   this.notFoundPage = opt.notFoundPage;
@@ -1312,8 +1305,8 @@ function History(opt) {
     base: opt.urlBase
   });
 
-  this._popstateHandle = function (e) {
-    _this.handlePop(e);
+  this._popstateHandle = function () {
+    _this.handlePop();
   };
 
   this.behavior = {
@@ -1399,24 +1392,13 @@ History.prototype._load = function (userUrl) {
 
   var currRoute = fullUrlParse(_userUrl);
   var key = getCurrentStateKey();
+  this.clearModalWhenLoad();
 
-  if (key === 0) {
-    this._history.replaceState(defineProperty_default()({}, KEY_NAME, key), '');
+  if (key !== 1) {
+    if (this._isTabRoute(currRoute.trimedPath)) {
+      this._backToStartAndReplace(currRoute, 'loaded');
 
-    var nextKey = genStateKey();
-
-    this._history.pushState(defineProperty_default()({}, KEY_NAME, nextKey), '');
-
-    setPreStateKey(nextKey);
-  } else {
-    this.clearModalWhenLoad();
-
-    if (key !== 1) {
-      if (this._isTabRoute(currRoute.trimedPath)) {
-        this._backToStartAndReplace(currRoute, 'loaded');
-
-        return;
-      }
+      return;
     }
   }
 
@@ -1724,13 +1706,13 @@ History.prototype._clearAll = function () {
   this._clearMap(this.stackMap);
 };
 
-History.prototype.handlePop = function (e) {
+History.prototype.handlePop = function () {
   var _this4 = this;
 
   var preKey = getPreStateKey();
-  var isPopPush = isUserPopPush();
 
-  if (isPopPush) {
+  if (!this._history.state) {
+    // The user manually modifies the browser address bar
     var _popPushKey = preKey + 1;
 
     this._history.replaceState(defineProperty_default()({}, KEY_NAME, _popPushKey), '');
@@ -1743,43 +1725,8 @@ History.prototype.handlePop = function (e) {
   }
 
   var currKey = getCurrentStateKey();
-  var compare = currKey - preKey;
-  var behavior = compare < 0 ? 'back' : 'forward';
-  var isZero = currKey === 0;
-  var isBack = behavior === 'back';
 
-  if (isZero && isBack) {
-    var _prePage = this.stackMap[preKey];
-
-    if (_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey) {
-      this.onExit({
-        isTabPage: function isTabPage() {
-          return _prePage.isTab;
-        },
-        isHomePage: function isHomePage() {
-          return _prePage.path === _this4._global.homePagePath;
-        },
-        preventDefault: function preventDefault() {
-          _this4._exitImmediately = false;
-        }
-      });
-    }
-
-    if (this._exitImmediately) {
-      this._history.back();
-
-      window.close();
-    } else {
-      this._history.forward();
-    }
-
-    this._exitImmediately = true;
-    return;
-  }
-
-  if (!isBack && preKey === 0) {}
-
-  if (preKey === currKey && this._history.state) {
+  if (preKey === currKey) {
     var modalKey = this._history.state._h_nav_modal_i;
 
     if (typeof modalKey === 'number') {
@@ -1807,6 +1754,8 @@ History.prototype.handlePop = function (e) {
 
   setPreStateKey(currKey);
   var _info = this._whenPopInfo;
+  var compare = currKey - preKey;
+  var behavior = compare < 0 ? 'back' : 'forward';
   var backTra = this._whenPopTra;
 
   if (!backTra && behavior === 'back' && compare === -1) {
@@ -1841,9 +1790,7 @@ History.prototype.handlePop = function (e) {
 
   if (behavior === 'back') {
     this.uniteVue.nextTick(function () {
-      if (!isZero) {
-        _this4._clearAfter();
-      }
+      _this4._clearAfter();
 
       _this4._onRouted();
     });
@@ -1853,7 +1800,7 @@ History.prototype.handlePop = function (e) {
 };
 
 History.prototype.modal = function (_ref) {
-  var _this$_history$pushSt3,
+  var _this$_history$pushSt2,
       _this5 = this;
 
   var component = _ref.component,
@@ -1866,16 +1813,16 @@ History.prototype.modal = function (_ref) {
   var modalKey = state._h_nav_modal_i;
 
   if (!modalKey) {
-    var _this$_history$replac3;
+    var _this$_history$replac2;
 
     modalKey = 0;
 
-    this._history.replaceState((_this$_history$replac3 = {}, defineProperty_default()(_this$_history$replac3, KEY_NAME, key), defineProperty_default()(_this$_history$replac3, "_h_nav_modal_i", modalKey), _this$_history$replac3), '');
+    this._history.replaceState((_this$_history$replac2 = {}, defineProperty_default()(_this$_history$replac2, KEY_NAME, key), defineProperty_default()(_this$_history$replac2, "_h_nav_modal_i", modalKey), _this$_history$replac2), '');
   }
 
   modalKey = modalKey + 1;
 
-  this._history.pushState((_this$_history$pushSt3 = {}, defineProperty_default()(_this$_history$pushSt3, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt3, "_h_nav_modal_i", modalKey), _this$_history$pushSt3), '');
+  this._history.pushState((_this$_history$pushSt2 = {}, defineProperty_default()(_this$_history$pushSt2, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt2, "_h_nav_modal_i", modalKey), _this$_history$pushSt2), '');
 
   var item = {
     key: modalKey
@@ -2195,8 +2142,7 @@ function install(_Vue, config) {
     cmptPageSuffix: cmptPageSuffix,
     notFoundPage: notFoundPage,
     tabBar: tabBar,
-    onRouted: config.onRouted,
-    onExit: config.onExit || noop
+    onRouted: config.onRouted
   };
   def(options, config, 'urlBase', DEF_URL_BASE);
   def(options, config, 'urlIsHashMode', DEF_URL_IS_HASH_MODE);
@@ -2279,7 +2225,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.3.2';
+var version = '1.4.0';
 
 /***/ })
 /******/ ]);
