@@ -4,7 +4,7 @@ import Navigator from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
-import { def, noop, throwErr, getVueV } from './util';
+import { def, throwErr, getVueV } from './util';
 import { uniteVue2} from './fit_vue';
 import {cmptPageSuffix, 
   notFoundPageKey, 
@@ -77,8 +77,7 @@ export default function install(_Vue, config) {
     cmptPageSuffix,
     notFoundPage,
     tabBar,
-    onRouted: config.onRouted,
-    onExit: config.onExit || noop
+    onRouted: config.onRouted
   }
 
   def(options, config, 'urlBase', DEF_URL_BASE);

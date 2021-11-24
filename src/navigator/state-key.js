@@ -6,7 +6,7 @@ export function getCurrentStateKey () {
   if (state && typeof state[KEY_NAME] === 'number') {
     return state[KEY_NAME];
   }
-  return 0;
+  return 1;
 }
 
 

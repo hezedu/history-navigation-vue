@@ -13,8 +13,8 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
-  this._exitImmediately = true;
-  this.onExit = opt.onExit; // Chrome must touch the document once to work.
+  // this._exitImmediately = true;
+  // this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   this.uniteVue = opt.uniteVue;
   if(!this._history || !this._history.pushState){
@@ -38,8 +38,8 @@ function History(opt){
   this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
-  this._popstateHandle = (e) => {
-    this.handlePop(e);
+  this._popstateHandle = () => {
+    this.handlePop();
   }
 
   this.behavior = {
@@ -120,32 +120,19 @@ History.prototype._forMatInputArg = function(opt){
 
 
 History.prototype._load = function(userUrl){
-  console.log('_load', history.state);
   this._window.addEventListener('popstate', this._popstateHandle);
   const _userUrl = userUrl === undefined ? 
       this.URL.getUrlByLocation() : 
       userUrl;
   const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
-  if(key === 0){
-    console.log('[first load]: start');
-    this._history.replaceState({[KEY_NAME]: key}, '');
-    console.log('[first load]: init state ok', history.state);
-    const nextKey = genStateKey();
-    this._history.pushState({[KEY_NAME]: nextKey}, '');
-    setPreStateKey(nextKey);
-    console.log('[first load]: push state ok', history.state);
-  } else {
-    this.clearModalWhenLoad();
-    if(key !== 1){
-      if(this._isTabRoute(currRoute.trimedPath)){
-        this._backToStartAndReplace(currRoute, 'loaded');
-        return;
-      }
+  this.clearModalWhenLoad();
+  if(key !== 1){
+    if(this._isTabRoute(currRoute.trimedPath)){
+      this._backToStartAndReplace(currRoute, 'loaded');
+      return;
     }
   }
-  
-  console.log('_load _replace', history.state);
   this._replace(currRoute, 'loaded');
 }
 
@@ -414,11 +401,11 @@ History.prototype._clearAll = function(){
   this._clearMap(this.stackMap);
 }
 
-History.prototype.handlePop = function(e){
+History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
-  
+
   const isPopPush = isUserPopPush();
-  if(isPopPush){
+  if(isPopPush){ // The user manually modifies the browser address bar
     let _popPushKey = preKey + 1;
     this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
     setPreStateKey(_popPushKey);
@@ -426,45 +413,9 @@ History.prototype.handlePop = function(e){
     console.log('_popPushKey', _popPushKey);
     return;
   }
+
   const currKey = getCurrentStateKey();
-  const compare = currKey - preKey;
-  const behavior = compare <  0 ? 'back' : 'forward';
-  console.log('handlePop', behavior, compare, currKey, preKey, window.history.state, e)
-  const isZero = currKey === 0;
-  const isBack = behavior === 'back';
-  if(isZero && isBack){
-    const _prePage = this.stackMap[preKey];
-    if(_prePage && _prePage.cmptKey !== this.notFoundPage.cmptKey){
-      this.onExit({
-        isTabPage: () => {
-          return _prePage.isTab
-        },
-        isHomePage: () => {
-          return _prePage.path === this._global.homePagePath;
-        },
-        preventDefault: () => {
-          this._exitImmediately = false;
-        }
-      });
-    }
-    if(this._exitImmediately){
-      console.log('_exitImmediately exit');
-      this._history.back();
-      window.close(); 
-    } else {
-      console.log('not _exitImmediately');
-      this._history.forward();
-    }
-    this._exitImmediately = true;
-    
-    return;
-  }
-
-  if(!isBack && preKey === 0){
-    console.log('forward');
-  }
-
-  if(preKey === currKey && this._history.state){
+  if(preKey === currKey){
     const modalKey = this._history.state._h_nav_modal_i;
     if(typeof modalKey === 'number'){
       const page = this.stackMap[currKey];
@@ -486,6 +437,8 @@ History.prototype.handlePop = function(e){
   setPreStateKey(currKey);
 
   const _info = this._whenPopInfo;
+  const compare = currKey - preKey;
+  const behavior = compare <  0 ? 'back' : 'forward';
   let backTra = this._whenPopTra;
   if(!backTra && behavior === 'back' && compare === -1){
     backTra = this._getBackTra();
@@ -517,9 +470,7 @@ History.prototype.handlePop = function(e){
 
   if(behavior === 'back'){
     this.uniteVue.nextTick(() => {
-      if(!isZero){
-        this._clearAfter();
-      }
+      this._clearAfter();
       this._onRouted();
     })
   } else {
