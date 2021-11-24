@@ -1,6 +1,6 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
-import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME, isUserPopPush} from './state-key';
+import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME } from './state-key';
 import { throwErr } from '../util';
 const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
@@ -17,9 +17,9 @@ function History(opt){
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   this.uniteVue = opt.uniteVue;
-  if(!this._history || !this._history.pushState){
-    throwErr('required history.pushState API');
-  }
+  // if(!this._history || !this._history.pushState){
+  //   throwErr('required history.pushState API');
+  // }
   this.pageMap = opt.pageMap;
   this.notFoundPage = opt.notFoundPage;
   if(opt.tabBar){
@@ -404,8 +404,7 @@ History.prototype._clearAll = function(){
 History.prototype.handlePop = function(){
   const preKey = getPreStateKey();
 
-  const isPopPush = isUserPopPush();
-  if(isPopPush){ // The user manually modifies the browser address bar
+  if(!this._history.state){ // The user manually modifies the browser address bar
     let _popPushKey = preKey + 1;
     this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
     setPreStateKey(_popPushKey);

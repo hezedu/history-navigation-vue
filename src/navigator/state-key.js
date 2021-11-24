@@ -26,13 +26,13 @@ export function setPreStateKey (key) {
 }
 
 
-export function isUserPopPush () { // User manually enters the address bar
-  const state = nativeHistory.state;
-  let hasKey; 
-  if(!state){
-    hasKey = false;
-  } else {
-    hasKey = typeof state[KEY_NAME] === 'number';
-  }
-  return _preKey > 0 && !hasKey;
-}
+// export function isUserPopPush () { // User manually enters the address bar
+//   const state = nativeHistory.state;
+//   let hasKey; 
+//   if(!state){
+//     hasKey = false;
+//   } else {
+//     hasKey = typeof state[KEY_NAME] === 'number';
+//   }
+//   return _preKey > 0 && !hasKey;
+// }
