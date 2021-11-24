@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.4.0
+  * history-navigation-vue v1.3.3
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -2225,7 +2225,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.4.0';
+var version = '1.3.3';
 
 /***/ })
 /******/ ]);
