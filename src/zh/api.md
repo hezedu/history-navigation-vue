@@ -1,4 +1,4 @@
-# API(v.1.x)
+# API(v.1.3.2)
 
 ## 全局 API
 
@@ -225,7 +225,10 @@ type: `Function`
 ### homePagePath
   - type: `string`
   - default: 第一个页面的路径。
-### onExit
+### onExit(Deprecated)
+::: danger
+弃用: 由于 JS 自身无法关闭 window, 导致 [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), 不要使用它。下一版将会重新设计。马上。
+:::
   - type: `function`
 
 **onExit(exitEvent)**

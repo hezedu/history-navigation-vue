@@ -1,4 +1,4 @@
-# API(v.1.x)
+# API(v.1.3.2)
 
 ## Global API
 
@@ -223,7 +223,10 @@ If you don't want any transition effect, Set it to `""`
 ### homePagePath
   - type: `string`
   - default: First page's path.
-### onExit
+### onExit(Deprecated)
+::: danger
+Deprecated: Because JS cannot close the window by itself, import to [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), do not use it. It will be redesigned in the next release. Soon.
+:::
   - type: `function`
 
 **onExit(exitEvent)**

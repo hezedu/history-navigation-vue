@@ -165,6 +165,9 @@ var Index = {
 [预览](https://hezedu.github.io/history-navigation-vue/examples/modal.html)
 
 ### 再按一次退出程序
+::: danger
+弃用: 由于 JS 自身无法关闭 window, 导致 [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), 不要使用它。下一版将会重新设计。很快。
+:::
 你想在 PWA 上也能 “再按一次退出程序” 么？
 ```js{10,13-27}
 var config = {

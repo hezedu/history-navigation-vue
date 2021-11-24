@@ -66,7 +66,7 @@ module.exports = {
         nav: [
           { text: '指南', link: '/zh/guide/' },
           { text: 'API', link: '/zh/api/' },
-          { text: '示例', link: '/zhhttps://hezedu.github.io/history-navigation-vue/examples/' }
+          { text: '示例', link: '/zh/examples/' }
         ],
         sidebar: 'auto'
       }

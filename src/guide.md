@@ -169,6 +169,10 @@ var Index = {
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/modal.html)
 
 ### Press Back Again to Exit
+::: danger
+Deprecated: Because JS cannot close the window by itself, import to [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), do not use it. It will be redesigned in the next release. Soon.
+:::
+
 Do you want to be able to "Press Back Again to Exit" on PWA?
 ```js{10,13-27}
 var config = {
