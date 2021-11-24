@@ -69,18 +69,10 @@ export default function install(_Vue, config) {
   def(globalOption, config, 'transition', DEF_TRANSITION);
   def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
   def(globalOption, config, 'homePagePath', config.pages[0].path);
-  
-  const trimedHomePath = trimSlash(globalOption.homePagePath);
-  const homePage = pageMap[trimedHomePath];
-  if(!homePage){
-    throw new Error('home page not found');
-  }
-  homePage.isHome = true;
 
   const options = {
     global: globalOption,
     uniteVue,
-    backAgainToExit: config.backAgainToExit,
     pageMap,
     cmptPageSuffix,
     notFoundPage,
@@ -111,7 +103,6 @@ function _formatPages(pages){
     Object.assign(fpage, {
       trimedPath: tk,
       isTab: false,
-      isHome: false,
       cmptKey: cmptPageSuffix + i
     });
 

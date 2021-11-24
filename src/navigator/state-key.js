@@ -27,14 +27,12 @@ export function setPreStateKey (key) {
 
 
 export function isUserPopPush () { // User manually enters the address bar
-  return !nativeHistory.state;
-  // return typeof preKey === 'number' && !state;
-
-  // let hasKey; 
-  // if(!state){
-  //   hasKey = false;
-  // } else {
-  //   hasKey = typeof state[KEY_NAME] === 'number';
-  // }
-  // return _preKey > 0 && !hasKey;
+  const state = nativeHistory.state;
+  let hasKey; 
+  if(!state){
+    hasKey = false;
+  } else {
+    hasKey = typeof state[KEY_NAME] === 'number';
+  }
+  return _preKey > 0 && !hasKey;
 }
