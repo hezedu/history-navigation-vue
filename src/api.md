@@ -1,4 +1,4 @@
-# API(v.1.3.2)
+# API(v1.x)
 
 ## Global API
 
