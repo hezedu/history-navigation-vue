@@ -2,6 +2,7 @@ import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME } from './state-key';
 import { throwErr } from '../util';
+import modalPart from './libs/modal_crumbs';
 const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
 function History(opt){
@@ -62,8 +63,11 @@ function History(opt){
     isClean: false,
     route: {}
   }
+  modalPart.init(this);
+  this._setModalCrumbs(3, 3);
   // this.fitVue$3(); // FIT_VUE_3_SWITCH
 }
+
 History.prototype.checkCompatibility = function(){
   if(this._history && this._history.pushState){
     return true;
@@ -77,10 +81,10 @@ History.prototype._bind = function(){
   }
   this._window.addEventListener('popstate', this._popstateHandle);
 
-  // this._handleWinUnload = () => {
-  //   this.handleWinUnload();
-  // }
-  // this._window.addEventListener('beforeunload', this._handleWinUnload);
+  this._handleWinUnload = () => {
+    this.handleWinUnload();
+  }
+  this._window.addEventListener('beforeunload', this._handleWinUnload);
 }
 
 History.prototype._onRouted = function(){
@@ -551,18 +555,20 @@ History.prototype.destroy = function(){
     if(this._popstateHandle){
       this._window.removeEventListener('popstate', this._popstateHandle);
     }
-    // if(this._handleWinUnload){
-    //   this._window.removeEventListener('_handleWinUnload', this._handleWinUnload);
-    // }
+    if(this._handleWinUnload){
+      this._window.removeEventListener('_handleWinUnload', this._handleWinUnload);
+    }
     isCreated = false;
   }
 }
 
-// History.prototype.handleWinUnload = function(){
-//   const h = this._history;
-//   const state = h.state || {};
-//   this._history.replaceState()
-// }
+History.prototype.handleWinUnload = function(){
+  this._saveModalCrumbs();
+}
+
+
+
+Object.assign(History.prototype, modalPart.proto);
 
 // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
 //   if(this.uniteVue.is3){
