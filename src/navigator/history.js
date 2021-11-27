@@ -38,9 +38,6 @@ function History(opt){
   this.onRouted = opt.onRouted;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
-  this._popstateHandle = () => {
-    this.handlePop();
-  }
 
   this.behavior = {
     type: '',
@@ -72,6 +69,18 @@ History.prototype.checkCompatibility = function(){
     return true;
   }
   return false;
+}
+
+History.prototype._bind = function(){
+  this._popstateHandle = () => {
+    this.handlePop();
+  }
+  this._window.addEventListener('popstate', this._popstateHandle);
+
+  // this._handleWinUnload = () => {
+  //   this.handleWinUnload();
+  // }
+  // this._window.addEventListener('beforeunload', this._handleWinUnload);
 }
 
 History.prototype._onRouted = function(){
@@ -120,7 +129,7 @@ History.prototype._forMatInputArg = function(opt){
 
 
 History.prototype._load = function(userUrl){
-  this._window.addEventListener('popstate', this._popstateHandle);
+  this._bind();
   const _userUrl = userUrl === undefined ? 
       this.URL.getUrlByLocation() : 
       userUrl;
@@ -539,10 +548,21 @@ History.prototype.removeModalKeyWhenBackPage = function(){
 
 History.prototype.destroy = function(){
   if(isCreated){
-    this._window.removeEventListener('popstate', this._popstateHandle);
+    if(this._popstateHandle){
+      this._window.removeEventListener('popstate', this._popstateHandle);
+    }
+    // if(this._handleWinUnload){
+    //   this._window.removeEventListener('_handleWinUnload', this._handleWinUnload);
+    // }
     isCreated = false;
   }
 }
+
+// History.prototype.handleWinUnload = function(){
+//   const h = this._history;
+//   const state = h.state || {};
+//   this._history.replaceState()
+// }
 
 // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
 //   if(this.uniteVue.is3){
