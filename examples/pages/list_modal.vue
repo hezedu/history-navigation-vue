@@ -3,8 +3,7 @@
   <div class="modal-mask" @click="closeModal" />
   <div class="modal-main">
     <h1 @click="handleTextClick">{{text}}</h1>
-    <button style="font-size: 20px;" @click="replaceList">replaceList</button><br />
-    <button style="font-size: 20px;" @click="pushList">pushList</button><br />
+    <button style="font-size: 20px;" @click="pushDetail">pushDetail</button><br />
     <button style="font-size: 20px;" @click="closeModal">Close</button>
   </div>
 </div>
@@ -16,8 +15,8 @@ export default {
     replaceList(){
       this.$navigator.replace('/list');
     },
-    pushList(){
-      this.$navigator.push('/list');
+    pushDetail(){
+      this.$navigator.push('/detail');
     },
     closeModal(){
       this.$navigator.back();

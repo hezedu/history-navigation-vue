@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.3.3
+  * history-navigation-vue v1.4.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -165,19 +165,19 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./cmpt/navigation-controller.vue?vue&type=template&id=7caa483a&
 
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=9635a71a&
-var pagevue_type_template_id_9635a71a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName,style:({zIndex: _vm.v.stateKey})},[_c('PageMain',{class:_vm.v.className,style:([_vm.globalPageStyle, _vm.v.style]),attrs:{"path":_vm.v.path,"title":_vm.v.title,"isTab":_vm.v.isTab,"tabIndex":_vm.v.tabIndex,"stateKey":_vm.v.stateKey,"route":_vm.v.route,"isFirstLoad":_vm.isFirstLoad,"isActive":_vm.isActive}},[_c(_vm.v.cmptKey,{tag:"component"})],1),_vm._v(" "),_vm._l((_vm.v.modalList),function(modal){return _c('div',{key:modal.key,staticClass:"h-nav-modal",style:({zIndex: modal.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + modal.key}})])})],2)])}
-var pagevue_type_template_id_9635a71a_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=template&id=2ea3481a&
+var pagevue_type_template_id_2ea3481a_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":_vm.transitionName,"appear":true}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.isActive),expression:"isActive"}],class:_vm.transitionName,style:({zIndex: _vm.v.stateKey})},[_c('PageMain',{class:_vm.v.className,style:([_vm.globalPageStyle, _vm.v.style]),attrs:{"path":_vm.v.path,"title":_vm.v.title,"isHome":_vm.v.isHome,"isTab":_vm.v.isTab,"tabIndex":_vm.v.tabIndex,"stateKey":_vm.v.stateKey,"route":_vm.v.route,"isFirstLoad":_vm.isFirstLoad,"isActive":_vm.isActive}},[_c(_vm.v.cmptKey,{tag:"component"})],1),_vm._v(" "),_vm._l((_vm.v.modalList),function(modal){return _c('div',{directives:[{name:"show",rawName:"v-show",value:(!modal.isBAE),expression:"!modal.isBAE"}],key:modal.key,staticClass:"h-nav-modal",style:({zIndex: modal.key})},[_c('div',{attrs:{"id":'h_nav_modal_' + modal.uid}})])})],2)])}
+var pagevue_type_template_id_2ea3481a_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=9635a71a&
+// CONCATENATED MODULE: ./cmpt/page.vue?vue&type=template&id=2ea3481a&
 
-// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=template&id=26e18686&
-var page_mainvue_type_template_id_26e18686_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-nav-page-main"},[_vm._t("default")],2)}
-var page_mainvue_type_template_id_26e18686_staticRenderFns = []
+// CONCATENATED MODULE: ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=template&id=21d18cb0&
+var page_mainvue_type_template_id_21d18cb0_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"h-nav-page-main"},[_vm._t("default")],2)}
+var page_mainvue_type_template_id_21d18cb0_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./cmpt/page_main.vue?vue&type=template&id=26e18686&
+// CONCATENATED MODULE: ./cmpt/page_main.vue?vue&type=template&id=21d18cb0&
 
 // CONCATENATED MODULE: ./constant.js
 var PAGE_E_SHOW_NAME = '_h_nav_page_show';
@@ -189,6 +189,10 @@ var DEF_URL_IS_HASH_MODE = true;
 var DEF_NAVIGATOR_TRIGGER_EVENT = 'click';
 var DEF_URL_BASE = '';
 var DEF_TRANSITION = 'h-nav-transition';
+var KEY_NAME = '_h_n_key';
+var MODAL_CRUMBS_KEY_NAME = '_h_n_crumbs';
+var MODAL_KEY_NAME = '_h_n_modal_key';
+var MODAL_BAE_KEY = '_H_NAV_BAE_MODAL_';
 var DEF_PAGE_STYLE = undefined; // export const AGAIN_TO_EXIT_INTERVAL = 2000;
 // export const AGAIN_TO_EXIT_TIP = 'Press Back Again to Exit';
 // CONCATENATED MODULE: ../node_modules/babel-loader/lib!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page_main.vue?vue&type=script&lang=js&
@@ -210,6 +214,7 @@ var DEF_PAGE_STYLE = undefined; // export const AGAIN_TO_EXIT_INTERVAL = 2000;
       type: String
     },
     title: String,
+    isHome: Boolean,
     isTab: {
       type: Boolean,
       required: true
@@ -413,8 +418,8 @@ function normalizeComponent (
 
 var page_main_component = normalizeComponent(
   cmpt_page_mainvue_type_script_lang_js_,
-  page_mainvue_type_template_id_26e18686_render,
-  page_mainvue_type_template_id_26e18686_staticRenderFns,
+  page_mainvue_type_template_id_21d18cb0_render,
+  page_mainvue_type_template_id_21d18cb0_staticRenderFns,
   false,
   null,
   null,
@@ -424,6 +429,8 @@ var page_main_component = normalizeComponent(
 
 /* harmony default export */ var page_main = (page_main_component.exports);
 // CONCATENATED MODULE: ../node_modules/babel-loader/lib!../node_modules/vue-loader/lib??vue-loader-options!./cmpt/page.vue?vue&type=script&lang=js&
+//
+//
 //
 //
 //
@@ -492,8 +499,8 @@ var page_main_component = normalizeComponent(
 
 var page_component = normalizeComponent(
   cmpt_pagevue_type_script_lang_js_,
-  pagevue_type_template_id_9635a71a_render,
-  pagevue_type_template_id_9635a71a_staticRenderFns,
+  pagevue_type_template_id_2ea3481a_render,
+  pagevue_type_template_id_2ea3481a_staticRenderFns,
   false,
   null,
   null,
@@ -1026,7 +1033,10 @@ if (typeof window !== 'undefined') {
   nativeWindow = window;
   nativeHistory = window.history;
   nativeLocation = window.location; // nativeRAF = window.requestAnimationFrame || setTimeout;
-} //  else {
+} // if(typeof document !== 'undefined'){
+//   nativeDocument = document;
+// }
+//  else {
 //   // nativeRAF = function(cb){cb()};
 //   // nativeRAF = setTimeout;
 // }
@@ -1198,7 +1208,7 @@ function trimSlash(pathStr) {
 /* harmony default export */ var url = (URL);
 // CONCATENATED MODULE: ./navigator/state-key.js
 
-var KEY_NAME = '_h_n_key';
+
 function getCurrentStateKey() {
   var state = nativeHistory.state;
 
@@ -1254,7 +1264,408 @@ function getVueV(_Vue) {
   v = v.substr(0, v.indexOf('.'));
   return Number(v);
 }
+// CONCATENATED MODULE: ./navigator/libs/modal.js
+
+
+ // import { nativeDocument } from '../native';
+
+/* harmony default export */ var libs_modal = ({
+  init: function init() {
+    this._modal_crumbs = null;
+
+    this._initModalCrumbs();
+  },
+  proto: {
+    modal: function modal(_ref) {
+      var _this$_history$pushSt,
+          _this = this;
+
+      var component = _ref.component,
+          propsData = _ref.propsData,
+          parent = _ref.parent,
+          success = _ref.success;
+      var isBAEModal = arguments[0] === MODAL_BAE_KEY;
+
+      if (!isBAEModal) {
+        this._autoBAE();
+      }
+
+      var key = getCurrentStateKey();
+      var page = this.stackMap[key];
+      var state = this._history.state;
+      var modalKey = state[MODAL_KEY_NAME];
+
+      if (!modalKey) {
+        var _this$_history$replac;
+
+        modalKey = 0;
+
+        this._history.replaceState((_this$_history$replac = {}, defineProperty_default()(_this$_history$replac, KEY_NAME, key), defineProperty_default()(_this$_history$replac, MODAL_KEY_NAME, modalKey), _this$_history$replac), '');
+      }
+
+      modalKey = modalKey + 1;
+
+      this._history.pushState((_this$_history$pushSt = {}, defineProperty_default()(_this$_history$pushSt, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt, MODAL_KEY_NAME, modalKey), _this$_history$pushSt), '');
+
+      var item = {
+        key: modalKey,
+        uid: _genModalKey()
+      };
+      page.modalList.push(item);
+
+      this._setModalCrumbs(key, modalKey);
+
+      if (isBAEModal) {
+        item.isBAE = true;
+        return;
+      }
+
+      var id = 'h_nav_modal_' + item.uid;
+
+      if (component) {
+        this.uniteVue.nextTick(function () {
+          if (!item._isDestroy) {
+            // const Cmpt = this.uniteVue.extend(component);
+            // const cmpt = new Cmpt({
+            //   el: '#' + id,
+            //   parent,
+            //   propsData
+            // });
+            var cmpt = _this.uniteVue.newComponent(component, {
+              el: '#' + id,
+              parent: parent,
+              propsData: propsData
+            });
+
+            item._destoryCmpt = function () {
+              _this.uniteVue.destroy(cmpt);
+            };
+
+            success && success(cmpt);
+          }
+        });
+      }
+
+      return id;
+    },
+    removeModal: function removeModal() {
+      var _this2 = this;
+
+      var state = this._history.state;
+
+      if (!state) {
+        return;
+      }
+
+      var currKey = getCurrentStateKey();
+      var modalKey = state[MODAL_KEY_NAME];
+
+      if (typeof modalKey === 'number') {
+        var page = this.stackMap[currKey];
+        var arr;
+
+        if (page) {
+          arr = page.modalList.splice(modalKey);
+          arr.forEach(function (item) {
+            item._isDestroy = true;
+
+            if (item._destoryCmpt) {
+              item._destoryCmpt();
+            }
+          });
+        }
+
+        if (modalKey === 0) {
+          if (this._isNeedBAE()) {
+            if (arr && arr.length > 1) {
+              this._autoBAE();
+            } else {
+              this.BAE.onFirstTrigger();
+              setTimeout(function () {
+                _this2._autoBAE();
+              }, this.BAE.maxInterval);
+            }
+          }
+
+          this.removeModalKeyWhenBackPage();
+        }
+
+        this._setModalCrumbs(currKey, modalKey);
+      }
+    },
+    _autoRemoveModal: function _autoRemoveModal() {
+      var state = this._history.state;
+
+      if (!state) {
+        return;
+      }
+
+      var key = getCurrentStateKey();
+      var page = this.stackMap[key];
+      var modalKey = state[MODAL_KEY_NAME] || 0;
+
+      if (page && page.modalList.length > modalKey) {
+        this.removeModal();
+      }
+    },
+    getCurrModaKey: function getCurrModaKey() {
+      var state = this._history.state;
+
+      if (state && typeof state[MODAL_KEY_NAME] === 'number') {
+        return state[MODAL_KEY_NAME];
+      }
+
+      return 0;
+    },
+    removeModalKeyWhenBackPage: function removeModalKeyWhenBackPage() {
+      var newState = Object.assign({}, this._history.state);
+      delete newState[MODAL_KEY_NAME];
+
+      this._history.replaceState(newState, '');
+    },
+    _initModalCrumbs: function _initModalCrumbs() {
+      var h = this._history;
+      var state = Object.assign({}, h.state);
+      var v = state[MODAL_CRUMBS_KEY_NAME];
+
+      if (v) {
+        delete state[MODAL_CRUMBS_KEY_NAME];
+
+        this._history.replaceState(state, '');
+
+        this._modal_crumbs = _parse(v);
+      } else {
+        var modalKey = this.getCurrModaKey();
+
+        if (modalKey) {
+          this._modal_crumbs = [[getCurrentStateKey(), modalKey]];
+        } else {
+          this._modal_crumbs = [];
+        }
+      }
+    },
+    _setModalCrumbs: function _setModalCrumbs(stateKey, modalCount) {
+      var arr = this._modal_crumbs;
+      var lastI = arr.length - 1;
+      var v = arr[lastI];
+
+      if (lastI === -1 || v[0] < stateKey) {
+        arr.push([stateKey, modalCount]);
+        return;
+      }
+
+      for (; lastI > -1; lastI--) {
+        v = arr[lastI];
+
+        if (v[0] < stateKey) {
+          break;
+        }
+      }
+
+      arr.splice(lastI, arr.length, [stateKey, modalCount]);
+
+      if (!modalCount) {
+        arr.pop();
+      }
+    },
+    _saveModalCrumbs: function _saveModalCrumbs() {
+      if (this._modal_crumbs.length) {
+        var h = this._history;
+        var state = h.state || {};
+        state[MODAL_CRUMBS_KEY_NAME] = _format(this._modal_crumbs);
+
+        this._history.replaceState(state, '');
+      }
+    }
+  }
+});
+
+function _parse(str) {
+  // STATE_KEY:MODAL_COUNT;...
+  var arr = str.split(';');
+  var result = [];
+  var i = 0,
+      v;
+  var MAX = arr.length;
+
+  for (; i < MAX; i++) {
+    v = arr[i].split(':');
+    result.push([Number(v[0]), Number(v[1])]);
+  }
+
+  return result;
+}
+
+function _format(arr) {
+  return arr.map(function (v) {
+    return v.join(':');
+  }).join(';');
+}
+
+var _modalKey = 0;
+
+function _genModalKey() {
+  _modalKey = _modalKey + 1;
+  return _modalKey;
+}
+// CONCATENATED MODULE: ./navigator/libs/bae.js
+
+
+/* harmony default export */ var bae = ({
+  proto: {
+    _isBAEPage: function _isBAEPage() {
+      if (this.BAE) {
+        var key = getCurrentStateKey();
+        var page = this.stackMap[key];
+
+        if (key === 1 && page && (page.isHome || page.isTab)) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    _isBAEPageByTK: function _isBAEPageByTK(tk) {
+      if (this.BAE) {
+        var key = getCurrentStateKey();
+        var page = this.pageMap[tk];
+
+        if (key === 1 && page && (page.isHome || page.isTab)) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    _isNeedBAE: function _isNeedBAE() {
+      if (this._isBAEPage()) {
+        var state = this._history.state;
+
+        if (state && !state[MODAL_KEY_NAME]) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    _autoBAE: function _autoBAE() {
+      var isN = this._isNeedBAE();
+
+      if (isN) {
+        this.modal(MODAL_BAE_KEY);
+      }
+    }
+  }
+});
+// CONCATENATED MODULE: ./navigator/libs/back.js
+
+/* harmony default export */ var back = ({
+  init: function init() {
+    this._whenPopTra = null;
+    this._whenPopInfo = null;
+    this._whenBackPopInfo = null;
+  },
+  proto: {
+    getModalStepsTotal: function getModalStepsTotal() {
+      var arr = this._modal_crumbs;
+      var count = 0,
+          i = 0;
+      var max = arr.length;
+
+      for (; i < max; i++) {
+        count = count + arr[i][1];
+      }
+
+      return count;
+    },
+    _backGetTo1Count: function _backGetTo1Count() {
+      var key = getCurrentStateKey();
+      var modalCount = this.getModalStepsTotal();
+      var total = key + modalCount;
+      return total - 1;
+    },
+    back: function back(_steps, tra) {
+      // const key = getCurrentStateKey();
+      // const modalCount = this.getModalStepsTotal();
+      // console.log('modalCount', modalCount, key)
+      // const total = key + modalCount;
+      var steps = _steps || 1;
+
+      if (steps < 1) {
+        return;
+      } // if(typeof steps === 'number' && steps > 0){
+      //   if(total - steps < 1){
+      //     steps = total - 1;
+      //   }
+      // }
+      // console.log('[back] steps', steps);
+
+
+      this._whenPopTra = tra;
+
+      if (steps) {
+        this._history.go(-steps);
+      } // else {
+      //   this._history.back();
+      // }
+
+    },
+    backToPage: function backToPage(_steps, tra) {
+      var arr = this._modal_crumbs;
+
+      if (!arr.length) {
+        this.back(_steps, tra);
+        return;
+      }
+
+      var key = getCurrentStateKey();
+      var distKey = key - _steps;
+      var i = 0,
+          v,
+          count = 0;
+      var max = arr.length;
+
+      for (; i < max; i++) {
+        v = arr[i];
+
+        if (v[0] > distKey) {
+          count = count + v[1];
+        } else {
+          break;
+        }
+      }
+
+      this.back(_steps + count, tra);
+    },
+    _backAndApply: function _backAndApply(steps, method, args, tra) {
+      if (steps < 1) {
+        return;
+      }
+
+      this._whenBackPopInfo = {
+        method: method,
+        args: args
+      };
+      this.back(steps, tra);
+    },
+    _backToStartAndReplace: function _backToStartAndReplace(fullParse, behavior, tra) {
+      var total = this._backGetTo1Count();
+
+      if (total > 0) {
+        this._backAndApply(total, '_replace', [fullParse, behavior], tra);
+      } else {
+        this._setTra(tra);
+
+        this._replace(fullParse, behavior);
+      }
+    }
+  }
+});
 // CONCATENATED MODULE: ./navigator/history.js
+
+
+
+
 
 
 
@@ -1264,8 +1675,6 @@ var BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 var isCreated = false;
 
 function History(opt) {
-  var _this = this;
-
   if (isCreated) {
     throwErr('Only one instance can be generated.');
   }
@@ -1274,7 +1683,9 @@ function History(opt) {
   this._global = opt.global;
   this._window = nativeWindow;
   this._history = nativeHistory;
-  this._location = nativeLocation; // this._exitImmediately = true;
+  this._location = nativeLocation;
+  this._isOmitPopEvent = false;
+  this.BAE = opt.BAE; // this._exitImmediately = true;
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
 
   this._tra = {
@@ -1294,21 +1705,14 @@ function History(opt) {
   }
 
   this.stackMap = Object.create(null);
-  this._whenPopInfo = null;
-  this._whenPopTra = null;
   this._stackItemId = 1;
   this.tabCtrlerStackId = 1; // this.isPageDestroyWhenBack = true;
 
-  this.onRouted = opt.onRouted;
+  this.onRouted = opt.onRouted || noop;
   this.URL = new url({
     isHashMode: opt.urlIsHashMode,
     base: opt.urlBase
   });
-
-  this._popstateHandle = function () {
-    _this.handlePop();
-  };
-
   this.behavior = {
     type: '',
     distance: 0,
@@ -1318,6 +1722,7 @@ function History(opt) {
     path: null,
     title: null,
     className: undefined,
+    isHome: false,
     isTab: false,
     tabIndex: null,
     cmptKey: null,
@@ -1326,7 +1731,9 @@ function History(opt) {
     modalList: [],
     isClean: false,
     route: {}
-  }; // this.fitVue$3(); // FIT_VUE_3_SWITCH
+  };
+  back.init.apply(this);
+  libs_modal.init.apply(this); // this.fitVue$3(); // FIT_VUE_3_SWITCH
 }
 
 History.prototype.checkCompatibility = function () {
@@ -1337,16 +1744,42 @@ History.prototype.checkCompatibility = function () {
   return false;
 };
 
+History.prototype._bind = function () {
+  var _this = this;
+
+  this._popstateHandle = function () {
+    _this.handlePop();
+  };
+
+  this._window.addEventListener('popstate', this._popstateHandle);
+
+  this._handleWinUnload = function () {
+    _this.handleWinUnload();
+  };
+
+  this._window.addEventListener('beforeunload', this._handleWinUnload);
+};
+
 History.prototype._onRouted = function () {
-  if (!this.onRouted) {
-    return;
-  }
+  var _this2 = this;
 
   var curr = this.currentPage;
-  this.onRouted({
-    title: curr.title,
-    routeFullPath: curr.route.fullPath
-  });
+
+  this._autoBAE(curr.route.trimedPath);
+
+  if (this.behavior.type === 'loaded') {
+    setTimeout(function () {
+      _this2.onRouted({
+        title: curr.title,
+        routeFullPath: curr.route.fullPath
+      });
+    });
+  } else {
+    this.onRouted({
+      title: curr.title,
+      routeFullPath: curr.route.fullPath
+    });
+  }
 };
 
 History.prototype._genStackItemId = function () {
@@ -1386,13 +1819,12 @@ History.prototype._forMatInputArg = function (opt) {
 };
 
 History.prototype._load = function (userUrl) {
-  this._window.addEventListener('popstate', this._popstateHandle);
+  this._bind();
 
   var _userUrl = userUrl === undefined ? this.URL.getUrlByLocation() : userUrl;
 
   var currRoute = fullUrlParse(_userUrl);
   var key = getCurrentStateKey();
-  this.clearModalWhenLoad();
 
   if (key !== 1) {
     if (this._isTabRoute(currRoute.trimedPath)) {
@@ -1402,7 +1834,19 @@ History.prototype._load = function (userUrl) {
     }
   }
 
-  this._replace(currRoute, 'loaded');
+  this._replaceCurrPage(currRoute, 'loaded');
+};
+
+History.prototype._replaceCurrPage = function () {
+  var modalCount = this.getCurrModaKey();
+
+  if (modalCount) {
+    this._backAndApply(modalCount, '_replace', arguments);
+
+    return;
+  }
+
+  this._replace.apply(this, arguments);
 };
 
 History.prototype._setTra = function (className) {
@@ -1436,7 +1880,7 @@ History.prototype.replace = function (userUrl) {
 
   this._setTra(tra);
 
-  this._replace(fullParse);
+  this._replaceCurrPage(fullParse);
 };
 
 History.prototype.switchTab = function (userUrl) {
@@ -1453,36 +1897,6 @@ History.prototype.switchTab = function (userUrl) {
   }
 
   this._backToStartAndReplace(fullParse, 'switchtab', tra);
-};
-
-History.prototype.back = function (_steps, tra) {
-  var key = getCurrentStateKey(); // const state = this._history.state;
-  // let modalKey;
-  // if(state){
-  //   modalKey = state._h_nav_modal_i;
-  // }
-  // if(key === 1 && !modalKey){
-  //   console.error('Currnt page is first, Cannot back.');
-  //   return -1;
-  // }
-
-  var steps = _steps;
-
-  if (typeof steps === 'number' && steps > 0) {
-    if (key - steps < 1) {
-      steps = key - 1;
-    }
-  }
-
-  this._whenPopTra = tra;
-
-  if (steps) {
-    this._history.go(-steps);
-  } else {
-    this._history.back();
-  }
-
-  return 0;
 };
 
 History.prototype.relaunch = function (userUrl) {
@@ -1503,6 +1917,7 @@ History.prototype._setMapItem = function (key, route) {
     tabIndex: page.tabIndex,
     route: route,
     cmptKey: page.cmptKey,
+    isHome: page.isHome,
     isTab: page.isTab,
     stateKey: key,
     className: page.className,
@@ -1533,12 +1948,15 @@ History.prototype._getBackTra = function () {
 };
 
 History.prototype._push = function (fullParse, tra) {
+  this._autoBAE();
   /* 
     from [vue-router]
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
-  // this._clearAfter();
+  // this._clearAf2ter();
+
+
   var oldTra = this._getBackTra();
 
   if (tra !== oldTra) {
@@ -1568,19 +1986,33 @@ History.prototype._push = function (fullParse, tra) {
   this._setMapItem(key, fullParse);
 
   this._onRouted();
-};
+}; // History.prototype._replaceCurrPage = function(fullParse, behavior, _dista2nce){
+//   const isBAE = this._isBAEPage();
+//   const isDistBAE = this._isBAEPageByTK(fullUrlParse);
+//   let step = this.getCurrModaKey();
+//   if(isBAE && !isDistBAE){
+//     step = step + 1;
+//   }
+//   if(step){
+//     this._backAndApply(step, '_repl2ace', arguments);
+//     return;
+//   }
+//   this._repl2ace.apply(this, arguments);
+// }
 
-History.prototype._replace = function (fullParse, behavior, _distance) {
-  var _this2 = this;
 
-  var distance = _distance === undefined ? 0 : _distance;
+History.prototype._replace = function (fullParse, behavior) {
+  var _this3 = this;
+
+  var preKey = getPreStateKey();
+  var key = getCurrentStateKey();
+  var distance = key - preKey;
   var newBehavior = {
     type: behavior || 'replace',
     distance: distance,
     isPop: false
   };
   Object.assign(this.behavior, newBehavior);
-  var key = getCurrentStateKey();
 
   if (this.behavior.type !== 'switchtab' || distance) {
     // unactive currentPage
@@ -1599,26 +2031,27 @@ History.prototype._replace = function (fullParse, behavior, _distance) {
 
   this.uniteVue.nextTick(function () {
     if (newBehavior.type === 'relaunch') {
-      _this2._setAllCleaned();
+      _this3._setAllCleaned();
 
       var oldKey = key - distance;
-      _this2.stackMap[oldKey].isClean = false;
+      _this3.stackMap[oldKey].isClean = false;
 
-      _this2.uniteVue.nextTick(function () {
-        _this2._clearAll();
+      _this3.uniteVue.nextTick(function () {
+        _this3._clearAll();
 
-        _this2._setMapItem(key, fullParse);
+        _this3._setMapItem(key, fullParse);
 
-        _this2._onRouted();
+        _this3._onRouted();
       });
     } else {
-      _this2._clearAfter();
+      _this3._clearAfter();
 
-      _this2._setMapItem(key, fullParse);
+      _this3._setMapItem(key, fullParse);
 
-      _this2._onRouted();
+      _this3._onRouted();
     }
   });
+  setPreStateKey(key);
 };
 
 History.prototype._setMapCleaned = function (map) {
@@ -1633,26 +2066,23 @@ History.prototype._setAllCleaned = function () {
   }
 
   this._setMapCleaned(this.stackMap);
-};
+}; // History.prototype._backToStartAndRe2place = function(fullParse, behavior, tra){
+//   const key = getCurrentStateKey();
+//   if(key > 1){
+//     this._whenPopInfo = {
+//       fullParse,
+//       behavior
+//     };
+//     this.back(key - 1, tra);
+//   } else {
+//     this._setTra(tra);
+//     this._rep2lace(fullParse, behavior);
+//   }
+// }
 
-History.prototype._backToStartAndReplace = function (fullParse, behavior, tra) {
-  var key = getCurrentStateKey();
-
-  if (key > 1) {
-    this._whenPopInfo = {
-      fullParse: fullParse,
-      behavior: behavior
-    };
-    this.back(key - 1, tra);
-  } else {
-    this._setTra(tra);
-
-    this._replace(fullParse, behavior);
-  }
-};
 
 History.prototype._clearAfter = function () {
-  var _this3 = this;
+  var _this4 = this;
 
   var key = getCurrentStateKey();
   var map = this.stackMap;
@@ -1683,7 +2113,7 @@ History.prototype._clearAfter = function () {
         for (; i < len; i++) {
           v = arr[i];
 
-          _this3.uniteVue.delete(map, v.stateKey);
+          _this4.uniteVue.delete(map, v.stateKey);
         }
       });
     }
@@ -1707,17 +2137,35 @@ History.prototype._clearAll = function () {
 };
 
 History.prototype.handlePop = function () {
-  var _this4 = this;
+  var _this5 = this;
+
+  if (this._isOmitPopEvent) {
+    this._isOmitPopEvent = false;
+    setPreStateKey(getCurrentStateKey());
+    return;
+  }
+
+  var _backInfo = this._whenBackPopInfo;
+
+  if (_backInfo) {
+    this[_backInfo.method].apply(this, _backInfo.args);
+
+    this._whenBackPopInfo = null;
+    return;
+  }
 
   var preKey = getPreStateKey();
+  var hState = this._history.state;
 
-  if (!this._history.state) {
+  if (!hState) {
     // The user manually modifies the browser address bar
     var _popPushKey = preKey + 1;
 
     this._history.replaceState(defineProperty_default()({}, KEY_NAME, _popPushKey), '');
 
     setPreStateKey(_popPushKey);
+
+    this._setTra('');
 
     this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
 
@@ -1727,52 +2175,36 @@ History.prototype.handlePop = function () {
   var currKey = getCurrentStateKey();
 
   if (preKey === currKey) {
-    var modalKey = this._history.state._h_nav_modal_i;
-
-    if (typeof modalKey === 'number') {
-      var _page2 = this.stackMap[currKey];
-
-      if (_page2) {
-        var arr = _page2.modalList.splice(modalKey);
-
-        arr.forEach(function (item) {
-          item._isDestroy = true;
-
-          if (item._destoryCmpt) {
-            item._destoryCmpt();
-          }
-        });
-      }
-
-      if (modalKey === 0) {
-        this.removeModalKeyWhenBackPage();
-      }
-    }
-
+    this.removeModal();
     return;
   }
 
   setPreStateKey(currKey);
-  var _info = this._whenPopInfo;
   var compare = currKey - preKey;
   var behavior = compare < 0 ? 'back' : 'forward';
+  var isBack = behavior === 'back';
+
+  if (!isBack) {
+    this._isOmitPopEvent = true;
+    this.back(compare);
+    return;
+  }
+
   var backTra = this._whenPopTra;
 
-  if (!backTra && behavior === 'back' && compare === -1) {
+  if (!backTra && isBack && compare === -1) {
     backTra = this._getBackTra(); // console.log('--------------- backTra ---------------', backTra);
   }
 
   this._setTra(backTra);
 
-  this._whenPopTra = null;
-
-  if (_info !== null) {
-    this._replace(_info.fullParse, _info.behavior, compare);
-
-    this._whenPopInfo = null;
-    return;
-  } // this.isPageDestroyWhenBack && 
-
+  this._whenPopTra = null; // const _info = this._whenPopInfo;
+  // if(_info !== null){
+  //   this._repla2ce(_info.fullParse, _info.behavior, compare);
+  //   this._whenPopInfo = null;
+  //   return;
+  // }
+  // this.isPageDestroyWhenBack && 
 
   var page = this.stackMap[currKey];
   var newBehavior = {
@@ -1788,105 +2220,40 @@ History.prototype.handlePop = function () {
     this._setMapItem(currKey, fullUrlParse(this.URL.getUrlByLocation()));
   }
 
-  if (behavior === 'back') {
-    this.uniteVue.nextTick(function () {
-      _this4._clearAfter();
+  if (isBack) {
+    this._autoRemoveModal();
 
-      _this4._onRouted();
+    this.uniteVue.nextTick(function () {
+      _this5._clearAfter();
+
+      _this5._onRouted();
     });
   } else {
     this._onRouted();
   }
 };
 
-History.prototype.modal = function (_ref) {
-  var _this$_history$pushSt2,
-      _this5 = this;
-
-  var component = _ref.component,
-      propsData = _ref.propsData,
-      parent = _ref.parent,
-      success = _ref.success;
-  var key = getCurrentStateKey();
-  var page = this.stackMap[key];
-  var state = this._history.state;
-  var modalKey = state._h_nav_modal_i;
-
-  if (!modalKey) {
-    var _this$_history$replac2;
-
-    modalKey = 0;
-
-    this._history.replaceState((_this$_history$replac2 = {}, defineProperty_default()(_this$_history$replac2, KEY_NAME, key), defineProperty_default()(_this$_history$replac2, "_h_nav_modal_i", modalKey), _this$_history$replac2), '');
-  }
-
-  modalKey = modalKey + 1;
-
-  this._history.pushState((_this$_history$pushSt2 = {}, defineProperty_default()(_this$_history$pushSt2, KEY_NAME, key), defineProperty_default()(_this$_history$pushSt2, "_h_nav_modal_i", modalKey), _this$_history$pushSt2), '');
-
-  var item = {
-    key: modalKey
-  };
-  page.modalList.push(item);
-  var id = 'h_nav_modal_' + modalKey;
-
-  if (component) {
-    this.uniteVue.nextTick(function () {
-      if (!item._isDestroy) {
-        // const Cmpt = this.uniteVue.extend(component);
-        // const cmpt = new Cmpt({
-        //   el: '#' + id,
-        //   parent,
-        //   propsData
-        // });
-        var cmpt = _this5.uniteVue.newComponent(component, {
-          el: '#' + id,
-          parent: parent,
-          propsData: propsData
-        });
-
-        item._destoryCmpt = function () {
-          _this5.uniteVue.destroy(cmpt);
-        };
-
-        success && success(cmpt);
-      }
-    });
-  }
-
-  return id;
-};
-
-History.prototype.clearModalWhenLoad = function () {
-  var state = this._history.state;
-
-  if (state) {
-    var modalKey = state._h_nav_modal_i;
-
-    if (modalKey !== undefined) {
-      if (modalKey === 0) {
-        this.removeModalKeyWhenBackPage();
-      } else if (modalKey > 0) {
-        this._history.go(-modalKey);
-      }
-    }
-  }
-};
-
-History.prototype.removeModalKeyWhenBackPage = function () {
-  var newState = Object.assign({}, this._history.state);
-  delete newState._h_nav_modal_i;
-
-  this._history.replaceState(newState, '');
-};
-
 History.prototype.destroy = function () {
   if (isCreated) {
-    this._window.removeEventListener('popstate', this._popstateHandle);
+    if (this._popstateHandle) {
+      this._window.removeEventListener('popstate', this._popstateHandle);
+    }
+
+    if (this._handleWinUnload) {
+      this._window.removeEventListener('_handleWinUnload', this._handleWinUnload);
+    }
 
     isCreated = false;
   }
-}; // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
+};
+
+History.prototype.handleWinUnload = function () {
+  this._saveModalCrumbs();
+};
+
+Object.assign(History.prototype, libs_modal.proto);
+Object.assign(History.prototype, bae.proto);
+Object.assign(History.prototype, back.proto); // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
 //   if(this.uniteVue.is3){
 //     let v;
 //     ['stackMap', 'behavior', 'currentPage', '_tra', 'tabList', 'tabStackMap'].forEach(k => {
@@ -1897,7 +2264,6 @@ History.prototype.destroy = function () {
 //     })
 //   }
 // }
-
 
 /* harmony default export */ var navigator_history = (History); // window.addEventListener('beforeunload', function(event){
 //   console.log('beforeunload')
@@ -1915,7 +2281,7 @@ History.prototype.destroy = function () {
     // vueIs3: h.uniteVue.is3, FIT_VUE_3_SWITCH
     GLOBAL_CONFIG: h._global
   };
-  ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(function (k) {
+  ['push', 'back', 'backToPage', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(function (k) {
     _bindToOther(obj, k, h);
   });
   return obj;
@@ -2092,7 +2458,7 @@ function install(_Vue, config) {
     //   uniteVue = uniteVue$3(_Vue);
     //   uniteVue.is3 = true;
   } else {
-    throw new Error('Unsupported version of Vue ' + vueV);
+    throwErr('Unsupported version of Vue ' + vueV);
   }
 
   if (!Array.isArray(config.pages)) {
@@ -2135,8 +2501,24 @@ function install(_Vue, config) {
   def(globalOption, config, 'transition', DEF_TRANSITION);
   def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
   def(globalOption, config, 'homePagePath', config.pages[0].path);
+  var homePage = pageMap[trimSlash(globalOption.homePagePath)];
+
+  if (!homePage) {
+    throwErr('Home page not found');
+  }
+
+  homePage.isHome = true;
+  var BAE = null;
+
+  if (config.backAgainToExit) {
+    BAE = Object.create(null);
+    def(BAE, config.backAgainToExit, 'maxInterval', 2000);
+    def(BAE, config.backAgainToExit, 'onFirstTrigger', noop);
+  }
+
   var options = {
     global: globalOption,
+    BAE: BAE,
     uniteVue: uniteVue,
     pageMap: pageMap,
     cmptPageSuffix: cmptPageSuffix,
@@ -2171,6 +2553,7 @@ function _formatPages(pages) {
     Object.assign(fpage, {
       trimedPath: tk,
       isTab: false,
+      isHome: false,
       cmptKey: cmptPageSuffix + i
     });
     map[tk] = fpage;
@@ -2225,7 +2608,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.3.3';
+var version = '1.4.0';
 
 /***/ })
 /******/ ]);

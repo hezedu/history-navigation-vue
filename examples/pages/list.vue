@@ -13,7 +13,8 @@
     <navigator url="/detail"> To Detail </navigator>
     <br>
     <navigator url="/detail" transition="h-nav-transition custom"> custom To Detail </navigator>
-
+    <br>
+    <button @click="showModal">showModal</button>
     <br>
     <navigator url="/list" type="replace">replace to List</navigator>
     <br>
@@ -47,6 +48,7 @@
 
 <script>
 import InnerShow from './_inner-show.vue';
+import Modal from './list_modal.vue';
 export default {
   components: {
     InnerShow
@@ -66,6 +68,20 @@ export default {
   methods: {
     handlePageScroll(){
       console.log('Page Scroll');
+    },
+     showModal(){
+      this.$navigator.modal({
+        component: Modal,
+        parent: this,
+        propsData: {
+          text: 'Hello'
+        },
+        success: (modalVM) => {
+          modalVM.$on('textClick', () => {
+            console.log('modalVM clicked text');
+          })
+        }
+      });
     },
     switchInner(){
       console.log('switchInner')

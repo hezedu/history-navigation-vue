@@ -5,6 +5,10 @@
   
   <button @click="back">back to start</button>
   <br>
+  <button @click="back2">back2</button>
+  <br>
+  <button @click="backToPage2">backToPage2</button>
+  <br>
   <navigator url="/list" type="replace">replace to list</navigator>
   <br>
   <navigator url="/list" style="font-size: 2em" type="relaunch">Relaunch to list</navigator>
@@ -25,6 +29,12 @@ export default {
     },
     back(){
       this.$navigator.back(this.$page.stateKey - 1);
+    },
+    back2(){
+      this.$navigator.back(2);
+    },
+    backToPage2(){
+      this.$navigator.backToPage(2);
     },
     handleDocClick(){
       console.log('------------------------------ document Click ------------------------------')
