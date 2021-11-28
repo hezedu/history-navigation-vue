@@ -248,7 +248,7 @@ type: `Function`
 :::
 *示例:* 
 
-[再按一次退出程序](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+[再按一次退出程序](https://hezedu.github.io/history-navigation-vue/examples/press-back-again-to-exit.html)
 
 ## `<NavigationController>`
 根容器， 负理包含并管理所有页面。

@@ -17,7 +17,7 @@ home: true
 footer: MIT Licensed | Copyright © 2021-present hezedu
 sidebar: false
 ---
-<custom-index :TEXT="{1: 'Multi-Page Architecture', 2: 'Support Tabbar', 3: 'Support Modal', 4: 'Press Back Again to Exit', _4_2: 'Graceful Exit', 5: 'All Perfectly bind the\nphysical back button'}" />
+<custom-index :TEXT="{1: 'Multi-Page Architecture', 2: 'Support Tabbar', 3: 'Support Modal', 4: 'Press Back Again to Exit', _4_2: 'Toust for Exit', 5: 'All Perfectly bind the\nphysical back button'}" />
 
 <h2 id="index-compared" class="index-h2-c">Solve the pain point of the single-page normal routers</h2>
 

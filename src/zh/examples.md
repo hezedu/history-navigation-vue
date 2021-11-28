@@ -51,7 +51,7 @@ sidebar: false
 
 ### 退出
 - 再按一次退出程序。
-<source-preview name="graceful-exit" />
+<source-preview name="press-back-again-to-exit" />
 
 ### 过渡
 - 简单的过渡效果。

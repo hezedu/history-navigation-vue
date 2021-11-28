@@ -10,7 +10,7 @@
 - It supports "Press Back Again to Exit".
 - It can set various transition effects at will.
 - It can be perfectly combined with the system/browser **back button**. 
-- It is small, less than 8 KiB min+gzip(CSS + JS).
+- It is small, less than 9 KiB min+gzip(CSS + JS).
 <!-- You can use it happily to build modern web apps with a **native experience**.  -->
 
 ## Compatibility Note
@@ -169,12 +169,12 @@ var Index = {
 [Preview](https://hezedu.github.io/history-navigation-vue/examples/modal.html)
 
 ### Press Back Again to Exit
-::: danger
+<!-- ::: dange2r
 Deprecated: Because JS cannot close the window by itself, import to [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), do not use it. It will be redesigned in the next release. Soon.
-:::
+::: -->
 
 Do you want to be able to "Press Back Again to Exit" on PWA?
-```js{10,13-27}
+```js{10-15}
 var config = {
   pages: [
     {
@@ -184,27 +184,16 @@ var config = {
       }
     }
   ],
-  onExit: againToExit(2000, 'Press Back Again to Exit')
-}
-
-function againToExit(interval, tips){
-  let isAgain = false;
-  return function handleExit(e){
-    if(e.isTabPage() || e.isHomePage()){
-      if(!isAgain){
-        e.preventDefault();
-        isAgain = true;
-        window.$simpleTips.tips(tips);
-        setTimeout(() => {
-          isAgain = false;
-        }, interval);
-      }
+  backAgainToExit: {
+    maxInterval: 1500,
+    onFirstTrigger() {
+      window.$simpleTips.tips('Press Back Again to Exit');
     }
   }
 }
 // ...
 ```
-[Preview](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+[Preview](https://hezedu.github.io/history-navigation-vue/examples/press-back-again-to-exit.html)
 ### Transition
 By default, this project provides some simple transitions. You can change it, Just modify the CSS.
 ::: warning

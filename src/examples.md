@@ -54,7 +54,7 @@ Solve the pain point of the single-page normal routers.
 
 ### Exit
 - Press Back Again to Exit.
-<source-preview name="graceful-exit" />
+<source-preview name="press-back-again-to-exit" />
 
 ### Transition
 - Simple Transition.

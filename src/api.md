@@ -223,8 +223,21 @@ If you don't want any transition effect, Set it to `""`
 ### homePagePath
   - type: `string`
   - default: First page's path.
-### onExit(Deprecated)
-::: danger
+
+### backAgainToExit
+  - type: `undefined` | `Object`
+  - default: `undefined`
+
+```js
+{
+  maxInterval: 1500,
+  onFirstTrigger: function(){
+    window.$simpleTips.tips('Press Back Again to Exit');
+  }
+}
+```
+<!-- ### onExit(Deprecated) -->
+<!-- ::: dang3er
 Deprecated: Because JS cannot close the window by itself, import to [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), do not use it. It will be redesigned in the next release. Soon.
 :::
   - type: `function`
@@ -239,14 +252,18 @@ Deprecated: Because JS cannot close the window by itself, import to [bug#1](http
       isTabPage: function, 
       isHomePage: function
     }
-    ```
-Triggered when clicking back button to exit.
+    ``` -->
+
+Triggered when clicking physical back button to exit. Only home or tab pages are enabled.
 ::: warning
 In Chrome (and maybe safari too),User needs to interact(for example: mousedown, touchstart) with the document once to work.
 :::
+::: warning
+Usually on mobile browsers, the web cannot close the window by itself. Only the physical back button can exit.
+:::
 *Example:* 
 
-[Press Back Again to Exit](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+[Press Back Again to Exit](https://hezedu.github.io/history-navigation-vue/examples/press-back-again-to-exit.html)
 
 ## `<NavigationController>`
 The root container view controller for management all pages.

@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev src  --temp .temp",
+    "start": "vuepress dev src  --temp .temp",
     "build": "vuepress build src",
+    "preview": "node preview",
+    "_yarnIE": "yarn add express --dev",
     "yarnI": "yarn add @vuepress/plugin-google-analytics --dev"
   },
   "keywords": [],
@@ -17,6 +20,7 @@
     "@vuepress/plugin-active-header-links": "^1.8.2",
     "@vuepress/plugin-back-to-top": "^1.8.2",
     "@vuepress/plugin-google-analytics": "^1.8.2",
+    "express": "^4.17.1",
     "vuepress": "^1.8.2",
     "yarn": "^1.22.10"
   }

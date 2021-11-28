@@ -10,7 +10,7 @@
 - 它支持 "再按一次退出程序"。
 - 它可以随意设置过渡效果。
 - 它和浏览器/系统的**回退键**完美结合。
-- 它很小， 不到 8 KiB min+gzip(CSS + JS)
+- 它很小， 不到 9 KiB min+gzip(CSS + JS)
 
 
 ## 兼容性
@@ -199,7 +199,7 @@ function againToExit(interval, tips){
 }
 // ...
 ```
-[预览](https://hezedu.github.io/history-navigation-vue/examples/graceful-exit.html)
+[预览](https://hezedu.github.io/history-navigation-vue/examples/press-back-again-to-exit.html)
 
 ### 过渡
 默认，本项目提供一些简单过渡效果。 你可以改变它, 只需修改 CSS.
