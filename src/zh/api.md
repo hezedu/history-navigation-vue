@@ -225,7 +225,21 @@ type: `Function`
 ### homePagePath
   - type: `string`
   - default: 第一个页面的路径。
-### onExit(Deprecated)
+
+### backAgainToExit
+  - type: `undefined` | `Object`
+  - default: `undefined`
+
+```js
+{
+  maxInterval: 2000,
+  onFirstTrigger: function(){
+    window.$simpleTips.tips('Press Back Again to Exit');
+  }
+}
+```
+
+<!-- ### onExit(Deprecated)
 ::: danger
 弃用: 由于 JS 自身无法关闭 window, 导致 [bug#1](https://github.com/hezedu/history-navigation-vue/issues/1), 不要使用它。下一版将会重新设计。马上。
 :::
@@ -241,10 +255,13 @@ type: `Function`
       isTabPage: function, 
       isHomePage: function
     }
-    ```
-当按后退键将要退出时触发。
+    ``` -->
+当按后退键将要退出时触发。只会在 Home 或 Tab 页启作用。
 ::: warning
 在Chrome(Safari 没准也是) 中，需要用户和 document 交互一次(比如 mousedown, touchstart)才起作用。
+:::
+::: warning
+通常在手机浏览器中，网页无法自己关闭 window. 只能由物理后退键退出。
 :::
 *示例:* 
 

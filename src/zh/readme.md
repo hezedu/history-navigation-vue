@@ -15,7 +15,7 @@ home: true
 footer: MIT Licensed | Copyright © 2021-present hezedu
 sidebar: false
 ---
-<custom-index :TEXT="{1: '多页架构', 2: '支持 Tabbar', 3: '支持 Modal', 4: '再按一次退出程序', _4_2: '退出时轻提示', 5: '所有都完美绑定\n物理后退键'}" />
+<custom-index :TEXT="{1: '多页架构', 2: '支持 Tabbar', 3: '支持 Modal', 4: '再按一次退出程序', _4_2: '退出时提示', 5: '所有都完美绑定\n物理后退键'}" />
 
 <h2 id="index-compared" class="index-h2-c">解决了单页面普通路由的痛点</h2>
 

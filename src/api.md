@@ -230,7 +230,7 @@ If you don't want any transition effect, Set it to `""`
 
 ```js
 {
-  maxInterval: 1500,
+  maxInterval: 2000,
   onFirstTrigger: function(){
     window.$simpleTips.tips('Press Back Again to Exit');
   }
@@ -259,7 +259,7 @@ Triggered when clicking physical back button to exit. Only home or tab pages are
 In Chrome (and maybe safari too),User needs to interact(for example: mousedown, touchstart) with the document once to work.
 :::
 ::: warning
-Usually on mobile browsers, the web cannot close the window by itself. Only the physical back button can exit.
+Usually on mobile browsers, Web cannot close the window by itself. Only the physical back button can exit.
 :::
 *Example:* 
 
