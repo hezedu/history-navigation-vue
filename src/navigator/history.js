@@ -1,8 +1,12 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
-import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey, KEY_NAME } from './state-key';
-import { throwErr } from '../util';
-import modalPart from './libs/modal_crumbs';
+import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey } from './state-key';
+import { KEY_NAME } from '../constant';
+import { noop, throwErr } from '../util';
+import modalPart from './libs/modal';
+import BAEPart from './libs/bae';
+import BackPart from './libs/back';
+
 const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
 function History(opt){
@@ -14,6 +18,8 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
+  this._isOmitPopEvent = false;
+  this.BAE = opt.BAE;
   // this._exitImmediately = true;
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
@@ -29,14 +35,11 @@ function History(opt){
     this.tabStackMap = Object.create(null);
   }
   this.stackMap = Object.create(null);
-  
-  this._whenPopInfo = null;
-  this._whenPopTra = null;
 
   this._stackItemId = 1;
   this.tabCtrlerStackId = 1;
   // this.isPageDestroyWhenBack = true;
-  this.onRouted = opt.onRouted;
+  this.onRouted = opt.onRouted || noop;
   
   this.URL = new URL({isHashMode: opt.urlIsHashMode, base: opt.urlBase});
 
@@ -51,7 +54,7 @@ function History(opt){
     title: null,
     className: undefined,
 
-
+    isHome: false,
     isTab: false,
     tabIndex: null,
     cmptKey: null,
@@ -63,8 +66,8 @@ function History(opt){
     isClean: false,
     route: {}
   }
-  modalPart.init(this);
-  this._setModalCrumbs(3, 3);
+  BackPart.init.apply(this);
+  modalPart.init.apply(this);
   // this.fitVue$3(); // FIT_VUE_3_SWITCH
 }
 
@@ -88,14 +91,23 @@ History.prototype._bind = function(){
 }
 
 History.prototype._onRouted = function(){
-  if(!this.onRouted){
-    return;
-  }
   const curr = this.currentPage;
-  this.onRouted({
-    title: curr.title,
-    routeFullPath: curr.route.fullPath
-  });
+  this._autoBAE(curr.route.trimedPath);
+  if(this.behavior.type === 'loaded'){
+    console.log('readyState', document.readyState, this.behavior);
+    setTimeout(() => {
+      this.onRouted({
+        title: curr.title,
+        routeFullPath: curr.route.fullPath
+      });
+    })
+  } else {
+    this.onRouted({
+      title: curr.title,
+      routeFullPath: curr.route.fullPath
+    });
+  }
+
 }
 
 History.prototype._genStackItemId = function(){
@@ -133,20 +145,29 @@ History.prototype._forMatInputArg = function(opt){
 
 
 History.prototype._load = function(userUrl){
+  console.log('load', this.BAE, this.pageMap);
   this._bind();
   const _userUrl = userUrl === undefined ? 
       this.URL.getUrlByLocation() : 
       userUrl;
   const currRoute = fullUrlParse(_userUrl);
   const key = getCurrentStateKey();
-  this.clearModalWhenLoad();
   if(key !== 1){
     if(this._isTabRoute(currRoute.trimedPath)){
       this._backToStartAndReplace(currRoute, 'loaded');
       return;
     }
   }
-  this._replace(currRoute, 'loaded');
+  this._replaceCurrPage(currRoute, 'loaded');
+}
+
+History.prototype._replaceCurrPage = function(){
+  const modalCount = this.getCurrModaKey();
+  if(modalCount){
+    this._backAndApply(modalCount, '_replace', arguments);
+    return;
+  }
+  this._replace.apply(this, arguments);
 }
 
 History.prototype._setTra = function(className){
@@ -170,8 +191,9 @@ History.prototype.replace = function(userUrl){
     return;
   }
   this._setTra(tra);
-  this._replace(fullParse);
+  this._replaceCurrPage(fullParse);
 }
+
 
 
 History.prototype.switchTab = function(userUrl){
@@ -185,33 +207,6 @@ History.prototype.switchTab = function(userUrl){
   }
 
   this._backToStartAndReplace(fullParse, 'switchtab', tra);
-}
-
-History.prototype.back = function(_steps, tra){
-  const key = getCurrentStateKey();
-  // const state = this._history.state;
-  // let modalKey;
-  // if(state){
-  //   modalKey = state._h_nav_modal_i;
-  // }
-  // if(key === 1 && !modalKey){
-  //   console.error('Currnt page is first, Cannot back.');
-  //   return -1;
-  // }
-  let steps = _steps;
-  if(typeof steps === 'number' && steps > 0){
-    if(key - steps < 1){
-      steps = key - 1;
-    }
-  }
-  this._whenPopTra = tra;
-  if(steps){
-    this._history.go(-steps);
-  }else {
-    this._history.back();
-  }
-  
-  return 0;
 }
 
 History.prototype.relaunch = function(userUrl){
@@ -231,6 +226,7 @@ History.prototype._setMapItem = function(key, route){
     tabIndex: page.tabIndex,
     route,
     cmptKey: page.cmptKey,
+    isHome: page.isHome,
     isTab: page.isTab,
     stateKey: key,
     className: page.className,
@@ -261,12 +257,13 @@ History.prototype._getBackTra = function(){
 }
 
 History.prototype._push = function(fullParse, tra){
+  this._autoBAE();
   /* 
     from [vue-router]
     try...catch the pushState call to get around Safari
     DOM Exception 18 where it limits to 100 pushState calls
   */
-  // this._clearAfter();
+  // this._clearAf2ter();
   const oldTra = this._getBackTra();
   
   if(tra !== oldTra){
@@ -295,16 +292,31 @@ History.prototype._push = function(fullParse, tra){
   this._onRouted();
 }
 
-History.prototype._replace = function(fullParse, behavior, _distance){
-  const distance = _distance === undefined ? 0 : _distance;
+// History.prototype._replaceCurrPage = function(fullParse, behavior, _dista2nce){
+//   const isBAE = this._isBAEPage();
+//   const isDistBAE = this._isBAEPageByTK(fullUrlParse);
+//   let step = this.getCurrModaKey();
+//   if(isBAE && !isDistBAE){
+//     step = step + 1;
+//   }
+//   if(step){
+//     this._backAndApply(step, '_repl2ace', arguments);
+//     return;
+//   }
+//   this._repl2ace.apply(this, arguments);
+// }
+
+
+History.prototype._replace = function(fullParse, behavior){
+  const preKey = getPreStateKey();
+  const key = getCurrentStateKey();
+  const distance = key - preKey;
   const newBehavior = {
     type: behavior || 'replace',
     distance,
     isPop: false
   }
   Object.assign(this.behavior, newBehavior);
-  const key = getCurrentStateKey();
-
   if(this.behavior.type !== 'switchtab' || distance){
     // unactive currentPage
     this.currentPage.stackId = 'unactive_' + this.currentPage.stackId;
@@ -335,7 +347,7 @@ History.prototype._replace = function(fullParse, behavior, _distance){
       this._onRouted();
     }
   })
-
+  setPreStateKey(key);
 }
 
 
@@ -356,19 +368,19 @@ History.prototype._setAllCleaned = function(){
 
 
 
-History.prototype._backToStartAndReplace = function(fullParse, behavior, tra){
-  const key = getCurrentStateKey();
-  if(key > 1){
-    this._whenPopInfo = {
-      fullParse,
-      behavior
-    };
-    this.back(key - 1, tra);
-  } else {
-    this._setTra(tra);
-    this._replace(fullParse, behavior);
-  }
-}
+// History.prototype._backToStartAndRe2place = function(fullParse, behavior, tra){
+//   const key = getCurrentStateKey();
+//   if(key > 1){
+//     this._whenPopInfo = {
+//       fullParse,
+//       behavior
+//     };
+//     this.back(key - 1, tra);
+//   } else {
+//     this._setTra(tra);
+//     this._rep2lace(fullParse, behavior);
+//   }
+// }
 
 History.prototype._clearAfter = function(){
   const key = getCurrentStateKey();
@@ -415,54 +427,61 @@ History.prototype._clearAll = function(){
 }
 
 History.prototype.handlePop = function(){
+  if(this._isOmitPopEvent){
+    this._isOmitPopEvent = false;
+    setPreStateKey(getCurrentStateKey());
+    return;
+  }
+  console.log('[handlePop]');
+  let _backInfo = this._whenBackPopInfo;
+  if(_backInfo){
+    console.log('_whenBackPopInfo', _backInfo);
+    this[_backInfo.method].apply(this, _backInfo.args);
+    this._whenBackPopInfo = null;
+    return;
+  }
+  console.log('[handlePop2]');
   const preKey = getPreStateKey();
-
-  if(!this._history.state){ // The user manually modifies the browser address bar
+  const hState = this._history.state;
+  if(!hState){ // The user manually modifies the browser address bar
     let _popPushKey = preKey + 1;
     this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
     setPreStateKey(_popPushKey);
+    this._setTra('');
     this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
     console.log('_popPushKey', _popPushKey);
     return;
   }
-
   const currKey = getCurrentStateKey();
   if(preKey === currKey){
-    const modalKey = this._history.state._h_nav_modal_i;
-    if(typeof modalKey === 'number'){
-      const page = this.stackMap[currKey];
-      if(page){
-        const arr = page.modalList.splice(modalKey);
-        arr.forEach(item => {
-          item._isDestroy = true;
-          if(item._destoryCmpt){
-            item._destoryCmpt();
-          }
-        })
-      }
-      if(modalKey === 0){
-        this.removeModalKeyWhenBackPage();
-      }
-    }
+    this.removeModal();
     return;
   }
   setPreStateKey(currKey);
 
-  const _info = this._whenPopInfo;
   const compare = currKey - preKey;
   const behavior = compare <  0 ? 'back' : 'forward';
+  const isBack = behavior === 'back';
+  if(!isBack){
+    this._isOmitPopEvent = true;
+    console.log('-compare', -compare)
+    this.back(compare);
+    return;
+  }
+
   let backTra = this._whenPopTra;
-  if(!backTra && behavior === 'back' && compare === -1){
+  if(!backTra && isBack && compare === -1){
     backTra = this._getBackTra();
     // console.log('--------------- backTra ---------------', backTra);
   } 
   this._setTra(backTra);
   this._whenPopTra = null;
-  if(_info !== null){
-    this._replace(_info.fullParse, _info.behavior, compare);
-    this._whenPopInfo = null;
-    return;
-  }
+  // const _info = this._whenPopInfo;
+  // if(_info !== null){
+  //   this._repla2ce(_info.fullParse, _info.behavior, compare);
+  //   this._whenPopInfo = null;
+  //   return;
+  // }
 
   // this.isPageDestroyWhenBack && 
 
@@ -479,8 +498,8 @@ History.prototype.handlePop = function(){
   } else {
     this._setMapItem(currKey, fullUrlParse(this.URL.getUrlByLocation()));
   }
-
-  if(behavior === 'back'){
+  if(isBack){
+    this._autoRemoveModal();
     this.uniteVue.nextTick(() => {
       this._clearAfter();
       this._onRouted();
@@ -490,65 +509,6 @@ History.prototype.handlePop = function(){
   }
 }
 
-History.prototype.modal = function({component, propsData, parent, success}){
-  const key = getCurrentStateKey();
-  const page = this.stackMap[key];
-  const state = this._history.state;
-  let modalKey = state._h_nav_modal_i;
-  if(!modalKey) {
-    modalKey = 0;
-    this._history.replaceState({[KEY_NAME]: key, _h_nav_modal_i: modalKey}, '');
-  }
-  modalKey = modalKey + 1;
-  this._history.pushState({[KEY_NAME]: key, _h_nav_modal_i: modalKey}, '');
-  const item = {
-    key: modalKey
-  }
-  page.modalList.push(item);
-  
-  const id = 'h_nav_modal_' + modalKey;
-  if(component){
-    this.uniteVue.nextTick(() => {
-      if(!item._isDestroy){
-        // const Cmpt = this.uniteVue.extend(component);
-        // const cmpt = new Cmpt({
-        //   el: '#' + id,
-        //   parent,
-        //   propsData
-        // });
-        const cmpt = this.uniteVue.newComponent(component, {
-          el: '#' + id,
-          parent,
-          propsData
-        });
-        item._destoryCmpt = () => {
-          this.uniteVue.destroy(cmpt);
-        };
-        success && success(cmpt);
-      }
-    });
-  }
-  return id;
-}
-History.prototype.clearModalWhenLoad = function(){
-  const state = this._history.state;
-  if(state){
-    const modalKey = state._h_nav_modal_i;
-    if(modalKey !== undefined){
-      if(modalKey === 0){
-        this.removeModalKeyWhenBackPage();
-      } else if(modalKey > 0){
-        this._history.go(-modalKey);
-      }
-    }
-  }
-}
-
-History.prototype.removeModalKeyWhenBackPage = function(){
-  const newState = Object.assign({}, this._history.state);
-  delete(newState._h_nav_modal_i);
-  this._history.replaceState(newState, '');
-}
 
 History.prototype.destroy = function(){
   if(isCreated){
@@ -569,6 +529,8 @@ History.prototype.handleWinUnload = function(){
 
 
 Object.assign(History.prototype, modalPart.proto);
+Object.assign(History.prototype, BAEPart.proto);
+Object.assign(History.prototype, BackPart.proto);
 
 // History.prototype.fitVue$3 = function(){ // FIT_VUE_3_SWITCH
 //   if(this.uniteVue.is3){

@@ -9,7 +9,7 @@ export default function(opt){
     GLOBAL_CONFIG: h._global
   };
   
-  ['push', 'back', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {
+  ['push', 'back', 'backToPage', 'replace', 'relaunch', 'switchTab', 'modal'].forEach(k => {
     _bindToOther(obj, k, h);
   });
   

@@ -4,7 +4,7 @@ import Navigator from './cmpt/navigator.vue';
 import navigator from './navigator/navigator';
 import { trimSlash } from './navigator/url';
 import ShowHideMixin from './mixin/show-hide-mixin';
-import { def, throwErr, getVueV } from './util';
+import { def, throwErr, getVueV, noop } from './util';
 import { uniteVue2} from './fit_vue';
 import {cmptPageSuffix, 
   notFoundPageKey, 
@@ -29,7 +29,7 @@ export default function install(_Vue, config) {
   //   uniteVue = uniteVue$3(_Vue);
   //   uniteVue.is3 = true;
   } else {
-    throw new Error('Unsupported version of Vue ' + vueV);
+    throwErr('Unsupported version of Vue ' + vueV);
   }
 
 
@@ -69,9 +69,24 @@ export default function install(_Vue, config) {
   def(globalOption, config, 'transition', DEF_TRANSITION);
   def(globalOption, config, 'pageStyle', DEF_PAGE_STYLE);
   def(globalOption, config, 'homePagePath', config.pages[0].path);
+  const homePage = pageMap[trimSlash(globalOption.homePagePath)];
+
+  if(!homePage){
+    throwErr('Home page not found');
+  }
+  
+  homePage.isHome = true;
+  
+  let BAE = null;
+  if(config.backAgainToExit){
+    BAE = Object.create(null);
+    def(BAE, config.backAgainToExit, 'maxInterval', 2000);
+    def(BAE, config.backAgainToExit, 'onFirstTrigger', noop);
+  }
 
   const options = {
     global: globalOption,
+    BAE,
     uniteVue,
     pageMap,
     cmptPageSuffix,
@@ -102,6 +117,7 @@ function _formatPages(pages){
     Object.assign(fpage, {
       trimedPath: tk,
       isTab: false,
+      isHome: false,
       cmptKey: cmptPageSuffix + i
     });
 

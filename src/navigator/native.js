@@ -8,6 +8,9 @@ if(typeof window !== 'undefined'){
   nativeLocation = window.location;
   // nativeRAF = window.requestAnimationFrame || setTimeout;
 }
+// if(typeof document !== 'undefined'){
+//   nativeDocument = document;
+// }
 //  else {
 //   // nativeRAF = function(cb){cb()};
 //   // nativeRAF = setTimeout;

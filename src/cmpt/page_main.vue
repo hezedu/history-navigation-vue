@@ -17,7 +17,7 @@ export default {
       type: String
     },
     title: String,
-
+    isHome: Boolean,
     isTab: {
       type: Boolean,
       required: true

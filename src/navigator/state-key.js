@@ -1,6 +1,6 @@
 import { nativeHistory } from './native';
+import { KEY_NAME } from '../constant';
 
-export const KEY_NAME = '_h_n_key';
 export function getCurrentStateKey () {
   const state = nativeHistory.state;
   if (state && typeof state[KEY_NAME] === 'number') {
