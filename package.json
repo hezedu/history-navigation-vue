@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev src  --temp .temp",
     "start": "vuepress dev src  --temp .temp",
-    "build": "vuepress build src && node fit_firefox.js",
+    "build": "vuepress build src",
     "preview": "node preview",
     "_yarnIE": "yarn add express --dev",
     "yarnI": "yarn add @vuepress/plugin-google-analytics --dev"
