@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.4.1
+  * history-navigation-vue v1.4.2
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -86,6 +86,7 @@ var DEF_TRANSITION = 'h-nav-transition';
 var KEY_NAME = '_h_n_key';
 var MODAL_CRUMBS_KEY_NAME = '_h_n_crumbs';
 var MODAL_KEY_NAME = '_h_n_modal_key';
+var BACK_TRA_PROP_KEY = '_h_n_b_tra';
 var MODAL_BAE_KEY = '_H_NAV_BAE_MODAL_';
 var DEF_PAGE_STYLE = undefined; // export const AGAIN_TO_EXIT_INTERVAL = 2000;
 // export const AGAIN_TO_EXIT_TIP = 'Press Back Again to Exit';
@@ -1572,7 +1573,6 @@ function _genModalKey() {
 
 
 
-var BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 var isCreated = false;
 
 function History(opt) {
@@ -1662,25 +1662,13 @@ History.prototype._bind = function () {
 };
 
 History.prototype._onRouted = function () {
-  var _this2 = this;
-
   var curr = this.currentPage;
+  this.onRouted({
+    title: curr.title,
+    routeFullPath: curr.route.fullPath
+  });
 
   this._autoBAE(curr.route.trimedPath);
-
-  if (this.behavior.type === 'loaded') {
-    setTimeout(function () {
-      _this2.onRouted({
-        title: curr.title,
-        routeFullPath: curr.route.fullPath
-      });
-    });
-  } else {
-    this.onRouted({
-      title: curr.title,
-      routeFullPath: curr.route.fullPath
-    });
-  }
 };
 
 History.prototype._genStackItemId = function () {
@@ -1903,7 +1891,7 @@ History.prototype._push = function (fullParse, tra) {
 
 
 History.prototype._replace = function (fullParse, behavior) {
-  var _this3 = this;
+  var _this2 = this;
 
   var preKey = getPreStateKey();
   var key = getCurrentStateKey();
@@ -1932,24 +1920,24 @@ History.prototype._replace = function (fullParse, behavior) {
 
   this.uniteVue.nextTick(function () {
     if (newBehavior.type === 'relaunch') {
-      _this3._setAllCleaned();
+      _this2._setAllCleaned();
 
       var oldKey = key - distance;
-      _this3.stackMap[oldKey].isClean = false;
+      _this2.stackMap[oldKey].isClean = false;
 
-      _this3.uniteVue.nextTick(function () {
-        _this3._clearAll();
+      _this2.uniteVue.nextTick(function () {
+        _this2._clearAll();
 
-        _this3._setMapItem(key, fullParse);
+        _this2._setMapItem(key, fullParse);
 
-        _this3._onRouted();
+        _this2._onRouted();
       });
     } else {
-      _this3._clearAfter();
+      _this2._clearAfter();
 
-      _this3._setMapItem(key, fullParse);
+      _this2._setMapItem(key, fullParse);
 
-      _this3._onRouted();
+      _this2._onRouted();
     }
   });
   setPreStateKey(key);
@@ -1983,7 +1971,7 @@ History.prototype._setAllCleaned = function () {
 
 
 History.prototype._clearAfter = function () {
-  var _this4 = this;
+  var _this3 = this;
 
   var key = getCurrentStateKey();
   var map = this.stackMap;
@@ -2014,7 +2002,7 @@ History.prototype._clearAfter = function () {
         for (; i < len; i++) {
           v = arr[i];
 
-          _this4.uniteVue.delete(map, v.stateKey);
+          _this3.uniteVue.delete(map, v.stateKey);
         }
       });
     }
@@ -2038,7 +2026,7 @@ History.prototype._clearAll = function () {
 };
 
 History.prototype.handlePop = function () {
-  var _this5 = this;
+  var _this4 = this;
 
   if (this._isOmitPopEvent) {
     this._isOmitPopEvent = false;
@@ -2125,9 +2113,9 @@ History.prototype.handlePop = function () {
     this._autoRemoveModal();
 
     this.uniteVue.nextTick(function () {
-      _this5._clearAfter();
+      _this4._clearAfter();
 
-      _this5._onRouted();
+      _this4._onRouted();
     });
   } else {
     this._onRouted();
@@ -2509,7 +2497,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.4.1';
+var version = '1.4.2';
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
