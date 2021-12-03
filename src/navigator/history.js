@@ -18,7 +18,7 @@ function History(opt){
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
-  this._isOmitPopEvent = false;
+  this._isOmitForwardEvent = false;
   this.BAE = opt.BAE;
   // this._exitImmediately = true;
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
@@ -416,20 +416,20 @@ History.prototype._clearAll = function(){
 }
 
 History.prototype.handlePop = function(){
-  if(this._isOmitPopEvent){
-    this._isOmitPopEvent = false;
+  if(this._isOmitForwardEvent){
+    this._isOmitForwardEvent = false;
     setPreStateKey(getCurrentStateKey());
+    this._setModalCrumbsWhenChange();
     return;
   }
   console.log('[handlePop]');
   let _backInfo = this._whenBackPopInfo;
   if(_backInfo){
-    console.log('_whenBackPopInfo', _backInfo);
     this[_backInfo.method].apply(this, _backInfo.args);
+    this._setModalCrumbsWhenChange();
     this._whenBackPopInfo = null;
     return;
   }
-  console.log('[handlePop2]');
   const preKey = getPreStateKey();
   const hState = this._history.state;
   if(!hState){ // The user manually modifies the browser address bar
@@ -444,6 +444,7 @@ History.prototype.handlePop = function(){
   const currKey = getCurrentStateKey();
   if(preKey === currKey){
     this.removeModal();
+    this._setModalCrumbsWhenChange();
     return;
   }
   setPreStateKey(currKey);
@@ -452,7 +453,7 @@ History.prototype.handlePop = function(){
   const behavior = compare <  0 ? 'back' : 'forward';
   const isBack = behavior === 'back';
   if(!isBack){
-    this._isOmitPopEvent = true;
+    this._isOmitForwardEvent = true;
     console.log('-compare', -compare)
     this.back(compare);
     return;
@@ -489,6 +490,7 @@ History.prototype.handlePop = function(){
   }
   if(isBack){
     this._autoRemoveModal();
+    this._setModalCrumbsWhenChange();
     this.uniteVue.nextTick(() => {
       this._clearAfter();
       this._onRouted();

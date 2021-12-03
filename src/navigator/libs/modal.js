@@ -95,7 +95,6 @@ export default {
           }
           this.removeModalKeyWhenBackPage();
         }
-        this._setModalCrumbs(currKey, modalKey);
       }
     },
     _autoRemoveModal(){
@@ -107,10 +106,14 @@ export default {
       const page = this.stackMap[key];
       
       const modalKey = state[MODAL_KEY_NAME] || 0;
-      console.log('[_autoRemoveModal] page', modalKey, key);
       if(page && page.modalList.length > modalKey){
         this.removeModal();
       }
+    },
+    _setModalCrumbsWhenChange(){
+      const key = getCurrentStateKey();
+      const modalKey = this.getCurrModaKey();
+      this._setModalCrumbs(key, modalKey);
     },
     getCurrModaKey(){
       const state = this._history.state;
