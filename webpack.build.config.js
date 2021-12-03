@@ -4,12 +4,12 @@ const isPro = process.argv.indexOf('--node-env=production') !== -1;
 
 process.env.NODE_ENV = 'production';
 const NODE_ENV = process.env.NODE_ENV;
-
+const ESLintPlugin = require('eslint-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("css-minimizer-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
@@ -20,7 +20,7 @@ const filename = isPro ? '[name].min' : '[name]';
 var optimization;
 
 var cssRule = {
-  test: /(\.scss$)|(\.css$)/,
+  test: /(\.css$)/,
   //use: ["css-loader", "postcss-loader", "sass-loader"]
   use: [
     {
@@ -28,12 +28,12 @@ var cssRule = {
     },
     'css-loader', 
     'postcss-loader', 
-    {
-      loader: 'sass-loader',
-      options: {
-        outputStyle: 'expanded'
-      }
-    }
+    // {
+    //   loader: 'sass-loader',
+    //   options: {
+    //     outputStyle: 'expanded'
+    //   }
+    // }
   ]
 };
 
@@ -41,6 +41,9 @@ var cssRule = {
 
 // ***************************** plugins *****************************
 var plugins = [
+  new ESLintPlugin({
+    extensions: ['js', 'vue']
+  }),
   new VueLoaderPlugin(),
   new webpack.DefinePlugin({
     'process.env': {
@@ -94,12 +97,12 @@ plugins = plugins.concat([
 ]);
 
 // -------- pre lint --------
-rules.unshift({
-  enforce: "pre",
-  test: /(\.js|\.vue)$/,
-  include: [path.resolve(__dirname, "src")],
-  loader: "eslint-loader"
-})
+// rules.unshift({
+//   enforce: "pre",
+//   test: /(\.js|\.vue)$/,
+//   include: [path.resolve(__dirname, "src")],
+//   loader: "eslint-loader"
+// })
 
 // ***************************** webpackConf *****************************
 const webpackConf = {

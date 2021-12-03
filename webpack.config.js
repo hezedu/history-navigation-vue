@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("css-minimizer-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const setup = require('./server/setup');
 const config = require('./config');
@@ -113,12 +113,12 @@ if (isPro) {
   ]);
 
   // -------- pre lint --------
-  rules.unshift({
-    enforce: "pre",
-    test: /(\.js|\.vue)$/,
-    include: [path.resolve(__dirname, "src")],
-    loader: "eslint-loader"
-  })
+  // rules.unshift({
+  //   enforce: "pre",
+  //   test: /(\.js|\.vue)$/,
+  //   include: [path.resolve(__dirname, "src")],
+  //   loader: "eslint-loader"
+  // })
 
 };
 
@@ -126,6 +126,7 @@ if (isPro) {
 const webpackConf = {
   mode: NODE_ENV,
   optimization,
+  cache: true,
   context: path.join(__dirname, './examples'),
   entry: {
     z_app: "./app.js"
@@ -148,9 +149,14 @@ const webpackConf = {
   plugins: plugins,
   devServer: {
     port: config.port,
-    before: setup,
+    onBeforeSetupMiddleware({app}){
+      setup(app)
+    },
     host: '0.0.0.0',
-    contentBase: indexDir,
+    static: {
+      directory: indexDir
+    },
+    // contentBase: indexDir,
     hot: true,
     // proxy: {
     //   '/api': {

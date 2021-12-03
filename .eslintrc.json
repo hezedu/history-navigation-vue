@@ -7,7 +7,7 @@
     "extends": ["eslint:recommended", "plugin:vue/recommended", "plugin:vue/strongly-recommended", "plugin:vue/essential"],
     
     "parserOptions": {
-        "parser": "babel-eslint",
+        "parser": "@babel/eslint-parser",
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
@@ -49,6 +49,9 @@
         "vue/no-multi-spaces": 0,
         "vue/html-quotes": 0,
         "vue/attribute-hyphenation": 0,
-        "vue/html-closing-bracket-newline": 0
+        "vue/html-closing-bracket-newline": 0,
+        "vue/multi-word-component-names": 0,
+        "vue/component-tags-order": 0,
+        "vue/first-attribute-linebreak": 0
     }
 }
