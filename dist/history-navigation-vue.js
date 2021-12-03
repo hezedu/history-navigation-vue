@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.4.2
+  * history-navigation-vue v1.4.3
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1482,6 +1482,11 @@ function _genModalKey() {
     },
     _backGetTo1Count: function _backGetTo1Count() {
       var key = getCurrentStateKey();
+
+      if (key === 1) {
+        return this.getCurrModaKey();
+      }
+
       var modalCount = this.getModalStepsTotal();
       var total = key + modalCount;
       return total - 1;
@@ -2497,7 +2502,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.4.2';
+var version = '1.4.3';
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

@@ -17,6 +17,9 @@ export default {
     },
     _backGetTo1Count(){
       const key = getCurrentStateKey();
+      if(key === 1){
+        return this.getCurrModaKey();
+      }
       const modalCount = this.getModalStepsTotal();
       console.log('modalCount', modalCount, key)
       const total = key + modalCount;
@@ -80,7 +83,7 @@ export default {
 
     _backToStartAndReplace(fullParse, behavior, tra){
       const total = this._backGetTo1Count();
-      console.log('_backToStartAndReplace')
+      console.log('_backToStartAndReplace', total)
       if(total > 0){
         this._backAndApply(total, '_replace', [fullParse, behavior], tra);
       } else {
