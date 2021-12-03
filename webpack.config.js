@@ -26,21 +26,21 @@ var optimization;
 var cssRule;
 if(!isPro){ //使用 命令weblack
   cssRule = {
-    test: /(\.scss$)|(\.css$)/,
-    use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+    test: /(\.css$)/,
+    use: ['style-loader', 'css-loader', 'postcss-loader'],
     // include: path.join(__dirname, './src')
   }
 
 }else{
   cssRule = {
-    test: /(\.scss$)|(\.css$)/,
+    test: /(\.css$)/,
     //use: ["css-loader", "postcss-loader", "sass-loader"]
     use: [
       { 
         loader: MiniCssExtractPlugin.loader
       },
       
-      "css-loader",  'postcss-loader', "sass-loader"
+      "css-loader",  'postcss-loader'
     ]
   }
 

@@ -56,7 +56,7 @@ a{
   cursor: pointer;
   color: #333;
 }
-$transitionTime: .3s;
+
 .wrap{
   max-width: 1000px;
   margin: 0 auto;
@@ -109,9 +109,6 @@ body{
   font-size: 16px;
 }
 
-$diffBg: #eee;
-$listScrollBarColor: #ddd;
-$indexDiffTitleH: 35px;
 .index_page{
   min-height: 100vh;
 }
@@ -129,9 +126,7 @@ $indexDiffTitleH: 35px;
   margin-top: 0;
 }
 .nav{
-  // position: absolute;
-  // top: 0;
-  // right: 0;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -149,166 +144,6 @@ $indexDiffTitleH: 35px;
   color: #000;
 }
 
-.index_diff{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-.index_diff_item{
-  margin: 0 20px;
-  height: 100%;
-  width: 224px;
-  padding-top: $indexDiffTitleH;
-  height: 430px;
-  background: $diffBg;
-  position: relative;
-  
-  // border: 1px solid #eee;
-  overflow: hidden;
-}
-
-.index_diff_title{
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #fff;
-  line-height: $indexDiffTitleH;
-  width: 100%;
-  text-align: center;
-  white-space: nowrap;
-  height: $indexDiffTitleH;
-  font-size: 16px;
-}
-
-.index_diff_item .loader{
-  color: #000;
-  font-size: 30px;
-}
-
-.index_diff_body{
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-
-}
-
-.index_diff_page{
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  overflow: auto;
-  transition: all $transitionTime;
-}
-
-.index_diff_fade-enter, .index_diff_fade-leave-to {
-  opacity: 0;
-}
-
-.index_diff_body_h_nav_first_load {
-  transform: translateY(-100%);
-}
-
-
-.index_diff_loading_wrap{
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.index_diff_start_wrap{
-  text-align: center;
-
-}
-.index_diff_start_top{
-  padding-top: 20%;
-}
-.index_diff_start_use{
-  color: #666;
-  margin-bottom: .5em;
-}
-.index_diff_start_bottom{
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.index_diff_list_item {
-  height: 100px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ddd;
-  border-radius: 3px;
-}
-
-.index_diff_page_wrap{
-  padding-top: 30px;
-}
-
-.index_diff_page_inner{
-  height: 100%;
-}
-
-.index_diff_page_titlebar{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  height: 30px;
-  line-height: 30px;
-  border-bottom: 1px solid #ddd;
-  color: #333;
-}
-
-.index_diff_page_back{
-  position: absolute;
-  top: 5px;
-  left: 0;
-  font-size: 12px;
-  padding-left: 5px;
-  padding-right: 5px;
-  line-height: 20px;
-  color: #000;
-  border-radius: 2px;
-}
-
-.index_diff_list{
-  padding: 10px;
-  overflow: auto;
-  pointer-events: none;
-  scrollbar-color: $listScrollBarColor transparent;
-  scrollbar-width: thin;
-}
-
-.index_diff_list::-webkit-scrollbar{
-  width: 5px;
-  height: 100%;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $listScrollBarColor;
-  border-radius: 2px;
-}
-
-.index_diff_loading_more{
-  height: 30px;
-  font-size: 14px;
-  color: #666;
-  position: relative;
-}
-
 a {
   cursor: pointer;
 }
@@ -320,27 +155,9 @@ a {
   font-weight: bold;
 }
 
-.index_diff_page_detail{
-  padding: 1px;
-  text-align: center;
-  // padding-top: 30%;
-  font-size: 50px;
-  // font-weight: bold;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-}
 
-.index_diff_body_h_nav{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  transition: all $transitionTime;
-}
+
+
 
 .index_table_wrap{
   display: flex;
@@ -446,12 +263,10 @@ footer{
   padding-bottom: 50px;
 }
 
-.api_wrap{
-  h1{
-    text-align: center;
-  }
- 
+.api_wrap h1{
+  text-align: center;
 }
+
 .red{
   height: 100px;
   width: 100px;
@@ -464,9 +279,3 @@ footer{
 .h-nav-actived > .index_icon{
   background-image: url('https://www.w3school.com.cn/ui2017/compatible_ie.png');
 }
-// .custom-index{
-//   transition: all 13s ease;
-// }
-// .custom-index > .h-nav-page-enter{
-//   left: 33%;
-// }

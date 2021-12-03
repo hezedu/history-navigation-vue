@@ -1,4 +1,4 @@
-import './css/style.scss';
+import './css/style.css';
 // import './css/transition.css';
 import install from './install';
 
