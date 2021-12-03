@@ -153,7 +153,8 @@ const webpackConf = {
     },
     host: '0.0.0.0',
     static: {
-      directory: indexDir
+      directory: indexDir,
+      watch: false
     },
     // contentBase: indexDir,
     hot: true,
