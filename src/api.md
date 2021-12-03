@@ -743,9 +743,10 @@ class prefix: `h-nav-behavior-`
   When used navigator switchTab(Pay attention to letter case) method.
 
   *Default No transition*.
-- **forward**
+  
+<!-- - **forward**
 
-  When history forward. **Please ignore**.
+  When history forward. **Please ignore**. -->
 
   *Default No transition*.
 #### Tab Behavior

@@ -736,9 +736,10 @@ class 前缀: `h-nav-behavior-`
   当使用导航器 switchTab(注意字母大小写) 方法。
 
   *默认无过渡*.
-- **forward**
 
-  当 HTML5 历史前进(history.forward).  **请忽略它**.
+<!-- - **forwar2d**
+
+  当 HTML5 历史前进(history.forwar2d).  **请忽略它**. -->
 
   *默认无过渡*.
 #### Tab Behavior
