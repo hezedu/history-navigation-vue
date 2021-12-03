@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const cdnRootUrl = 'https://cdn.jsdelivr.net/npm/';
+const cdnRootUrl = '/_NODE_MODULE_/';
 module.exports = function(isPro){
   const staticMap = Object.create(null);
   ['vue'].forEach(name => {
