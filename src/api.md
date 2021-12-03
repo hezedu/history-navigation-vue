@@ -216,7 +216,7 @@ Use to synchronize document title or do some traffic statistics.
   - type: `string`
   - default: `h-nav-transition`
 
-This is global option of [transitionClass](#transitionclass).
+This is global option of [$TRANSITION_CLASS](#$TRANSITION_CLASS).
 
 
 If you don't want any transition effect, Set it to `""`
@@ -446,7 +446,7 @@ interface NavigatorUrlObject {
   transition?: string // See the Transition CSS API.
 }
 ```
-transition see: [transitionClass](#transitionclass)
+transition see: [$TRANSITION_CLASS](#$TRANSITION_CLASS)
 ```js
 this.$navigator.push({
   url: '/foo',
@@ -470,7 +470,7 @@ this.$navigator.push({
 参数 -->
 Close the current page and return to the previous page or multi-level pages.
 
-transition see: [transitionClass](#transitionclass)
+transition see: [$TRANSITION_CLASS](#$TRANSITION_CLASS)
 ```js
 this.$navigator.back();
 this.$navigator.back(2);
@@ -661,18 +661,18 @@ If `true` event will be **prevented** and a class `"h-nav-disabled"` Will be add
 ### transition
 - type: `string`
 
-Set different transition effects.  [See below](#transitionclass) for details.
+Set different transition effects.  [See below](#$TRANSITION_CLASS) for details.
 
 ## Transition CSS
 Page transition effect based on CSS. 
 
-Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorClass](#behaviorclass), [pageClass](#pageclass), You can set up countless transition effects.
+Using these three base classNames: [$BEHAVIOR_CLASS](#$BEHAVIOR_CLASS), [$BEHAVIOR_CLASS](#$BEHAVIOR_CLASS), [$PAGE_CLASS](#$PAGE_CLASS), You can set up countless transition effects.
 ### Usage
 - **With CSS transition**
 
   First: Set the transition of CSS.
 
-  **behaviorClass** > **transitionClass**
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS**
   ```css
   .h-nav-behavior-push > .h-nav-transition,
   .h-nav-behavior-back > .h-nav-transition{
@@ -681,8 +681,8 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
   ```
   Then Set the action CSS with suffix `-enter`, `-leave-to`:
 
-  **behaviorClass** > **transitionClass** > **pageClass**-enter *or*<br>
-  **behaviorClass** > **transitionClass** > **pageClass**-leave-to
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-enter *or*<br>
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-leave-to
 
 
   ```css
@@ -696,7 +696,7 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
 
   First: set `animation` propertys(without animation-name) CSS:
 
-  `behaviorClass > transitionClass`
+  `$BEHAVIOR_CLASS > $TRANSITION_CLASS`
   ```css
   .h-nav-behavior-replace > .my-ani{
     animation-duration: 1s;
@@ -704,8 +704,8 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
   ```
   Then set animation-name CSS with suffix `-enter-active`, `-leave-active`:
 
-  **behaviorClass** > **transitionClass** > **pageClass**-enter-active *or*<br>
-  **behaviorClass** > **transitionClass** > **pageClass**-leave-active
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-enter-active *or*<br>
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-leave-active
 
   ```css
   .h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
@@ -716,7 +716,7 @@ Using these three base classNames: [behaviorClass](#behaviorclass), [behaviorCla
   }
   ```
   <!-- Example: [Transition With Amimate](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
-### behaviorClass
+### $BEHAVIOR_CLASS
 #### Page Behavior
 class prefix: `h-nav-behavior-`
 - **loaded**
@@ -743,10 +743,10 @@ class prefix: `h-nav-behavior-`
   When used navigator switchTab(Pay attention to letter case) method.
 
   *Default No transition*.
-  
-<!-- - **forward**
 
-  When history forward. **Please ignore**. -->
+<!-- - **forwar2d**
+
+  When history forwar2d. **Please ignore**. -->
 
   *Default No transition*.
 #### Tab Behavior
@@ -763,7 +763,7 @@ Behavior of [Tab Page](#tab-page), It only happens when tabbar switches.
 
   From small tab index to large tab index. For example When click tab **1** to tab **2**
 
-### transitionClass
+### $TRANSITION_CLASS
 CSS class name. Set by global config transition or navigator transition option. 
 
 Default is: `h-nav-transition`.
@@ -771,7 +771,7 @@ Default is: `h-nav-transition`.
 ::: warning
 If you use navigator.push set the  transition option, You also need to provide the same class with back behavior. Because when you back, It will follow the previous effect(If not set back transition option and steps is 1, eq click the browser Back button)
 :::
-### pageClass
+### $PAGE_CLASS
 #### Page
 class prefix: `h-nav-page-`
 #### Tab Page

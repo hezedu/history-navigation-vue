@@ -217,7 +217,7 @@ type: `Function`
   - 类型: `string`
   - 默认:  `h-nav-transition`
 
-这是 [transitionClass](#transitionclass) 的全局配置。
+这是 [$TRANSITION_CLASS](#$TRANSITION_CLASS) 的全局配置。
 
 如果你不想要任何过渡效果，那把它设成 `""`。
 
@@ -439,7 +439,7 @@ interface NavigatorUrlObject {
   transition?: string // See the Transition CSS API.
 }
 ```
-transition 见: [transitionClass](#transitionclass)
+transition 见: [$TRANSITION_CLASS](#$TRANSITION_CLASS)
 ```js
 this.$navigator.push({
   url: '/foo',
@@ -463,7 +463,7 @@ this.$navigator.push({
 参数 -->
 关闭当前页面，返回上一页面或多级页面。
 
-transition see: [transitionClass](#transitionclass)
+transition see: [$TRANSITION_CLASS](#$TRANSITION_CLASS)
 ```js
 this.$navigator.back();
 this.$navigator.back(2);
@@ -655,18 +655,18 @@ ___Props:___
 ### transition
 - 类型: `string`
 
-设置不同的过渡效果。详情[见下面](#transitionclass).
+设置不同的过渡效果。详情[见下面](#$TRANSITION_CLASS).
 
 ## Transition CSS
 基于 CSS 的页面过渡效果。
 
-使用三大基类: [behaviorClass](#behaviorclass), [behaviorClass](#behaviorclass), [pageClass](#pageclass), 你可以设置成千上万的过渡效果。
+使用三大基类: [$BEHAVIOR_CLASS](#$BEHAVIOR_CLASS), [$BEHAVIOR_CLASS](#$BEHAVIOR_CLASS), [$PAGE_CLASS](#$PAGE_CLASS), 你可以设置成千上万的过渡效果。
 ### 使用方法
 - **基于 CSS transition 属性**
 
   首先：设置 transition 属性。
 
-  **behaviorClass** > **transitionClass**
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS**
   ```css
   .h-nav-behavior-replace > .h-nav-transition{
     transition: all 1s ease;
@@ -674,8 +674,8 @@ ___Props:___
   ```
   然后设置触发样式, 两种方向后缀可选 `-enter`, `-leave-to`:
 
-  **behaviorClass** > **transitionClass** > **pageClass**-enter *或*<br>
-  **behaviorClass** > **transitionClass** > **pageClass**-leave-to
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-enter *或*<br>
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-leave-to
 
 
   ```css
@@ -689,7 +689,7 @@ ___Props:___
 
   首先：设置 `animation` 属性(不要有 animation-name):
 
-  `behaviorClass > transitionClass`
+  `$BEHAVIOR_CLASS > $TRANSITION_CLASS`
   ```css
   .h-nav-behavior-replace > .my-ani{
     animation-duration: 1s;
@@ -697,8 +697,8 @@ ___Props:___
   ```
   然后设置 animation-name, 两种方向后缀可选 `-enter-active`, `-leave-active`:
 
-  **behaviorClass** > **transitionClass** > **pageClass**-enter-active *或*<br>
-  **behaviorClass** > **transitionClass** > **pageClass**-leave-active
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-enter-active *或*<br>
+  **$BEHAVIOR_CLASS** > **$TRANSITION_CLASS** > **$PAGE_CLASS**-leave-active
 
   ```css
   .h-nav-behavior-replace > .my-ani > .h-nav-page-enter-active{
@@ -709,7 +709,7 @@ ___Props:___
   }
   ``` -->
   <!-- 示例: [结合 amimate.css 过渡](https://hezedu.github.io/history-navigation-vue/examples/transition-with-amimate.html) -->
-### behaviorClass
+### $BEHAVIOR_CLASS
 #### Page Behavior
 class 前缀: `h-nav-behavior-`
 - **loaded**
@@ -756,7 +756,7 @@ class 前缀: `h-nav-tab-behavior-`
 
   从小索引切换到大索引。比如当前 tab **1**，点击 tab **2**。
 
-### transitionClass
+### $TRANSITION_CLASS
 CSS 类名，由全局配置或导航器的 transition 选项设置。
 
 默认: `h-nav-transition`. 
@@ -764,7 +764,7 @@ CSS 类名，由全局配置或导航器的 transition 选项设置。
 ::: 警告
 如果你用导航器 push 方法并设置了过渡，你也得设置 back 行为的过渡。应为当你无参数回退时(相当于手动点击浏览器后退键)，它将跟随之前进入的效果类名。
 :::
-### pageClass
+### $PAGE_CLASS
 #### Page
 class 前缀: `h-nav-page-`
 #### Tab Page
