@@ -1,14 +1,14 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
 import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey } from './state-key';
-import { KEY_NAME } from '../constant';
+import { KEY_NAME, BACK_TRA_PROP_KEY } from '../constant';
 import { noop, throwErr } from '../util';
 import modalPart from './libs/modal';
 import BAEPart from './libs/bae';
 import BackPart from './libs/back';
 
-const BACK_TRA_PROP_KEY = 'h_nav_b_tra';
 let isCreated = false;
+
 function History(opt){
   if(isCreated){
     throwErr('Only one instance can be generated.');
@@ -92,22 +92,11 @@ History.prototype._bind = function(){
 
 History.prototype._onRouted = function(){
   const curr = this.currentPage;
+  this.onRouted({
+    title: curr.title,
+    routeFullPath: curr.route.fullPath
+  });
   this._autoBAE(curr.route.trimedPath);
-  if(this.behavior.type === 'loaded'){
-    console.log('readyState', document.readyState, this.behavior);
-    setTimeout(() => {
-      this.onRouted({
-        title: curr.title,
-        routeFullPath: curr.route.fullPath
-      });
-    })
-  } else {
-    this.onRouted({
-      title: curr.title,
-      routeFullPath: curr.route.fullPath
-    });
-  }
-
 }
 
 History.prototype._genStackItemId = function(){
