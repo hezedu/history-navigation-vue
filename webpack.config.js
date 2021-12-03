@@ -126,7 +126,6 @@ if (isPro) {
 const webpackConf = {
   mode: NODE_ENV,
   optimization,
-  cache: true,
   context: path.join(__dirname, './examples'),
   entry: {
     z_app: "./app.js"
@@ -158,6 +157,7 @@ const webpackConf = {
     },
     // contentBase: indexDir,
     hot: true,
+    liveReload: false,
     // proxy: {
     //   '/api': {
     //     target: '',
