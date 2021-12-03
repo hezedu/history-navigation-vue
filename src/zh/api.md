@@ -800,6 +800,6 @@ class 前缀: `h-nav-tab-page-`
 
 
 
-**注意:** 关于 [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), 一些老旧浏览器可能不支持(安卓 Webview 要 版本 5 以上), 但是并不重要，本来就是锦上添花的事。
+<!-- **注意:** 关于 [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), 一些老旧浏览器可能不支持(安卓 Webview 要 版本 5 以上), 但是并不重要，本来就是锦上添花的事。 -->
 
  <!-- 示例: [tab 的滑动过渡(使用了CSS Var)](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html) -->

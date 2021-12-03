@@ -807,6 +807,6 @@ Provides some CSS variables for transition acceleration effect.
 
 
 
-**Notice:** About [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), some older browsers may not supported(Android Webview 5+), But it doesn't matter.
+<!-- **Notice:** About [CSS variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/var()), some older browsers may not supported(Android Webview 5+), But it doesn't matter. -->
 
  <!-- Example: [Tab Pages Slide Using Css Var](https://hezedu.github.io/history-navigation-vue/examples/transition-of-tab-pages-slide-css-var.html) -->
