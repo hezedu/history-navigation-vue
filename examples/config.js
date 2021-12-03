@@ -24,23 +24,23 @@ export default {
   //   title: '404',
   //   component: NotFound
   // },
-  // tabBar: {
-  //   list: [{
-  //     pagePath: '/',
-  //     icon: 'index2_icon',
-  //     text: '首页'
-  //   },
-  //   {
-  //     pagePath: '/api',
-  //     icon: 'api_icon',
-  //     text: 'API'
-  //   },
-  //   {
-  //     pagePath: '/me',
-  //     icon: 'me_icon',
-  //     text: 'Me'
-  //   }]
-  // },
+  tabBar: {
+    list: [{
+      pagePath: '/',
+      icon: 'index2_icon',
+      text: '首页'
+    },
+    {
+      pagePath: '/api',
+      icon: 'api_icon',
+      text: 'API'
+    },
+    {
+      pagePath: '/me',
+      icon: 'me_icon',
+      text: 'Me'
+    }]
+  },
   onRouted(e){
     console.log('onRouted', e)
     document.title = e.title;

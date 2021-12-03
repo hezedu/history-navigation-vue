@@ -8,11 +8,18 @@
 }
 .h-nav-tabbar {
   height: 48px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
 }
-.h-nav-tab-page , .h-nav-tab-pages-wrap {
+
+.h-nav-tab-page  {
   height: calc(100% - 48px);
 }
-.h-nav-tab-page .h-nav-modal {
+
+.h-nav-tab-page > .h-nav-modal {
   height: calc(100% + 48px);
 }
 

@@ -56,6 +56,7 @@
 .h-nav-tab-pages-wrap {
   transition: inherit;
   animation: inherit;
+  position: static!important;
   transition-property: none;
   animation-name: none;
 }

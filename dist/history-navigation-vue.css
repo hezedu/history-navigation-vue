@@ -1,9 +1,9 @@
 /*!
-  * history-navigation-vue v1.4.0
+  * history-navigation-vue v1.4.1
   * (c) 2021 hezedu
   * @license MIT
   */
- .h-nav-ctrler {
+ .h-nav-ctrler{
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -22,12 +22,12 @@
   background-color: #fff;
   position: relative;
   -webkit-overflow-scrolling: touch;
-  overflow: auto;
+  overflow:  auto;
   width: 100%;
   height: 100%;
 }
 
-.h-nav-tabs-ctrler {
+.h-nav-tabs-ctrler{
   position: absolute;
   left: 0;
   top: 0;
@@ -36,22 +36,24 @@
   overflow: hidden;
 }
 
-.h-nav-page-handle,
-.h-nav-tab-page-handle {
-  width: 0 !important;
-  height: 0 !important;
-  border: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
-  position: static !important;
+
+
+.h-nav-page-handle, 
+.h-nav-tab-page-handle{
+  width: 0!important;
+  height: 0!important;
+  border: 0!important;
+  margin: 0!important;
+  padding: 0!important;
+  box-shadow: none!important;
+  outline: none!important;
+  position: static!important;
 }
 
-.h-nav-page-enter-active,
+.h-nav-page-enter-active, 
 .h-nav-page-leave-active,
 .h-nav-tab-page-enter-active,
-.h-nav-tab-page-leave-active {
+.h-nav-tab-page-leave-active{
   transition: inherit;
   animation: inherit;
 }
@@ -59,18 +61,18 @@
 .h-nav-tab-pages-wrap {
   transition: inherit;
   animation: inherit;
+  position: static!important;
   transition-property: none;
   animation-name: none;
 }
 
-.h-nav-tab-page-handle {
+.h-nav-tab-page-handle{
   transition: inherit;
   animation: inherit;
 }
-
-.h-nav-tab-behavior-_inherit {
-  transition: inherit !important;
-  animation: inherit !important;
+.h-nav-tab-behavior-_inherit{
+  transition: inherit!important;
+  animation: inherit!important;
 }
 
 .h-nav-modal {
@@ -81,15 +83,19 @@
   height: 100%;
   color: #fff;
   box-sizing: border-box;
+  /* background-color: rgba(0, 0, 0, .5); */
 }
 
+/* .h-nav-tab-page .h-nav-modal {
+  z-index: 2000;
+} */
 .h-nav-page-has-modal {
   overflow: hidden;
 }
 
 .h-nav-behavior-push > .h-nav-transition,
 .h-nav-behavior-back > .h-nav-transition,
-.h-nav-behavior-replace > .h-nav-transition {
+.h-nav-behavior-replace > .h-nav-transition{
   transition: all .3s ease;
 }
 
@@ -116,7 +122,7 @@
 } */
 /* ---------------- behavior push/back end ---------------- */
 
-.h-nav-tabbar {
+.h-nav-tabbar{
   box-sizing: border-box;
   border-top: 1px solid #c7c7c7;
   display: -ms-flexbox;
@@ -127,14 +133,19 @@
 }
 .h-nav-tabbar {
   height: 48px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
 }
-.h-nav-tab-page, .h-nav-tab-pages-wrap {
+.h-nav-tab-page  {
   height: calc(100% - 48px);
 }
-.h-nav-tab-page .h-nav-modal {
+.h-nav-tab-page > .h-nav-modal {
   height: calc(100% + 48px);
 }
-.h-nav-tab {
+.h-nav-tab{
   -ms-flex-positive: 1;
       flex-grow: 1;
   display: -ms-flexbox;
@@ -148,10 +159,10 @@
   -ms-flex-direction: column;
       flex-direction: column;
 }
-.h-nav-tab.h-nav-active {
+.h-nav-tab.h-nav-active{
   color: #3eaf7c;
 }
-.h-nav-tab-icon {
+.h-nav-tab-icon{
   font-size: 26px;
   width: 26px;
   height: 26px;
@@ -162,11 +173,11 @@
   background-position: center center;
   margin-bottom: 4px;
 }
-.h-nav-tab-text {
+.h-nav-tab-text{
   font-size: 16px;
   line-height: 1;
 }
-.h-nav-tab-icon + .h-nav-tab-text {
+.h-nav-tab-icon + .h-nav-tab-text{
   font-size: 12px;
 }
 
