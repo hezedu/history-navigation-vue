@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.4.3
+  * history-navigation-vue v1.4.4
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1291,8 +1291,6 @@ function getVueV(_Vue) {
 
           this.removeModalKeyWhenBackPage();
         }
-
-        this._setModalCrumbs(currKey, modalKey);
       }
     },
     _autoRemoveModal: function _autoRemoveModal() {
@@ -1309,6 +1307,12 @@ function getVueV(_Vue) {
       if (page && page.modalList.length > modalKey) {
         this.removeModal();
       }
+    },
+    _setModalCrumbsWhenChange: function _setModalCrumbsWhenChange() {
+      var key = getCurrentStateKey();
+      var modalKey = this.getCurrModaKey();
+
+      this._setModalCrumbs(key, modalKey);
     },
     getCurrModaKey: function getCurrModaKey() {
       var state = this._history.state;
@@ -1590,7 +1594,7 @@ function History(opt) {
   this._window = nativeWindow;
   this._history = nativeHistory;
   this._location = nativeLocation;
-  this._isOmitPopEvent = false;
+  this._isOmitForwardEvent = false;
   this.BAE = opt.BAE; // this._exitImmediately = true;
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
 
@@ -2033,9 +2037,12 @@ History.prototype._clearAll = function () {
 History.prototype.handlePop = function () {
   var _this4 = this;
 
-  if (this._isOmitPopEvent) {
-    this._isOmitPopEvent = false;
+  if (this._isOmitForwardEvent) {
+    this._isOmitForwardEvent = false;
     setPreStateKey(getCurrentStateKey());
+
+    this._setModalCrumbsWhenChange();
+
     return;
   }
 
@@ -2043,6 +2050,8 @@ History.prototype.handlePop = function () {
 
   if (_backInfo) {
     this[_backInfo.method].apply(this, _backInfo.args);
+
+    this._setModalCrumbsWhenChange();
 
     this._whenBackPopInfo = null;
     return;
@@ -2070,6 +2079,9 @@ History.prototype.handlePop = function () {
 
   if (preKey === currKey) {
     this.removeModal();
+
+    this._setModalCrumbsWhenChange();
+
     return;
   }
 
@@ -2079,7 +2091,7 @@ History.prototype.handlePop = function () {
   var isBack = behavior === 'back';
 
   if (!isBack) {
-    this._isOmitPopEvent = true;
+    this._isOmitForwardEvent = true;
     this.back(compare);
     return;
   }
@@ -2116,6 +2128,8 @@ History.prototype.handlePop = function () {
 
   if (isBack) {
     this._autoRemoveModal();
+
+    this._setModalCrumbsWhenChange();
 
     this.uniteVue.nextTick(function () {
       _this4._clearAfter();
@@ -2502,7 +2516,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.4.3';
+var version = '1.4.4';
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
