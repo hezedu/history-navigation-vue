@@ -5,7 +5,7 @@
       <div class="index_f_m">
         <div class="index_f_m_i"></div>
         <div class="index_f_m_i"></div>
-        <div class="index_f_m_i"></div>
+        <div class="index_f_m_i index_f_m_i_curr"></div>
       </div>
     </div>
     <div class="index_f_i_info">{{TEXT[1]}}</div>
@@ -106,11 +106,12 @@ export default {
 .index_f_m_i {
   width: 37px;
   height: 67px;
-  background-color: #fff;
+  background-color: #F5F5F5;
   box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 20%);
   border-radius: 5px;
   position: absolute;
-
+  border-width: 1px;
+  border-color: #ccc;
 }
 .index_f_m_i:nth-child(1) {
   top: 0;
@@ -128,6 +129,9 @@ export default {
   bottom: 0;
   right: 0;
   z-index: 3;
+}
+.index_f_m_i_curr {
+  background-color: #fff;
 }
 .index_f_t, .index_f_mo {
   height: 134px;
