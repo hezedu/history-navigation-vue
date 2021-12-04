@@ -290,4 +290,10 @@ export default {
     font-size: 10px;
   }
 }
+@media (max-width: 419px) {
+  .index_f_wrap {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+}
 </style>

@@ -9,12 +9,12 @@
           </div>
      </div>
       <div class="index_diff_item">
-          <div class="index_diff_title">Used history-navigation-vue</div>
+          <div class="index_diff_title">Used This Project</div>
 
           <div class="index_diff_body">
             <div class="index_diff_body_h_nav"
             :class="{index_diff_body_h_nav_first_load: firstLoad}"
-            :style="{left: ((currAniMap.start - currAniMap[currAni]) * 100) + '%', zIndex: 1}">
+            :style="{transform: 'translateX(' + ((currAniMap.start - currAniMap[currAni]) * 100) + '%)', zIndex: 1}">
 
               <transition name="index_diff_inner_trf_wrap">
                 <DiffStart v-if="currAni === 'start'"  />
@@ -24,7 +24,7 @@
 
             <div 
             class="index_diff_body_h_nav" 
-            :style="{left: ((currAniMap.list - currAniMap[currAni]) * 100) + '%', zIndex: 2}">
+            :style="{transform: 'translateX(' + ((currAniMap.list - currAniMap[currAni]) * 100) + '%)', zIndex: 2}">
 
                 <transition name="index_diff_inner_trf_wrap">
                   <keep-alive v-if="currAni !== 'start'">
@@ -34,7 +34,7 @@
                   </transition>
             </div>
             <div class="index_diff_body_h_nav" 
-            :style="{left: ((currAniMap.detail - currAniMap[currAni]) * 100) + '%', zIndex: 3}">
+            :style="{transform: 'translateX(' + ((currAniMap.detail - currAniMap[currAni]) * 100) + '%)', zIndex: 3}">
               <transition name="index_diff_inner_trf_wrap">
                 <DiffDetail v-if="currAni === 'detail'" />
               </transition>
@@ -339,6 +339,7 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+  will-change: transform;
   background-color: #fff;
 }
 
@@ -394,9 +395,13 @@ export default {
 .index_diff_start_active{
   text-decoration: none;
 }
-.index_diff_page, .index_diff_body_h_nav{
-
+.index_diff_page{
   transition: all .5s;
+}
+
+.index_diff_body_h_nav{
+
+  transition: transform .5s;
 }
 /* .index_diff_body_h_nav_first_load .index_diff_page, 
 .index_diff_body_h_nav_first_load .index_diff_body_h_nav{
