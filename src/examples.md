@@ -15,6 +15,12 @@ Solve the pain point of the single-page normal routers.
 - Hello World!
   <source-preview name="two-pages" />
 
+- Page Get Query Data.
+  <source-preview name="page-get-query" />
+
+- Page ClassName & Style.
+  <source-preview name="class-name" />
+
 <!-- - Navigator.
   <source-preview name="two-pages" /> -->
 
@@ -30,11 +36,9 @@ Solve the pain point of the single-page normal routers.
 - Page Event Handing.
   <source-preview name="page-event-handing" />
 
-- Page ClassName.
-  <source-preview name="class-name" />
 
-- Page Get Query Data.
-  <source-preview name="page-get-query" />
+
+
 
 
 

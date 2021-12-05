@@ -15,6 +15,12 @@ sidebar: false
 - Hello World!
   <source-preview name="two-pages" />
 
+- 页面获取参数。
+  <source-preview name="page-get-query" />
+
+- 页面 className & style。
+  <source-preview name="class-name" />
+
 - 同步 Document Title.
   <source-preview name="synchronize-document-title" />
 
@@ -26,14 +32,6 @@ sidebar: false
 
 - 页面的事件处理。
   <source-preview name="page-event-handing" />
-
-- 页面 className。
-  <source-preview name="class-name" />
-
-- 页面获取参数。
-  <source-preview name="page-get-query" />
-
-
 
 ### TabBar
 - TabBar。

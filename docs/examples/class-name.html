@@ -12,9 +12,6 @@
       .custom-index{
         background-color:cadetblue;
       }
-      .custom-detail{
-        background-color:burlywood;
-      }
     </style>
     <title>Page className - example - history-navigation-vue</title>
   </head>
@@ -43,7 +40,7 @@
     window.Vue.use(window.historyNavigationVue.plugin, {
       pages: [
         { path: '/', component: { template: "#index" }, className: 'custom-index' },
-        { path: '/detail', component: { template: "#detail" }, className: 'custom-detail' }
+        { path: '/detail', component: { template: "#detail" }, style: {backgroundColor: 'burlywood'} }
       ]
     });
     new window.Vue({
