@@ -1,4 +1,5 @@
-import { getCurrentStateKey } from '../state-key';
+import { getCurrentStateKey, getCurrModaKey, getCurrState, getPreState } from '../state-key';
+import { _getTotalSteps } from '../../util';
 export default {
   init(){
     this._whenPopTra = null;
@@ -6,28 +7,40 @@ export default {
     this._whenBackPopInfo = null;
   },
   proto: {
-    getModalStepsTotal(){
+    _getStepsTotal(distState){
+      const currState = getCurrState();
+      const { key, modalKey } = currState;
+      const distKey = distState.key;
+      const distModalKey = distState.modalKey;
+      let count = key - distKey;
+      if(count === 0){
+        return modalKey - distModalKey;
+      }
       const arr = this._modal_crumbs;
-      let count = 0, i = 0;
-      const max = arr.length;
-      for(; i < max; i++){
-        count = count + arr[i][1];
+      let start, end;
+      const isBack = count > 0;
+      if(isBack){
+        start = distState;
+        end = currState;
+      } else {
+        start = currState;
+        end = distState;
       }
-      return count;
+      let total = _getTotalSteps(arr, start, end);
+      if(!isBack){
+        total = -total;
+      }
+      return total;
     },
+    // _getTotalFromPreState(){
+    //   return this._getStepsTotal({key: 1, modalKey: 0});
+    // },
     _backGetTo1Count(){
-      const key = getCurrentStateKey();
-      if(key === 1){
-        return this.getCurrModaKey();
-      }
-      const modalCount = this.getModalStepsTotal();
-      console.log('modalCount', modalCount, key)
-      const total = key + modalCount;
-      return total - 1;
+      return this._getStepsTotal({key: 1, modalKey: 0});
     },
     back(_steps, tra){
       // const key = getCurrentStateKey();
-      // const modalCount = this.getModalStepsTotal();
+      // const modalCount = this.get2ModalStepsTotal();
       // console.log('modalCount', modalCount, key)
       // const total = key + modalCount;
       let steps = _steps || 1;
@@ -44,9 +57,6 @@ export default {
       if(steps){
         this._history.go(-steps);
       }
-      // else {
-      //   this._history.back();
-      // }
     },
     backToPage(_steps, tra){
       const arr = this._modal_crumbs;
@@ -83,12 +93,15 @@ export default {
 
     _backToStartAndReplace(fullParse, behavior, tra){
       const total = this._backGetTo1Count();
-      console.log('_backToStartAndReplace', total)
+      // console.log('_backToStartAndReplace', total, this._modal_crumbs);
+      // return;
       if(total > 0){
         this._backAndApply(total, '_replace', [fullParse, behavior], tra);
-      } else {
+      } else if(total === 0){
         this._setTra(tra);
         this._replace(fullParse, behavior);
+      } else {
+        console.error('_backToStartAndReplace not back', total);
       }
     }
   }

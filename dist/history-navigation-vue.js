@@ -1166,7 +1166,27 @@ function getVueV(_Vue) {
   v = v.substr(0, v.indexOf('.'));
   return Number(v);
 }
+function _cutOffAndPush(arr, stateKey, modalCount) {
+  var i = 0;
+  var len = arr.length;
+  var v;
+
+  for (; i < len; i++) {
+    v = arr[i];
+
+    if (v[0] >= stateKey) {
+      break;
+    }
+  }
+
+  arr.splice(i, arr.length);
+
+  if (modalCount) {
+    arr.push([stateKey, modalCount]);
+  }
+}
 ;// CONCATENATED MODULE: ./navigator/libs/modal.js
+
 
 
  // import { nativeDocument } from '../native';
@@ -1179,7 +1199,7 @@ function getVueV(_Vue) {
   },
   proto: {
     modal: function modal(_ref) {
-      var _this$_history$pushSt,
+      var _this$_pushState,
           _this = this;
 
       var component = _ref.component,
@@ -1207,15 +1227,13 @@ function getVueV(_Vue) {
 
       modalKey = modalKey + 1;
 
-      this._history.pushState((_this$_history$pushSt = {}, _defineProperty(_this$_history$pushSt, KEY_NAME, key), _defineProperty(_this$_history$pushSt, MODAL_KEY_NAME, modalKey), _this$_history$pushSt), '');
+      this._pushState((_this$_pushState = {}, _defineProperty(_this$_pushState, KEY_NAME, key), _defineProperty(_this$_pushState, MODAL_KEY_NAME, modalKey), _this$_pushState), '');
 
       var item = {
         key: modalKey,
         uid: _genModalKey()
       };
       page.modalList.push(item);
-
-      this._setModalCrumbs(key, modalKey);
 
       if (isBAEModal) {
         item.isBAE = true;
@@ -1352,27 +1370,8 @@ function getVueV(_Vue) {
     },
     _setModalCrumbs: function _setModalCrumbs(stateKey, modalCount) {
       var arr = this._modal_crumbs;
-      var lastI = arr.length - 1;
-      var v = arr[lastI];
 
-      if (lastI === -1 || v[0] < stateKey) {
-        arr.push([stateKey, modalCount]);
-        return;
-      }
-
-      for (; lastI > -1; lastI--) {
-        v = arr[lastI];
-
-        if (v[0] < stateKey) {
-          break;
-        }
-      }
-
-      arr.splice(lastI, arr.length, [stateKey, modalCount]);
-
-      if (!modalCount) {
-        arr.pop();
-      }
+      _cutOffAndPush(arr, stateKey, modalCount);
     },
     _saveModalCrumbs: function _saveModalCrumbs() {
       if (this._modal_crumbs.length) {
@@ -1382,6 +1381,18 @@ function getVueV(_Vue) {
 
         this._history.replaceState(state, '');
       }
+    },
+    getLastModalKeyByCrumbs: function getLastModalKeyByCrumbs(stateKey) {
+      var crumbs = this._modal_crumbs;
+      var last = crumbs[crumbs.length - 1];
+
+      if (last) {
+        if (last[0] === stateKey) {
+          return last[1];
+        }
+      }
+
+      return 0;
     }
   }
 });
@@ -1477,6 +1488,24 @@ function _genModalKey() {
       var count = 0,
           i = 0;
       var max = arr.length;
+
+      for (; i < max; i++) {
+        count = count + arr[i][1];
+      }
+
+      return count;
+    },
+    getModalTotalFrom: function getModalTotalFrom(preKey) {
+      var arr = this._modal_crumbs;
+      var count = 0;
+      var max = arr.length;
+      var i = arr.findIndex(function (v) {
+        return v[0] === preKey;
+      });
+
+      if (i === -1) {
+        return 0;
+      }
 
       for (; i < max; i++) {
         count = count + arr[i][1];
@@ -1601,10 +1630,7 @@ function History(opt) {
   this._tra = {
     className: this._global.transition
   };
-  this.uniteVue = opt.uniteVue; // if(!this._history || !this._history.pushState){
-  //   throwErr('required history.pushState API');
-  // }
-
+  this.uniteVue = opt.uniteVue;
   this.pageMap = opt.pageMap;
   this.notFoundPage = opt.notFoundPage;
 
@@ -1871,7 +1897,7 @@ History.prototype._push = function (fullParse, tra) {
 
   var key = genStateKey();
 
-  this._history.pushState(_defineProperty({}, KEY_NAME, key), '', this.URL.toLocationUrl(fullParse.fullPath));
+  this._pushState(_defineProperty({}, KEY_NAME, key), '', this.URL.toLocationUrl(fullParse.fullPath));
 
   setPreStateKey(key);
   var newBehavior = {
@@ -2034,24 +2060,25 @@ History.prototype._clearAll = function () {
   this._clearMap(this.stackMap);
 };
 
+History.prototype._pushState = function () {
+  this._history.pushState.apply(this._history, arguments);
+
+  this._setModalCrumbsWhenChange();
+};
+
 History.prototype.handlePop = function () {
   var _this4 = this;
 
   if (this._isOmitForwardEvent) {
     this._isOmitForwardEvent = false;
-    setPreStateKey(getCurrentStateKey());
-
-    this._setModalCrumbsWhenChange();
-
     return;
   }
 
   var _backInfo = this._whenBackPopInfo;
 
   if (_backInfo) {
-    this[_backInfo.method].apply(this, _backInfo.args);
+    this[_backInfo.method].apply(this, _backInfo.args); // this._set2ModalCrumbsWhenChange();
 
-    this._setModalCrumbsWhenChange();
 
     this._whenBackPopInfo = null;
     return;
@@ -2078,14 +2105,20 @@ History.prototype.handlePop = function () {
   var currKey = getCurrentStateKey();
 
   if (preKey === currKey) {
-    this.removeModal();
+    var modalKey = this.getCurrModaKey();
+    var preModalKey = this.getLastModalKeyByCrumbs(preKey);
 
-    this._setModalCrumbsWhenChange();
+    if (modalKey > preModalKey) {
+      this._isOmitForwardEvent = true;
+      this.back(modalKey - preModalKey);
+      return;
+    }
+
+    this.removeModal(); // this._set2ModalCrumbsWhenChange();
 
     return;
   }
 
-  setPreStateKey(currKey);
   var compare = currKey - preKey;
   var behavior = compare < 0 ? 'back' : 'forward';
   var isBack = behavior === 'back';
@@ -2096,6 +2129,7 @@ History.prototype.handlePop = function () {
     return;
   }
 
+  setPreStateKey(currKey);
   var backTra = this._whenPopTra;
 
   if (!backTra && isBack && compare === -1) {
@@ -2127,9 +2161,8 @@ History.prototype.handlePop = function () {
   }
 
   if (isBack) {
-    this._autoRemoveModal();
+    this._autoRemoveModal(); // this._setModalCrumbs2WhenChange();
 
-    this._setModalCrumbsWhenChange();
 
     this.uniteVue.nextTick(function () {
       _this4._clearAfter();

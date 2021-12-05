@@ -1,5 +1,5 @@
 import { nativeHistory } from './native';
-import { KEY_NAME } from '../constant';
+import { KEY_NAME, MODAL_KEY_NAME } from '../constant';
 
 export function getCurrentStateKey () {
   const state = nativeHistory.state;
@@ -9,30 +9,45 @@ export function getCurrentStateKey () {
   return 1;
 }
 
-
+export function getCurrModaKey(){
+  const state = nativeHistory.state;
+  if(state && typeof state[MODAL_KEY_NAME] === 'number'){
+    return state[MODAL_KEY_NAME];
+  }
+  return 0;
+}
 
 export function genStateKey () {
   return getCurrentStateKey() + 1;
 }
 
-let _preKey = getCurrentStateKey();
-
-export function getPreStateKey () {
-  return _preKey;
+export function getCurrState() {
+  return {
+    key: getCurrentStateKey(),
+    modalKey: getCurrModaKey()
+  };
 }
 
-export function setPreStateKey (key) {
-  _preKey = key;
+let _preState = getCurrState();
+
+export function getPreState() {
+  return Object.assign({}, _preState);
 }
 
+function _setPreState(state) {
+  _preState = Object.assign({}, state);
+}
 
-// export function isUserPopPush () { // User manually enters the address bar
-//   const state = nativeHistory.state;
-//   let hasKey; 
-//   if(!state){
-//     hasKey = false;
-//   } else {
-//     hasKey = typeof state[KEY_NAME] === 'number';
-//   }
-//   return _preKey > 0 && !hasKey;
+export function updatePreState() {
+  _setPreState(getCurrState());
+}
+
+// let _preKey = getCurrentStateKey();
+// export function get2PreStateKey () {
+//   return _preKey;
 // }
+
+// export function set2PreStateKey (key) {
+//   _preKey = key;
+// }
+

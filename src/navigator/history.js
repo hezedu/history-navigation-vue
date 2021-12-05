@@ -1,12 +1,11 @@
 import { nativeWindow, nativeHistory, nativeLocation } from './native';
 import URL, { fullUrlParse } from './url';
-import { getCurrentStateKey, genStateKey, getPreStateKey,  setPreStateKey } from './state-key';
+import { getCurrentStateKey, genStateKey, getCurrModaKey,  getPreState, updatePreState, getCurrState } from './state-key';
 import { KEY_NAME, BACK_TRA_PROP_KEY } from '../constant';
 import { noop, throwErr } from '../util';
 import modalPart from './libs/modal';
 import BAEPart from './libs/bae';
 import BackPart from './libs/back';
-
 let isCreated = false;
 
 function History(opt){
@@ -24,9 +23,6 @@ function History(opt){
   // this.onExit = opt.onExit; // Chrome must touch the document once to work.
   this._tra = {className: this._global.transition};
   this.uniteVue = opt.uniteVue;
-  // if(!this._history || !this._history.pushState){
-  //   throwErr('required history.pushState API');
-  // }
   this.pageMap = opt.pageMap;
   this.notFoundPage = opt.notFoundPage;
   if(opt.tabBar){
@@ -151,7 +147,7 @@ History.prototype._load = function(userUrl){
 }
 
 History.prototype._replaceCurrPage = function(){
-  const modalCount = this.getCurrModaKey();
+  const modalCount = getCurrModaKey();
   if(modalCount){
     this._backAndApply(modalCount, '_replace', arguments);
     return;
@@ -260,15 +256,19 @@ History.prototype._push = function(fullParse, tra){
     if(tra){
       state[BACK_TRA_PROP_KEY] = tra;
     } else {
-      delete(state[BACK_TRA_PROP_KEY]);
+      delete state[BACK_TRA_PROP_KEY];
     }
     
     this._history.replaceState(state, '');
   }
   const key = genStateKey();
 
+
+  this._setModalCrumbsWhenChange();
   this._history.pushState({[KEY_NAME]: key}, '', this.URL.toLocationUrl(fullParse.fullPath));
-  setPreStateKey(key);
+  
+  updatePreState();
+
   const newBehavior = {
     type: 'push',
     distance: 1,
@@ -284,7 +284,7 @@ History.prototype._push = function(fullParse, tra){
 // History.prototype._replaceCurrPage = function(fullParse, behavior, _dista2nce){
 //   const isBAE = this._isBAEPage();
 //   const isDistBAE = this._isBAEPageByTK(fullUrlParse);
-//   let step = this.getCurrModaKey();
+//   let step = this.get2CurrModaKey();
 //   if(isBAE && !isDistBAE){
 //     step = step + 1;
 //   }
@@ -297,7 +297,7 @@ History.prototype._push = function(fullParse, tra){
 
 
 History.prototype._replace = function(fullParse, behavior){
-  const preKey = getPreStateKey();
+  const preKey = getPreState().key;
   const key = getCurrentStateKey();
   const distance = key - preKey;
   const newBehavior = {
@@ -318,6 +318,7 @@ History.prototype._replace = function(fullParse, behavior){
   }
   
   this._history.replaceState(state, '', toUrl);
+  updatePreState();
 
   this.uniteVue.nextTick(() => {
     if(newBehavior.type === 'relaunch'){
@@ -335,8 +336,7 @@ History.prototype._replace = function(fullParse, behavior){
       this._setMapItem(key, fullParse);
       this._onRouted();
     }
-  })
-  setPreStateKey(key);
+  });
 }
 
 
@@ -415,69 +415,87 @@ History.prototype._clearAll = function(){
   this._clearMap(this.stackMap);
 }
 
+
 History.prototype.handlePop = function(){
   if(this._isOmitForwardEvent){
     this._isOmitForwardEvent = false;
-    setPreStateKey(getCurrentStateKey());
-    this._setModalCrumbsWhenChange();
     return;
   }
   console.log('[handlePop]');
   let _backInfo = this._whenBackPopInfo;
   if(_backInfo){
     this[_backInfo.method].apply(this, _backInfo.args);
-    this._setModalCrumbsWhenChange();
+    // this._set2ModalCrumbsWhenChange();
     this._whenBackPopInfo = null;
     return;
   }
-  const preKey = getPreStateKey();
-  const hState = this._history.state;
-  if(!hState){ // The user manually modifies the browser address bar
+
+  const preState = getPreState();
+  const preKey = preState.key;
+
+  if(!this._history.state){ // The user manually modifies the browser address bar
     let _popPushKey = preKey + 1;
     this._history.replaceState({[KEY_NAME]: _popPushKey}, '');
-    setPreStateKey(_popPushKey);
+    updatePreState();
     this._setTra('');
-    this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
-    console.log('_popPushKey', _popPushKey);
-    return;
-  }
-  const currKey = getCurrentStateKey();
-  if(preKey === currKey){
-    this.removeModal();
+    this._replace(fullUrlParse(this.URL.getUrlByLocation()), '_popPush');
     this._setModalCrumbsWhenChange();
     return;
   }
-  setPreStateKey(currKey);
 
-  const compare = currKey - preKey;
-  const behavior = compare <  0 ? 'back' : 'forward';
-  const isBack = behavior === 'back';
-  if(!isBack){
+  const total = this._getStepsTotal(preState);
+  
+  if(total > 0){ 
+    console.log('forward', total);
+    console.error('Forward is disabled by history-navigation-vue');
     this._isOmitForwardEvent = true;
-    console.log('-compare', -compare)
-    this.back(compare);
+    this.back(total);
     return;
   }
 
+  const currState = getCurrState();
+  const currKey = currState.key;
+
+  const page = this.stackMap[currKey];
+  if(!page && currState.modalKey){
+    this.back(currState.modalKey);
+    return;
+  }
+
+  this._autoRemoveModal();
+
+  updatePreState();
+  
+  if(preKey === currKey) {
+    return;
+  }
+
+  // if(preKey === currKey){
+  //   const modalKey = getCurrModaKey();
+  //   const preModalKey = this.getLastModalKeyByCrumbs(preKey);
+  //   if(modalKey > preModalKey){
+  //     this._isOmitForwardEvent = true;
+  //     this.back(modalKey - preModalKey);
+  //     return;
+  //   }
+  //   this.removeModal();
+  //   // this._set2ModalCrumbsWhenChange();
+  //   return;
+  // }
+
+  const compare = currKey - preKey;
+
   let backTra = this._whenPopTra;
-  if(!backTra && isBack && compare === -1){
+  if(!backTra && compare === -1){
     backTra = this._getBackTra();
     // console.log('--------------- backTra ---------------', backTra);
   } 
   this._setTra(backTra);
   this._whenPopTra = null;
-  // const _info = this._whenPopInfo;
-  // if(_info !== null){
-  //   this._repla2ce(_info.fullParse, _info.behavior, compare);
-  //   this._whenPopInfo = null;
-  //   return;
-  // }
 
-  // this.isPageDestroyWhenBack && 
-
-  let page = this.stackMap[currKey];
+  
   const newBehavior = {
-    type: behavior,
+    type: 'back',
     distance: compare,
     isPop: true
   }
@@ -488,16 +506,10 @@ History.prototype.handlePop = function(){
   } else {
     this._setMapItem(currKey, fullUrlParse(this.URL.getUrlByLocation()));
   }
-  if(isBack){
-    this._autoRemoveModal();
-    this._setModalCrumbsWhenChange();
-    this.uniteVue.nextTick(() => {
-      this._clearAfter();
-      this._onRouted();
-    })
-  } else {
+  this.uniteVue.nextTick(() => {
+    this._clearAfter();
     this._onRouted();
-  }
+  })
 }
 
 
