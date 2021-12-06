@@ -32,7 +32,9 @@
     "build_ex": "webpack --node-env=production --color --progress --config webpack.config.js",
     "preview_docs": "node server/preview_docs.js",
     "preview_ex": "node server/preview_ex.js",
-    "test": "cd test && npm run test"
+    "test": "cd test && npm run test_unit",
+    "test_unit": "mocha test/unit",
+    "test_e2e": "mocha test/e2e"
   },
   "files": [
     "dist"
@@ -63,6 +65,7 @@
     "autoprefixer": "^9.8.8",
     "babel-loader": "^8.2.3",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "chromedriver": "^96.0.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "eslint": "^8.3.0",
@@ -71,8 +74,10 @@
     "express": "^4.17.1",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "mocha": "^9.1.3",
     "postcss": "^8.4.4",
     "postcss-loader": "^6.2.1",
+    "selenium-webdriver": "^4.1.0",
     "style-loader": "^3.3.1",
     "terser": "^5.10.0",
     "terser-webpack-plugin": "^5.2.5",

@@ -5,6 +5,4 @@
 /package-lock.json
 /.vscode
 /.npmrc
-/.npmrc2
-/test/node_modules
 /dev_dist
