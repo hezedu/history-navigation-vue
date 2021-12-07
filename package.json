@@ -34,7 +34,7 @@
     "preview_ex": "node server/preview_ex.js",
     "test": "cd test && npm run test_unit",
     "test_unit": "mocha test/unit",
-    "test_e2e": "mocha test/e2e"
+    "test_e2e": "mocha test/e2e --timeout=5000"
   },
   "files": [
     "dist"
