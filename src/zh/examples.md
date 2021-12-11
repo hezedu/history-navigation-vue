@@ -50,7 +50,7 @@ sidebar: false
 ### 退出
 - 再按一次退出程序。
 <source-preview name="press-back-again-to-exit" />
-
+<a href="/history-navigation-vue/examples/desktop_jump_to_exit_demo.html" target="_blank" rel="noopener noreferrer">Desktop Preview<span class="open_new_win_icon"></span></a>
 ### 过渡
 - 简单的过渡效果。
   <source-preview name="transition-simple" />

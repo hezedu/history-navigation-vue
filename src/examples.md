@@ -59,7 +59,7 @@ Solve the pain point of the single-page normal routers.
 ### Exit
 - Press Back Again to Exit.
 <source-preview name="press-back-again-to-exit" />
-
+<a href="/history-navigation-vue/examples/desktop_jump_to_exit_demo.html" target="_blank" rel="noopener noreferrer">Desktop Preview<span class="open_new_win_icon"></span></a>
 ### Transition
 - Simple Transition.
   <source-preview name="transition-simple" />
