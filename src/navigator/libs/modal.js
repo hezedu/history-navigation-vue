@@ -17,7 +17,6 @@ export default {
       }
       const key = getCurrentStateKey();
       const page = this.stackMap[key];
-      const state = this._history.state;
       let modalKey = getCurrModaKey();
       modalKey = modalKey + 1;
       this._history.pushState({[KEY_NAME]: key, [MODAL_KEY_NAME]: modalKey}, '');

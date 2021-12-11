@@ -1,4 +1,4 @@
-import { getCurrentStateKey, getCurrModaKey, getCurrState, getPreState } from '../state-key';
+import { getCurrentStateKey, getCurrState } from '../state-key';
 import { _getTotalSteps } from '../../util';
 export default {
   init(){

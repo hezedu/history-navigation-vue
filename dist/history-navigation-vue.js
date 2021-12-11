@@ -1,5 +1,5 @@
 /*!
-  * history-navigation-vue v1.4.4
+  * history-navigation-vue v1.5.0
   * (c) 2021 hezedu
   * @license MIT
   */
@@ -1120,26 +1120,43 @@ function getCurrentStateKey() {
 
   return 1;
 }
+function getCurrModaKey() {
+  var state = nativeHistory.state;
+
+  if (state && typeof state[MODAL_KEY_NAME] === 'number') {
+    return state[MODAL_KEY_NAME];
+  }
+
+  return 0;
+}
 function genStateKey() {
   return getCurrentStateKey() + 1;
 }
-
-var _preKey = getCurrentStateKey();
-
-function getPreStateKey() {
-  return _preKey;
+function getCurrState() {
+  return {
+    key: getCurrentStateKey(),
+    modalKey: getCurrModaKey()
+  };
 }
-function setPreStateKey(key) {
-  _preKey = key;
-} // export function isUserPopPush () { // User manually enters the address bar
-//   const state = nativeHistory.state;
-//   let hasKey; 
-//   if(!state){
-//     hasKey = false;
-//   } else {
-//     hasKey = typeof state[KEY_NAME] === 'number';
-//   }
-//   return _preKey > 0 && !hasKey;
+
+var _preState = getCurrState();
+
+function getPreState() {
+  return Object.assign({}, _preState);
+}
+
+function _setPreState(state) {
+  _preState = Object.assign({}, state);
+}
+
+function updatePreState() {
+  _setPreState(getCurrState());
+} // let _preKey = getCurrentStateKey();
+// export function get2PreStateKey () {
+//   return _preKey;
+// }
+// export function set2PreStateKey (key) {
+//   _preKey = key;
 // }
 ;// CONCATENATED MODULE: ./util.js
 function noop() {}
@@ -1185,6 +1202,44 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
     arr.push([stateKey, modalCount]);
   }
 }
+function _getModalSteps(arr, startState, endState) {
+  var i = _findCrumbsIndex(arr, startState.key);
+
+  var endIndex = _findCrumbsIndex(arr, endState.key);
+
+  var count = 0;
+  var startCrumb = arr[i];
+
+  if (startCrumb && startCrumb[0] === startState.key) {
+    count = arr[i][1] - startState.modalKey;
+  }
+
+  count = count + endState.modalKey;
+  i = i + 1;
+
+  for (; i < endIndex; i++) {
+    count = count + arr[i][1];
+  }
+
+  return count;
+}
+function _getTotalSteps(arr, startState, endState) {
+  var modals = _getModalSteps(arr, startState, endState);
+
+  return modals + (endState.key - startState.key);
+}
+function _findCrumbsIndex(arr, stateKey) {
+  var i = 0;
+  var len = arr.length;
+
+  for (; i < len; i++) {
+    if (arr[i][0] >= stateKey) {
+      break;
+    }
+  }
+
+  return i;
+}
 ;// CONCATENATED MODULE: ./navigator/libs/modal.js
 
 
@@ -1199,7 +1254,7 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
   },
   proto: {
     modal: function modal(_ref) {
-      var _this$_pushState,
+      var _this$_history$pushSt,
           _this = this;
 
       var component = _ref.component,
@@ -1214,21 +1269,14 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
 
       var key = getCurrentStateKey();
       var page = this.stackMap[key];
-      var state = this._history.state;
-      var modalKey = state[MODAL_KEY_NAME];
-
-      if (!modalKey) {
-        var _this$_history$replac;
-
-        modalKey = 0;
-
-        this._history.replaceState((_this$_history$replac = {}, _defineProperty(_this$_history$replac, KEY_NAME, key), _defineProperty(_this$_history$replac, MODAL_KEY_NAME, modalKey), _this$_history$replac), '');
-      }
-
+      var modalKey = getCurrModaKey();
       modalKey = modalKey + 1;
 
-      this._pushState((_this$_pushState = {}, _defineProperty(_this$_pushState, KEY_NAME, key), _defineProperty(_this$_pushState, MODAL_KEY_NAME, modalKey), _this$_pushState), '');
+      this._history.pushState((_this$_history$pushSt = {}, _defineProperty(_this$_history$pushSt, KEY_NAME, key), _defineProperty(_this$_history$pushSt, MODAL_KEY_NAME, modalKey), _this$_history$pushSt), '');
 
+      this._setModalCrumbsWhenChange();
+
+      updatePreState();
       var item = {
         key: modalKey,
         uid: _genModalKey()
@@ -1271,56 +1319,39 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
     removeModal: function removeModal() {
       var _this2 = this;
 
-      var state = this._history.state;
+      var currKey = getCurrentStateKey();
+      var modalKey = getCurrModaKey();
+      var page = this.stackMap[currKey];
+      var arr;
 
-      if (!state) {
-        return;
+      if (page) {
+        arr = page.modalList.splice(modalKey);
+        arr.forEach(function (item) {
+          item._isDestroy = true;
+
+          if (item._destoryCmpt) {
+            item._destoryCmpt();
+          }
+        });
       }
 
-      var currKey = getCurrentStateKey();
-      var modalKey = state[MODAL_KEY_NAME];
-
-      if (typeof modalKey === 'number') {
-        var page = this.stackMap[currKey];
-        var arr;
-
-        if (page) {
-          arr = page.modalList.splice(modalKey);
-          arr.forEach(function (item) {
-            item._isDestroy = true;
-
-            if (item._destoryCmpt) {
-              item._destoryCmpt();
-            }
-          });
-        }
-
-        if (modalKey === 0) {
-          if (this._isNeedBAE()) {
-            if (arr && arr.length > 1) {
-              this._autoBAE();
-            } else {
-              this.BAE.onFirstTrigger();
-              setTimeout(function () {
-                _this2._autoBAE();
-              }, this.BAE.maxInterval);
-            }
+      if (modalKey === 0) {
+        if (this._isNeedBAE()) {
+          if (arr && arr.length > 1) {
+            this._autoBAE();
+          } else {
+            this.BAE.onFirstTrigger();
+            setTimeout(function () {
+              _this2._autoBAE();
+            }, this.BAE.maxInterval);
           }
-
-          this.removeModalKeyWhenBackPage();
         }
       }
     },
     _autoRemoveModal: function _autoRemoveModal() {
-      var state = this._history.state;
-
-      if (!state) {
-        return;
-      }
-
       var key = getCurrentStateKey();
       var page = this.stackMap[key];
-      var modalKey = state[MODAL_KEY_NAME] || 0;
+      var modalKey = getCurrModaKey();
 
       if (page && page.modalList.length > modalKey) {
         this.removeModal();
@@ -1328,24 +1359,9 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
     },
     _setModalCrumbsWhenChange: function _setModalCrumbsWhenChange() {
       var key = getCurrentStateKey();
-      var modalKey = this.getCurrModaKey();
+      var modalKey = getCurrModaKey();
 
       this._setModalCrumbs(key, modalKey);
-    },
-    getCurrModaKey: function getCurrModaKey() {
-      var state = this._history.state;
-
-      if (state && typeof state[MODAL_KEY_NAME] === 'number') {
-        return state[MODAL_KEY_NAME];
-      }
-
-      return 0;
-    },
-    removeModalKeyWhenBackPage: function removeModalKeyWhenBackPage() {
-      var newState = Object.assign({}, this._history.state);
-      delete newState[MODAL_KEY_NAME];
-
-      this._history.replaceState(newState, '');
     },
     _initModalCrumbs: function _initModalCrumbs() {
       var h = this._history;
@@ -1359,7 +1375,7 @@ function _cutOffAndPush(arr, stateKey, modalCount) {
 
         this._modal_crumbs = _parse(v);
       } else {
-        var modalKey = this.getCurrModaKey();
+        var modalKey = getCurrModaKey();
 
         if (modalKey) {
           this._modal_crumbs = [[getCurrentStateKey(), modalKey]];
@@ -1476,6 +1492,7 @@ function _genModalKey() {
 });
 ;// CONCATENATED MODULE: ./navigator/libs/back.js
 
+
 /* harmony default export */ var back = ({
   init: function init() {
     this._whenPopTra = null;
@@ -1483,50 +1500,50 @@ function _genModalKey() {
     this._whenBackPopInfo = null;
   },
   proto: {
-    getModalStepsTotal: function getModalStepsTotal() {
+    _getStepsTotal: function _getStepsTotal(distState) {
+      var currState = getCurrState();
+      var key = currState.key,
+          modalKey = currState.modalKey;
+      var distKey = distState.key;
+      var distModalKey = distState.modalKey;
+      var count = key - distKey;
+
+      if (count === 0) {
+        return modalKey - distModalKey;
+      }
+
       var arr = this._modal_crumbs;
-      var count = 0,
-          i = 0;
-      var max = arr.length;
+      var start, end;
+      var isBack = count > 0;
 
-      for (; i < max; i++) {
-        count = count + arr[i][1];
+      if (isBack) {
+        start = distState;
+        end = currState;
+      } else {
+        start = currState;
+        end = distState;
       }
 
-      return count;
+      var total = _getTotalSteps(arr, start, end);
+
+      if (!isBack) {
+        total = -total;
+      }
+
+      return total;
     },
-    getModalTotalFrom: function getModalTotalFrom(preKey) {
-      var arr = this._modal_crumbs;
-      var count = 0;
-      var max = arr.length;
-      var i = arr.findIndex(function (v) {
-        return v[0] === preKey;
-      });
-
-      if (i === -1) {
-        return 0;
-      }
-
-      for (; i < max; i++) {
-        count = count + arr[i][1];
-      }
-
-      return count;
-    },
+    // _getTotalFromPreState(){
+    //   return this._getStepsTotal({key: 1, modalKey: 0});
+    // },
     _backGetTo1Count: function _backGetTo1Count() {
-      var key = getCurrentStateKey();
-
-      if (key === 1) {
-        return this.getCurrModaKey();
-      }
-
-      var modalCount = this.getModalStepsTotal();
-      var total = key + modalCount;
-      return total - 1;
+      return this._getStepsTotal({
+        key: 1,
+        modalKey: 0
+      });
     },
     back: function back(_steps, tra) {
       // const key = getCurrentStateKey();
-      // const modalCount = this.getModalStepsTotal();
+      // const modalCount = this.get2ModalStepsTotal();
       // console.log('modalCount', modalCount, key)
       // const total = key + modalCount;
       var steps = _steps || 1;
@@ -1545,10 +1562,7 @@ function _genModalKey() {
 
       if (steps) {
         this._history.go(-steps);
-      } // else {
-      //   this._history.back();
-      // }
-
+      }
     },
     backToPage: function backToPage(_steps, tra) {
       var arr = this._modal_crumbs;
@@ -1589,14 +1603,18 @@ function _genModalKey() {
       this.back(steps, tra);
     },
     _backToStartAndReplace: function _backToStartAndReplace(fullParse, behavior, tra) {
-      var total = this._backGetTo1Count();
+      var total = this._backGetTo1Count(); // console.log('_backToStartAndReplace', total, this._modal_crumbs);
+      // return;
+
 
       if (total > 0) {
         this._backAndApply(total, '_replace', [fullParse, behavior], tra);
-      } else {
+      } else if (total === 0) {
         this._setTra(tra);
 
         this._replace(fullParse, behavior);
+      } else {
+        console.error('_backToStartAndReplace not back', total);
       }
     }
   }
@@ -1762,7 +1780,7 @@ History.prototype._load = function (userUrl) {
 };
 
 History.prototype._replaceCurrPage = function () {
-  var modalCount = this.getCurrModaKey();
+  var modalCount = getCurrModaKey();
 
   if (modalCount) {
     this._backAndApply(modalCount, '_replace', arguments);
@@ -1897,9 +1915,11 @@ History.prototype._push = function (fullParse, tra) {
 
   var key = genStateKey();
 
-  this._pushState(_defineProperty({}, KEY_NAME, key), '', this.URL.toLocationUrl(fullParse.fullPath));
+  this._setModalCrumbsWhenChange();
 
-  setPreStateKey(key);
+  this._history.pushState(_defineProperty({}, KEY_NAME, key), '', this.URL.toLocationUrl(fullParse.fullPath));
+
+  updatePreState();
   var newBehavior = {
     type: 'push',
     distance: 1,
@@ -1913,7 +1933,7 @@ History.prototype._push = function (fullParse, tra) {
 }; // History.prototype._replaceCurrPage = function(fullParse, behavior, _dista2nce){
 //   const isBAE = this._isBAEPage();
 //   const isDistBAE = this._isBAEPageByTK(fullUrlParse);
-//   let step = this.getCurrModaKey();
+//   let step = this.get2CurrModaKey();
 //   if(isBAE && !isDistBAE){
 //     step = step + 1;
 //   }
@@ -1928,7 +1948,7 @@ History.prototype._push = function (fullParse, tra) {
 History.prototype._replace = function (fullParse, behavior) {
   var _this2 = this;
 
-  var preKey = getPreStateKey();
+  var preKey = getPreState().key;
   var key = getCurrentStateKey();
   var distance = key - preKey;
   var newBehavior = {
@@ -1953,6 +1973,7 @@ History.prototype._replace = function (fullParse, behavior) {
 
   this._history.replaceState(state, '', toUrl);
 
+  updatePreState();
   this.uniteVue.nextTick(function () {
     if (newBehavior.type === 'relaunch') {
       _this2._setAllCleaned();
@@ -1975,7 +1996,6 @@ History.prototype._replace = function (fullParse, behavior) {
       _this2._onRouted();
     }
   });
-  setPreStateKey(key);
 };
 
 History.prototype._setMapCleaned = function (map) {
@@ -2060,12 +2080,6 @@ History.prototype._clearAll = function () {
   this._clearMap(this.stackMap);
 };
 
-History.prototype._pushState = function () {
-  this._history.pushState.apply(this._history, arguments);
-
-  this._setModalCrumbsWhenChange();
-};
-
 History.prototype.handlePop = function () {
   var _this4 = this;
 
@@ -2084,71 +2098,76 @@ History.prototype.handlePop = function () {
     return;
   }
 
-  var preKey = getPreStateKey();
-  var hState = this._history.state;
+  var preState = getPreState();
+  var preKey = preState.key;
 
-  if (!hState) {
+  if (!this._history.state) {
     // The user manually modifies the browser address bar
     var _popPushKey = preKey + 1;
 
     this._history.replaceState(_defineProperty({}, KEY_NAME, _popPushKey), '');
 
-    setPreStateKey(_popPushKey);
+    updatePreState();
 
     this._setTra('');
 
-    this._replace(fullUrlParse(this.URL.getUrlByLocation()), 'popPush');
+    this._replace(fullUrlParse(this.URL.getUrlByLocation()), '_popPush');
+
+    this._setModalCrumbsWhenChange();
 
     return;
   }
 
-  var currKey = getCurrentStateKey();
+  var total = this._getStepsTotal(preState);
+
+  if (total > 0) {
+    console.error('Forward is disabled by history-navigation-vue');
+    this._isOmitForwardEvent = true;
+    this.back(total);
+    return;
+  }
+
+  var currState = getCurrState();
+  var currKey = currState.key;
+  var page = this.stackMap[currKey];
+
+  if (!page && currState.modalKey) {
+    this.back(currState.modalKey);
+    return;
+  }
+
+  this._autoRemoveModal();
+
+  updatePreState();
 
   if (preKey === currKey) {
-    var modalKey = this.getCurrModaKey();
-    var preModalKey = this.getLastModalKeyByCrumbs(preKey);
-
-    if (modalKey > preModalKey) {
-      this._isOmitForwardEvent = true;
-      this.back(modalKey - preModalKey);
-      return;
-    }
-
-    this.removeModal(); // this._set2ModalCrumbsWhenChange();
-
     return;
-  }
+  } // if(preKey === currKey){
+  //   const modalKey = getCurrModaKey();
+  //   const preModalKey = this.getLastModalKeyByCrumbs(preKey);
+  //   if(modalKey > preModalKey){
+  //     this._isOmitForwardEvent = true;
+  //     this.back(modalKey - preModalKey);
+  //     return;
+  //   }
+  //   this.removeModal();
+  //   // this._set2ModalCrumbsWhenChange();
+  //   return;
+  // }
+
 
   var compare = currKey - preKey;
-  var behavior = compare < 0 ? 'back' : 'forward';
-  var isBack = behavior === 'back';
-
-  if (!isBack) {
-    this._isOmitForwardEvent = true;
-    this.back(compare);
-    return;
-  }
-
-  setPreStateKey(currKey);
   var backTra = this._whenPopTra;
 
-  if (!backTra && isBack && compare === -1) {
+  if (!backTra && compare === -1) {
     backTra = this._getBackTra(); // console.log('--------------- backTra ---------------', backTra);
   }
 
   this._setTra(backTra);
 
-  this._whenPopTra = null; // const _info = this._whenPopInfo;
-  // if(_info !== null){
-  //   this._repla2ce(_info.fullParse, _info.behavior, compare);
-  //   this._whenPopInfo = null;
-  //   return;
-  // }
-  // this.isPageDestroyWhenBack && 
-
-  var page = this.stackMap[currKey];
+  this._whenPopTra = null;
   var newBehavior = {
-    type: behavior,
+    type: 'back',
     distance: compare,
     isPop: true
   };
@@ -2160,18 +2179,11 @@ History.prototype.handlePop = function () {
     this._setMapItem(currKey, fullUrlParse(this.URL.getUrlByLocation()));
   }
 
-  if (isBack) {
-    this._autoRemoveModal(); // this._setModalCrumbs2WhenChange();
+  this.uniteVue.nextTick(function () {
+    _this4._clearAfter();
 
-
-    this.uniteVue.nextTick(function () {
-      _this4._clearAfter();
-
-      _this4._onRouted();
-    });
-  } else {
-    this._onRouted();
-  }
+    _this4._onRouted();
+  });
 };
 
 History.prototype.destroy = function () {
@@ -2549,7 +2561,7 @@ var bundle_plugin = {
   install: install
 }; // export { fitVue$3 } from './fit_vue';
 
-var version = '1.4.4';
+var version = '1.5.0';
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
