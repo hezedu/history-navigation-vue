@@ -3,7 +3,9 @@ module.exports = {
   base: "/history-navigation-vue/",
   dest: path.join(__dirname, '../../docs/'),
   head: [
-    ['link', { rel: 'icon', href: '/logo-new-fav.png' }]
+    ['link', { rel: 'icon', href: '/logo-new-fav.png' }],
+    ['meta', { charset: 'utf-8' }],
+    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1' }]
   ],
   locales: {
     '/': {
