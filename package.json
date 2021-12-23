@@ -30,6 +30,7 @@
     "_build_pro": "webpack --node-env=production --color --progress --config webpack.build.config.js",
     "build_dev": "webpack --node-env=development --color --progress --config webpack.build.config.js",
     "build_ex": "webpack --node-env=production --color --progress --config webpack.config.js",
+    "ssr_build": "webpack --color --node-env=production --progress --config ./ssr/webpack.config.js",
     "preview_docs": "node server/preview_docs.js",
     "preview_ex": "node server/preview_ex.js",
     "test": "cd test && npm run test_unit",
@@ -83,9 +84,12 @@
     "terser-webpack-plugin": "^5.2.5",
     "vue": "2.6.11",
     "vue-loader": "^15.9.8",
+    "vue-server-renderer": "2.6.11",
     "vue-template-compiler": "2.6.11",
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "webpack-dev-server": "^4.6.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }

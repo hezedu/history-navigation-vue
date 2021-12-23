@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit:cover" />
+    <link rel="icon" href="dev_favicon.png" />
+    <style>
+      /* html, body {
+        overscroll-behavior: contain;
+      } */
+      html, body {
+        height: 100%;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        overscroll-behavior: contain;
+      }
+      .out {
+        height: 100%;
+        position: relative;
+        overflow-y: auto;
+        background-color: red;
+        
+      }
+      .inner {
+        /* height: calc(100% + 3px); */
+        height:  100vh;
+        position: static;
+        padding: 1px 0;
+        overflow: hidden;
+        box-sizing: border-box;
+        background-color: blue;
+      }
+      .wrap {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        background-color: yellow;
+        box-sizing: content-box;
+      }
+      .tabbar {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 48px;
+        background-color: #eee;
+      }
+      .log{
+        padding-top: 50px;
+        font-size: 20px;
+        background-color: #fff;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        overflow: hidden;
+        width: 100%;
+      }
+    </style>
+    <title>hello</title>
+  </head>
+  <body>
+  <div class="out" id="out">
+    <div class="inner" id="inner">
+      <div class="wrap" id="wrap">
+        <div id="log" class="log"></div>
+        <div id="log2" class="log"></div>
+        <div class="tabbar"></div>
+      </div>
+
+    </div>
+  </div>
+<script>
+  (function() {
+    const log = document.getElementById('log');
+    const log2 = document.getElementById('log2');
+    const wrap = document.getElementById('wrap');
+    const inner = document.getElementById('inner');
+    const out = document.getElementById('out');
+    const maxTop = out.scrollTopMax || (inner.clientHeight - out.clientHeight);
+
+    let preH = window.innerHeight;
+    // alert('out' + out.clientHeight + '\n inner' + inner.clientHeight)
+    // window.addEventListener('resize', function(){
+
+    //   let screenY = window.innerHeight;
+    //   if(screenY === preScreenY){
+    //     return;
+    //   }
+    //   if(screenY > preScreenY){
+    //     wrap.style.paddingBottom = 0 + 'px';
+    //   } else {
+    //     wrap.style.paddingBottom = (preScreenY - screenY) + 'px';
+    //   }
+    //   preScreenY = screenY;
+    // })
+    let isUnBindScroll = false;
+    function winResizeHandle(){
+      const h = window.innerHeight;
+      const count = Number(log.innerText) || 0;
+      setTimeout(() => {
+        log.innerText = (count + 1).toString();
+        log2.innerText = 'resize';
+      }, 1000);
+
+      if(preH === h){
+        return;
+      }
+      if(!isUnBindScroll){
+        out.removeEventListener('scroll', scrollHandle);
+        isUnBindScroll = true;
+      }
+      if(h > preH){
+        wrap.style.paddingBottom = (maxTop - 1) + 'px';
+      } else {
+        wrap.style.paddingBottom = 0 + 'px';
+      }
+      preH = h;
+    }
+    log2.innerText = 'max Scroll ' + maxTop;
+    function scrollHandle(e){
+      log.innerText = out.scrollTop.toString() + ' scroll';
+      // if(out.scrollTop >= maxTop){
+      //   out.removeEventListener('scroll', scrollHandle);
+      //   preH = window.innerHeight;
+      //   window.addEventListener('resize', winResizeHandle)
+      // }
+      wrap.style.paddingBottom = out.scrollTop + 'px';
+    }
+    if(maxTop > 0){
+      out.addEventListener('scroll', scrollHandle);
+      window.addEventListener('resize', winResizeHandle);
+      out.scrollTo(0, maxTop);
+    }
+
+  })();
+
+</script>
+</body>
+</html>
